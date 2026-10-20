@@ -21,10 +21,11 @@ import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
 import Text from 'ol/style/Text';
 import { LayerVisibility } from '../../../../services/layer-visibility/layer-visibility';
+import { AttributeTable } from './attribute-table/attribute-table';
 
 @Component({
   selector: 'app-analysys-component',
-  imports: [TranslatePipe, FormsModule, CommonModule],
+  imports: [TranslatePipe, FormsModule, CommonModule, AttributeTable],
   templateUrl: './analysys-component.html',
   styleUrl: './analysys-component.scss',
 })
@@ -554,6 +555,7 @@ export class AnalysysComponent {
                           7. GET USER ATTRIBUTE SELECTION TABLE
  ============================================================================= */
     public rowCount = signal<number | null>(null);
+    public rows = signal<Record<string, unknown>[]>([]);
     public async getUserLayer(oldUserId: string, oldTime: string): Promise<void> {
       const response = await firstValueFrom(this.http.get(`/attribute-analysis/get-attribute-selection?tableName=user_${oldUserId}_temp_table_${oldTime}`, { responseType: 'text' }));
       if (response.startsWith("Error")) {
@@ -562,10 +564,43 @@ export class AnalysysComponent {
       }
       
       const rows = JSON.parse(response) as Record<string, unknown>[];
+      this.rows.set(rows);
       this.rowCount.set(rows.length);
       console.log("Returning from backend: ", rows);
       console.log("Row count: ", this.rowCount());
       
+    }
+
+    public rowsPickedLayer = signal<Record<string, unknown>[]>([]);
+    public async getPickedLayer(): Promise<void> {
+      const response = await firstValueFrom(this.http.get('/attribute-analysis/get-picked-layer?pickedTable=' + this.attributeLayer, { responseType: 'text' }));
+      if (response.startsWith("Error")) {
+        console.error('Error getting picked layer:', response);
+        return;
+      }
+
+      const rowsPickedLayer = JSON.parse(response) as Record<string, unknown>[];
+      this.rowsPickedLayer.set(rowsPickedLayer);
+    }
+        /* ============================SHOWN ATTRIBUTE TABLE==================================== */
+
+    public showAttributeTable = signal<boolean>(false);
+    public shownTable = computed(async () => {
+      if (this.attributeSelectedLayer() === 'Attribute Selection') {
+        return (this.rows());
+      } else if (this.attributeSelectedLayer() !== 'Attribute Selection' && this.attributeLayer) {
+        await this.getPickedLayer();
+        return this.rowsPickedLayer()
+      } else {
+        return [];
+      }
+    })
+    public toggleAttributeTable(): void {  /// For HTML button
+      if (this.showAttributeTable() === true) {
+        this.rows.set([]);
+        this.rowsPickedLayer.set([]);
+      }
+      this.showAttributeTable.set(!this.showAttributeTable());
     }
 
   }

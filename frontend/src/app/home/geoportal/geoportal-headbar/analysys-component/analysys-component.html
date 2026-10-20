@@ -80,7 +80,7 @@
                             </div>
                             
                         </form>
-                        <button class="show-attribute-table-butt">
+                        <button class="show-attribute-table-butt" (click)="toggleAttributeTable()" [disabled]="!(attributeLayer !== '')">
                             {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE-BUTT' | translate}}
                         </button>
                         <button class="save-attribute-table-butt">
@@ -173,6 +173,9 @@
                     <p><span>{{optionsValue()}}:</span> {{`GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.ATTRIBUTE-DESCRIPTIONS.${optionsValue()}` | translate}}</p>
                 </div>
             </div>
+            @if (showAttributeTable()) {
+                <app-attribute-table [shownTable]="shownTable()"></app-attribute-table>
+            }
         </div>
     </div>
 }

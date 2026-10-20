@@ -106,6 +106,16 @@ public class AttributeAnalysisController {
         }
     }
 
+    @GetMapping ("/get-picked-layer")
+    public ResponseEntity<?> getPickedLayer(@RequestParam String pickedTable) {
+        try {
+            List<Map<String, Object>> result = attributeAnalysisService.getPickedLayer(pickedTable);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error getting picked layer: " + e.getMessage());
+        }
+    }
+
     @DeleteMapping ("/delete-attribute-selection")
     public ResponseEntity<?> deleteAttribute(@RequestParam String oldUserId, @RequestParam String oldTime) {
         try {

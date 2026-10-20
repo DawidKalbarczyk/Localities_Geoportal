@@ -138,8 +138,17 @@ public class AttributeAnalysisService {
     }
     
     public List<Map<String, Object>> getSelection(String tableName) {
-        return jdbcTemplate.queryForList("SELECT * FROM \"" + tableName.toLowerCase() + "\"");
+        List<Map<String,Object>> result = jdbcTemplate.queryForList("SELECT * FROM \"" + tableName.toLowerCase() + "\"");
+        result.forEach(row -> row.remove("wkb_geometry"));
+        return result;
     } 
+
+    public List<Map<String, Object>> getPickedLayer(String pickedTable) {
+        String tableName = translateLayer(pickedTable);
+        List<Map<String, Object>> result = jdbcTemplate.queryForList("SELECT * FROM \"" + tableName.toLowerCase() + "\"");
+        result.forEach(row -> row.remove("wkb_geometry"));
+        return result;
+    }
 
     private String translateLayer(String layer) {
         switch (layer) {

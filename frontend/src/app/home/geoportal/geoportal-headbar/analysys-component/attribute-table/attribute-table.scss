@@ -1,0 +1,134 @@
+@use '../../../../../../variables' as *;
+
+:host {
+    --cell-max-width: 28ch;
+    --table-header-height: 2.75rem;
+
+    display: block;
+    position: fixed;
+    max-height: 42vh;
+    bottom: $basic-padding-bottom;
+    right: 0;
+    left: 33%;
+    overflow: hidden;
+    z-index: 99999999;
+    pointer-events: auto;
+    background-color: #fff;
+    border: 1px solid rgba($buttons-color, 0.15);
+    border-radius: 0.75rem 0 0 0;
+    box-shadow: 0 -0.5rem 2rem rgba(0, 0, 0, 0.12);
+    font-family: $text-font-family;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: $buttons-color;
+
+    .attribute-table-panel {
+        display: flex;
+        flex-direction: column;
+        max-height: inherit;
+    }
+
+    .attribute-table-tools {
+        display: flex;
+        min-height: 2rem;
+        border-top: 1px solid rgba(0,0,0,0.2);
+        box-sizing: border-box;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+        flex-shrink: 0;
+        padding: 0.65rem 1rem;
+        background-color: #f6f6f6;
+        border-top: 1px solid rgba($buttons-color, 0.1);
+    }
+
+    .attribute-table-scroll {
+        min-height: 0;
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+            width: 0.5rem;
+            height: 0.5rem;
+        }
+
+        &::-webkit-scrollbar-track:vertical {
+            margin-top: var(--table-header-height);
+        }
+
+        &::-webkit-scrollbar-thumb {
+            min-height: 3rem;
+            min-width: 3rem;
+            background-color: #a3a3a3;
+        }
+    }
+
+    .attribute-table-progress {
+        padding: 0.6rem 1rem;
+        color: #666;
+        font-size: 0.8rem;
+        background-color: #f6f6f6;
+        border-top: 1px solid rgba($buttons-color, 0.08);
+    }
+
+    .attribute-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        table-layout: auto;
+
+        .first-row-cell, .data-cell {
+            padding: 0.7rem 1rem;
+            text-align: left;
+            vertical-align: middle;
+            border-right: 1px solid rgba($buttons-color, 0.07);
+
+            &:last-child {
+                border-right: none;
+            }
+        }
+
+        .cell-content {
+            display: block;
+            max-width: var(--cell-max-width);
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .first-row-cell {
+            height: var(--table-header-height);
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background-color: $background-color-light;
+            color: #000;
+            font-weight: 600;
+            border-right-color: rgba(0,0,0,0.2);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+        }
+
+        .data-row {
+            background-color: #fff;
+            transition: background-color 0.15s ease;
+            user-select: text;
+
+            &:nth-child(even) {
+                background-color: #f6f6f6;
+            }
+
+            &:hover {
+                background-color: #eaeaea;
+            }
+
+            .data-cell {
+                border-bottom: 1px solid rgba($buttons-color, 0.08);
+                user-select: text;
+            }
+
+            &:last-child .data-cell {
+                border-bottom: none;
+            }
+        }
+    }
+}
