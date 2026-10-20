@@ -16,6 +16,9 @@
         border: 1px solid $secondary-color-dark;
         border-radius: 0.5rem;
         box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        &:has(.pop-up-content .pop-up-static-help) {
+            padding: 2.5rem 0;
+        }
 
         .pop-up-content {
             display: flex;
@@ -49,12 +52,62 @@
                 line-height: 2;
             }
 
+            .pop-up-static-help {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                gap: 2rem;
+                align-items: center;
+                flex-direction: column;
+                height: 50vh;
+                width: 50vw;
+                overflow-y: auto;
+                
+                .help-content {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: start;
+                    align-items: flex-start;
+                    gap: 1rem; 
+                    overflow-y: auto;
+                    background-color: white;
+                    padding: 2rem;
+                    border: 1px solid rgba(0,0,0,0.2);
+
+                    p {
+                        user-select: text !important;
+                        
+                        span {
+                            font-weight: 600;
+                        }
+                    }
+                }
+                
+                > button {
+                    background-color: $buttons-color;
+                    color: $login-button-2nd-color-light;
+                    width: 25%;
+                    font-size: 1.1rem;
+                    padding: 1rem 1.25rem;
+                    min-height: 3.5rem;
+                    cursor: pointer;
+                    border: 1px solid $secondary-color-dark;
+                    border-radius: 0.5rem;
+                    text-transform: uppercase;
+                    transition: filter 0.3s ease;
+
+                    &:hover {
+                        filter: brightness(1.5);
+                    }
+                }
+            }
             .pop-up-butt-con {
                 display: flex;
                 flex-direction: row;
                 justify-content: center;
                 gap: 2rem;
                 align-items: center;
+                
 
                 > button {
                     width: 33%;

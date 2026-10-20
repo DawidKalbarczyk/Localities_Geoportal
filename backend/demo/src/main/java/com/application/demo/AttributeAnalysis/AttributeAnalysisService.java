@@ -137,6 +137,19 @@ public class AttributeAnalysisService {
         // Implement the logic for updating attribute selection
     }
     
+    public List<Map<String, Object>> getSelection(String tableName) {
+        List<Map<String,Object>> result = jdbcTemplate.queryForList("SELECT * FROM \"" + tableName.toLowerCase() + "\"");
+        result.forEach(row -> row.remove("wkb_geometry"));
+        return result;
+    } 
+
+    public List<Map<String, Object>> getPickedLayer(String pickedTable) {
+        String tableName = translateLayer(pickedTable);
+        List<Map<String, Object>> result = jdbcTemplate.queryForList("SELECT * FROM \"" + tableName.toLowerCase() + "\"");
+        result.forEach(row -> row.remove("wkb_geometry"));
+        return result;
+    }
+
     private String translateLayer(String layer) {
         switch (layer) {
             case "boundsLayerPanstwo":

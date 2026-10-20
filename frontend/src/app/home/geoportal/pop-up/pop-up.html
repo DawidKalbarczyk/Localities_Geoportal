@@ -17,10 +17,25 @@
             <p class="pop-up-title">
                 Wybrane obiekty zostaną usunięte<br>Kontynuować?
             </p>
-            <div class="pop-up-butt-con">
-                <button class="pop-up-yes-butt" (click)="resetPopUp(true)">Tak</button>
-                <button class="pop-up-no-butt" (click)="resetPopUp(false)">Nie</button>    
-            </div>
+            @if (popUpService.attributeSelectionPopUpOn()) {
+                <div class="pop-up-butt-con">
+                    <button class="pop-up-yes-butt" (click)="attributeSelectionHandler(true)">Tak</button>
+                    <button class="pop-up-no-butt" (click)="attributeSelectionHandler(false)">Nie</button>    
+                </div>
+            } @else if (popUpService.newSubmitPopUpOn()) {
+                <div class="pop-up-butt-con">
+                    <button class="pop-up-yes-butt" (click)="popUpService.newSubmitPopUpHandler(true); resetPopUp(false)">Tak</button>
+                    <button class="pop-up-no-butt" (click)="popUpService.newSubmitPopUpHandler(false); resetPopUp(false)">Nie</button>    
+                </div>
+            } 
+            
+            @else {
+                <div class="pop-up-butt-con">
+                    <button class="pop-up-yes-butt" (click)="resetPopUp(true)">Tak</button>
+                    <button class="pop-up-no-butt" (click)="resetPopUp(false)">Nie</button>    
+                </div>
+            }
+            
             
         </div>
     } @else if (typeOfPopUp() === 'save') {
@@ -51,6 +66,38 @@
                 <button class="pop-up-no-butt" routerLink="/login" [queryParams]="{ type: 'login' }"
                 (click)="resetPopUp(false)">Zaloguj się</button>
                 <button class="pop-up-yes-butt" (click)="resetPopUp(false)">Anuluj</button>    
+            </div>
+            
+        </div>
+    } @else if (typeOfPopUp() === 'info') {
+        <div class="pop-up-content">
+            <p class="pop-up-title">
+                Informacje dotyczące atrybutów warstwy
+            </p>
+            <div class="pop-up-static-help">
+                <div class="help-content">
+                    <!-- TODO: Add if statement to check if attribute IS IN the layer-->
+                    <!-- TODO: Make ? button disabled before selecting layer-->
+                    @for (item of popUpService.attributeDescriptions() | keyvalue: null ; track item.key) {
+                        @for (check of responseData()?.featureType?.attributes?.attribute; track check.name) {
+                            @if (check.name === item.key) {
+                                <p><span>&#9900; {{item.key}}:</span> {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.ATTRIBUTE-DESCRIPTIONS.' + item.key | translate}}</p>
+                            }
+                        }
+                    }
+                </div>
+                <button (click)="resetPopUp(false)">Close</button>
+            </div>
+            
+        </div>
+    } @else if (typeOfPopUp() === 'empty-table') {
+        <div class="pop-up-content"> 
+            <p class="pop-up-title">
+                Twoje zapytanie zwróciło warstwę o pustej tabeli atrybutów.<br>
+                Spróbuj innego zapytania.
+            </p>
+            <div class="pop-up-butt-con">
+                <button class="pop-up-yes-butt" (click)="popUpService.closeEmptyTablePopUp()">Zamknij</button>
             </div>
             
         </div>

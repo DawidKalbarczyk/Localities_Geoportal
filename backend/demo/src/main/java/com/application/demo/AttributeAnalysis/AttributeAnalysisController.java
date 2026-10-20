@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping("/attribute-analysis")
@@ -33,12 +34,13 @@ public class AttributeAnalysisController {
         String time = (String) formData.get("time");
 
         String tableName = "user_" + userId + "_temp_table_" + time;
+        String response = null;
         try {
-            String response = attributeAnalysisService.newAttributeSelection(attributeFormData, tableName);
+            response = attributeAnalysisService.newAttributeSelection(attributeFormData, tableName);
 
             if (response.startsWith("Error")) {
                 return ResponseEntity.badRequest().body("Error: Invalid attribute selection.");
-            }
+            } 
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
             
@@ -55,7 +57,7 @@ public class AttributeAnalysisController {
 
         //Deletion of temp table is handled already in return-button 
 
-        return ResponseEntity.ok("TTTTTTTYYYYYPEEE");
+        return ResponseEntity.ok("TTTTTTTYYYYYPEEE" + response);
     }
 
     @PostMapping("/update-attribute-selection")
@@ -92,6 +94,26 @@ public class AttributeAnalysisController {
 
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping ("/get-attribute-selection")
+    public ResponseEntity<?> getAttribute(@RequestParam String tableName) {
+        try {
+            List<Map<String, Object>> result = attributeAnalysisService.getSelection(tableName);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error getting attribute selection: " + e.getMessage());
+        }
+    }
+
+    @GetMapping ("/get-picked-layer")
+    public ResponseEntity<?> getPickedLayer(@RequestParam String pickedTable) {
+        try {
+            List<Map<String, Object>> result = attributeAnalysisService.getPickedLayer(pickedTable);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error getting picked layer: " + e.getMessage());
+        }
     }
 
     @DeleteMapping ("/delete-attribute-selection")

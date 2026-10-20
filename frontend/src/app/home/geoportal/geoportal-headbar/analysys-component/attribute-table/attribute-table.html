@@ -1,0 +1,40 @@
+@if (shownTable() | async; as table) {
+    <div class="attribute-table-panel">
+        <div class="attribute-table-scroll" (scroll)="onTableScroll($event, table.length)">
+            <table class="attribute-table">
+                <thead>
+                    <tr class="first-row">
+                        @if (table[0]; as firstRow) {
+                            @for (attribute of firstRow | keyvalue: null; track attribute.key) {
+                                <th class="first-row-cell" scope="col">
+                                    <span class="cell-content" [attr.title]="attribute.key">{{ attribute.key }}</span>
+                                </th>
+                            }
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (row of table | slice: 0 : visibleRowCount(); track $index) {
+                        <tr class="data-row">
+                            @for (attribute of row | keyvalue: null; track attribute.key) {
+                                <td class="data-cell">
+                                    <span class="cell-content" [attr.title]="attribute.value">{{ attribute.value }}</span>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="attribute-table-progress" role="status">
+                Wyświetlono {{ table.length < visibleRowCount() ? table.length : visibleRowCount() }} z {{ table.length }} wierszy
+            </div>
+        </div>
+
+        <!-- Miejsce na przyciski i narzędzia tabeli. -->
+        <div class="attribute-table-tools"></div>
+    </div>
+
+} @else {
+    <div class="attribute-table-progress" role="status">Wczytywanie tabeli…</div>
+}
+

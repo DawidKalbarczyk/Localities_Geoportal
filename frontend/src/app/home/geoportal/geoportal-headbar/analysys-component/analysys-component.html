@@ -23,51 +23,68 @@
                 } @else if (objectSelection.analysysPicked() === true && objectSelection.analysisNrPicked() === 'attribute') {
                     <div class="info">
                         <form #attributeForm="ngForm" (submit)="attributeForm.valid ? attributeFormSubmit(submitType()) : null" class="attribute-form" >
-                            <label class="hand-info">Stwórz zapytanie, aby zaznaczyć obiekty</label>
-                            <label>Wybierz obiekty z warstwy:</label>
-                            <select class="attribute-select" [(ngModel)]="attributeLayer" name="attributeLayer" required
-                            (change)="objectSelection.onLayerSelectChange($any($event.target).value); 
-                            getLayerInfo(objectSelection.selectedSelectOptionLayer()); 
-                            objectSelection.clearAllSelectedVariables(); clearAttributeSelection(); " 
-                            [value]="objectSelection.selectedSelectOptionLayer()">
-                                <option value="" disabled selected>-- {{'GEOPORTAL.ANALYSIS-CONTENT.SELECTION-CONTENT.SELECT' | translate}} --</option>
+                            <label class="hand-info">{{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TEXT' | translate}}</label>
+                            <label>{{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.CHOOSE-LAYER' | translate}}</label>
+                            <select #layerModel="ngModel" class="attribute-select" [ngModel]="attributeSelectedLayer() || objectSelection.selectedSelectOptionLayer()" name="attributeLayer" required
+                            (ngModelChange)="handleLayerChange($event, layerModel)"
+                            [style.background-color]="attributeSelectedLayer() === 'Attribute Selection' ? '#ebd834' : 'white'">
+                                
+                                <option value="" disabled>-- {{'GEOPORTAL.ANALYSIS-CONTENT.SELECTION-CONTENT.SELECT' | translate}} --</option>
                                 @for (layer of objectSelection.visibleMapLayers(); track layer) {
                                     @if (objectSelection.layerTranslations[layer.values_.layerKey]) {
                                         <option value="{{layer.values_.layerKey}}">{{ 'GEOPORTAL.INFO-CONTENT.' + objectSelection.layerTranslations[layer.values_.layerKey] | translate }}</option>
                                     }
                                 }
+                                @if (attributeSelectedLayer() === 'Attribute Selection') {
+                                    <option value="Attribute Selection" [style.background-color]="'#ebd834'">Attribute Selection</option>
+                                }
+
                             </select>
                             
-                            <label class="attribute-label-where">gdzie atrybut:</label>
+                            <label class="attribute-label-where">{{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.CHOOSE-ATTRIBUTE' | translate}}</label>
                             <!-- Nadam tu zapytanie WFS ale tylko i wyłącznei do sprawdzenia kolumn bez ich wartości. -->
-                            <select class="attribute-column-select" [ngModel]="attributeAttribute()" (ngModelChange)="attributeAttribute.set($event)" name="attributeAttribute" required>
-                                <option value="" disabled selected>-- {{'GEOPORTAL.ANALYSIS-CONTENT.SELECTION-CONTENT.SELECT-COLUMN' | translate}} --</option>
-                                @for (attribute of responseData()?.featureType?.attributes.attribute; track attribute) {
-                                    <option value="{{attribute?.name}}">{{attribute?.name}}</option>
-                                }
-                            </select>
+                            <div class="attribute-column-select-con">
+                                <select class="attribute-column-select" [ngModel]="attributeAttribute()" (ngModelChange)="attributeAttribute.set($event)" name="attributeAttribute" required>
+                                    <option value="" disabled selected>-- {{'GEOPORTAL.ANALYSIS-CONTENT.SELECTION-CONTENT.SELECT-COLUMN' | translate}} --</option>
+                                    @for (attribute of responseData()?.featureType?.attributes.attribute; track attribute) {
+                                        <option value="{{attribute?.name}}" 
+                                        (mouseleave)="handleMouseLeave()"
+                                        (mouseenter)="handleMouseEnter(attribute?.name)">{{attribute?.name}}</option>
+                                    }
+                                </select>
+                                <button class="help-butt" (click)="showStaticHelp()" [disabled]="!isHelpButtonEnabled()" 
+                                [class.help-butt-deactivated]="!isHelpButtonEnabled()">
+                                    <img src="/images/icons/question.png" alt="Help" draggable="false"/>
+                                </button>
+                            </div>
+                            
                             <div class="attribute-condition-con">
                                 <select [(ngModel)]="attributeSign" name="attributeSign" required>
                                     <option value="=" selected>&#61;</option>
-                                    <option value="&#8800;">&#8800;</option>
-                                    <option [disabled]="disableOption()" value="&#60;">&#60;</option>
-                                    <option [disabled]="disableOption()" value="&#62;">&#62;</option>
-                                    <option [disabled]="disableOption()" value="&#8804;">&#8804;</option>
-                                    <option [disabled]="disableOption()" value="&#8805;">&#8805;</option>
+                                    <option value="!=">&#8800;</option>
+                                    <option [disabled]="disableOption()" value="<">&#60;</option>
+                                    <option [disabled]="disableOption()" value=">">&#62;</option>
+                                    <option [disabled]="disableOption()" value="<=">&#8804;</option>
+                                    <option [disabled]="disableOption()" value=">=">&#8805;</option>
                                 </select>
-                                <input type="text" placeholder="warunek..." [(ngModel)]="attributeCondition" name="attributeCondition" required>
+                                <input type="text" [placeholder]="'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.CONDITION' | translate" [(ngModel)]="attributeCondition" name="attributeCondition" required>
                             </div>
                             <div class="attribute-buttons">
-                                <button type="submit" class="attribute-submit-new-butt" (click)="submitType.set('new')">Submit Butt</button>
-                                <button type="submit" class="attribute-submit-update-butt" (click)="submitType.set('update')">Update Butt</button>
+                                <button type="button" class="attribute-submit-new-butt" (click)="newSubmit(attributeForm)">
+                                    {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.SUBMIT-BUTT' | translate}}
+                                </button>
+                                <button type="submit" class="attribute-submit-update-butt" (click)="submitType.set('update')" 
+                                [disabled]="!isUpdateButtonEnabled()" [class.attribute-submit-update-butt-deactivated]="!isUpdateButtonEnabled()">
+                                    {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.UPDATE-BUTT' | translate}}
+                                </button>
                             </div>
                             
                         </form>
-                        <button class="show-attribute-table-butt">
-                            Pokaż tabelę atrybutów
+                        <button class="show-attribute-table-butt" (click)="toggleAttributeTable()" [disabled]="!(attributeLayer !== '')">
+                            {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE-BUTT' | translate}}
                         </button>
                         <button class="save-attribute-table-butt">
-                            Zapisz analizę atrybutową
+                            {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.SAVE-BUTT' | translate}}
                         </button>
                     
                     
@@ -145,14 +162,20 @@
                             <button (click)="popUpService.showPopUpDelete()">{{'GEOPORTAL.ANALYSIS-CONTENT.SELECTION-CONTENT.BUTT1' | translate}}</button>
                             <!-- dodaj handling zapisu analizy - później przechodzi do user data z home -->
                             <button (click)="popUpService.typeOfPopUp.set('save')">{{'GEOPORTAL.ANALYSIS-CONTENT.SELECTION-CONTENT.BUTT2' | translate}}</button>
-                            <button (click)="AMService.getJson()">Get JSON</button>
                         </div>
                         
                     </div>
                 }
                 
             </section>
-            
+            <div class="column-help-onhover-con" [class.column-help-on]="showHelp()">
+                <div class="column-help-content">
+                    <p><span>{{optionsValue()}}:</span> {{`GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.ATTRIBUTE-DESCRIPTIONS.${optionsValue()}` | translate}}</p>
+                </div>
+            </div>
+            @if (showAttributeTable()) {
+                <app-attribute-table [shownTable]="shownTable()"></app-attribute-table>
+            }
         </div>
     </div>
 }

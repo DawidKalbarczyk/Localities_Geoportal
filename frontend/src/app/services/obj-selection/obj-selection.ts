@@ -119,7 +119,7 @@ export class ObjSelection {
     public toolPicked = signal<string>('Błąd');
     public mapLayers = signal<Collection<BaseLayer>>(new Collection<BaseLayer>());   
     public visibleMapLayers = signal<any[]>([]);
-     public async clearAllSelectedVariables(): Promise<void> {
+     public async clearAllSelectedVariables(...args: any[]): Promise<void> {
         this.selectedObjects.set([]);
         this.selectedNumberOfObjects.set(0);
 
@@ -129,6 +129,16 @@ export class ObjSelection {
             const existingLayer = layers.getArray().find((l) => l.get('layerKey') === 'highlightedObjectsLayer');
             if (existingLayer) {
                 layers.remove(existingLayer);
+            }
+        }
+
+        if (args.length > 0) {
+            const check = args[0];
+            const oldUserId = args[1];
+            const oldTime = args[2];
+            if (check === 'deleteFromAttributeSelection') {
+                await firstValueFrom(this.http.delete('/attribute-analysis/delete-attribute-selection?oldUserId=' + 
+                    oldUserId + '&oldTime=' + oldTime, { responseType: 'text' }));
             }
         }
 
