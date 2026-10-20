@@ -4,7 +4,7 @@ import { ObjSelection } from '../obj-selection/obj-selection';
 @Service()
 export class PopUpService {
     private objectSelection = inject(ObjSelection);
-    public typeOfPopUp = signal<'' | 'login' | 'save' | 'delete' | 'info'>('');
+    public typeOfPopUp = signal<'' | 'login' | 'save' | 'delete' | 'info' | 'empty-table'>('');
 
     public showPopUpSave = (): void  => {
         this.typeOfPopUp.set('save');
@@ -47,5 +47,11 @@ export class PopUpService {
     public attributeLayer = signal<string>('');
     public setAttributeLayerIntoPopUp(attributeL: string): void {
         this.attributeLayer.set(attributeL);
+    }
+
+    public newSubmitPopUpOn = signal<boolean>(false);
+    public newSubmitPopUpDeleteBool = signal<true | false | null>(null);
+    public newSubmitPopUpHandler(bool: boolean): void {
+        this.newSubmitPopUpDeleteBool.set(bool);
     }
 }

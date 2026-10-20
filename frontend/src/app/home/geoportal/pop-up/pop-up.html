@@ -22,7 +22,14 @@
                     <button class="pop-up-yes-butt" (click)="attributeSelectionHandler(true)">Tak</button>
                     <button class="pop-up-no-butt" (click)="attributeSelectionHandler(false)">Nie</button>    
                 </div>
-            } @else {
+            } @else if (popUpService.newSubmitPopUpOn()) {
+                <div class="pop-up-butt-con">
+                    <button class="pop-up-yes-butt" (click)="popUpService.newSubmitPopUpHandler(true); resetPopUp(false)">Tak</button>
+                    <button class="pop-up-no-butt" (click)="popUpService.newSubmitPopUpHandler(false); resetPopUp(false)">Nie</button>    
+                </div>
+            } 
+            
+            @else {
                 <div class="pop-up-butt-con">
                     <button class="pop-up-yes-butt" (click)="resetPopUp(true)">Tak</button>
                     <button class="pop-up-no-butt" (click)="resetPopUp(false)">Nie</button>    
@@ -80,6 +87,17 @@
                     }
                 </div>
                 <button (click)="resetPopUp(false)">Close</button>
+            </div>
+            
+        </div>
+    } @else if (typeOfPopUp() === 'empty-table') {
+        <div class="pop-up-content"> 
+            <p class="pop-up-title">
+                Twoje zapytanie zwróciło warstwę o pustej <br>
+                tabeli atrybutów. Spróbuj innego zapytania.
+            </p>
+            <div class="pop-up-butt-con">
+                <button class="pop-up-yes-butt" (click)="resetPopUp(false)">Zamknij</button>    
             </div>
             
         </div>

@@ -137,6 +137,10 @@ public class AttributeAnalysisService {
         // Implement the logic for updating attribute selection
     }
     
+    public List<Map<String, Object>> getSelection(String tableName) {
+        return jdbcTemplate.queryForList("SELECT * FROM \"" + tableName.toLowerCase() + "\"");
+    } 
+
     private String translateLayer(String layer) {
         switch (layer) {
             case "boundsLayerPanstwo":

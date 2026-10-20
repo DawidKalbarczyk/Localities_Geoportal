@@ -61,16 +61,16 @@
                             <div class="attribute-condition-con">
                                 <select [(ngModel)]="attributeSign" name="attributeSign" required>
                                     <option value="=" selected>&#61;</option>
-                                    <option value="&#8800;">&#8800;</option>
-                                    <option [disabled]="disableOption()" value="&#60;">&#60;</option>
-                                    <option [disabled]="disableOption()" value="&#62;">&#62;</option>
-                                    <option [disabled]="disableOption()" value="&#8804;">&#8804;</option>
-                                    <option [disabled]="disableOption()" value="&#8805;">&#8805;</option>
+                                    <option value="!=">&#8800;</option>
+                                    <option [disabled]="disableOption()" value="<">&#60;</option>
+                                    <option [disabled]="disableOption()" value=">">&#62;</option>
+                                    <option [disabled]="disableOption()" value="<=">&#8804;</option>
+                                    <option [disabled]="disableOption()" value=">=">&#8805;</option>
                                 </select>
                                 <input type="text" [placeholder]="'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.CONDITION' | translate" [(ngModel)]="attributeCondition" name="attributeCondition" required>
                             </div>
                             <div class="attribute-buttons">
-                                <button type="submit" class="attribute-submit-new-butt" (click)="submitType.set('new')">
+                                <button type="button" class="attribute-submit-new-butt" (click)="newSubmit(attributeForm)">
                                     {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.SUBMIT-BUTT' | translate}}
                                 </button>
                                 <button type="submit" class="attribute-submit-update-butt" (click)="submitType.set('update')" 

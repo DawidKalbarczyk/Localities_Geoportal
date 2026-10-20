@@ -8,7 +8,7 @@ import { PopUpService } from '../../../../services/pop-up-service/pop-up-service
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { AMService } from '../../../../services/a-m-service/a-m-service';
-import { FormsModule, NgModel } from '@angular/forms';
+import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { LoginService } from '../../../../services/login-service/login-service';
 import TileLayer from 'ol/layer/Tile';
 import VectorImageLayer from 'ol/layer/VectorImage';
@@ -201,7 +201,6 @@ export class AnalysysComponent {
       try {
         const response = await firstValueFrom(this.http.post('/attribute-analysis/new-attribute-selection', formData, { responseType: 'text' }));
         console.log("Happily returning from backend: ", response);
-
       } catch (error) {
         console.error('Error submitting new attribute selection:', error);
       }
@@ -277,6 +276,11 @@ export class AnalysysComponent {
       this.oldUserId = newUserId;
       this.oldAttributeLayer = this.attributeLayer;
       this.addSelectedLayerToList();
+      
+      await this.getUserLayer(this.oldUserId, this.oldTime);
+      if (this.rowCount() === 0) {
+        this.PopUpService.typeOfPopUp.set('empty-table');
+      }
     }
 
 
@@ -379,6 +383,13 @@ export class AnalysysComponent {
       }
 
       this.layerVisibility.setLayerVisibility('vectorLayer', false);
+   
+      await this.getUserLayer(this.oldUserId, this.oldTime);
+      if (this.rowCount() === 0) {
+        this.PopUpService.typeOfPopUp.set('empty-table');
+      }
+      
+      
     }
 
     public attributeFormSubmit(type: 'new' | 'update'): void {
@@ -418,6 +429,14 @@ export class AnalysysComponent {
         this.PopUpService.attributeSelectionPopUpOn.set(false);
         this.PopUpService.attributeSelectionDeleteHandler.set(null);
       });
+      effect(() => {
+        if (this.PopUpService.newSubmitPopUpDeleteBool()) {
+          this.submitType.set('new');
+          this.attributeFormSubmit(this.submitType());
+          this.PopUpService.newSubmitPopUpDeleteBool.set(null);
+          this.PopUpService.newSubmitPopUpOn.set(false);
+        } 
+      })
     }
 
     async ngOnDestroy() {
@@ -488,6 +507,48 @@ export class AnalysysComponent {
       } else {
         this.isHelpButtonEnabled.set(false);
       }
+    }
+
+    /* =============================================================================
+                          7. SUBMIT BUTT POPUP HANDLER
+ ============================================================================= */
+    public newSubmit(attributeForm: NgForm): void {
+      if (!attributeForm.valid) {
+        attributeForm.control.markAllAsTouched();
+        return;
+      }
+      if (this.attributeSelectedLayer() !== 'Attribute Selection' && this.attributeLayer !== this.oldAttributeLayer) {
+        this.submitType.set('new');
+        this.attributeFormSubmit(this.submitType());
+        return;
+      }
+      this.PopUpService.typeOfPopUp.set('delete');
+      this.PopUpService.newSubmitPopUpOn.set(true);
+      
+    }
+
+
+
+
+
+
+
+    /* =============================================================================
+                          7. GET USER ATTRIBUTE SELECTION TABLE
+ ============================================================================= */
+    public rowCount = signal<number | null>(null);
+    public async getUserLayer(oldUserId: string, oldTime: string): Promise<void> {
+      const response = await firstValueFrom(this.http.get(`/attribute-analysis/get-attribute-selection?tableName=user_${oldUserId}_temp_table_${oldTime}`, { responseType: 'text' }));
+      if (response.startsWith("Error")) {
+        console.error('Error getting attribute selection:', response);
+        return;
+      }
+      
+      const rows = JSON.parse(response) as Record<string, unknown>[];
+      this.rowCount.set(rows.length);
+      console.log("Returning from backend: ", rows);
+      console.log("Row count: ", this.rowCount());
+      
     }
 
   }
