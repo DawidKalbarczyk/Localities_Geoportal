@@ -152,6 +152,10 @@ export class AnalysysComponent {
       this.attributeSign = '=';
       this.attributeCondition = '';
       this.AMService.showResolution('map');
+      await this.deleteAttributeSelection();
+    }
+
+    private async deleteAttributeSelection(): Promise<void> {
       if (this.oldTime !== '' && this.oldUserId !== '') {
         await firstValueFrom(this.http.delete(`/attribute-analysis/delete-attribute-selection?oldUserId=${this.oldUserId}&oldTime=${this.oldTime}`, { responseType: 'text' }));
       }
@@ -277,10 +281,7 @@ export class AnalysysComponent {
       this.oldAttributeLayer = this.attributeLayer;
       this.addSelectedLayerToList();
       
-      await this.getUserLayer(this.oldUserId, this.oldTime);
-      if (this.rowCount() === 0) {
-        this.PopUpService.typeOfPopUp.set('empty-table');
-      }
+      await this.checkForEmptyAttributeSelection();
     }
 
 
@@ -384,12 +385,24 @@ export class AnalysysComponent {
 
       this.layerVisibility.setLayerVisibility('vectorLayer', false);
    
+      await this.checkForEmptyAttributeSelection();
+    }
+
+    private async checkForEmptyAttributeSelection(): Promise<void> {
       await this.getUserLayer(this.oldUserId, this.oldTime);
       if (this.rowCount() === 0) {
         this.PopUpService.typeOfPopUp.set('empty-table');
       }
-      
-      
+    }
+
+    private resetAttributeLayerChoice(): void {
+      this.attributeSelectedLayer.set('');
+      this.objectSelection.onLayerSelectChange('');
+      this.attributeLayer = '';
+      this.oldAttributeLayer = '';
+      this.attributeAttribute.set('');
+      this.responseData.set(null);
+      this.isHelpButtonEnabled.set(false);
     }
 
     public attributeFormSubmit(type: 'new' | 'update'): void {
@@ -437,12 +450,16 @@ export class AnalysysComponent {
           this.PopUpService.newSubmitPopUpOn.set(false);
         } 
       })
+      effect(() => {
+        if (this.PopUpService.emptyTablePopUpClosed()) {
+          this.resetAttributeLayerChoice();
+          this.PopUpService.emptyTablePopUpClosed.set(false);
+        }
+      });
     }
 
     async ngOnDestroy() {
-      if (this.oldTime !== '' && this.oldUserId !== '') {
-        await firstValueFrom(this.http.delete(`/attribute-analysis/delete-attribute-selection?oldUserId=${this.oldUserId}&oldTime=${this.oldTime}`, { responseType: 'text' }));
-      }
+      await this.deleteAttributeSelection();
     }
 
     handleLayerChange(event: string, layerModel: NgModel): void {

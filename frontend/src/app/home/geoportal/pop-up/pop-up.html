@@ -93,11 +93,11 @@
     } @else if (typeOfPopUp() === 'empty-table') {
         <div class="pop-up-content"> 
             <p class="pop-up-title">
-                Twoje zapytanie zwróciło warstwę o pustej <br>
-                tabeli atrybutów. Spróbuj innego zapytania.
+                Twoje zapytanie zwróciło warstwę o pustej tabeli atrybutów.<br>
+                Spróbuj innego zapytania.
             </p>
             <div class="pop-up-butt-con">
-                <button class="pop-up-yes-butt" (click)="resetPopUp(false)">Zamknij</button>    
+                <button class="pop-up-yes-butt" (click)="popUpService.closeEmptyTablePopUp()">Zamknij</button>
             </div>
             
         </div>

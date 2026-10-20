@@ -54,4 +54,10 @@ export class PopUpService {
     public newSubmitPopUpHandler(bool: boolean): void {
         this.newSubmitPopUpDeleteBool.set(bool);
     }
+
+    public emptyTablePopUpClosed = signal<boolean>(false);
+    public closeEmptyTablePopUp(): void {
+        this.emptyTablePopUpClosed.set(true);
+        this.resetPopUp(false);
+    }
 }
