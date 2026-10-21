@@ -128,7 +128,7 @@ export class AnalysysComponent {
     public submitType = signal<'new' | 'update'>('new');
 
     public responseData = signal<any>(null);
-    public attributeLayer: string = "";
+    public attributeLayer = signal<string>('');
     public attributeAttribute = signal<string>('');
     public attributeSign: string = "=";
     public attributeCondition: string = "";
@@ -148,6 +148,8 @@ export class AnalysysComponent {
       if (this.attributeVectorLayer) {
         this.map.removeLayer(this.attributeVectorLayer);
       }
+      this.attributeLayer.set('');
+      this.objectSelection.onLayerSelectChange('');
       this.attributeSelectedLayer.set('');
       this.attributeAttribute.set('');
       this.attributeSign = '=';
@@ -173,22 +175,38 @@ export class AnalysysComponent {
       this.attributeSelectedLayer.set(text);
     }
   
+/* =============================================================================
+                        3.0. CHECK IF QUERY GIVES BACK EMPTY TABLE
+============================================================================= */
+
+    private async checkQuery(formData: FormData, caseString: string): Promise<'valid' | 'empty' | 'error'> {
+      formData.append('caseString', caseString);
+      try {
+        const response = await firstValueFrom(this.http.post('/attribute-analysis/check-query', formData, { responseType: 'text' }));
+        switch (response) {
+          case 'Query is valid.':
+            return 'valid';
+          case 'Query is not valid.':
+            return 'empty';
+          default:
+            console.error('Unexpected response from check-query:', response);
+            return 'error';
+        }
+      } catch (error) {
+        console.error('Error checking query:', error);
+        return 'error';
+      }
+      
+    }
 
 /* =============================================================================
                         3. NEW ATTRIBUTE SELECTION
 ============================================================================= */
     private async createNewAttributeSelection(): Promise<void> {
-      if (this.attributeLayer) {
-        this.map.removeLayer(this.attributeTileLayer || this.attributeVectorLayer);
-      }
-
-
-      // Osobny czas, aby reset ręcznej selekcji nie usunął tabeli analizy atrybutowej.
       const newTime = Date.now().toString();
       const newUserId = this.objectSelection.getUserId();
-      //this.map.removeLayer('attributeSelectionLayer'); - to nie dziala
       const formData = new FormData();
-      formData.append('attributeLayer', this.attributeLayer);
+      formData.append('attributeLayer', this.attributeLayer());
       formData.append('attributeAttribute', this.attributeAttribute());
       formData.append('attributeSign', this.attributeSign);
       formData.append('attributeCondition', (() => {
@@ -198,9 +216,29 @@ export class AnalysysComponent {
           return this.attributeCondition;
         }
       })());
-
       formData.append('userId', newUserId);
       formData.append('time', newTime);
+
+      const checkedQuery = await this.checkQuery(formData, 'new');
+      if (checkedQuery !== 'valid' ) {
+        if (checkedQuery === 'empty') {
+          this.PopUpService.typeOfPopUp.set('empty-table');
+          this.attributeSelectedLayer.set('');
+          this.map.removeLayer(this.attributeTileLayer || this.attributeVectorLayer);
+        }
+        return;
+      }
+      
+      if (this.attributeLayer()) {
+        this.map.removeLayer(this.attributeTileLayer || this.attributeVectorLayer);
+      }
+
+
+      // Osobny czas, aby reset ręcznej selekcji nie usunął tabeli analizy atrybutowej.
+      
+      //this.map.removeLayer('attributeSelectionLayer'); - to nie dziala
+      
+      
 
       
       try {
@@ -210,7 +248,7 @@ export class AnalysysComponent {
         console.error('Error submitting new attribute selection:', error);
       }
 
-      if (this.attributeLayer !== 'vectorLayer') {
+      if (this.attributeLayer() !== 'vectorLayer') {
         this.attributeTileLayer = new TileLayer({
           properties: { layerName: 'attributeSelectionLayer'},
           source: new TileWMS({
@@ -218,7 +256,7 @@ export class AnalysysComponent {
             params: {
               'LAYERS': `user_${newUserId}_temp_table_${newTime}`,
               'TILED': true,
-              'SLD_BODY': this.objectSelection.getSLD(newUserId, newTime, this.attributeLayer)
+              'SLD_BODY': this.objectSelection.getSLD(newUserId, newTime, this.attributeLayer())
             },
             serverType: 'geoserver',
             crossOrigin: 'anonymous'
@@ -231,7 +269,7 @@ export class AnalysysComponent {
       ///
       ///
       ///
-      } else if (this.attributeLayer === 'vectorLayer') {
+      } else if (this.attributeLayer() === 'vectorLayer') {
         this.attributeVectorLayer = new VectorImageLayer({
           properties: { layerName: 'attributeSelectionLayer'},
           source: new VectorSource({
@@ -271,7 +309,7 @@ export class AnalysysComponent {
         this.AMService.showResolution('analysys');
 
       } else {
-        console.log("Unknown layer type selected at analysys-component: ", this.attributeLayer);
+        console.log("Unknown layer type selected at analysys-component: ", this.attributeLayer());
       }
 
     
@@ -279,10 +317,10 @@ export class AnalysysComponent {
 
       this.oldTime = newTime;
       this.oldUserId = newUserId;
-      this.oldAttributeLayer = this.attributeLayer;
+      this.oldAttributeLayer = this.attributeLayer();
       this.addSelectedLayerToList();
       
-      await this.checkForEmptyAttributeSelection();
+      await this.getUserLayer(this.oldUserId, this.oldTime);
     }
 
 
@@ -292,17 +330,8 @@ export class AnalysysComponent {
  ============================================================================= */
 
     private async updateAttributeSelection(): Promise<void> {
-      if (this.oldAttributeLayer && this.attributeSelectedLayer() === 'Attribute Selection') {
-        this.map.removeLayer(this.attributeTileLayer || this.attributeVectorLayer);
-      }
-
-      // NIe ma newTime i newUser bo operacja na tej samej tabeli
-      if (this.attributeLayer !== this.oldAttributeLayer) {
-        console.error('Cannot update attribute selection: attribute layer has changed.');
-        return;
-      }
       const formData = new FormData();
-      formData.append('attributeLayer', this.attributeLayer);
+      formData.append('attributeLayer', this.attributeLayer());
       formData.append('attributeAttribute', this.attributeAttribute());
       formData.append('attributeSign', this.attributeSign);
       formData.append('attributeCondition', (() => {
@@ -314,6 +343,26 @@ export class AnalysysComponent {
       })());
       formData.append('userId', this.oldUserId);
       formData.append('time', this.oldTime);
+
+      const checkedQuery = await this.checkQuery(formData, 'update');
+      if (checkedQuery !== 'valid' ) {
+        if (checkedQuery === 'empty') {
+          this.PopUpService.typeOfPopUp.set('empty-table');
+        }
+        return;
+      }
+
+
+      if (this.oldAttributeLayer && this.attributeSelectedLayer() === 'Attribute Selection') {
+        this.map.removeLayer(this.attributeTileLayer || this.attributeVectorLayer);
+      }
+
+      // NIe ma newTime i newUser bo operacja na tej samej tabeli
+      if (this.attributeLayer() !== this.oldAttributeLayer) {
+        console.error('Cannot update attribute selection: attribute layer has changed.');
+        return;
+      }
+      
       try {
         const response = await firstValueFrom(this.http.post('/attribute-analysis/update-attribute-selection', formData, { responseType: 'text' }));
         console.log("Happily returning UPDATE from backend: ", response);
@@ -321,7 +370,7 @@ export class AnalysysComponent {
         console.error('Error submitting update attribute selection:', error);
       }
 
-      if (this.attributeLayer !== 'vectorLayer') {
+      if (this.attributeLayer() !== 'vectorLayer') {
         this.attributeTileLayer = new TileLayer({
           properties: { layerName: 'attributeSelectionLayer'},
           source: new TileWMS({
@@ -329,7 +378,7 @@ export class AnalysysComponent {
             params: {
               'LAYERS': `user_${this.oldUserId}_temp_table_${this.oldTime}`,
               'TILED': true,
-              'SLD_BODY': this.objectSelection.getSLD(this.oldUserId, this.oldTime, this.attributeLayer),
+              'SLD_BODY': this.objectSelection.getSLD(this.oldUserId, this.oldTime, this.attributeLayer()),
 
               // "Jeżeli nie wiesz jak coś działa to lepiej tego nie ruszać...."
               // Nie wiem dlaczego, ale powoduje to wywalenie cache'a z geoservera i wczytanie nowej warstwy
@@ -344,7 +393,7 @@ export class AnalysysComponent {
         });
         this.map.removeLayer(this.attributeTileLayer);
         this.map.addLayer(this.attributeTileLayer);
-      } else if (this.attributeLayer === 'vectorLayer') {
+      } else if (this.attributeLayer() === 'vectorLayer') {
         this.attributeVectorLayer = new VectorImageLayer({
           properties: { layerName: 'attributeSelectionLayer'},
           source: new VectorSource({
@@ -381,27 +430,22 @@ export class AnalysysComponent {
         this.AMService.showResolution('analysys');
         this.addSelectedLayerToList();
       } else {
-        console.log("Unknown layer type selected at analysys-component: ", this.attributeLayer);
+        console.log("Unknown layer type selected at analysys-component: ", this.attributeLayer());
       }
 
       this.layerVisibility.setLayerVisibility('vectorLayer', false);
    
-      await this.checkForEmptyAttributeSelection();
-    }
-
-    private async checkForEmptyAttributeSelection(): Promise<void> {
       await this.getUserLayer(this.oldUserId, this.oldTime);
-      if (this.rowCount() === 0) {
-        this.PopUpService.typeOfPopUp.set('empty-table');
-      }
     }
 
     private resetAttributeLayerChoice(): void {
       this.attributeSelectedLayer.set('');
       this.objectSelection.onLayerSelectChange('');
-      this.attributeLayer = '';
+      this.attributeLayer.set('');
       this.oldAttributeLayer = '';
       this.attributeAttribute.set('');
+      this.attributeSign = '=';
+      this.attributeCondition = '';
       this.responseData.set(null);
       this.isHelpButtonEnabled.set(false);
     }
@@ -429,7 +473,7 @@ export class AnalysysComponent {
         }
 
         if (deleteItems === true) {
-          this.attributeLayer = this.pendingAttributeLayer;
+          this.attributeLayer.set(this.pendingAttributeLayer);
           this.pendingLayerModel?.control.setValue(this.pendingAttributeLayer, { emitViewToModelChange: false });
           this.objectSelection.onLayerSelectChange(this.pendingAttributeLayer);
           this.getLayerInfo(this.objectSelection.selectedSelectOptionLayer());
@@ -453,14 +497,14 @@ export class AnalysysComponent {
       })
       effect(() => {
         if (this.PopUpService.emptyTablePopUpClosed()) {
-          this.resetAttributeLayerChoice();
           this.PopUpService.emptyTablePopUpClosed.set(false);
         }
       });
     }
 
     async ngOnDestroy() {
-      await this.deleteAttributeSelection();
+      this.objectSelection.analysisDeactive();
+      await this.clearAttributeSelection();
     }
 
     handleLayerChange(event: string, layerModel: NgModel): void {
@@ -473,7 +517,7 @@ export class AnalysysComponent {
         this.PopUpService.typeOfPopUp.set('delete');
       } else {
         this.PopUpService.setAttributeLayerIntoPopUp(event);
-        this.attributeLayer = event;
+        this.attributeLayer.set(event);
         this.objectSelection.onLayerSelectChange(event);
         this.getLayerInfo(this.objectSelection.selectedSelectOptionLayer());
         this.setHelpButtonEnabled();
@@ -483,7 +527,7 @@ export class AnalysysComponent {
 
     public isUpdateButtonEnabled = computed(() => {
       return this.attributeSelectedLayer() === 'Attribute Selection' &&
-             this.attributeLayer === this.oldAttributeLayer &&
+             this.attributeLayer() === this.oldAttributeLayer &&
              (this.attributeAttribute() !== '' || this.attributeCondition !== '');
     });
 
@@ -520,7 +564,7 @@ export class AnalysysComponent {
     }
     public isHelpButtonEnabled = signal<boolean>(false);
     private setHelpButtonEnabled(): void {
-      if (this.attributeLayer) {
+      if (this.attributeLayer()) {
         this.isHelpButtonEnabled.set(true);
       } else {
         this.isHelpButtonEnabled.set(false);
@@ -535,7 +579,7 @@ export class AnalysysComponent {
         attributeForm.control.markAllAsTouched();
         return;
       }
-      if (this.attributeSelectedLayer() !== 'Attribute Selection' && this.attributeLayer !== this.oldAttributeLayer) {
+      if (this.attributeSelectedLayer() !== 'Attribute Selection') {
         this.submitType.set('new');
         this.attributeFormSubmit(this.submitType());
         return;
@@ -552,7 +596,7 @@ export class AnalysysComponent {
 
 
     /* =============================================================================
-                          7. GET USER ATTRIBUTE SELECTION TABLE
+                          8. GET USER ATTRIBUTE SELECTION TABLE
  ============================================================================= */
     public rowCount = signal<number | null>(null);
     public rows = signal<Record<string, unknown>[]>([]);
@@ -573,7 +617,7 @@ export class AnalysysComponent {
 
     public rowsPickedLayer = signal<Record<string, unknown>[]>([]);
     public async getPickedLayer(): Promise<void> {
-      const response = await firstValueFrom(this.http.get('/attribute-analysis/get-picked-layer?pickedTable=' + this.attributeLayer, { responseType: 'text' }));
+      const response = await firstValueFrom(this.http.get('/attribute-analysis/get-picked-layer?pickedTable=' + this.attributeLayer(), { responseType: 'text' }));
       if (response.startsWith("Error")) {
         console.error('Error getting picked layer:', response);
         return;
@@ -588,18 +632,16 @@ export class AnalysysComponent {
     public shownTable = computed(async () => {
       if (this.attributeSelectedLayer() === 'Attribute Selection') {
         return (this.rows());
-      } else if (this.attributeSelectedLayer() !== 'Attribute Selection' && this.attributeLayer) {
+      } else if (this.attributeSelectedLayer() !== 'Attribute Selection' && this.attributeLayer()) {
         await this.getPickedLayer();
         return this.rowsPickedLayer()
       } else {
         return [];
       }
     })
+
+    public isShownTableEmpty = computed(() => this.attributeLayer() === '');
     public toggleAttributeTable(): void {  /// For HTML button
-      if (this.showAttributeTable() === true) {
-        this.rows.set([]);
-        this.rowsPickedLayer.set([]);
-      }
       this.showAttributeTable.set(!this.showAttributeTable());
     }
 

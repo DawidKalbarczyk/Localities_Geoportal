@@ -19,6 +19,11 @@
     "AUTHOR-NAME": "Developer: Dawid Kalbarczyk",
     "AUTHOR-TEXT": "Project created for self-education purposes."
   },
+  "POP-UP": {
+    "SAVED": {
+      "OBJ-SAVED": ""
+    }
+  },
   "GEOPORTAL": {
     "ANALYSIS": "Analysis",
     "ANALYSIS-CONTENT": {
@@ -28,6 +33,7 @@
       "ATTRIBUTE-CONTENT": {
         "TITLE": "Attribute analysis",
         "TEXT": "Create a query to select objects",
+        "YOUR-ANALYSIS": "Your analysis",
         "CHOOSE-LAYER": "Select objects from layer:",
         "CHOOSE-ATTRIBUTE": "where attribute:",
         "ATTRIBUTE-DESCRIPTIONS": {
@@ -71,10 +77,18 @@
           "gmina": "Commune in which the feature is located.",
           "idgminy": "Identifier of the commune in the National Register of Boundaries. Corresponds to the TERYT identifier."
         },
+        "TABLE": {
+          "EMPTY-TABLE": "The table is empty! Select a layer or run a query to display attributes.",
+          "SHOWN": "Showing",
+          "FROM": "of",
+          "ROWS": "rows",
+          "LOADING": "Loading table..."
+        },
         "CONDITION": "condition...",
         "SUBMIT-BUTT": "Analyze",
         "UPDATE-BUTT": "Update",
         "TABLE-BUTT": "Show attribute table",
+        "TABLE-BUTT-CLOSE": "Hide attribute table",
         "SAVE-BUTT": "Save attribute analysis",
         "POP-UP": {
           "TITLE": "Information about layer attributes",

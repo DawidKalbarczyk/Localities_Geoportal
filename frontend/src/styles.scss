@@ -6,6 +6,19 @@
 @use '@angular/material' as mat;
 @use './variables' as *;
 
+.attribute-table-tooltip {
+  @include mat.tooltip-overrides((
+    container-color: $secondary-color-light,
+    supporting-text-color: #000f,
+    supporting-text-font: $text-font-family,
+  ));
+}
+
+// Keep table tooltips above the fixed attribute table panel.
+.cdk-overlay-container:has(.attribute-table-tooltip) {
+  z-index: 100000000;
+}
+
 html {
   @include mat.theme(
     (

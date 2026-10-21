@@ -505,6 +505,14 @@
                 .show-attribute-table {
                     margin-top: 1rem;
                 }
+                .show-attribute-table-butt-on {
+                    background-color: $buttons-color !important;
+                    color: white !important;
+
+                    &:hover {
+                        filter: brightness(1.5) !important;
+                    }
+                }
                 .show-attribute-table-butt, .save-attribute-table-butt {
                     display: inline-block;
                     width: 90%;
@@ -515,7 +523,10 @@
                     border: 1px solid rgba(0,0,0,0.15);
                     box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
                     cursor: pointer;
-                    transition: filter 0.3s ease;
+                    transition: 
+                        background-color 0.3s ease,
+                        color 0.3s ease,
+                        filter 0.3s ease;
 
                     &:hover {
                         filter: brightness(0.8);

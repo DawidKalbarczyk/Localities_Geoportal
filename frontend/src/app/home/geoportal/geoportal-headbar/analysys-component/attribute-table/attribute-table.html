@@ -1,40 +1,59 @@
-@if (shownTable() | async; as table) {
+@if (isShownTableEmpty()) {
     <div class="attribute-table-panel">
-        <div class="attribute-table-scroll" (scroll)="onTableScroll($event, table.length)">
-            <table class="attribute-table">
-                <thead>
-                    <tr class="first-row">
-                        @if (table[0]; as firstRow) {
-                            @for (attribute of firstRow | keyvalue: null; track attribute.key) {
-                                <th class="first-row-cell" scope="col">
-                                    <span class="cell-content" [attr.title]="attribute.key">{{ attribute.key }}</span>
-                                </th>
-                            }
-                        }
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (row of table | slice: 0 : visibleRowCount(); track $index) {
-                        <tr class="data-row">
-                            @for (attribute of row | keyvalue: null; track attribute.key) {
-                                <td class="data-cell">
-                                    <span class="cell-content" [attr.title]="attribute.value">{{ attribute.value }}</span>
-                                </td>
-                            }
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            <div class="attribute-table-progress" role="status">
-                Wyświetlono {{ table.length < visibleRowCount() ? table.length : visibleRowCount() }} z {{ table.length }} wierszy
+        <div class="empty-table" role="status">
+            <div class="empty-table-content">
+                <img src="./images/icons/bored.png" alt="Bored" draggable="false">
+                <p>{{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.EMPTY-TABLE' | translate}}</p>
+                <img src="./images/icons/bored.png" alt="Bored" draggable="false">
             </div>
+            
         </div>
-
-        <!-- Miejsce na przyciski i narzędzia tabeli. -->
         <div class="attribute-table-tools"></div>
     </div>
-
 } @else {
-    <div class="attribute-table-progress" role="status">Wczytywanie tabeli…</div>
-}
+    @if (shownTable() | async; as table) {
+        <div class="attribute-table-panel">
+            <div class="attribute-table-scroll" cdkScrollable (scroll)="onTableScroll($event, table.length)">
+                <table class="attribute-table">
+                    <thead>
+                        <tr class="first-row">
+                            @if (table[0]; as firstRow) {
+                                @for (attribute of firstRow | keyvalue: null; track attribute.key) {
+                                    <th class="first-row-cell" scope="col">
+                                        <span class="cell-content" [matTooltip]="attribute.key"
+                                            matTooltipClass="attribute-table-tooltip" matTooltipPosition="above"
+                                            [matTooltipPositionAtOrigin]="true" [matTooltipShowDelay]="500">{{ attribute.key }}</span>
+                                    </th>
+                                }
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (row of table | slice: 0 : visibleRowCount(); track $index) {
+                            <tr class="data-row">
+                                @for (attribute of row | keyvalue: null; track attribute.key) {
+                                    <td class="data-cell">
+                                        <span class="cell-content" matTooltip="{{ attribute.value }}"
+                                            matTooltipClass="attribute-table-tooltip" matTooltipPosition="above"
+                                            [matTooltipPositionAtOrigin]="true" [matTooltipShowDelay]="500">{{ attribute.value }}</span>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="attribute-table-progress" role="status">
+                    {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.SHOWN' | translate}} {{ table.length < visibleRowCount() ? table.length : visibleRowCount() }} {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.FROM' | translate}} {{ table.length }} {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.ROWS' | translate}}
+                </div>
+            </div>
 
+            <!-- Miejsce na przyciski i narzędzia tabeli. -->
+            <div class="attribute-table-tools"></div>
+        </div>
+
+    } @else {
+        <div class="attribute-table-progress" role="status">{{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.LOADING' | translate}}</div>
+    }
+
+
+}

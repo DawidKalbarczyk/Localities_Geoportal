@@ -3,11 +3,11 @@
     @if (AMService.wasSaved()) {
         <div class="pop-up-content">
             <p class="pop-up-title">
-                Wybrane obiekty zostały zapisane
+                {{'POP-UP.SAVED.TITLE' | translate}}
             </p>
             <div class="pop-up-butt-con">
-                <button class="pop-up-yes-butt" (click)="AMService.savePopUpOff()">Zamknij</button>  
-                <button class="pop-up-no-butt" routerLink="/history" (click)="resetPopUp(true)">Przejdź do zapisanych</button>    
+                <button class="pop-up-yes-butt" (click)="AMService.savePopUpOff()"> {{'POP-UP.SAVED.CLOSE-BUTT' | translate}}</button>  
+                <button class="pop-up-no-butt" routerLink="/history" (click)="resetPopUp(true)"> {{'POP-UP.SAVED.REDIRECT' | translate}}</button>    
             </div>
 
         </div>
@@ -15,24 +15,24 @@
     @if (typeOfPopUp() === 'delete') {
         <div class="pop-up-content">
             <p class="pop-up-title">
-                Wybrane obiekty zostaną usunięte<br>Kontynuować?
+                {{'POP-UP.DELETE.TITLE1' | translate}}<br>{{'POP-UP.DELETE.TITLE2' | translate}}
             </p>
             @if (popUpService.attributeSelectionPopUpOn()) {
                 <div class="pop-up-butt-con">
-                    <button class="pop-up-yes-butt" (click)="attributeSelectionHandler(true)">Tak</button>
-                    <button class="pop-up-no-butt" (click)="attributeSelectionHandler(false)">Nie</button>    
+                    <button class="pop-up-yes-butt" (click)="attributeSelectionHandler(true)">{{'POP-UP.YES' | translate}}</button>
+                    <button class="pop-up-no-butt" (click)="attributeSelectionHandler(false)">{{'POP-UP.NO' | translate}}</button>    
                 </div>
             } @else if (popUpService.newSubmitPopUpOn()) {
                 <div class="pop-up-butt-con">
-                    <button class="pop-up-yes-butt" (click)="popUpService.newSubmitPopUpHandler(true); resetPopUp(false)">Tak</button>
-                    <button class="pop-up-no-butt" (click)="popUpService.newSubmitPopUpHandler(false); resetPopUp(false)">Nie</button>    
+                    <button class="pop-up-yes-butt" (click)="popUpService.newSubmitPopUpHandler(true); resetPopUp(false)">{{'POP-UP.YES' | translate}}</button>
+                    <button class="pop-up-no-butt" (click)="popUpService.newSubmitPopUpHandler(false); resetPopUp(false)">{{'POP-UP.NO' | translate}}</button>    
                 </div>
             } 
             
             @else {
                 <div class="pop-up-butt-con">
-                    <button class="pop-up-yes-butt" (click)="resetPopUp(true)">Tak</button>
-                    <button class="pop-up-no-butt" (click)="resetPopUp(false)">Nie</button>    
+                    <button class="pop-up-yes-butt" (click)="resetPopUp(true)">{{'POP-UP.YES' | translate}}</button>
+                    <button class="pop-up-no-butt" (click)="resetPopUp(false)">{{'POP-UP.NO' | translate}}</button>    
                 </div>
             }
             
@@ -41,38 +41,38 @@
     } @else if (typeOfPopUp() === 'save') {
         <div class="pop-up-content">
             <p class="pop-up-title">
-                Zapisanie wybranych obiektów
+                {{'POP-UP.OBJ-SAVE.TITLE' | translate}}
             </p>
             <p class="pop-up-subtitle">
-                Wpisz nazwę nowej warstwy, aby zapisać wybrane obiekty
+                {{'POP-UP.OBJ-SAVE.INPUT' | translate}}
             </p>
             <div class="user-layer-name-con">
                 <input [(ngModel)]="userLayerName" type="text" placeholder="Nazwa zapisanych obiektów..." class="user-layer-name">
             </div>
             <div class="pop-up-butt-con">
-                <button class="pop-up-yes-butt" (click)="AMService.saveSelectedObjects(userLayerName)">Zapisz</button>
-                <button class="pop-up-no-butt" (click)="resetPopUp(false)">Anuluj</button>    
+                <button class="pop-up-yes-butt" (click)="AMService.saveSelectedObjects(userLayerName)">{{'POP-UP.OBJ-SAVE.SAVE-BUTT' | translate}}</button>
+                <button class="pop-up-no-butt" (click)="resetPopUp(false)">{{'POP-UP.OBJ-SAVE.CANCEL-BUTT' | translate}}</button>    
             </div>
             
         </div>
     } @else if (typeOfPopUp() === 'login') {
         <div class="pop-up-content">
             <p class="pop-up-title">
-                Zaloguj się lub zarejestruj, aby korzystać z tej funkcji
+                {{'POP-UP.LOGIN.TITLE' | translate}}
             </p>
             <div class="pop-up-butt-con">
                 <button class="pop-up-yes-butt" routerLink="/login" [queryParams]="{ type: 'signin' }"
-                (click)="resetPopUp(false)">Zarejestruj się</button>
+                (click)="resetPopUp(false)">{{'POP-UP.LOGIN.REGISTER' | translate}}</button>
                 <button class="pop-up-no-butt" routerLink="/login" [queryParams]="{ type: 'login' }"
-                (click)="resetPopUp(false)">Zaloguj się</button>
-                <button class="pop-up-yes-butt" (click)="resetPopUp(false)">Anuluj</button>    
+                (click)="resetPopUp(false)">{{'POP-UP.LOGIN.LOGIN' | translate}}</button>
+                <button class="pop-up-yes-butt" (click)="resetPopUp(false)">{{'POP-UP.LOGIN.CANCEL-BUTT' | translate}}</button>    
             </div>
             
         </div>
     } @else if (typeOfPopUp() === 'info') {
         <div class="pop-up-content">
             <p class="pop-up-title">
-                Informacje dotyczące atrybutów warstwy
+                {{'POP-UP.INFO.TITLE' | translate}}
             </p>
             <div class="pop-up-static-help">
                 <div class="help-content">
@@ -86,18 +86,18 @@
                         }
                     }
                 </div>
-                <button (click)="resetPopUp(false)">Close</button>
+                <button (click)="resetPopUp(false)">{{'POP-UP.INFO.CLOSE-BUTT' | translate}}</button>
             </div>
             
         </div>
     } @else if (typeOfPopUp() === 'empty-table') {
         <div class="pop-up-content"> 
             <p class="pop-up-title">
-                Twoje zapytanie zwróciło warstwę o pustej tabeli atrybutów.<br>
-                Spróbuj innego zapytania.
+                {{'POP-UP.EMPTY-TABLE.TITLE1' | translate}}<br>
+                {{'POP-UP.EMPTY-TABLE.TITLE2' | translate}}
             </p>
             <div class="pop-up-butt-con">
-                <button class="pop-up-yes-butt" (click)="popUpService.closeEmptyTablePopUp()">Zamknij</button>
+                <button class="pop-up-yes-butt" (click)="popUpService.closeEmptyTablePopUp()">{{'POP-UP.EMPTY-TABLE.CLOSE-BUTT' | translate}}</button>
             </div>
             
         </div>

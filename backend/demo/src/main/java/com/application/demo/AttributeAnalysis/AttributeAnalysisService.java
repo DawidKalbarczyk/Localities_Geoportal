@@ -86,7 +86,6 @@ public class AttributeAnalysisService {
         try {
             String userId = (String) formData.get("userId");
             String time = (String) formData.get("time");
-            String layer = (String) formData.get("attributeLayer");
             String attribute = (String) formData.get("attributeAttribute");
             String conditionStr = (String) formData.get("attributeCondition");
             String sign = (String) formData.get("attributeSign");
@@ -97,12 +96,6 @@ public class AttributeAnalysisService {
             );
 
             String sqlSELECT = "";
-
-            String pickedLayer = translateLayer(layer);
-            
-            if (pickedLayer.equals("vectorLayer")) {
-                pickedLayer = "sql_data";
-            }
 
             String tableNameLower = tableName.toLowerCase();
             if (numericAttributes.contains(attribute)) {
@@ -150,11 +143,99 @@ public class AttributeAnalysisService {
         return result;
     }
 
+    public String checkQuery(Map<String, Object> formData) {
+        String caseString = (String) formData.get("caseString");
+        String userId = (String) formData.get("userId");
+        String time = (String) formData.get("time");
+        String layer = (String) formData.get("attributeLayer");
+        String attribute = (String) formData.get("attributeAttribute");
+        String conditionStr = (String) formData.get("attributeCondition");
+        String sign = (String) formData.get("attributeSign");
+        String tableName = "user_" + userId + "_temp_table_" + time;
+
+        List<String> numericAttributes = List.of(
+            "jpt_powier", "jpt_powi_1", "shape_leng", "shape_le_1", "shape_area",
+            "wspgeog", "wspxy", "liczbamies"
+        );
+
+        String sqlSELECT = "";
+
+        switch (caseString) {
+            case "new":
+                try {
+                    
+                    String pickedLayer = translateLayer(layer);
+                    if (pickedLayer.equals("vectorLayer")) {
+                        pickedLayer = "sql_data";
+                    }
+                    
+                    if (numericAttributes.contains(attribute)) {
+                        String temp = conditionStr.replace(" ", "").trim();
+                        double condition = Double.parseDouble(temp.replace(",", "."));
+                        
+                        sqlSELECT = "SELECT * FROM \"" + pickedLayer + "\" " +
+                        "WHERE CAST(\"" + attribute + "\" AS double precision) " +
+                        sign + " " + condition;
+
+                    } else {
+                        if (sign.equals("=") || sign.equals("!=")) {
+                        sqlSELECT = "SELECT * FROM \"" + pickedLayer + "\" " +
+                            "WHERE \"" + attribute + "\" " +
+                            sign + " " + "\'" + conditionStr + "\'"; 
+                        } else {
+                            return "Error: Invalid sign for non-numeric attribute. Only '=' and '!=' are allowed.";
+                        }
+                        
+                    }
+                    List<Map<String, Object>> result = jdbcTemplate.queryForList(sqlSELECT);
+                    if (result.isEmpty()) {
+                        return "Query is not valid.";
+                    }
+                    
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return "Error checking query: " + e.getMessage();
+                }
+                break;
+            case "update":
+                try {
+                    String tableNameLower = tableName.toLowerCase();
+                    if (numericAttributes.contains(attribute)) {
+                        String temp = conditionStr.replace(" ", "").trim();
+                        double condition = Double.parseDouble(temp.replace(",", "."));
+
+                        sqlSELECT = "SELECT * FROM \"" + tableNameLower + "\" " +
+                        "WHERE CAST(\"" + attribute + "\" AS double precision) " +
+                        sign + " " + condition;
+                    } else {
+                        if (sign.equals("=") || sign.equals("!=")) {
+                            sqlSELECT = "SELECT * FROM \"" + tableNameLower + "\" " +
+                            "WHERE \"" + attribute + "\" " +
+                            sign + " " + "\'" + conditionStr + "\'";
+                        } else {
+                            return "Error: Invalid sign for non-numeric attribute. Only '=' and '!=' are allowed.";
+                        }
+                    }
+                    List<Map<String, Object>> result = jdbcTemplate.queryForList(sqlSELECT);
+                    if (result.isEmpty()) {
+                        return "Query is not valid.";
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return "Error checking query: " + e.getMessage();
+                }
+                break;
+            default:
+                return "Error: Invalid caseString value. Must be 'new' or 'update'.";
+        }
+        return "Query is valid.";
+    }
+
     private String translateLayer(String layer) {
         switch (layer) {
             case "boundsLayerPanstwo":
                 return "boundspanstwo";
-            case "boundsLayerWojewodztwo":
+            case "boundsLayerWojewodz":
                 return "boundswojewodz";
             case "boundsLayerPowiaty":
                 return "boundspowiaty";
