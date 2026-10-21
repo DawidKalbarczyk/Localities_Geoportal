@@ -2,10 +2,11 @@ import { Component, effect, input, signal } from '@angular/core';
 import { AsyncPipe, KeyValuePipe, SlicePipe } from '@angular/common';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslatePipe } from '../../../../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-attribute-table',
-  imports: [AsyncPipe, KeyValuePipe, SlicePipe, CdkScrollable, MatTooltipModule],
+  imports: [AsyncPipe, KeyValuePipe, SlicePipe, CdkScrollable, MatTooltipModule, TranslatePipe],
   templateUrl: './attribute-table.html',
   styleUrl: './attribute-table.scss',
 })

@@ -19,6 +19,40 @@
     "AUTHOR-NAME": "Wykonawca: Dawid Kalbarczyk",
     "AUTHOR-TEXT": "Projekt wykonany w celu samokształcenia."
   },
+  "POP-UP": {
+    "SAVED": {
+      "TITLE": "Wybrane obiekty zostały pomyślnie zapisane",
+      "CLOSE-BUTT": "Zamknij",
+      "REDIRECT": "Przejdź do zapisanych analiz"
+    },
+    "DELETE": {
+      "TITLE1": "Wybrane obiekty zostaną usunięte",
+      "TITLE2": "Kontynuować?"
+    },
+    "OBJ-SAVE": {
+      "TITLE": "Zapisanie wybranych obiektów",
+      "INPUT": "Wpisz nazwę nowej warstwy, aby zapisać wybrane obiekty",
+      "SAVE-BUTT": "Zapisz",
+      "CANCEL-BUTT": "Anuluj"
+    },
+    "LOGIN": {
+      "TITLE": "Zaloguj się lub zarejestruj, aby korzystać z tej funkcji",
+      "REGISTER": "Zarejestruj się",
+      "LOGIN": "Zaloguj się",
+      "CANCEL-BUTT": "Anuluj"
+    },
+    "INFO": {
+      "TITLE": "Informacje dotyczące atrybutów warstwy",
+      "CLOSE-BUTT": "Zamknij"
+    },
+    "EMPTY-TABLE": {
+      "TITLE1": "Twoje zapytanie zwróciło warstwę o pustej tabeli atrybutów.",
+      "TITLE2": "Spróbuj innego zapytania.",
+      "CLOSE-BUTT": "Zamknij"
+    },
+    "YES": "Tak",
+    "NO": "Nie"
+  },
   "GEOPORTAL": {
     "ANALYSIS": "Analizy",
     "ANALYSIS-CONTENT": { 
@@ -28,6 +62,7 @@
       "ATTRIBUTE-CONTENT": {
         "TITLE": "Analiza atrybutowa",
         "TEXT": "Stwórz zapytanie, aby zaznaczyć obiekty",
+        "YOUR-ANALYSIS": "Twoja analiza",
         "CHOOSE-LAYER": "Wybierz obiekty z warstwy:",
         "CHOOSE-ATTRIBUTE": "gdzie atrybut:",
         "ATTRIBUTE-DESCRIPTIONS": {
@@ -71,10 +106,18 @@
           "gmina": "Gmina, na której terenie znajduje się obiekt.",
           "idgminy": "Identyfikator gminy w Państwowym Rejestrze Granic. Odpowiada identyfikatorowi TERYT."
         },
+        "TABLE": {
+          "EMPTY-TABLE": "Tabela jest pusta! Wybierz warstwę lub wykonaj zapytanie, aby wyświetlić atrybuty.",
+          "SHOWN": "Wyświetlono",
+          "FROM": "z",
+          "ROWS": "wierszy",
+          "LOADING": "Wczytywanie tabeli..."
+        },
         "CONDITION": "warunek...",
         "SUBMIT-BUTT": "Analizuj",
         "UPDATE-BUTT": "Aktualizuj",
         "TABLE-BUTT": "Pokaż tabelę atrybutów",
+        "TABLE-BUTT-CLOSE": "Ukryj tabelę atrybutów",
         "SAVE-BUTT": "Zapisz analizę atrybutową",
         "POP-UP": {
           "TITLE": "Informacje dotyczące atrybutów warstwy",

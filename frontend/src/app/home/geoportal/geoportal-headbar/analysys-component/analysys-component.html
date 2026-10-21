@@ -36,7 +36,7 @@
                                     }
                                 }
                                 @if (attributeSelectedLayer() === 'Attribute Selection') {
-                                    <option value="Attribute Selection" [style.background-color]="'#ebd834'">Attribute Selection</option>
+                                    <option value="Attribute Selection" [style.background-color]="'#ebd834'">{{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.YOUR-ANALYSIS' | translate}}</option>
                                 }
 
                             </select>
@@ -81,7 +81,7 @@
                             
                         </form>
                         <button class="show-attribute-table-butt" (click)="toggleAttributeTable()" [class.show-attribute-table-butt-on]="showAttributeTable()">
-                            {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE-BUTT' | translate}}
+                            {{showAttributeTable() ? 'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE-BUTT-CLOSE' : 'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE-BUTT' | translate}}
                         </button>
                         <button class="save-attribute-table-butt">
                             {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.SAVE-BUTT' | translate}}

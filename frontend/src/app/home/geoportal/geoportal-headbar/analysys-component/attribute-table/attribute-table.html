@@ -3,7 +3,7 @@
         <div class="empty-table" role="status">
             <div class="empty-table-content">
                 <img src="./images/icons/bored.png" alt="Bored" draggable="false">
-                <p>Table is empty! Pick a layer or make a query.</p>
+                <p>{{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.EMPTY-TABLE' | translate}}</p>
                 <img src="./images/icons/bored.png" alt="Bored" draggable="false">
             </div>
             
@@ -43,7 +43,7 @@
                     </tbody>
                 </table>
                 <div class="attribute-table-progress" role="status">
-                    Wyświetlono {{ table.length < visibleRowCount() ? table.length : visibleRowCount() }} z {{ table.length }} wierszy
+                    {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.SHOWN' | translate}} {{ table.length < visibleRowCount() ? table.length : visibleRowCount() }} {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.FROM' | translate}} {{ table.length }} {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.ROWS' | translate}}
                 </div>
             </div>
 
@@ -52,7 +52,7 @@
         </div>
 
     } @else {
-        <div class="attribute-table-progress" role="status">Wczytywanie tabeli…</div>
+        <div class="attribute-table-progress" role="status">{{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.LOADING' | translate}}</div>
     }
 
 

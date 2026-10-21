@@ -464,7 +464,8 @@ export class AnalysysComponent {
     }
 
     async ngOnDestroy() {
-      await this.deleteAttributeSelection();
+      this.objectSelection.analysisDeactive();
+      await this.clearAttributeSelection();
     }
 
     handleLayerChange(event: string, layerModel: NgModel): void {
