@@ -14,13 +14,41 @@
     z-index: 99999999;
     pointer-events: auto;
     background-color: #fff;
-    border: 1px solid rgba($buttons-color, 0.15);
+    border: 1px solid rgba(0,0,0,0.2);
     border-radius: 0.75rem 0 0 0;
-    box-shadow: 0 -0.5rem 2rem rgba(0, 0, 0, 0.12);
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.2);
     font-family: $text-font-family;
     font-size: 0.85rem;
     line-height: 1.5;
     color: $buttons-color;
+    min-height: 10rem;
+
+    .empty-table {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 10rem;
+        padding: 1rem;
+        box-sizing: border-box;
+        text-align: center;
+
+        .empty-table-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 5rem;
+
+            img {
+                width: 5rem;
+                height: 5rem;
+            }
+            p {
+                font-size: 1.5rem ;
+                font-weight: 600;
+            }
+        }
+        
+    }
 
     .attribute-table-panel {
         display: flex;
@@ -47,8 +75,8 @@
         overflow: auto;
 
         &::-webkit-scrollbar {
-            width: 0.5rem;
-            height: 0.5rem;
+            width: 0.625rem;
+            height: 0.625rem;
         }
 
         &::-webkit-scrollbar-track:vertical {

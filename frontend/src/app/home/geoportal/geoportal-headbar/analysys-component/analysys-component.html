@@ -80,7 +80,7 @@
                             </div>
                             
                         </form>
-                        <button class="show-attribute-table-butt" (click)="toggleAttributeTable()" [disabled]="!(attributeLayer !== '')">
+                        <button class="show-attribute-table-butt" (click)="toggleAttributeTable()" [class.show-attribute-table-butt-on]="showAttributeTable()">
                             {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE-BUTT' | translate}}
                         </button>
                         <button class="save-attribute-table-butt">
@@ -174,7 +174,7 @@
                 </div>
             </div>
             @if (showAttributeTable()) {
-                <app-attribute-table [shownTable]="shownTable()"></app-attribute-table>
+                <app-attribute-table [shownTable]="shownTable()" [isShownTableEmpty]="isShownTableEmpty()"></app-attribute-table>
             }
         </div>
     </div>
