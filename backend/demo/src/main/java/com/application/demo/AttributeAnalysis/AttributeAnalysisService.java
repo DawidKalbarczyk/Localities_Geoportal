@@ -154,7 +154,7 @@ public class AttributeAnalysisService {
         switch (layer) {
             case "boundsLayerPanstwo":
                 return "boundspanstwo";
-            case "boundsLayerWojewodztwo":
+            case "boundsLayerWojewodz":
                 return "boundswojewodz";
             case "boundsLayerPowiaty":
                 return "boundspowiaty";
