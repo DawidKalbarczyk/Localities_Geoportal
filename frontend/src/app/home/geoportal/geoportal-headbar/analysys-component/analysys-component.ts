@@ -175,20 +175,36 @@ export class AnalysysComponent {
       this.attributeSelectedLayer.set(text);
     }
   
+/* =============================================================================
+                        3.0. CHECK IF QUERY GIVES BACK EMPTY TABLE
+============================================================================= */
+
+    private async checkQuery(formData: FormData, caseString: string): Promise<'valid' | 'empty' | 'error'> {
+      formData.append('caseString', caseString);
+      try {
+        const response = await firstValueFrom(this.http.post('/attribute-analysis/check-query', formData, { responseType: 'text' }));
+        switch (response) {
+          case 'Query is valid.':
+            return 'valid';
+          case 'Query is not valid.':
+            return 'empty';
+          default:
+            console.error('Unexpected response from check-query:', response);
+            return 'error';
+        }
+      } catch (error) {
+        console.error('Error checking query:', error);
+        return 'error';
+      }
+      
+    }
 
 /* =============================================================================
                         3. NEW ATTRIBUTE SELECTION
 ============================================================================= */
     private async createNewAttributeSelection(): Promise<void> {
-      if (this.attributeLayer()) {
-        this.map.removeLayer(this.attributeTileLayer || this.attributeVectorLayer);
-      }
-
-
-      // Osobny czas, aby reset ręcznej selekcji nie usunął tabeli analizy atrybutowej.
       const newTime = Date.now().toString();
       const newUserId = this.objectSelection.getUserId();
-      //this.map.removeLayer('attributeSelectionLayer'); - to nie dziala
       const formData = new FormData();
       formData.append('attributeLayer', this.attributeLayer());
       formData.append('attributeAttribute', this.attributeAttribute());
@@ -200,9 +216,29 @@ export class AnalysysComponent {
           return this.attributeCondition;
         }
       })());
-
       formData.append('userId', newUserId);
       formData.append('time', newTime);
+
+      const checkedQuery = await this.checkQuery(formData, 'new');
+      if (checkedQuery !== 'valid' ) {
+        if (checkedQuery === 'empty') {
+          this.PopUpService.typeOfPopUp.set('empty-table');
+          this.attributeSelectedLayer.set('');
+          this.map.removeLayer(this.attributeTileLayer || this.attributeVectorLayer);
+        }
+        return;
+      }
+      
+      if (this.attributeLayer()) {
+        this.map.removeLayer(this.attributeTileLayer || this.attributeVectorLayer);
+      }
+
+
+      // Osobny czas, aby reset ręcznej selekcji nie usunął tabeli analizy atrybutowej.
+      
+      //this.map.removeLayer('attributeSelectionLayer'); - to nie dziala
+      
+      
 
       
       try {
@@ -284,7 +320,7 @@ export class AnalysysComponent {
       this.oldAttributeLayer = this.attributeLayer();
       this.addSelectedLayerToList();
       
-      await this.checkForEmptyAttributeSelection();
+      await this.getUserLayer(this.oldUserId, this.oldTime);
     }
 
 
@@ -294,15 +330,6 @@ export class AnalysysComponent {
  ============================================================================= */
 
     private async updateAttributeSelection(): Promise<void> {
-      if (this.oldAttributeLayer && this.attributeSelectedLayer() === 'Attribute Selection') {
-        this.map.removeLayer(this.attributeTileLayer || this.attributeVectorLayer);
-      }
-
-      // NIe ma newTime i newUser bo operacja na tej samej tabeli
-      if (this.attributeLayer() !== this.oldAttributeLayer) {
-        console.error('Cannot update attribute selection: attribute layer has changed.');
-        return;
-      }
       const formData = new FormData();
       formData.append('attributeLayer', this.attributeLayer());
       formData.append('attributeAttribute', this.attributeAttribute());
@@ -316,6 +343,26 @@ export class AnalysysComponent {
       })());
       formData.append('userId', this.oldUserId);
       formData.append('time', this.oldTime);
+
+      const checkedQuery = await this.checkQuery(formData, 'update');
+      if (checkedQuery !== 'valid' ) {
+        if (checkedQuery === 'empty') {
+          this.PopUpService.typeOfPopUp.set('empty-table');
+        }
+        return;
+      }
+
+
+      if (this.oldAttributeLayer && this.attributeSelectedLayer() === 'Attribute Selection') {
+        this.map.removeLayer(this.attributeTileLayer || this.attributeVectorLayer);
+      }
+
+      // NIe ma newTime i newUser bo operacja na tej samej tabeli
+      if (this.attributeLayer() !== this.oldAttributeLayer) {
+        console.error('Cannot update attribute selection: attribute layer has changed.');
+        return;
+      }
+      
       try {
         const response = await firstValueFrom(this.http.post('/attribute-analysis/update-attribute-selection', formData, { responseType: 'text' }));
         console.log("Happily returning UPDATE from backend: ", response);
@@ -388,14 +435,7 @@ export class AnalysysComponent {
 
       this.layerVisibility.setLayerVisibility('vectorLayer', false);
    
-      await this.checkForEmptyAttributeSelection();
-    }
-
-    private async checkForEmptyAttributeSelection(): Promise<void> {
       await this.getUserLayer(this.oldUserId, this.oldTime);
-      if (this.rowCount() === 0) {
-        this.PopUpService.typeOfPopUp.set('empty-table');
-      }
     }
 
     private resetAttributeLayerChoice(): void {
@@ -457,7 +497,6 @@ export class AnalysysComponent {
       })
       effect(() => {
         if (this.PopUpService.emptyTablePopUpClosed()) {
-          this.resetAttributeLayerChoice();
           this.PopUpService.emptyTablePopUpClosed.set(false);
         }
       });
@@ -540,7 +579,7 @@ export class AnalysysComponent {
         attributeForm.control.markAllAsTouched();
         return;
       }
-      if (this.attributeSelectedLayer() !== 'Attribute Selection' && this.attributeLayer() !== this.oldAttributeLayer) {
+      if (this.attributeSelectedLayer() !== 'Attribute Selection') {
         this.submitType.set('new');
         this.attributeFormSubmit(this.submitType());
         return;
@@ -557,7 +596,7 @@ export class AnalysysComponent {
 
 
     /* =============================================================================
-                          7. GET USER ATTRIBUTE SELECTION TABLE
+                          8. GET USER ATTRIBUTE SELECTION TABLE
  ============================================================================= */
     public rowCount = signal<number | null>(null);
     public rows = signal<Record<string, unknown>[]>([]);
@@ -603,10 +642,6 @@ export class AnalysysComponent {
 
     public isShownTableEmpty = computed(() => this.attributeLayer() === '');
     public toggleAttributeTable(): void {  /// For HTML button
-      if (this.showAttributeTable() === true) {
-        this.rows.set([]);
-        this.rowsPickedLayer.set([]);
-      }
       this.showAttributeTable.set(!this.showAttributeTable());
     }
 

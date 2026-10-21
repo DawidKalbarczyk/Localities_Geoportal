@@ -116,6 +116,29 @@ public class AttributeAnalysisController {
         }
     }
 
+    @PostMapping ("/check-query")
+    public ResponseEntity<?> checkQuery(@RequestParam Map<String, Object> formData) {
+        Map<String, Object> attributeFormData = new HashMap<>();
+
+        attributeFormData.put("attributeLayer", formData.get("attributeLayer"));
+        attributeFormData.put("attributeAttribute", formData.get("attributeAttribute"));
+        attributeFormData.put("attributeSign", formData.get("attributeSign"));
+        attributeFormData.put("attributeCondition", formData.get("attributeCondition"));
+        attributeFormData.put("userId", formData.get("userId"));
+        attributeFormData.put("time", formData.get("time"));
+        attributeFormData.put("caseString", formData.get("caseString"));
+
+        try {
+            String response = attributeAnalysisService.checkQuery(attributeFormData);
+            if (response.startsWith("Error")) {
+                return ResponseEntity.badRequest().body("Error: Invalid query.");
+            }
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error checking query: " + e.getMessage());
+        }
+    }
+
     @DeleteMapping ("/delete-attribute-selection")
     public ResponseEntity<?> deleteAttribute(@RequestParam String oldUserId, @RequestParam String oldTime) {
         try {
