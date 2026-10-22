@@ -32,4 +32,21 @@ export class AttributeTable {
       this.visibleRowCount.update(count => Math.min(count + this.batchSize, totalRows));
     }
   }
+
+///////////////// SORT VALUES IN THE ATTRIBUTE TABLE ////////////////////////
+
+  private isSortedAscending = signal(false);
+  public sortTableData(data: Record<string, unknown>[], attributeKey: string): Record<string, unknown>[] {
+    const ascending = !this.isSortedAscending();
+    this.isSortedAscending.set(ascending);
+
+    return data.sort((a, b) => {
+      const aValue = a[attributeKey] as string;
+      const bValue = b[attributeKey] as string;
+
+      if (aValue < bValue) return ascending ? -1 : 1;
+      if (aValue > bValue) return ascending ? 1 : -1;
+      return 0;
+    });
+  }
 }

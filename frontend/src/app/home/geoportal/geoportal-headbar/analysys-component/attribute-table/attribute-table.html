@@ -19,7 +19,7 @@
                         <tr class="first-row">
                             @if (table[0]; as firstRow) {
                                 @for (attribute of firstRow | keyvalue: null; track attribute.key) {
-                                    <th class="first-row-cell" scope="col">
+                                    <th class="first-row-cell" scope="col" (click)="sortTableData(table, attribute.key)">
                                         <span class="cell-content" [matTooltip]="attribute.key"
                                             matTooltipClass="attribute-table-tooltip" matTooltipPosition="above"
                                             [matTooltipPositionAtOrigin]="true" [matTooltipShowDelay]="500">{{ attribute.key }}</span>

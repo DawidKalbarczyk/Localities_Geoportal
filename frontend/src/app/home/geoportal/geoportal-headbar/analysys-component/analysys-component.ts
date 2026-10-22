@@ -131,7 +131,7 @@ export class AnalysysComponent {
     public attributeLayer = signal<string>('');
     public attributeAttribute = signal<string>('');
     public attributeSign: string = "=";
-    public attributeCondition: string = "";
+    public attributeCondition = signal<string>('');
     public attributeSQLResponse = signal<string>('');
     private oldTime: string = '';
     private oldUserId: string = '';
@@ -153,7 +153,7 @@ export class AnalysysComponent {
       this.attributeSelectedLayer.set('');
       this.attributeAttribute.set('');
       this.attributeSign = '=';
-      this.attributeCondition = '';
+      this.attributeCondition.set('');
       this.AMService.showResolution('map');
       await this.deleteAttributeSelection();
     }
@@ -211,9 +211,9 @@ export class AnalysysComponent {
       formData.append('attributeSign', this.attributeSign);
       formData.append('attributeCondition', (() => {
         if (this.attributeAttribute() === 'shape_leng' || this.attributeAttribute() === 'shape_le_1' || this.attributeAttribute() === 'shape_area') {
-          return String(Number(this.attributeCondition) * 1_000_000);
+          return String(Number(this.attributeCondition()) * 1_000_000);
         } else {
-          return this.attributeCondition;
+          return this.attributeCondition();
         }
       })());
       formData.append('userId', newUserId);
@@ -336,9 +336,9 @@ export class AnalysysComponent {
       formData.append('attributeSign', this.attributeSign);
       formData.append('attributeCondition', (() => {
         if (this.attributeAttribute() === 'shape_leng' || this.attributeAttribute() === 'shape_le_1' || this.attributeAttribute() === 'shape_area') {
-          return String(Number(this.attributeCondition) * 1_000_000);
+          return String(Number(this.attributeCondition()) * 1_000_000);
         } else {
-          return this.attributeCondition;
+          return this.attributeCondition();
         }
       })());
       formData.append('userId', this.oldUserId);
@@ -445,7 +445,7 @@ export class AnalysysComponent {
       this.oldAttributeLayer = '';
       this.attributeAttribute.set('');
       this.attributeSign = '=';
-      this.attributeCondition = '';
+      this.attributeCondition.set('');
       this.responseData.set(null);
       this.isHelpButtonEnabled.set(false);
     }
@@ -528,7 +528,7 @@ export class AnalysysComponent {
     public isUpdateButtonEnabled = computed(() => {
       return this.attributeSelectedLayer() === 'Attribute Selection' &&
              this.attributeLayer() === this.oldAttributeLayer &&
-             (this.attributeAttribute() !== '' || this.attributeCondition !== '');
+             (this.attributeAttribute() !== '' || this.attributeCondition() !== '');
     });
 
 
@@ -645,5 +645,37 @@ export class AnalysysComponent {
       this.showAttributeTable.set(!this.showAttributeTable());
     }
 
-  }
-  
+
+        /* =============================================================================
+                          9. ATTRIBUTE SUGGESTIONS TABLE
+ ============================================================================= */
+
+    public attributeSuggestionsTable = signal<string[]>([]);
+    public async attributeSuggestionsFilterTable() {
+      const attributeKey = this.attributeAttribute();
+      const rows = await this.shownTable();
+
+      const values = rows
+        .map(row => row[attributeKey])
+        .filter(value => value !== undefined && value !== null)
+        .map(value => String(value));
+
+      this.attributeSuggestionsTable.set([...new Set(values)]);
+    }
+    
+    public async attributeSuggestionsTableCalc(): Promise<void> {
+      const suggestions = this.attributeSuggestionsTable;
+      const attributeCondition = this.attributeCondition();
+
+      suggestions.update((current: string[]) => {
+        if (attributeCondition) {
+          return [...current].sort((currentItem, conditionItem) => {
+            return currentItem.localeCompare(conditionItem);
+          });
+        }
+        return current;
+      })
+
+    }  
+}
+

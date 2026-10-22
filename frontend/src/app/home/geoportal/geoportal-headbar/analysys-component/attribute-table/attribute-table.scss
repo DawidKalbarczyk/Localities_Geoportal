@@ -104,6 +104,9 @@
         border-spacing: 0;
         table-layout: auto;
 
+        .first-row-cell {
+            cursor: pointer;
+        }
         .first-row-cell, .data-cell {
             padding: 0.7rem 1rem;
             text-align: left;

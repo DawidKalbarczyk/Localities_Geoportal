@@ -44,7 +44,7 @@
                             <label class="attribute-label-where">{{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.CHOOSE-ATTRIBUTE' | translate}}</label>
                             <!-- Nadam tu zapytanie WFS ale tylko i wyłącznei do sprawdzenia kolumn bez ich wartości. -->
                             <div class="attribute-column-select-con">
-                                <select class="attribute-column-select" [ngModel]="attributeAttribute()" (ngModelChange)="attributeAttribute.set($event)" name="attributeAttribute" required>
+                                <select class="attribute-column-select" [ngModel]="attributeAttribute()" (ngModelChange)="attributeAttribute.set($event); attributeSuggestionsFilterTable(); " name="attributeAttribute" required>
                                     <option value="" disabled selected>-- {{'GEOPORTAL.ANALYSIS-CONTENT.SELECTION-CONTENT.SELECT-COLUMN' | translate}} --</option>
                                     @for (attribute of responseData()?.featureType?.attributes.attribute; track attribute) {
                                         <option value="{{attribute?.name}}" 
@@ -67,7 +67,15 @@
                                     <option [disabled]="disableOption()" value="<=">&#8804;</option>
                                     <option [disabled]="disableOption()" value=">=">&#8805;</option>
                                 </select>
-                                <input type="text" [placeholder]="'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.CONDITION' | translate" [(ngModel)]="attributeCondition" name="attributeCondition" required>
+                                <div class="attribute-condition-input-con">
+                                    <input type="text" list="attribute-suggestions" [placeholder]="'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.CONDITION' | translate" 
+                                    [ngModel]="attributeCondition()" (ngModelChange)="attributeCondition.set($event); attributeSuggestionsTableCalc()" name="attributeCondition" required autocomplete="off">
+                                    <datalist id="attribute-suggestions">
+                                        @for (value of attributeSuggestionsTable(); track value) {
+                                            <option [value]="value">{{value}}</option>
+                                        }
+                                    </datalist>
+                                </div>
                             </div>
                             <div class="attribute-buttons">
                                 <button type="button" class="attribute-submit-new-butt" (click)="newSubmit(attributeForm)">
@@ -81,7 +89,7 @@
                             
                         </form>
                         <button class="show-attribute-table-butt" (click)="toggleAttributeTable()" [class.show-attribute-table-butt-on]="showAttributeTable()">
-                            {{showAttributeTable() ? 'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE-BUTT-CLOSE' : 'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE-BUTT' | translate}}
+                            {{(showAttributeTable() ? 'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE-BUTT-CLOSE' : 'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE-BUTT') | translate}}
                         </button>
                         <button class="save-attribute-table-butt">
                             {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.SAVE-BUTT' | translate}}

@@ -319,9 +319,22 @@
                             }   
                         }
 
-                        > input {
-                            display: inline-block;
+                        .attribute-condition-input-con {
+                            position: relative;
+                            width: 100%;
+                            min-width: 0;
+
+                            .attribute-suggestions {
+                                position: absolute;
+                                top: 100%;
+                                left: 0;
+                                right: 0;
+                                background-color: white;
+                                border: 1px solid rgba(0,0,0,0.2);
+                                border-radius: 0 0 0.5rem 0.5rem;
+                            }
                         }
+
                         > select {
                             display: inline-block;
                             
