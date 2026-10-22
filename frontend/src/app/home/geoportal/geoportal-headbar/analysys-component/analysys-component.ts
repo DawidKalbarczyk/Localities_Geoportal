@@ -651,6 +651,7 @@ export class AnalysysComponent {
  ============================================================================= */
 
     public attributeSuggestionsTable = signal<string[]>([]);
+    public attributeSuggestionsTableSearch = signal<string[]>([]);
     public async attributeSuggestionsFilterTable() {
       const attributeKey = this.attributeAttribute();
       const rows = await this.shownTable();
@@ -661,13 +662,27 @@ export class AnalysysComponent {
         .map(value => String(value));
 
       this.attributeSuggestionsTable.set([...new Set(values)]);
+      this.attributeSuggestionsTableSearch.set(this.attributeSuggestionsTable());
     }
     
-    public async attributeSuggestionsTableCalc(): Promise<void> {
+    public async attributeSuggestionsTableCalc(type: 'analysis' | 'search'): Promise<void> {
       const suggestions = this.attributeSuggestionsTable;
+      const suggestionsSearch = this.attributeSuggestionsTableSearch;
       const attributeCondition = this.attributeCondition();
+      
+      let sugg: typeof suggestions | typeof suggestionsSearch;
+      switch (type) {
+        case 'analysis':
+          sugg = suggestions;
+          break;
+        case 'search':
+          sugg = suggestionsSearch;
+          break;
 
-      suggestions.update((current: string[]) => {
+        default: 
+          return;
+      }
+      sugg.update((current: string[]) => {
         if (attributeCondition) {
           return [...current].sort((currentItem, conditionItem) => {
             return currentItem.localeCompare(conditionItem);

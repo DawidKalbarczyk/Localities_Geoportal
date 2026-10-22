@@ -48,7 +48,9 @@
             </div>
 
             <!-- Miejsce na przyciski i narzędzia tabeli. -->
-            <div class="attribute-table-tools"></div>
+            <div class="attribute-table-tools">
+                <app-attribute-table-toolbar [attributeSuggestionsTableSearch]="attributeSuggestionsTableSearch()"></app-attribute-table-toolbar>
+            </div>
         </div>
 
     } @else {

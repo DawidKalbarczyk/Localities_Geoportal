@@ -1,12 +1,13 @@
 @use '../../../../../../variables' as *;
+@use '@angular/material' as mat;
 
 :host {
     --cell-max-width: 28ch;
-    --table-header-height: 2.75rem;
+    --table-header-height: 2.5rem;
 
     display: block;
     position: fixed;
-    max-height: 42vh;
+    max-height: 35vh;
     bottom: $basic-padding-bottom;
     right: 0;
     left: 33%;
@@ -60,9 +61,10 @@
         display: flex;
         min-height: 2rem;
         border-top: 1px solid rgba(0,0,0,0.2);
+        justify-content: start;
+        align-items: center;
         box-sizing: border-box;
         flex-wrap: wrap;
-        align-items: center;
         gap: 0.5rem;
         flex-shrink: 0;
         padding: 0.65rem 1rem;
@@ -106,9 +108,14 @@
 
         .first-row-cell {
             cursor: pointer;
+            transition: filter 0.3s ease;
+
+            &:hover {
+                filter: brightness(0.8);
+            }
         }
         .first-row-cell, .data-cell {
-            padding: 0.7rem 1rem;
+            padding: 0.5rem 1rem;
             text-align: left;
             vertical-align: middle;
             border-right: 1px solid rgba($buttons-color, 0.07);
@@ -155,6 +162,11 @@
             .data-cell {
                 border-bottom: 1px solid rgba($buttons-color, 0.08);
                 user-select: text;
+
+                @include mat.tooltip-overrides((
+                    container-color: orange,
+                    supporting-text-color: red,
+                ));
             }
 
             &:last-child .data-cell {

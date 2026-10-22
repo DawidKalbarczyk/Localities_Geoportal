@@ -69,7 +69,7 @@
                                 </select>
                                 <div class="attribute-condition-input-con">
                                     <input type="text" list="attribute-suggestions" [placeholder]="'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.CONDITION' | translate" 
-                                    [ngModel]="attributeCondition()" (ngModelChange)="attributeCondition.set($event); attributeSuggestionsTableCalc()" name="attributeCondition" required autocomplete="off">
+                                    [ngModel]="attributeCondition()" (ngModelChange)="attributeCondition.set($event); attributeSuggestionsTableCalc('analysis')" name="attributeCondition" required autocomplete="off">
                                     <datalist id="attribute-suggestions">
                                         @for (value of attributeSuggestionsTable(); track value) {
                                             <option [value]="value">{{value}}</option>
@@ -182,7 +182,7 @@
                 </div>
             </div>
             @if (showAttributeTable()) {
-                <app-attribute-table [shownTable]="shownTable()" [isShownTableEmpty]="isShownTableEmpty()"></app-attribute-table>
+                <app-attribute-table [shownTable]="shownTable()" [isShownTableEmpty]="isShownTableEmpty()" [attributeSuggestionsTableSearch]="attributeSuggestionsTableSearch()"></app-attribute-table>
             }
         </div>
     </div>

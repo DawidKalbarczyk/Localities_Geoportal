@@ -3,16 +3,18 @@ import { AsyncPipe, KeyValuePipe, SlicePipe } from '@angular/common';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslatePipe } from '../../../../../pipes/translate.pipe';
+import { AttributeTableToolbar } from '../../../../../global-components/attribute-table-toolbar/attribute-table-toolbar';
 
 @Component({
   selector: 'app-attribute-table',
-  imports: [AsyncPipe, KeyValuePipe, SlicePipe, CdkScrollable, MatTooltipModule, TranslatePipe],
+  imports: [AsyncPipe, KeyValuePipe, SlicePipe, CdkScrollable, MatTooltipModule, TranslatePipe, AttributeTableToolbar],
   templateUrl: './attribute-table.html',
   styleUrl: './attribute-table.scss',
 })
 export class AttributeTable {
   shownTable = input<Promise<Record<string, unknown>[]>>(Promise.resolve([]));
   isShownTableEmpty = input<boolean>(false);
+  attributeSuggestionsTableSearch = input<string[]>([]);
   private readonly batchSize = 100;
   public visibleRowCount = signal(this.batchSize);
 

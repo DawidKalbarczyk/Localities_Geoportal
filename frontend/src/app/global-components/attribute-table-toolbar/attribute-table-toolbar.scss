@@ -1,0 +1,43 @@
+@use '../../../variables' as *;
+@use '@angular/material' as mat;
+
+.toolbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border: none;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.35);
+        border-radius: 0.5rem;
+        cursor: pointer;
+        background-color: $secondary-color-light;
+        transition: filter 0.3s ease;
+
+        @include mat.tooltip-overrides((
+            container-color: orange,
+            supporting-text-color: red,
+        ));
+
+        &:hover {
+            filter: brightness(0.8);
+        }
+
+        img {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+        
+        p {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+    }
+}
