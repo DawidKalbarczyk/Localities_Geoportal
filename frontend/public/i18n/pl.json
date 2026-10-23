@@ -32,6 +32,7 @@
     "OBJ-SAVE": {
       "TITLE": "Zapisanie wybranych obiektów",
       "INPUT": "Wpisz nazwę nowej warstwy, aby zapisać wybrane obiekty",
+      "PLACEHOLDER": "Nazwa zapisanych obiektów...",
       "SAVE-BUTT": "Zapisz",
       "CANCEL-BUTT": "Anuluj"
     },
