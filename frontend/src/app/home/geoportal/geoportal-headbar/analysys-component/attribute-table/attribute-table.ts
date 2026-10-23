@@ -1,4 +1,4 @@
-import { Component, effect, input, signal } from '@angular/core';
+import { Component, effect, input, signal, inject } from '@angular/core';
 import { AsyncPipe, KeyValuePipe, SlicePipe } from '@angular/common';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipModule } from '@angular/material/tooltip';
@@ -23,6 +23,7 @@ import { AttributeTableToolbarService } from '../../../../../services/attribute-
 })
 export class AttributeTable {
   shownTable = input<Promise<Record<string, unknown>[]>>(Promise.resolve([]));
+  ToolbarService = inject(AttributeTableToolbarService);
   isShownTableEmpty = input<boolean>(false);
   attributeSuggestionsTableSearch = input<string[]>([]);
   private readonly batchSize = 100;

@@ -20,6 +20,10 @@ export class AttributeTableToolbarService {
         for (const key in this.ToolbarTools) {
             this.ToolbarTools[key].set(false);
         }
+        this.locateRowStyleOn.set(false);
+        this.didUserClickedOffLocateRowStyle.set(false);
+        this.showTransformButton.set(false);
+        this.highlightLayerRow.set(null);
     }
     public ToolbarMatTooltip = {
         selectionTool: this.ToolbarTools['selectionTool']() ? 
@@ -39,9 +43,16 @@ export class AttributeTableToolbarService {
         console.log("WORKSSSSSS")
         this.ToolbarTools[toolKey].set(!this.ToolbarTools[toolKey]());
     }
-
+  // SELECTION TOOL
     public mainMap: Map | null = null;
     public getMapComponent(map: Map): void {
         this.mainMap = map;
     }
+
+    public locateRowStyleOn = signal<boolean>(false);
+    public didUserClickedOffLocateRowStyle = signal<boolean>(false);
+    public showTransformButton = signal<boolean>(false);
+    public highlightLayerRow = signal<Record<string, unknown> | null>(null);
+
+////////////////////////////////////////
 }

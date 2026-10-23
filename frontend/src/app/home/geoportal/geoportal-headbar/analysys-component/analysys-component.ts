@@ -288,7 +288,7 @@ export class AnalysysComponent {
             return new Style({
               image: new CircleStyle({
                 radius: 15,
-                fill: new Fill({ color: '#36f1b9' }),
+                fill: new Fill({ color: '#ebd834' }),
                 stroke: new Stroke({ color: '#fff', width: 1.5 }),
               }),
               text: showText
@@ -412,7 +412,7 @@ export class AnalysysComponent {
             return new Style({
               image: new CircleStyle({
                 radius: 15,
-                fill: new Fill({ color: '#36f1b9' }),
+                fill: new Fill({ color: '#ebd834' }),
                 stroke: new Stroke({ color: '#fff', width: 1.5 }),
               }),
               text: showText

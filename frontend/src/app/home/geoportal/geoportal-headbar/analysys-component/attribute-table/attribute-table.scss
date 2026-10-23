@@ -1,7 +1,7 @@
 @use '../../../../../../variables' as *;
 @use '@angular/material' as mat;
 
-:host {
+.main-con {
     --cell-max-width: 28ch;
     --table-header-height: 2.5rem;
 
@@ -11,7 +11,7 @@
     bottom: $basic-padding-bottom;
     right: 0;
     left: 33%;
-    overflow: hidden;
+    overflow: visible;
     z-index: 99999999;
     pointer-events: auto;
     background-color: #fff;
@@ -23,6 +23,11 @@
     line-height: 1.5;
     color: $buttons-color;
     min-height: 10rem;
+    transition: left 1s ease;
+
+    &.main-con-transform {
+        left: 66% !important;
+    }
 
     .empty-table {
         display: flex;
@@ -55,6 +60,46 @@
         display: flex;
         flex-direction: column;
         max-height: inherit;
+        position: relative;
+        overflow: hidden;
+        border-radius: inherit;
+    }
+
+    .transform-back-con {
+        position: absolute;
+        left: -5rem;
+        top: 0;
+        bottom: 0;
+        z-index: 9999999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        pointer-events: none;
+
+        > button {
+            background-color: $secondary-color-light;
+            border: none;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.35);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.5rem;
+            pointer-events: auto;
+
+            img {
+                width: 2.5rem;
+                height: 2.5rem;
+                pointer-events: auto;
+                transition: transform 1s ease;
+
+                &.transform-back-img {
+                    transform: rotate(180deg);
+                }
+            }
+        }
     }
 
     .attribute-table-tools {
@@ -64,7 +109,11 @@
         justify-content: start;
         align-items: center;
         box-sizing: border-box;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: thin;
+        scrollbar-color: #a3a3a3 #f6f6f6;
         gap: 0.5rem;
         flex-shrink: 0;
         padding: 0.65rem 1rem;
@@ -151,6 +200,15 @@
             background-color: #fff;
             transition: background-color 0.15s ease;
             user-select: text;
+
+            &.data-row-selection-on {
+                cursor: pointer;
+            }
+            &.highlighted-row {
+                background-color: $buttons-color !important;
+                color: white;
+                border-right: white 1px solid;
+            }
 
             &:nth-child(even) {
                 background-color: #f6f6f6;

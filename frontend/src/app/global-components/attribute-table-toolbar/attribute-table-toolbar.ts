@@ -1,4 +1,4 @@
-import { Component, input, inject, OnDestroy, signal } from '@angular/core';
+import { Component, input, inject, OnDestroy } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AttributeTableToolbarService } from '../../services/attribute-table-toolbar-service/attribute-table-toolbar-service';
 import { TranslatePipe } from '../../pipes/translate.pipe';
@@ -22,7 +22,10 @@ export class AttributeTableToolbar implements OnDestroy {
   public ToolbarMatTooltip = this.ToolbarService.ToolbarMatTooltip;
   public toggleTool(tool: string): void {
     this.ToolbarService.toggleActivationTool(tool);
-    if (!this.isSelectionToolActive()) this.highlightLayer.getSource()?.clear();
+    if (!this.isSelectionToolActive()) {
+      this.highlightLayer.getSource()?.clear();
+      this.ToolbarService.highlightLayerRow.set(null);
+    }
   }
 
   // SELECTION TOOL
@@ -32,17 +35,22 @@ export class AttributeTableToolbar implements OnDestroy {
     source: new VectorSource(),
     zIndex: 9999,
     style: {
-      'fill-color': 'rgba(255, 195, 51, 0.35)',
-      'stroke-color': '#ffc333', 'stroke-width': 4,
-      'circle-radius': 10, 'circle-fill-color': '#ffc333',
+      'fill-color': 'rgba(44, 44, 44, 0.5)',
+      'stroke-color': '#2c2c2c', 'stroke-width': 5,
+      'circle-radius': 20, 'circle-fill-color': '#2c2c2c',
       'circle-stroke-color': '#fff', 'circle-stroke-width': 3,
     },
   });
 
-  public locateRowStyleOn = signal<boolean>(false);
+  public locateRowStyleOn = this.ToolbarService.locateRowStyleOn;
+  public didUserClickedOffLocateRowStyle = this.ToolbarService.didUserClickedOffLocateRowStyle;
   public locateRow(row: Record<string, unknown>): void {
-    this.locateRowStyleOn.set(true);
     if (!this.isSelectionToolActive() || !this.map || !row['wkb_geometry']) return;
+    this.ToolbarService.highlightLayerRow.set(row);
+    if (this.didUserClickedOffLocateRowStyle() === false) {
+      this.locateRowStyleOn.set(true);
+    }
+    
 
     const geometry = new GeoJSON().readGeometry(row['wkb_geometry'], {
       dataProjection: 'EPSG:4326', featureProjection: this.map.getView().getProjection(),
@@ -56,10 +64,12 @@ export class AttributeTableToolbar implements OnDestroy {
     this.map.getView().fit(geometry.getExtent(), {
       padding: [100, 100, 100, 100], maxZoom: geometry.getType() === 'Point' ? 10 : 12, duration: 1000,
     });
+    this.ToolbarService.showTransformButton.set(true);
   }
 
   public ngOnDestroy(): void {
     this.map?.removeLayer(this.highlightLayer);
+    this.ToolbarService.resetToolbarTools();
   }
 
   
