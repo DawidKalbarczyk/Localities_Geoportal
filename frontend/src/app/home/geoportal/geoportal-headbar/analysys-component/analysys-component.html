@@ -68,7 +68,7 @@
                                     <option [disabled]="disableOption()" value=">=">&#8805;</option>
                                 </select>
                                 <div class="attribute-condition-input-con">
-                                    <input type="text" list="attribute-suggestions" [placeholder]="'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.CONDITION' | translate" 
+                                    <input type="text" [attr.list]="isAttributeConditionNumeric() ? null : 'attribute-suggestions'" [placeholder]="'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.CONDITION' | translate" 
                                     [ngModel]="attributeCondition()" (ngModelChange)="attributeCondition.set($event); attributeSuggestionsTableCalc('analysis')" name="attributeCondition" required autocomplete="off">
                                     <datalist id="attribute-suggestions">
                                         @for (value of attributeSuggestionsTable(); track value) {

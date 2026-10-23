@@ -654,6 +654,10 @@ export class AnalysysComponent {
 
     public attributeSuggestionsTable = signal<string[]>([]);
     public attributeSuggestionsTableSearch = signal<string[]>([]);
+    public isAttributeConditionNumeric = computed(() => {
+      const value = this.attributeCondition().trim().replace(',', '.');
+      return value !== '' && Number.isFinite(Number(value));
+    });
     public async attributeSuggestionsFilterTable() {
       const attributeKey = this.attributeAttribute();
       const rows = await this.shownTable();
@@ -685,7 +689,7 @@ export class AnalysysComponent {
           return;
       }
       sugg.update((current: string[]) => {
-        if (attributeCondition) {
+        if (attributeCondition && !this.isAttributeConditionNumeric()) {
           return [...current].sort((currentItem, conditionItem) => {
             return currentItem.localeCompare(conditionItem);
           });
