@@ -39,6 +39,25 @@
             }
         }
     }
+
+    .search-input {
+            flex-shrink: 0;
+            white-space: nowrap;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            height: 100%;
+            padding: 0.5rem 1rem;
+            border: none;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.35);
+            border-radius: 0.5rem;
+            background-color: $secondary-color-light;
+
+            &:focus {
+                outline: none;
+            }
+        }
     
 
     button {

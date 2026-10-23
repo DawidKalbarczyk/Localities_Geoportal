@@ -1,4 +1,4 @@
-import { Component, effect, input, signal, inject } from '@angular/core';
+import { afterNextRender, Component, effect, input, signal, inject, Injector } from '@angular/core';
 import { AsyncPipe, KeyValuePipe, SlicePipe } from '@angular/common';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipModule } from '@angular/material/tooltip';
@@ -22,6 +22,7 @@ import { AttributeTableToolbarService } from '../../../../../services/attribute-
   }],
 })
 export class AttributeTable {
+  private readonly injector = inject(Injector);
   shownTable = input<Promise<Record<string, unknown>[]>>(Promise.resolve([]));
   ToolbarService = inject(AttributeTableToolbarService);
   isShownTableEmpty = input<boolean>(false);
@@ -35,6 +36,17 @@ export class AttributeTable {
       this.isShownTableEmpty();
       this.visibleRowCount.set(this.batchSize);
     });
+  }
+
+  public revealRow(row: Record<string, unknown>, table: Record<string, unknown>[], container: HTMLElement, toolbar: AttributeTableToolbar): void {
+    this.visibleRowCount.update(count => Math.max(count, table.indexOf(row) + 1));
+    afterNextRender(() => {
+      if (this.ToolbarService.highlightLayerRow() !== row) return;
+      const element = container.querySelector('.highlighted-row');
+      if (!element) return;
+      element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      requestAnimationFrame(() => toolbar.animateToRow(row));
+    }, { injector: this.injector });
   }
 
   public onTableScroll(event: Event, totalRows: number): void {

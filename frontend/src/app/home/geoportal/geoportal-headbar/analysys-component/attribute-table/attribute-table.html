@@ -14,7 +14,7 @@
     } @else {
         @if (shownTable() | async; as table) {
             <div class="attribute-table-panel">
-                <div class="attribute-table-scroll" cdkScrollable (scroll)="onTableScroll($event, table.length)">
+                <div #tableScroll class="attribute-table-scroll" cdkScrollable (scroll)="onTableScroll($event, table.length)">
                     <table class="attribute-table">
                         <thead>
                             <tr class="first-row">
@@ -33,7 +33,7 @@
                         </thead>
                         <tbody>
                             @for (row of table | slice: 0 : visibleRowCount(); track $index) {
-                                <tr class="data-row" (click)="toolbar.locateRow(row)" [class.data-row-selection-on]="ToolbarService.ToolbarTools['selectionTool']()"
+                                <tr class="data-row" (click)="toolbar.isSelectionToolActive() && toolbar.locateRow(row)" [class.data-row-selection-on]="ToolbarService.ToolbarTools['selectionTool']()"
                                 [class.highlighted-row]="ToolbarService.highlightLayerRow() === row">
                                     @for (attribute of row | keyvalue: null; track attribute.key) {
                                         @if (attribute.key !== 'wkb_geometry') {
@@ -56,7 +56,7 @@
 
                 <!-- Miejsce na przyciski i narzędzia tabeli. -->
                 <div class="attribute-table-tools">
-                    <app-attribute-table-toolbar #toolbar [attributeSuggestionsTableSearch]="attributeSuggestionsTableSearch()" [shownTable]="shownTable()"></app-attribute-table-toolbar>
+                    <app-attribute-table-toolbar #toolbar [attributeSuggestionsTableSearch]="attributeSuggestionsTableSearch()" [shownTable]="shownTable()" (rowLocated)="revealRow($event, table, tableScroll, toolbar)"></app-attribute-table-toolbar>
                 </div>
             </div>
             @if (ToolbarService.showTransformButton()) {

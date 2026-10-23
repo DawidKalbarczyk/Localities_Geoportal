@@ -469,6 +469,11 @@ export class AnalysysComponent {
 
     constructor() {
       effect(() => {
+        const rows = this.attributeSelectedLayer() === 'Attribute Selection' ? this.rows() : this.rowsPickedLayer();
+        const names = rows.map(row => String(row['nazwa'] ?? row['jpt_nazwa_'] ?? '')).filter(Boolean);
+        this.attributeSuggestionsTableSearch.set(this.attributeLayer() ? [...new Set(names)] : []);
+      });
+      effect(() => {
         const deleteItems = this.PopUpService.attributeSelectionDeleteHandler();
         if (deleteItems === null || !this.pendingAttributeLayer) {
           return;
@@ -505,6 +510,7 @@ export class AnalysysComponent {
     }
 
     async ngOnDestroy() {
+      this.toolbarService.resetToolbarTools();
       this.objectSelection.analysisDeactive();
       await this.clearAttributeSelection();
     }
@@ -668,7 +674,6 @@ export class AnalysysComponent {
         .map(value => String(value));
 
       this.attributeSuggestionsTable.set([...new Set(values)]);
-      this.attributeSuggestionsTableSearch.set(this.attributeSuggestionsTable());
     }
     
     public async attributeSuggestionsTableCalc(type: 'analysis' | 'search'): Promise<void> {
