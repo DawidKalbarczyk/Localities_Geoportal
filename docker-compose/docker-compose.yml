@@ -38,6 +38,7 @@ services:
     environment:
       - *env-geoserver-password
       - *env-geoserver-user
+      - JAVA_TOOL_OPTIONS=-Dorg.bouncycastle.native.cpu_variant=java
       - REQUEST_TIMEOUT=180
       - SINGLE_USER=300
       - GETMAP=300
