@@ -131,15 +131,15 @@ public class AttributeAnalysisService {
     }
     
     public List<Map<String, Object>> getSelection(String tableName) {
-        List<Map<String,Object>> result = jdbcTemplate.queryForList("SELECT * FROM \"" + tableName.toLowerCase() + "\"");
-        result.forEach(row -> row.remove("wkb_geometry"));
+        List<Map<String,Object>> result = jdbcTemplate.queryForList("SELECT *, ST_AsGeoJSON(ST_Transform(wkb_geometry, 4326)) AS geometry_json FROM \"" + tableName.toLowerCase() + "\"");
+        result.forEach(row -> row.put("wkb_geometry", row.remove("geometry_json")));
         return result;
     } 
 
     public List<Map<String, Object>> getPickedLayer(String pickedTable) {
         String tableName = translateLayer(pickedTable);
-        List<Map<String, Object>> result = jdbcTemplate.queryForList("SELECT * FROM \"" + tableName.toLowerCase() + "\"");
-        result.forEach(row -> row.remove("wkb_geometry"));
+        List<Map<String, Object>> result = jdbcTemplate.queryForList("SELECT *, ST_AsGeoJSON(ST_Transform(wkb_geometry, 4326)) AS geometry_json FROM \"" + tableName.toLowerCase() + "\"");
+        result.forEach(row -> row.put("wkb_geometry", row.remove("geometry_json")));
         return result;
     }
 

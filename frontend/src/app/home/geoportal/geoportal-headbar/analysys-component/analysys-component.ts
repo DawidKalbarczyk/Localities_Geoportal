@@ -22,6 +22,7 @@ import Stroke from 'ol/style/Stroke';
 import Text from 'ol/style/Text';
 import { LayerVisibility } from '../../../../services/layer-visibility/layer-visibility';
 import { AttributeTable } from './attribute-table/attribute-table';
+import { AttributeTableToolbarService } from '../../../../services/attribute-table-toolbar-service/attribute-table-toolbar-service';
 
 @Component({
   selector: 'app-analysys-component',
@@ -35,6 +36,7 @@ export class AnalysysComponent {
   public zoomToObject = inject(ZoomToObject);
   public GeoserverService = inject(GeoserverService);
   public loginService = inject(LoginService);
+  public toolbarService = inject(AttributeTableToolbarService);
   
   public userCreation(userId: string, func: 'createWorkspace' | 'createTempWorkspace' | 'createDatastore' | 'createTempDatastore' ) {
     this.GeoserverService[func](userId).subscribe({

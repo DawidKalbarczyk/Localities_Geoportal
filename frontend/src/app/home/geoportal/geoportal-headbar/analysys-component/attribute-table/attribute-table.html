@@ -19,24 +19,28 @@
                         <tr class="first-row">
                             @if (table[0]; as firstRow) {
                                 @for (attribute of firstRow | keyvalue: null; track attribute.key) {
-                                    <th class="first-row-cell" scope="col" (click)="sortTableData(table, attribute.key)">
-                                        <span class="cell-content" [matTooltip]="attribute.key"
-                                            matTooltipClass="attribute-table-tooltip" matTooltipPosition="above"
-                                            [matTooltipPositionAtOrigin]="true" [matTooltipShowDelay]="500">{{ attribute.key }}</span>
-                                    </th>
+                                    @if (attribute.key !== 'wkb_geometry') {
+                                        <th class="first-row-cell" scope="col" (click)="sortTableData(table, attribute.key)">
+                                            <span class="cell-content" [matTooltip]="attribute.key"
+                                                matTooltipClass="attribute-table-tooltip" matTooltipPosition="above"
+                                                [matTooltipPositionAtOrigin]="true" [matTooltipShowDelay]="500">{{ attribute.key }}</span>
+                                        </th>
+                                    }
                                 }
                             }
                         </tr>
                     </thead>
                     <tbody>
                         @for (row of table | slice: 0 : visibleRowCount(); track $index) {
-                            <tr class="data-row">
+                            <tr class="data-row" (click)="toolbar.locateRow(row)">
                                 @for (attribute of row | keyvalue: null; track attribute.key) {
-                                    <td class="data-cell">
-                                        <span class="cell-content" matTooltip="{{ attribute.value }}"
-                                            matTooltipClass="attribute-table-tooltip" matTooltipPosition="above"
-                                            [matTooltipPositionAtOrigin]="true" [matTooltipShowDelay]="500">{{ attribute.value }}</span>
-                                    </td>
+                                    @if (attribute.key !== 'wkb_geometry') {
+                                        <td class="data-cell">
+                                            <span class="cell-content" matTooltip="{{ attribute.value }}"
+                                                matTooltipClass="attribute-table-tooltip" matTooltipPosition="above"
+                                                [matTooltipPositionAtOrigin]="true" [matTooltipShowDelay]="500">{{ attribute.value }}</span>
+                                        </td>
+                                    }
                                 }
                             </tr>
                         }
@@ -50,7 +54,7 @@
 
             <!-- Miejsce na przyciski i narzędzia tabeli. -->
             <div class="attribute-table-tools">
-                <app-attribute-table-toolbar [attributeSuggestionsTableSearch]="attributeSuggestionsTableSearch()"></app-attribute-table-toolbar>
+                <app-attribute-table-toolbar #toolbar [attributeSuggestionsTableSearch]="attributeSuggestionsTableSearch()" [shownTable]="shownTable()"></app-attribute-table-toolbar>
             </div>
         </div>
 

@@ -1,4 +1,5 @@
 import { Service, signal, type WritableSignal } from '@angular/core';
+import { Map } from 'ol';
 
 export type ToolbarTool = {
     [key: string]: WritableSignal<boolean>;
@@ -15,6 +16,11 @@ export class AttributeTableToolbarService {
         filterTool: signal<boolean>(false),
         calculateFieldTool: signal<boolean>(false),
     };
+    public resetToolbarTools(): void {
+        for (const key in this.ToolbarTools) {
+            this.ToolbarTools[key].set(false);
+        }
+    }
     public ToolbarMatTooltip = {
         selectionTool: this.ToolbarTools['selectionTool']() ? 
             "ATTRIBUTE-TOOLBAR.SELECT.ON" : 
@@ -32,5 +38,10 @@ export class AttributeTableToolbarService {
     public toggleActivationTool(toolKey: keyof typeof this.ToolbarTools): void {
         console.log("WORKSSSSSS")
         this.ToolbarTools[toolKey].set(!this.ToolbarTools[toolKey]());
+    }
+
+    public mainMap: Map | null = null;
+    public getMapComponent(map: Map): void {
+        this.mainMap = map;
     }
 }

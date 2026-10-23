@@ -20,7 +20,7 @@ import { getAuth } from 'firebase/auth';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
 import { AMService } from '../../../services/a-m-service/a-m-service';
-
+import { AttributeTableToolbarService } from '../../../services/attribute-table-toolbar-service/attribute-table-toolbar-service';
 
 @Component({
   selector: 'app-map-component',
@@ -46,6 +46,7 @@ export class MapComponent implements AfterViewInit {
   private zoomToObject = inject(ZoomToObject);
   public vectorResults = inject(LayerVisibility).vectorResults;
   private AMService = inject(AMService);
+  private ToolbarService = inject(AttributeTableToolbarService);
 
   private showLabel!: boolean;
 
@@ -134,6 +135,7 @@ export class MapComponent implements AfterViewInit {
     });
     this.zoomToObject.setMap(this.map);
     this.AMService.getMap(this.map);
+    this.ToolbarService.getMapComponent(this.map);
     this.objectSelection.getMapLayers(this.map.getLayers());
     
     this.map.on('singleclick', (event) => {

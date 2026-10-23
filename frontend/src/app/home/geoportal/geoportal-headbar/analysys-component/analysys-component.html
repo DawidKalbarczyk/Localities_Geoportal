@@ -3,9 +3,9 @@
         <div class="content-wrapper">
             <div class="title" [style.justify-content]="objectSelection.analysysPicked() ? 'start' : 'center'">
                 @if (objectSelection.analysysPicked() === true && objectSelection.analysisNrPicked() !== 'none') {
-                    <button class="analysys-return" (click)="objectSelection.analysisDeactive(); clearAttributeSelection(); objectSelection.clearAllSelectedVariables()" [style.display]="objectSelection.analysysPicked() ? 'block' : 'none'">&#8635;</button>
+                    <button class="analysys-return" (click)="toolbarService.resetToolbarTools(); objectSelection.analysisDeactive(); clearAttributeSelection(); objectSelection.clearAllSelectedVariables()" [style.display]="objectSelection.analysysPicked() ? 'block' : 'none'">&#8635;</button>
                 } @else {
-                    <button class="analysys-return" (click)="objectSelection.analysisDeactive();" [style.display]="objectSelection.analysysPicked() ? 'block' : 'none'">&#8635;</button>
+                    <button class="analysys-return" (click)="toolbarService.resetToolbarTools(); objectSelection.analysisDeactive();" [style.display]="objectSelection.analysysPicked() ? 'block' : 'none'">&#8635;</button>
                 }
                 
                 <p>{{ objectSelection.toolPicked() !== 'Błąd' ? (objectSelection.toolPicked() | translate) : ('GEOPORTAL.ANALYSIS-CONTENT.TITLE' | translate) }}</p>
