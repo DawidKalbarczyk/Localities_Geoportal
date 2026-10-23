@@ -7,6 +7,33 @@
     align-items: center;
     gap: 1rem;
 
+    .select-item, .search-item, .filter-item, .calculate-field {
+        transition: background-color 0.3s ease;
+        p {
+            transition: color 0.3s ease;
+        }
+        img {
+            transition: filter 0.3s ease;
+        }
+
+        &.select-item-active, &.search-item-active, &.filter-item-active, &.calculate-field-active {
+            background-color: $buttons-color !important;
+            transition: filter 0.3s ease !important;
+
+            p {
+                color: white !important;
+            }
+            img {
+                filter: invert(100%) !important;
+            }
+
+            &:hover {
+                filter: brightness(1.5) !important;
+            }
+        }
+    }
+    
+
     button {
         display: flex;
         justify-content: center;

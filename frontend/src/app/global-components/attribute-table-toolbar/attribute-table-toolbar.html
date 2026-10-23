@@ -1,24 +1,29 @@
 <div class="toolbar">
-    <button class="select-item" matTooltip="Kliknij z wybranym narzędziem na rekord, aby przejść do niego na mapie">
+    <button class="select-item" [class.select-item-active]="isSelectionToolActive()" (click)="toggleTool('selectionTool')"
+    [matTooltip]="ToolbarMatTooltip.selectionTool | translate">
         <img src="./images/icons/touchscreen.png" draggable="false" alt="Select Item">
-        <p>Zlokalizuj</p>
+        <p>{{'ATTRIBUTE-TOOLBAR.SELECT.NAME' | translate}}</p>
         <!--DODAJ TEŻ TRANSLATING DLA TITLE'ÓW-->
     </button>
-    <button class="search-item" matTooltip="Wyszukiwarka rekordów po nazwie">
+    <button class="search-item" [class.search-item-active]="isSearchToolActive()" (click)="toggleTool('searchTool')"
+    [matTooltip]="ToolbarMatTooltip.searchTool | translate">
         <img src="./images/icons/loupe.png" draggable="false" alt="Search Item">
-        <p>Wyszukaj</p>
+        <p>{{'ATTRIBUTE-TOOLBAR.SEARCH.NAME' | translate}}</p>
     </button>
-    <button class="filter-item" matTooltip="Filtracja rekordów">
+    <button class="filter-item" [class.filter-item-active]="isFilterToolActive()" (click)="toggleTool('filterTool')"
+    [matTooltip]="ToolbarMatTooltip.filterTool | translate">
         <img src="./images/icons/filter.png" draggable="false" alt="Filter Item">
-        <p>Filtruj</p>
+        <p>{{'ATTRIBUTE-TOOLBAR.FILTER.NAME' | translate}}</p>
     </button>
-    <button class="reset-filter" matTooltip="Reset filtrów">
+    <button class="reset-filter" 
+    [matTooltip]="'ATTRIBUTE-TOOLBAR.RESET.ON' | translate">
         <img src="./images/icons/reset.png" draggable="false" alt="Reset Filter">
-        <p>Resetuj filtry</p>
+        <p>{{'ATTRIBUTE-TOOLBAR.RESET.NAME' | translate}}</p>
     </button>
-    <button class="calculate-field" matTooltip="Oblicz pole na podstawie atrybutów">
+    <button class="calculate-field" [class.calculate-field-active]="isCalculateFieldToolActive()" (click)="toggleTool('calculateFieldTool')"
+    [matTooltip]="ToolbarMatTooltip.calculateFieldTool | translate">
         <img src="./images/icons/calculator.png" draggable="false" alt="Calculate Field">
-        <p>Oblicz pole</p>
+        <p>{{'ATTRIBUTE-TOOLBAR.CALCULATE.NAME' | translate}}</p>
     </button>
 </div>
 

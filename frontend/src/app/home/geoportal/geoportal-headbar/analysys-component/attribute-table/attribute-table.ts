@@ -1,15 +1,25 @@
 import { Component, effect, input, signal } from '@angular/core';
 import { AsyncPipe, KeyValuePipe, SlicePipe } from '@angular/common';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipModule } from '@angular/material/tooltip';
 import { TranslatePipe } from '../../../../../pipes/translate.pipe';
 import { AttributeTableToolbar } from '../../../../../global-components/attribute-table-toolbar/attribute-table-toolbar';
+import { AttributeTableToolbarService } from '../../../../../services/attribute-table-toolbar-service/attribute-table-toolbar-service';
 
 @Component({
   selector: 'app-attribute-table',
   imports: [AsyncPipe, KeyValuePipe, SlicePipe, CdkScrollable, MatTooltipModule, TranslatePipe, AttributeTableToolbar],
   templateUrl: './attribute-table.html',
   styleUrl: './attribute-table.scss',
+  providers: [{
+    provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
+    useValue: {
+      showDelay: 0,
+      hideDelay: 0,
+      touchendHideDelay: 1500,
+      disableTooltipInteractivity: true,
+    },
+  }],
 })
 export class AttributeTable {
   shownTable = input<Promise<Record<string, unknown>[]>>(Promise.resolve([]));
@@ -51,4 +61,8 @@ export class AttributeTable {
       return 0;
     });
   }
+
+///////////////// SELECTION/MULTI-SELECTION HANDLING ////////////////////////
+
+  
 }

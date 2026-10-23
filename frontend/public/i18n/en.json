@@ -24,6 +24,32 @@
       "OBJ-SAVED": ""
     }
   },
+  "ATTRIBUTE-TOOLBAR": {
+    "SELECT": {
+      "NAME": "Locate",
+      "ON": "With this tool active, click a record to locate it on the map",
+      "OFF": "Turn off the tool for locating records on the map"
+    },
+    "SEARCH": {
+      "NAME": "Search",
+      "ON": "Search records by name",
+      "OFF": "Turn off record search"
+    },
+    "FILTER": {
+      "NAME": "Filter",
+      "ON": "Filter records",
+      "OFF": "Turn off record filtering"
+    },
+    "RESET": {
+      "NAME": "Reset filters",
+      "ON": "Reset filters"
+    },
+    "CALCULATE": {
+      "NAME": "Calculate field",
+      "ON": "Calculate a field based on attributes",
+      "OFF": "Turn off the field calculation tool"
+    }
+  },
   "GEOPORTAL": {
     "ANALYSIS": "Analysis",
     "ANALYSIS-CONTENT": {

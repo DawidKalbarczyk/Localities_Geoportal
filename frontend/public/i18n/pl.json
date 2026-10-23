@@ -53,6 +53,32 @@
     "YES": "Tak",
     "NO": "Nie"
   },
+  "ATTRIBUTE-TOOLBAR": {
+    "SELECT": {
+      "NAME": "Zlokalizuj",
+      "ON": "Kliknij z wybranym narzędziem na rekord, aby przejść do niego na mapie",
+      "OFF": "Wyłącz narzędzie lokalizacji rekordu na mapie"
+    },
+    "SEARCH": {
+      "NAME": "Wyszukaj",
+      "ON": "Wyszukiwarka rekordów po nazwie",
+      "OFF": "Wyłącz wyszukiwarkę rekordów"
+    },
+    "FILTER": {
+      "NAME": "Filtruj",
+      "ON": "Filtracja rekordów",
+      "OFF": "Wyłącz filtrację rekordów"
+    },
+    "RESET": {
+      "NAME": "Resetuj filtry",
+      "ON": "Reset filtrów"
+    },
+    "CALCULATE": {
+      "NAME": "Oblicz pole",
+      "ON": "Oblicz pole na podstawie atrybutów",
+      "OFF": "Wyłącz narzędzie obliczania pól"
+    }
+  },
   "GEOPORTAL": {
     "ANALYSIS": "Analizy",
     "ANALYSIS-CONTENT": { 

@@ -93,9 +93,10 @@
     }
 
     .attribute-table-progress {
-        padding: 0.6rem 1rem;
+        flex-shrink: 0;
+        padding: 0.25rem 1rem;
         color: #666;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         background-color: #f6f6f6;
         border-top: 1px solid rgba($buttons-color, 0.08);
     }
