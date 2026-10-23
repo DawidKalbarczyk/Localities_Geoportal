@@ -22,6 +22,7 @@ import Stroke from 'ol/style/Stroke';
 import Text from 'ol/style/Text';
 import { LayerVisibility } from '../../../../services/layer-visibility/layer-visibility';
 import { AttributeTable } from './attribute-table/attribute-table';
+import { AttributeTableToolbarService } from '../../../../services/attribute-table-toolbar-service/attribute-table-toolbar-service';
 
 @Component({
   selector: 'app-analysys-component',
@@ -35,6 +36,7 @@ export class AnalysysComponent {
   public zoomToObject = inject(ZoomToObject);
   public GeoserverService = inject(GeoserverService);
   public loginService = inject(LoginService);
+  public toolbarService = inject(AttributeTableToolbarService);
   
   public userCreation(userId: string, func: 'createWorkspace' | 'createTempWorkspace' | 'createDatastore' | 'createTempDatastore' ) {
     this.GeoserverService[func](userId).subscribe({
@@ -131,7 +133,7 @@ export class AnalysysComponent {
     public attributeLayer = signal<string>('');
     public attributeAttribute = signal<string>('');
     public attributeSign: string = "=";
-    public attributeCondition: string = "";
+    public attributeCondition = signal<string>('');
     public attributeSQLResponse = signal<string>('');
     private oldTime: string = '';
     private oldUserId: string = '';
@@ -153,7 +155,7 @@ export class AnalysysComponent {
       this.attributeSelectedLayer.set('');
       this.attributeAttribute.set('');
       this.attributeSign = '=';
-      this.attributeCondition = '';
+      this.attributeCondition.set('');
       this.AMService.showResolution('map');
       await this.deleteAttributeSelection();
     }
@@ -211,9 +213,9 @@ export class AnalysysComponent {
       formData.append('attributeSign', this.attributeSign);
       formData.append('attributeCondition', (() => {
         if (this.attributeAttribute() === 'shape_leng' || this.attributeAttribute() === 'shape_le_1' || this.attributeAttribute() === 'shape_area') {
-          return String(Number(this.attributeCondition) * 1_000_000);
+          return String(Number(this.attributeCondition()) * 1_000_000);
         } else {
-          return this.attributeCondition;
+          return this.attributeCondition();
         }
       })());
       formData.append('userId', newUserId);
@@ -286,7 +288,7 @@ export class AnalysysComponent {
             return new Style({
               image: new CircleStyle({
                 radius: 15,
-                fill: new Fill({ color: '#36f1b9' }),
+                fill: new Fill({ color: '#ebd834' }),
                 stroke: new Stroke({ color: '#fff', width: 1.5 }),
               }),
               text: showText
@@ -336,9 +338,9 @@ export class AnalysysComponent {
       formData.append('attributeSign', this.attributeSign);
       formData.append('attributeCondition', (() => {
         if (this.attributeAttribute() === 'shape_leng' || this.attributeAttribute() === 'shape_le_1' || this.attributeAttribute() === 'shape_area') {
-          return String(Number(this.attributeCondition) * 1_000_000);
+          return String(Number(this.attributeCondition()) * 1_000_000);
         } else {
-          return this.attributeCondition;
+          return this.attributeCondition();
         }
       })());
       formData.append('userId', this.oldUserId);
@@ -410,7 +412,7 @@ export class AnalysysComponent {
             return new Style({
               image: new CircleStyle({
                 radius: 15,
-                fill: new Fill({ color: '#36f1b9' }),
+                fill: new Fill({ color: '#ebd834' }),
                 stroke: new Stroke({ color: '#fff', width: 1.5 }),
               }),
               text: showText
@@ -445,7 +447,7 @@ export class AnalysysComponent {
       this.oldAttributeLayer = '';
       this.attributeAttribute.set('');
       this.attributeSign = '=';
-      this.attributeCondition = '';
+      this.attributeCondition.set('');
       this.responseData.set(null);
       this.isHelpButtonEnabled.set(false);
     }
@@ -466,6 +468,11 @@ export class AnalysysComponent {
     private pendingLayerModel?: NgModel;
 
     constructor() {
+      effect(() => {
+        const rows = this.attributeSelectedLayer() === 'Attribute Selection' ? this.rows() : this.rowsPickedLayer();
+        const names = rows.map(row => String(row['nazwa'] ?? row['jpt_nazwa_'] ?? '')).filter(Boolean);
+        this.attributeSuggestionsTableSearch.set(this.attributeLayer() ? [...new Set(names)] : []);
+      });
       effect(() => {
         const deleteItems = this.PopUpService.attributeSelectionDeleteHandler();
         if (deleteItems === null || !this.pendingAttributeLayer) {
@@ -503,6 +510,7 @@ export class AnalysysComponent {
     }
 
     async ngOnDestroy() {
+      this.toolbarService.resetToolbarTools();
       this.objectSelection.analysisDeactive();
       await this.clearAttributeSelection();
     }
@@ -528,7 +536,7 @@ export class AnalysysComponent {
     public isUpdateButtonEnabled = computed(() => {
       return this.attributeSelectedLayer() === 'Attribute Selection' &&
              this.attributeLayer() === this.oldAttributeLayer &&
-             (this.attributeAttribute() !== '' || this.attributeCondition !== '');
+             (this.attributeAttribute() !== '' || this.attributeCondition() !== '');
     });
 
 
@@ -645,5 +653,55 @@ export class AnalysysComponent {
       this.showAttributeTable.set(!this.showAttributeTable());
     }
 
-  }
-  
+
+        /* =============================================================================
+                          9. ATTRIBUTE SUGGESTIONS TABLE
+ ============================================================================= */
+
+    public attributeSuggestionsTable = signal<string[]>([]);
+    public attributeSuggestionsTableSearch = signal<string[]>([]);
+    public isAttributeConditionNumeric = computed(() => {
+      const value = this.attributeCondition().trim().replace(',', '.');
+      return value !== '' && Number.isFinite(Number(value));
+    });
+    public async attributeSuggestionsFilterTable() {
+      const attributeKey = this.attributeAttribute();
+      const rows = await this.shownTable();
+
+      const values = rows
+        .map(row => row[attributeKey])
+        .filter(value => value !== undefined && value !== null)
+        .map(value => String(value));
+
+      this.attributeSuggestionsTable.set([...new Set(values)]);
+    }
+    
+    public async attributeSuggestionsTableCalc(type: 'analysis' | 'search'): Promise<void> {
+      const suggestions = this.attributeSuggestionsTable;
+      const suggestionsSearch = this.attributeSuggestionsTableSearch;
+      const attributeCondition = this.attributeCondition();
+      
+      let sugg: typeof suggestions | typeof suggestionsSearch;
+      switch (type) {
+        case 'analysis':
+          sugg = suggestions;
+          break;
+        case 'search':
+          sugg = suggestionsSearch;
+          break;
+
+        default: 
+          return;
+      }
+      sugg.update((current: string[]) => {
+        if (attributeCondition && !this.isAttributeConditionNumeric()) {
+          return [...current].sort((currentItem, conditionItem) => {
+            return currentItem.localeCompare(conditionItem);
+          });
+        }
+        return current;
+      })
+
+    }  
+}
+

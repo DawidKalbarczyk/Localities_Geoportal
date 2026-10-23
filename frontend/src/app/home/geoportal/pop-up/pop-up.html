@@ -47,7 +47,7 @@
                 {{'POP-UP.OBJ-SAVE.INPUT' | translate}}
             </p>
             <div class="user-layer-name-con">
-                <input [(ngModel)]="userLayerName" type="text" placeholder="Nazwa zapisanych obiektów..." class="user-layer-name">
+                <input [(ngModel)]="userLayerName" type="text" [placeholder]="'POP-UP.OBJ-SAVE.PLACEHOLDER' | translate" class="user-layer-name">
             </div>
             <div class="pop-up-butt-con">
                 <button class="pop-up-yes-butt" (click)="AMService.saveSelectedObjects(userLayerName)">{{'POP-UP.OBJ-SAVE.SAVE-BUTT' | translate}}</button>

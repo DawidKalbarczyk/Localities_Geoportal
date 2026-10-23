@@ -1,0 +1,98 @@
+@use '../../../variables' as *;
+@use '@angular/material' as mat;
+
+:host {
+    display: block;
+    width: max-content;
+    min-width: 100%;
+    flex-shrink: 0;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+
+    .select-item, .search-item, .filter-item, .calculate-field {
+        transition: background-color 0.3s ease;
+        p {
+            transition: color 0.3s ease;
+        }
+        img {
+            transition: filter 0.3s ease;
+        }
+
+        &.select-item-active, &.search-item-active, &.filter-item-active, &.calculate-field-active {
+            background-color: $buttons-color !important;
+            transition: filter 0.3s ease !important;
+
+            p {
+                color: white !important;
+            }
+            img {
+                filter: invert(100%) !important;
+            }
+
+            &:hover {
+                filter: brightness(1.5) !important;
+            }
+        }
+    }
+
+    .search-input {
+            flex-shrink: 0;
+            white-space: nowrap;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            height: 100%;
+            padding: 0.5rem 1rem;
+            border: none;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.35);
+            border-radius: 0.5rem;
+            background-color: $secondary-color-light;
+
+            &:focus {
+                outline: none;
+            }
+        }
+    
+
+    button {
+        flex-shrink: 0;
+        white-space: nowrap;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border: none;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.35);
+        border-radius: 0.5rem;
+        cursor: pointer;
+        background-color: $secondary-color-light;
+        transition: filter 0.3s ease;
+
+        @include mat.tooltip-overrides((
+            container-color: orange,
+            supporting-text-color: red,
+        ));
+
+        &:hover {
+            filter: brightness(0.8);
+        }
+
+        img {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+        
+        p {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+    }
+}

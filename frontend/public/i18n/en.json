@@ -21,7 +21,64 @@
   },
   "POP-UP": {
     "SAVED": {
-      "OBJ-SAVED": ""
+      "TITLE": "The selected objects have been saved successfully",
+      "CLOSE-BUTT": "Close",
+      "REDIRECT": "View saved analyses"
+    },
+    "DELETE": {
+      "TITLE1": "The selected objects will be deleted",
+      "TITLE2": "Continue?"
+    },
+    "OBJ-SAVE": {
+      "TITLE": "Save selected objects",
+      "INPUT": "Enter a name for the new layer to save the selected objects",
+      "PLACEHOLDER": "Name of saved objects...",
+      "SAVE-BUTT": "Save",
+      "CANCEL-BUTT": "Cancel"
+    },
+    "LOGIN": {
+      "TITLE": "Sign in or sign up to use this feature",
+      "REGISTER": "Sign up",
+      "LOGIN": "Sign in",
+      "CANCEL-BUTT": "Cancel"
+    },
+    "INFO": {
+      "TITLE": "Layer attribute information",
+      "CLOSE-BUTT": "Close"
+    },
+    "EMPTY-TABLE": {
+      "TITLE1": "Your query returned a layer with an empty attribute table.",
+      "TITLE2": "Try a different query.",
+      "CLOSE-BUTT": "Close"
+    },
+    "YES": "Yes",
+    "NO": "No"
+  },
+  "ATTRIBUTE-TOOLBAR": {
+    "SELECT": {
+      "NAME": "Locate",
+      "ON": "With this tool active, click a record to locate it on the map",
+      "OFF": "Turn off the tool for locating records on the map"
+    },
+    "SEARCH": {
+      "NAME": "Search",
+      "PLACEHOLDER": "Search by name...",
+      "ON": "Search records by name",
+      "OFF": "Turn off record search"
+    },
+    "FILTER": {
+      "NAME": "Filter",
+      "ON": "Filter records",
+      "OFF": "Turn off record filtering"
+    },
+    "RESET": {
+      "NAME": "Reset filters",
+      "ON": "Reset filters"
+    },
+    "CALCULATE": {
+      "NAME": "Calculate field",
+      "ON": "Calculate a field based on attributes",
+      "OFF": "Turn off the field calculation tool"
     }
   },
   "GEOPORTAL": {

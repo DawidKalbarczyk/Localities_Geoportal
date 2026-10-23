@@ -16,6 +16,7 @@ import { PopUp } from './pop-up/pop-up';
 import { PopUpService } from '../../services/pop-up-service/pop-up-service';
 import { GeoportalCorner } from '../../global-components/geoportal-corner/geoportal-corner';
 import { firstValueFrom } from 'rxjs';
+import { AttributeTableToolbarService } from '../../services/attribute-table-toolbar-service/attribute-table-toolbar-service';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class Geoportal implements OnDestroy, OnInit {
   private currentToken = '';
   public zoomService = inject(ZoomToObject);
   public popUpService = inject(PopUpService);
+  private toolbarService = inject(AttributeTableToolbarService);
 
   constructor() {
     const auth = getAuth();
@@ -79,6 +81,7 @@ export class Geoportal implements OnDestroy, OnInit {
   }
   
   ngOnDestroy(): void {
+    this.toolbarService.resetToolbarTools();
     this.GeoserverService.deleteTemps(this.objectSelection.userId).subscribe({
       next: (response) => {
         console.log('Temporary workspaces and datastores deleted successfully:', response);

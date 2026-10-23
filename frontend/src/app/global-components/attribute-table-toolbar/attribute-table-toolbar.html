@@ -1,0 +1,37 @@
+<div class="toolbar">
+    <button class="select-item" [class.select-item-active]="isSelectionToolActive()" (click)="toggleTool('selectionTool')"
+    [matTooltip]="ToolbarMatTooltip().selectionTool | translate">
+        <img src="./images/icons/touchscreen.png" draggable="false" alt="Select Item">
+        <p>{{'ATTRIBUTE-TOOLBAR.SELECT.NAME' | translate}}</p>
+    </button>
+    <button class="search-item" [class.search-item-active]="isSearchToolActive()" (click)="toggleTool('searchTool')"
+    [matTooltip]="ToolbarMatTooltip().searchTool | translate">
+        <img src="./images/icons/loupe.png" draggable="false" alt="Search Item">
+        <p>{{'ATTRIBUTE-TOOLBAR.SEARCH.NAME' | translate}}</p>
+    </button>
+    @if (isSearchToolActive()) {
+        <input type="text" list="toolbar-search-suggestions" [placeholder]="'ATTRIBUTE-TOOLBAR.SEARCH.PLACEHOLDER' | translate"
+        [ngModel]="searchInput()" (ngModelChange)="searchInput.set($event)" (keyup.enter)="locateSearchRow()" class="search-input"/>
+        <datalist id="toolbar-search-suggestions">
+            @for (value of attributeSuggestionsTableSearch(); track value) {
+                <option [value]="value">{{value}}</option>
+            }
+        </datalist>
+    }
+    <button class="filter-item" [class.filter-item-active]="isFilterToolActive()" (click)="toggleTool('filterTool')"
+    [matTooltip]="ToolbarMatTooltip().filterTool | translate">
+        <img src="./images/icons/filter.png" draggable="false" alt="Filter Item">
+        <p>{{'ATTRIBUTE-TOOLBAR.FILTER.NAME' | translate}}</p>
+    </button>
+    <button class="reset-filter" 
+    [matTooltip]="'ATTRIBUTE-TOOLBAR.RESET.ON' | translate">
+        <img src="./images/icons/reset.png" draggable="false" alt="Reset Filter">
+        <p>{{'ATTRIBUTE-TOOLBAR.RESET.NAME' | translate}}</p>
+    </button>
+    <button class="calculate-field" [class.calculate-field-active]="isCalculateFieldToolActive()" (click)="toggleTool('calculateFieldTool')"
+    [matTooltip]="ToolbarMatTooltip().calculateFieldTool | translate">
+        <img src="./images/icons/calculator.png" draggable="false" alt="Calculate Field">
+        <p>{{'ATTRIBUTE-TOOLBAR.CALCULATE.NAME' | translate}}</p>
+    </button>
+</div>
+

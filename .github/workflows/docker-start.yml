@@ -21,6 +21,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set GeoServer workspace for GitHub
+        run: find frontend/src -type f -name '*.ts' -exec sed -i 's/AngularLocal/AngularSpring/g' {} +
+
       - name: Create .env file 
         run: |
           echo "ENV_NAME=${{github.ref_name}}" >> .env
