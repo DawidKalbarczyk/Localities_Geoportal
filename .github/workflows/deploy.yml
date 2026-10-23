@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set GeoServer workspace for GitHub
-        run: find frontend/src -type f -name '*.ts' -exec sed -i 's/AngularLocal/AngularSpring/g' {} +
+        run: find frontend/src -type f -name '*.ts' -exec sed -i 's/AngularLocal/AngularAppSpring/g' {} +
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
