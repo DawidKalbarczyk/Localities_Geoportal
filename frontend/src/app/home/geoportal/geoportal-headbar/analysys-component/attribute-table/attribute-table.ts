@@ -30,7 +30,7 @@ export class AttributeTable {
   private readonly batchSize = 100;
   public visibleRowCount = signal(this.batchSize);
   public rowStartIndex = signal(0);
-  public readonly rowHeight = 40;
+  public readonly rowHeight = 32;
 
   constructor() {
     effect(() => {

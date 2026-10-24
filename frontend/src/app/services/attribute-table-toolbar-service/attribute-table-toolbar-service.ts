@@ -93,4 +93,13 @@ export class AttributeTableToolbarService {
     public highlightLayerRow = signal<Record<string, unknown> | null>(null);
 
 ////////////////////////////////////////
+
+/// FILTER TOOL///////////////////////
+    public filterNr = signal<number>(1);
+    public incrementFilterNr(): void {
+        this.filterNr.update((value) => value + 1);
+    }
+    public decrementFilterNr(): void {
+        this.filterNr.update((value) => value - 1);
+    }
 }

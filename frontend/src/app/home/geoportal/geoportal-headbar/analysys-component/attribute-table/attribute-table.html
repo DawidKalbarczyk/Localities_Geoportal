@@ -15,58 +15,109 @@
         @if (shownTable() | async; as table) {
             @let visibleRows = table | slice: rowStartIndex() : rowStartIndex() + visibleRowCount();
             <div class="attribute-table-panel">
-                <div #tableScroll class="attribute-table-scroll" cdkScrollable (scroll)="onTableScroll($event, table.length)">
-                    <table class="attribute-table">
-                        <thead>
-                            <tr class="first-row">
-                                @if (table[0]; as firstRow) {
-                                    @for (attribute of firstRow | keyvalue: null; track attribute.key) {
-                                        @if (attribute.key !== 'wkb_geometry') {
-                                            <th class="first-row-cell" scope="col" (click)="sortTableData(table, attribute.key)">
-                                                <span class="cell-content" [matTooltip]="attribute.key"
-                                                    matTooltipClass="attribute-table-tooltip" matTooltipPosition="above"
-                                                    [matTooltipPositionAtOrigin]="true" [matTooltipShowDelay]="500">{{ attribute.key }}</span>
-                                            </th>
+                <div class="attribute-table-content">
+                    <div #tableScroll class="attribute-table-scroll" cdkScrollable (scroll)="onTableScroll($event, table.length)">
+                        <table class="attribute-table">
+                            <thead>
+                                <tr class="first-row">
+                                    @if (table[0]; as firstRow) {
+                                        @for (attribute of firstRow | keyvalue: null; track attribute.key) {
+                                            @if (attribute.key !== 'wkb_geometry') {
+                                                <th class="first-row-cell" scope="col" (click)="sortTableData(table, attribute.key)">
+                                                    <span class="cell-content" [matTooltip]="attribute.key"
+                                                        matTooltipClass="attribute-table-tooltip" matTooltipPosition="above"
+                                                        [matTooltipPositionAtOrigin]="true" [matTooltipShowDelay]="500">{{ attribute.key }}</span>
+                                                </th>
+                                            }
                                         }
                                     }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (rowStartIndex() > 0) {
+                                    <tr class="data-spacer" aria-hidden="true" [style.height.px]="rowStartIndex() * rowHeight">
+                                        <td [attr.colspan]="columnCount(table[0])"></td>
+                                    </tr>
                                 }
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (rowStartIndex() > 0) {
-                                <tr class="data-spacer" aria-hidden="true" [style.height.px]="rowStartIndex() * rowHeight">
-                                    <td [attr.colspan]="columnCount(table[0])"></td>
-                                </tr>
-                            }
-                            @for (row of visibleRows; track row) {
-                                <tr class="data-row" (click)="toolbar.isSelectionToolActive() && toolbar.locateRow(row)" [class.data-row-selection-on]="ToolbarService.ToolbarTools['selectionTool']()"
-                                [class.even-row]="(rowStartIndex() + $index) % 2 === 1"
-                                [class.highlighted-row]="ToolbarService.highlightLayerRow() === row">
-                                    @for (attribute of row | keyvalue: null; track attribute.key) {
-                                        @if (attribute.key !== 'wkb_geometry') {
-                                            <td class="data-cell">
-                                                <span class="cell-content" matTooltip="{{ attribute.value }}"
-                                                    matTooltipClass="attribute-table-tooltip" matTooltipPosition="above"
-                                                    [matTooltipPositionAtOrigin]="true" [matTooltipShowDelay]="500">{{ attribute.value }}</span>
-                                            </td>
+                                @for (row of visibleRows; track row) {
+                                    <tr class="data-row" (click)="toolbar.isSelectionToolActive() && toolbar.locateRow(row)" [class.data-row-selection-on]="ToolbarService.ToolbarTools['selectionTool']()"
+                                    [class.even-row]="(rowStartIndex() + $index) % 2 === 1"
+                                    [class.highlighted-row]="ToolbarService.highlightLayerRow() === row">
+                                        @for (attribute of row | keyvalue: null; track attribute.key) {
+                                            @if (attribute.key !== 'wkb_geometry') {
+                                                <td class="data-cell">
+                                                    <span class="cell-content" matTooltip="{{ attribute.value }}"
+                                                        matTooltipClass="attribute-table-tooltip" matTooltipPosition="above"
+                                                        [matTooltipPositionAtOrigin]="true" [matTooltipShowDelay]="500">{{ attribute.value }}</span>
+                                                </td>
+                                            }
                                         }
-                                    }
-                                </tr>
-                            }
-                            @if (rowStartIndex() + visibleRows.length < table.length) {
-                                <tr class="data-spacer" aria-hidden="true" [style.height.px]="(table.length - rowStartIndex() - visibleRows.length) * rowHeight">
-                                    <td [attr.colspan]="columnCount(table[0])"></td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                    <div class="filter-tool-container">
-
+                                    </tr>
+                                }
+                                @if (rowStartIndex() + visibleRows.length < table.length) {
+                                    <tr class="data-spacer" aria-hidden="true" [style.height.px]="(table.length - rowStartIndex() - visibleRows.length) * rowHeight">
+                                        <td [attr.colspan]="columnCount(table[0])"></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </div>
+                    @if (ToolbarService.locateRowStyleOn() === false) {
+                        <div class="filter-tool-container" [class.filter-tool-container-on]="ToolbarService.ToolbarTools['filterTool']()">
+                            <div class="header-con">
+                                <div class="title-con">
+                                    <div><p>Filtry</p></div>
+                                    <div class="title-con-counter"><p>Nr</p></div>
+                                </div>
+                                <div class="conditions-con">
+                                    <div><p>Dopasuj warunki</p></div>
+                                    <div>
+                                        <button class="all-filters">
+                                            Wszystkie
+                                        </button>
+                                        <button class="or-filters">
+                                            Dowolny
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="filter-content">
+                                <div class="filter-row">
+                                    <select>
+                                        <option>atrybut</option>
+                                    </select>
+                                    <select>
+                                        <option>operator</option>
+                                    </select>
+                                    <input type="text" placeholder="wartość...">
+                                    <div>
+                                        <img src="./images/icons/close.png" alt="Delete filter">
+                                    </div>
+                                </div>
+                                <div class="filter-add-row">
+                                    <div>
+                                        <button>
+                                            <img src="./images/icons/add.png" alt="Add filter">
+                                            <p>Dodaj filtr</p>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer-con">
+                                <div class="footer-clear-con">
+                                    <button class="footer-clear-butt">Wyczyść</button>
+                                </div>
+                                <div class="footer-apply-con">
+                                    <button class="footer-apply-butt">Zastosuj filtry</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    
                 </div>
 
                 <div class="attribute-table-progress" role="status">
-                    {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.SHOWN' | translate}} {{ visibleRows.length }} {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.FROM' | translate}} {{ table.length }} {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.ROWS' | translate}}
+                    {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.SHOWN' | translate}} {{ table.length ? (rowStartIndex() + 1) + '–' : '' }}{{ rowStartIndex() + visibleRows.length }} {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.FROM' | translate}} {{ table.length }} {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.ROWS' | translate}}
                 </div>
 
                 <!-- Miejsce na przyciski i narzędzia tabeli. -->

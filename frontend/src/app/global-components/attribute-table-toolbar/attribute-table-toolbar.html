@@ -18,12 +18,14 @@
             }
         </datalist>
     }
-    <button class="filter-item" [class.filter-item-active]="isFilterToolActive()" (click)="toggleTool('filterTool')"
-    [matTooltip]="ToolbarMatTooltip().filterTool | translate">
+    <button class="filter-item" [class.filter-item-active]="isFilterToolActive() && ToolbarService.locateRowStyleOn() === false"
+    [disabled]="ToolbarService.locateRowStyleOn() === true" 
+    (click)="toggleTool('filterTool')" [matTooltip]="ToolbarMatTooltip().filterTool | translate">
         <img src="./images/icons/filter.png" draggable="false" alt="Filter Item">
         <p>{{'ATTRIBUTE-TOOLBAR.FILTER.NAME' | translate}}</p>
     </button>
     <button class="reset-filter" 
+    [disabled]="ToolbarService.locateRowStyleOn() === true" 
     [matTooltip]="'ATTRIBUTE-TOOLBAR.RESET.ON' | translate">
         <img src="./images/icons/reset.png" draggable="false" alt="Reset Filter">
         <p>{{'ATTRIBUTE-TOOLBAR.RESET.NAME' | translate}}</p>
