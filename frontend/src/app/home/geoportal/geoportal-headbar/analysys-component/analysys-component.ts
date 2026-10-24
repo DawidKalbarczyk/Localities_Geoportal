@@ -222,6 +222,19 @@ export class AnalysysComponent {
       formData.append('time', newTime);
 
       const checkedQuery = await this.checkQuery(formData, 'new');
+      if (checkedQuery === 'error') {
+        return;
+      }
+
+      try {
+        await this.deleteAttributeSelection();
+      } catch (error) {
+        console.error('Error deleting previous attribute selection:', error);
+        return;
+      }
+      this.oldTime = '';
+      this.oldUserId = '';
+
       if (checkedQuery !== 'valid' ) {
         if (checkedQuery === 'empty') {
           this.PopUpService.typeOfPopUp.set('empty-table');
@@ -248,6 +261,7 @@ export class AnalysysComponent {
         console.log("Happily returning from backend: ", response);
       } catch (error) {
         console.error('Error submitting new attribute selection:', error);
+        return;
       }
 
       if (this.attributeLayer() !== 'vectorLayer') {
@@ -452,12 +466,12 @@ export class AnalysysComponent {
       this.isHelpButtonEnabled.set(false);
     }
 
-    public attributeFormSubmit(type: 'new' | 'update'): void {
+    public async attributeFormSubmit(type: 'new' | 'update'): Promise<void> {
       if (type === 'new') {
-        this.createNewAttributeSelection();
+        await this.createNewAttributeSelection();
         console.log('Submitting new attribute form with values:');
       } else if (type === 'update') {
-        this.updateAttributeSelection();
+        await this.updateAttributeSelection();
         console.log('Submitting update attribute form with values:');
       }
     }

@@ -1,4 +1,4 @@
-import { Component, input, inject, OnDestroy, output, signal } from '@angular/core';
+import { Component, computed, input, inject, OnDestroy, output, signal } from '@angular/core';
 import { FormsModule, NgForm, NgModel } from '@angular/forms'
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AttributeTableToolbarService } from '../../services/attribute-table-toolbar-service/attribute-table-toolbar-service';
@@ -24,10 +24,10 @@ export class AttributeTableToolbar implements OnDestroy {
     this.ToolbarService.toggleActivationTool(tool);
     if (tool === 'searchTool' && !this.isSearchToolActive()) {
       this.searchInput.set('');
-      this.ToolbarService.resetToolbarTools();
+      this.ToolbarService.resetToolbarTools(tool);
     }
     if (tool === 'selectionTool' && !this.isSelectionToolActive()) {
-      this.ToolbarService.resetToolbarTools();
+      this.ToolbarService.resetToolbarTools(tool);
     }
   }
 
@@ -77,6 +77,17 @@ export class AttributeTableToolbar implements OnDestroy {
   // SEARCH TOOL
   public isSearchToolActive = this.ToolbarTools['searchTool'];
   public searchInput = signal<string>('');
+  public searchSuggestions = computed(() => {
+    const query = this.searchInput().trim().toLowerCase();
+    const suggestions: string[] = [];
+    for (const value of this.attributeSuggestionsTableSearch()) {
+      if (!query || value.toLowerCase().includes(query)) {
+        suggestions.push(value);
+        if (suggestions.length === 50) break;
+      }
+    }
+    return suggestions;
+  });
   public async locateSearchRow(): Promise<void> {
     const query = this.searchInput().trim().toLowerCase();
     if (!query) return;
@@ -89,6 +100,7 @@ export class AttributeTableToolbar implements OnDestroy {
 
   // FITLER TOOL
   public isFilterToolActive = this.ToolbarTools['filterTool'];
+  
 
   // RESET FILTER TOOL
 

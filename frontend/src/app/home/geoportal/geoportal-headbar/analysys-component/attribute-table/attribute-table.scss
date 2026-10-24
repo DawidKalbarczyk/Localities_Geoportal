@@ -158,10 +158,10 @@
 
         .first-row-cell {
             cursor: pointer;
-            transition: filter 0.3s ease;
+            transition: background-color 0.3s ease;
 
             &:hover {
-                filter: brightness(0.8);
+                background-color: #a8a8a8;
             }
         }
         .first-row-cell, .data-cell {
@@ -190,13 +190,20 @@
             top: 0;
             z-index: 1;
             background-color: $background-color-light;
+            border-right-color: #b2b2b2;
             color: #000;
             font-weight: 600;
-            border-right-color: rgba(0,0,0,0.2);
             box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
         }
 
+        .data-spacer td {
+            padding: 0;
+            border: none;
+        }
+
         .data-row {
+            height: var(--table-row-height);
+            scroll-margin-top: var(--table-header-height);
             background-color: #fff;
             transition: background-color 0.15s ease;
             user-select: text;
@@ -210,7 +217,7 @@
                 border-right: white 1px solid;
             }
 
-            &:nth-child(even) {
+            &.even-row {
                 background-color: #f6f6f6;
             }
 
@@ -219,6 +226,7 @@
             }
 
             .data-cell {
+                padding-block: 0;
                 border-bottom: 1px solid rgba($buttons-color, 0.08);
                 user-select: text;
 

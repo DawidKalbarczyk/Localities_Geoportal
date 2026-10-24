@@ -1,4 +1,4 @@
-<div class="main-con" [class.main-con-transform]="ToolbarService.locateRowStyleOn()">
+<div class="main-con" [class.main-con-transform]="ToolbarService.locateRowStyleOn()" [style.--table-row-height.px]="rowHeight">
     @if (isShownTableEmpty()) {
         <div class="attribute-table-panel">
             <div class="empty-table" role="status">
@@ -13,6 +13,7 @@
         </div>
     } @else {
         @if (shownTable() | async; as table) {
+            @let visibleRows = table | slice: rowStartIndex() : rowStartIndex() + visibleRowCount();
             <div class="attribute-table-panel">
                 <div #tableScroll class="attribute-table-scroll" cdkScrollable (scroll)="onTableScroll($event, table.length)">
                     <table class="attribute-table">
@@ -32,8 +33,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for (row of table | slice: 0 : visibleRowCount(); track $index) {
+                            @if (rowStartIndex() > 0) {
+                                <tr class="data-spacer" aria-hidden="true" [style.height.px]="rowStartIndex() * rowHeight">
+                                    <td [attr.colspan]="columnCount(table[0])"></td>
+                                </tr>
+                            }
+                            @for (row of visibleRows; track row) {
                                 <tr class="data-row" (click)="toolbar.isSelectionToolActive() && toolbar.locateRow(row)" [class.data-row-selection-on]="ToolbarService.ToolbarTools['selectionTool']()"
+                                [class.even-row]="(rowStartIndex() + $index) % 2 === 1"
                                 [class.highlighted-row]="ToolbarService.highlightLayerRow() === row">
                                     @for (attribute of row | keyvalue: null; track attribute.key) {
                                         @if (attribute.key !== 'wkb_geometry') {
@@ -46,12 +53,20 @@
                                     }
                                 </tr>
                             }
+                            @if (rowStartIndex() + visibleRows.length < table.length) {
+                                <tr class="data-spacer" aria-hidden="true" [style.height.px]="(table.length - rowStartIndex() - visibleRows.length) * rowHeight">
+                                    <td [attr.colspan]="columnCount(table[0])"></td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
+                    <div class="filter-tool-container">
+
+                    </div>
                 </div>
 
                 <div class="attribute-table-progress" role="status">
-                    {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.SHOWN' | translate}} {{ table.length }} {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.FROM' | translate}} {{ table.length }} {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.ROWS' | translate}}
+                    {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.SHOWN' | translate}} {{ visibleRows.length }} {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.FROM' | translate}} {{ table.length }} {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.ROWS' | translate}}
                 </div>
 
                 <!-- Miejsce na przyciski i narzędzia tabeli. -->

@@ -13,7 +13,7 @@
         <input type="text" list="toolbar-search-suggestions" [placeholder]="'ATTRIBUTE-TOOLBAR.SEARCH.PLACEHOLDER' | translate"
         [ngModel]="searchInput()" (ngModelChange)="searchInput.set($event)" (keyup.enter)="locateSearchRow()" class="search-input"/>
         <datalist id="toolbar-search-suggestions">
-            @for (value of attributeSuggestionsTableSearch(); track value) {
+            @for (value of searchSuggestions(); track value) {
                 <option [value]="value">{{value}}</option>
             }
         </datalist>

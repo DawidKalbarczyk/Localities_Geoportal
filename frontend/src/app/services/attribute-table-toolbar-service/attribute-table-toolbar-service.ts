@@ -10,7 +10,6 @@ export type ToolbarTool = {
 export type ToolbarMatTooltip = {
     [key: string]: string;
 }
-
 @Service()
 export class AttributeTableToolbarService {
     private readonly injector = inject(Injector);
@@ -21,9 +20,16 @@ export class AttributeTableToolbarService {
         filterTool: signal<boolean>(false),
         calculateFieldTool: signal<boolean>(false),
     };
-    public resetToolbarTools(): void {
-        for (const key in this.ToolbarTools) {
-            this.ToolbarTools[key].set(false);
+    public resetToolbarTools(toolKey?: keyof typeof this.ToolbarTools): void {
+        if (toolKey) {
+            this.ToolbarTools[toolKey].set(false);
+            if (this.ToolbarTools['selectionTool']() || this.ToolbarTools['searchTool']()) {
+                return;
+            }
+        } else {
+            for (const key in this.ToolbarTools) {
+                this.ToolbarTools[key].set(false);
+            }
         }
         this.locateRowStyleOn.set(false);
         this.didUserClickedOffLocateRowStyle.set(false);

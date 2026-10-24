@@ -29,17 +29,22 @@ export class AttributeTable {
   attributeSuggestionsTableSearch = input<string[]>([]);
   private readonly batchSize = 100;
   public visibleRowCount = signal(this.batchSize);
+  public rowStartIndex = signal(0);
+  public readonly rowHeight = 40;
 
   constructor() {
     effect(() => {
       this.shownTable();
       this.isShownTableEmpty();
       this.visibleRowCount.set(this.batchSize);
+      this.rowStartIndex.set(0);
     });
   }
 
   public revealRow(row: Record<string, unknown>, table: Record<string, unknown>[], container: HTMLElement, toolbar: AttributeTableToolbar): void {
-    this.visibleRowCount.update(count => Math.max(count, table.indexOf(row) + 1));
+    const index = table.indexOf(row);
+    if (index === -1) return;
+    this.rowStartIndex.set(Math.max(0, Math.min(index - 20, table.length - this.batchSize)));
     afterNextRender(() => {
       if (this.ToolbarService.highlightLayerRow() !== row) return;
       const element = container.querySelector('.highlighted-row');
@@ -51,11 +56,12 @@ export class AttributeTable {
 
   public onTableScroll(event: Event, totalRows: number): void {
     const container = event.currentTarget as HTMLElement;
-    const distanceToBottom = container.scrollHeight - container.scrollTop - container.clientHeight;
+    const start = Math.floor(container.scrollTop / this.rowHeight) - 20;
+    this.rowStartIndex.set(Math.max(0, Math.min(start, totalRows - this.batchSize)));
+  }
 
-    if (distanceToBottom <= 80 && this.visibleRowCount() < totalRows) {
-      this.visibleRowCount.update(count => Math.min(count + this.batchSize, totalRows));
-    }
+  public columnCount(row: Record<string, unknown> | undefined): number {
+    return row ? Object.keys(row).filter(key => key !== 'wkb_geometry').length : 1;
   }
 
 ///////////////// SORT VALUES IN THE ATTRIBUTE TABLE ////////////////////////
