@@ -137,11 +137,11 @@ export class InfoComponent {
   private dragThreshold = 20;
   private isMouseDown = false;
   private hasDraggedThisPress = false;
-  private mouseDownInsideInfoPanel = false;
+  private mouseDownInsidePanel = false;
   @HostListener('document:mousedown', ['$event'])
   onMouseDown(event: MouseEvent): void {
     const target = event.target as HTMLElement;
-    this.mouseDownInsideInfoPanel = !!target.closest('.marker');
+    this.mouseDownInsidePanel = !!target.closest('.marker, app-attribute-table');
 
     this.mouseDownX = event.clientX;
     this.mouseDownY = event.clientY;
@@ -152,7 +152,7 @@ export class InfoComponent {
   
   @HostListener('document:mousemove', ['$event'])
   onMouseMove(event: MouseEvent): void {
-    if (!this.isMouseDown || this.hasDraggedThisPress || this.mouseDownInsideInfoPanel) {
+    if (!this.isMouseDown || this.hasDraggedThisPress || this.mouseDownInsidePanel) {
       return;
     }
 
@@ -172,21 +172,22 @@ export class InfoComponent {
 
   @HostListener('document:click', ['$event'])
   setMarkerPosition(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    if (target.closest('.marker, app-attribute-table')) {
+      this.mouseDownInsidePanel = false;
+      return;
+    }
+
     const deltaX = Math.abs(event.clientX - this.mouseDownX);
     const deltaY = Math.abs(event.clientY - this.mouseDownY);
 
-    if (this.mouseDownInsideInfoPanel) {
-      this.mouseDownInsideInfoPanel = false;
+    if (this.mouseDownInsidePanel) {
+      this.mouseDownInsidePanel = false;
       return;
     }
 
     if (deltaX > this.dragThreshold || deltaY > this.dragThreshold) {
       this.showMarker.set(false);
-      return;
-    }
-
-    const target = event.target as HTMLElement;
-    if (target.closest('.marker')) {
       return;
     }
 
