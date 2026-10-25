@@ -124,6 +124,8 @@ export class AttributeTableToolbarService {
             konczy_sie_na: 'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.OPERATORS.ENDS-WITH', // .endsWith
         },
         number: {
+            rowna_sie: 'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.OPERATORS.EQUALS', // ==
+            nie_rowna_sie: 'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.OPERATORS.NOT-EQUALS', // !=
             mniejsze_niz: 'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.OPERATORS.LOWER-THAN', // <
             mniejsze_lub_rowne: 'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.OPERATORS.LOWER-THAN-EQUALS', // <=
             wieksze_niz: 'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.OPERATORS.GREATER-THAN', // >
@@ -183,14 +185,14 @@ export class AttributeTableToolbarService {
             const rowValue = row[filter.attribute];
 
             switch (filter.operator) {
-                case 'zawiera':
-                    return typeof rowValue === 'string' && rowValue.includes(filter.value);
-                case 'nie_zawiera':
-                    return typeof rowValue === 'string' && !rowValue.includes(filter.value);
                 case 'rowna_sie':
                     return rowValue == filter.value;
                 case 'nie_rowna_sie':
                     return rowValue != filter.value;
+                case 'zawiera':
+                    return typeof rowValue === 'string' && rowValue.includes(filter.value);
+                case 'nie_zawiera':
+                    return typeof rowValue === 'string' && !rowValue.includes(filter.value);
                 case 'zaczyna_sie_od':
                     return typeof rowValue === 'string' && rowValue.startsWith(filter.value);
                 case 'konczy_sie_na':
@@ -246,6 +248,5 @@ export class AttributeTableToolbarService {
 
     public appliedFiltersPopUp = signal<boolean>(false);
     public hideAppliedFiltersPopUp = signal<boolean>(false);
-    private filtersTimeout: any = null;
 
 }
