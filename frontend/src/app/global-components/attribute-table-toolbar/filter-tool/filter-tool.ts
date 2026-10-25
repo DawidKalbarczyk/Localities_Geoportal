@@ -31,4 +31,8 @@ export class FilterTool implements OnDestroy {
     console.log("Applying filters to table:", this.shownTableKeys());
   }
 
+  public showStaticHelp(): void {
+    this.PopUpService.typeOfPopUp.set('info');
+    this.PopUpService.getDescriptionsJSON();
+  }
 }
