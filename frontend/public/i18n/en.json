@@ -69,7 +69,35 @@
     "FILTER": {
       "NAME": "Filter",
       "ON": "Filter records",
-      "OFF": "Turn off record filtering"
+      "OFF": "Turn off record filtering",
+      "CONTENT": {
+        "TITLE": "Filters",
+        "ADJUST": "Adjust condition",
+        "ALL": "All",
+        "ANY": "Any",
+        "OPERATORS": {
+          "CONTAINS": "contains",
+          "NOT-CONTAINS": "does not contain",
+          "EQUALS": "equals",
+          "NOT-EQUALS": "does not equal",
+          "STARTS-WITH": "starts with",
+          "ENDS-WITH": "ends with",
+
+          "LOWER-THAN": "is lower than",
+          "LOWER-THAN-EQUALS": "is lower than or equal to",
+          "GREATER-THAN": "is greater than",
+          "GREATER-THAN-EQUALS": "is greater than or equal to",
+
+          "IS-NULL": "is null",
+          "IS-NOT-NULL": "is not null"
+        },
+        "ATTRIBUTE": "-- attribute --",
+        "OPERATOR": "-- operator --",
+        "INPUT-VALUE": "value...",
+        "ADD-FILTER": "Add new filter",
+        "CLEAR-FILTERS": "Clear filters",
+        "APPLY-FILTERS": "Apply filters"
+      }
     },
     "RESET": {
       "NAME": "Reset filters",

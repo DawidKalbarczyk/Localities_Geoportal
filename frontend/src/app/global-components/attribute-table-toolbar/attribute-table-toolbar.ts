@@ -54,7 +54,6 @@ export class AttributeTableToolbar implements OnDestroy {
     if (!this.map.getLayers().getArray().includes(this.highlightLayer)) {
       this.map.addLayer(this.highlightLayer);
     }
-    this.ToolbarService.showTransformButton.set(true);
     this.rowLocated.emit(row);
   }
 

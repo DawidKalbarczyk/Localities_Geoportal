@@ -5,10 +5,11 @@ import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipModule } from '@angular/material
 import { TranslatePipe } from '../../../../../pipes/translate.pipe';
 import { AttributeTableToolbar } from '../../../../../global-components/attribute-table-toolbar/attribute-table-toolbar';
 import { AttributeTableToolbarService } from '../../../../../services/attribute-table-toolbar-service/attribute-table-toolbar-service';
+import { FilterTool } from '../../../../../global-components/attribute-table-toolbar/filter-tool/filter-tool';
 
 @Component({
   selector: 'app-attribute-table',
-  imports: [AsyncPipe, KeyValuePipe, SlicePipe, CdkScrollable, MatTooltipModule, TranslatePipe, AttributeTableToolbar],
+  imports: [FilterTool, AsyncPipe, KeyValuePipe, SlicePipe, CdkScrollable, MatTooltipModule, TranslatePipe, AttributeTableToolbar],
   templateUrl: './attribute-table.html',
   styleUrl: './attribute-table.scss',
   providers: [{

@@ -1,0 +1,80 @@
+<div class="filter-tool-container" [class.filter-tool-container-on]="ToolbarService.ToolbarTools['filterTool']()">
+    <div class="applied-filters-pop-up">
+        <p>abrakadabra</p>
+    </div>
+    <div class="header-con">
+        <div class="title-con">
+            <div><p>{{'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.TITLE' | translate}}</p></div>
+            <div class="title-con-counter"><p>{{ToolbarService.filterNrs().length}}</p></div>
+        </div>
+        <div class="conditions-con">
+            <div><p>{{'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.ADJUST' | translate}}</p></div>
+            <div>
+                <button class="all-filters" [class.all-filters-switch]="ToolbarService.filterType() === 'or'"
+                (click)="ToolbarService.filterType.set('and')">
+                    {{'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.ALL' | translate}}
+                </button>
+                <button class="or-filters" [class.or-filters-switch]="ToolbarService.filterType() === 'or'"
+                (click)="ToolbarService.filterType.set('or')">
+                    {{'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.ANY' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="filter-content">
+        @for (filterNr of ToolbarService.filterNrs(); track filterNr) {
+            <div class="filter-row">
+                <select [value]="ToolbarService.filters()[filterNr].attribute" #attributeSelect 
+                (change)="ToolbarService.updateFilterParameter(filterNr, 'attribute', attributeSelect.value)">
+                    <option selected disabled value="">{{'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.ATTRIBUTE' | translate}}</option>
+                    @for (attribute of shownTableKeys() | async; track attribute) {
+                        <option value="{{attribute}}">{{attribute}}</option>
+                    }
+                </select>
+                <select [value]="ToolbarService.filters()[filterNr].operator" #operatorSelect [disabled]="ToolbarService.filters()[filterNr].attribute === ''"
+                (change)="ToolbarService.updateFilterParameter(filterNr, 'operator', operatorSelect.value)">
+                    <option selected disabled value="">{{'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.OPERATOR' | translate}}</option>
+                    @if (ToolbarService.numericAttributes.includes(attributeSelect.value)) {
+                        @for (op of ToolbarService.operators()['number'] | keyvalue; track op) {
+                            <option value="{{op.key}}">{{op.value | translate}}</option>
+                        }
+                    } @else {
+                        @for (op of ToolbarService.operators()['string'] | keyvalue; track op) {
+                            <option value="{{op.key}}">{{op.value | translate}}</option>
+                        }
+                    }
+                    @for (op of ToolbarService.operators()['all'] | keyvalue; track op) {
+                        <option value="{{op.key}}">{{op.value | translate}}</option>
+                    }
+                    
+                </select>
+                <input type="text" [placeholder]="'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.INPUT-VALUE' | translate" [value]="ToolbarService.filters()[filterNr].value" #valueSelect
+                (change)="ToolbarService.updateFilterParameter(filterNr, 'value', valueSelect.value)">
+                <div (click)="ToolbarService.decrementFilterNr(filterNr)">
+                    <img src="./images/icons/close.png" alt="Delete filter">
+                </div>
+            </div> 
+        }
+        
+        <div class="filter-add-row">
+            <div>
+                <button (click)="ToolbarService.incrementFilterNr()">
+                    <img src="./images/icons/add.png" alt="Add filter">
+                    <p>{{'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.ADD-FILTER' | translate}}</p>
+                </button>
+            </div>
+            <div class="help-butt" (click)="PopUpService.typeOfPopUp.set('info')">
+                <img src="./images/icons/question.png" alt="Info">
+            </div>
+        </div>
+    </div>
+    <div class="footer-con">
+        <div class="footer-clear-con">
+            <button class="footer-clear-butt" (click)="ToolbarService.resetFilters()">
+            {{'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.CLEAR-FILTERS' | translate}}</button>
+        </div>
+        <div class="footer-apply-con">
+            <button class="footer-apply-butt" (click)="ToolbarService.applyFilters(shownTable())">{{'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.APPLY-FILTERS' | translate}}</button>
+        </div>
+    </div>
+</div>
