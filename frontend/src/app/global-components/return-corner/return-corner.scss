@@ -1,131 +1,265 @@
 @use '../../../_variables.scss' as *;
 
-.container.container-geoportal-temp {
-    background-color: transparent !important;
-
-    .go-back {
-        background-color: white !important;
-        width: 60px;
-        height: 60px;
-        transition: 
-            background-color 0.3s ease,
-            filter 0.3s ease;
-        
-        .go-back:hover {
-            background-color: $background-color-light !important;
-            filter: brightness(0.8) !important;
-        }
-    }
-}
-
-.mode-dark {
-    div {
-        border: 1px solid $secondary-color-light !important;
-        &:hover {
-            background-color: $secondary-color-dark !important;
-        }
-        &.feedback-button-con {
-            background-color: rgb(133, 1, 1) !important;
-        }
-        img {
-            filter: invert(1);
-        }
-    }
-}
-.mode-dark-history {
-    background-color: $background-color-dark;
-    border: 1px solid rgba(255,255,255, 1);
-    border-top: none;
-    border-left: none;
-    border-radius: 0rem 0rem 0.5rem 0rem;
-    div {
-        background-color: $background-color-dark !important;
-
-        &:hover {
-            background-color: $background-color-dark !important;
-        }
-    }
-}
-
-.container-history {
-    background-color: $background-color-light;
-    border: 1px solid rgba(0,0,0, 1);
-    border-top: none;
-    border-left: none;
-    border-radius: 0rem 0rem 0.5rem 0rem;
-    div {
-        &:hover {
-            background-color: $background-color-light !important;
-        }
-    }
-}
-
 .container {
     position: fixed;
     top: 0;
     left: 0;
-    padding: 1.15rem 2rem 1.15rem 2rem;
+    padding: 1.15rem 2rem;
     display: flex;
     flex-direction: row;
+    align-items: center;
     column-gap: 1.5rem;
     z-index: 1000;
-    transition: 
+    transition:
         background-color 0.3s ease,
         border 0.3s ease;
 
-    div {
+    > div:not(.language-container),
+    .language-toggle,
+    .language-options > div {
+        box-sizing: content-box;
         width: 40px;
         height: 40px;
+        padding: 0.35rem;
         border: 1px solid black;
         border-radius: 50%;
-        padding: 0.35rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        transition: 
+        flex-shrink: 0;
+        cursor: pointer;
+        transition:
             transform 0.3s ease,
-            background-color 0.3s ease;
-
-
-        &.feedback-button-con {
-            background-color: rgb(197, 0, 0);
-            transition: 
-                brightness 0.3s ease,
-                background-color 0.3s ease,
-                transform 0.3s ease;
-
-            &:hover {
-                background-color: rgb(197, 0, 0) !important;
-                filter: brightness(0.8) !important;
-            }
-        }
-        &:hover {
-            cursor: pointer;
-            background-color: $secondary-color-light;
-            transform: scale(1.05);
-        }
+            background-color 0.3s ease,
+            filter 0.3s ease;
 
         img {
             display: block;
             width: 100%;
-        }
-        
-        .return-button {
-            transform: scale(0.8);
-        }
-
-        .language-button {
-            transform: scale(0.8);
+            height: 100%;
+            object-fit: contain;
+            pointer-events: none;
         }
 
-        .help-button {
-            transform: scale(0.8);
-        }
-
+        .return-button,
+        .language-button,
+        .help-button,
         .feedback-button {
             transform: scale(0.8);
         }
-
     }
-    
+
+    > div:not(.language-container):hover,
+    .language-toggle:hover {
+        background-color: $secondary-color-light;
+        transform: scale(1.05);
+    }
+
+    > .feedback-button-con {
+        background-color: rgb(197, 0, 0);
+
+        &:hover {
+            background-color: rgb(197, 0, 0);
+            filter: brightness(0.8);
+        }
+    }
+
+    .language-container {
+        position: relative;
+        width: calc(40px + 0.7rem + 2px);
+        height: calc(40px + 0.7rem + 2px);
+        flex-shrink: 0;
+
+        .language-menu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            isolation: isolate;
+
+            &::before {
+                content: '';
+                position: absolute;
+                inset: -0.5rem;
+                z-index: -1;
+                border: 1px solid black;
+                border-radius: 999px;
+                background-color: white;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                opacity: 0;
+                pointer-events: none;
+                transition:
+                    opacity 0.2s ease,
+                    background-color 0.3s ease,
+                    border-color 0.3s ease;
+            }
+
+            &.language-menu-open::before {
+                opacity: 1;
+            }
+
+            .language-toggle {
+                order: -1;
+            }
+
+            .language-options {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.75rem;
+                animation: language-options-open 0.2s ease-out;
+
+                > div {
+                    width: calc(40px + 0.7rem);
+                    height: calc(40px + 0.7rem);
+                    padding: 0;
+                    overflow: hidden;
+                    background-color: white;
+
+                    &:hover {
+                        filter: brightness(0.8);
+                    }
+
+                    img {
+                        object-fit: cover;
+                    }
+                }
+            }
+        }
+    }
+
+    &.container-history,
+    &.mode-dark-history {
+        border: 1px solid;
+        border-top: none;
+        border-left: none;
+        border-radius: 0 0 0.5rem 0;
+    }
+
+    &.container-history {
+        background-color: $background-color-light;
+        border-color: black;
+
+        > div:not(.language-container):not(.feedback-button-con),
+        .language-toggle {
+            &:hover {
+                background-color: $background-color-light;
+            }
+        }
+
+        .language-menu::before {
+            background-color: $background-color-light;
+        }
+    }
+
+    :host-context(.mode-dark) &,
+    &.mode-dark,
+    &.mode-dark-history {
+        > div:not(.language-container),
+        .language-toggle,
+        .language-options > div {
+            border-color: $secondary-color-light;
+        }
+
+        > div:not(.language-container):not(.feedback-button-con),
+        .language-toggle {
+            background-color: $background-color-dark;
+
+            &:hover {
+                background-color: $secondary-color-dark;
+            }
+        }
+
+        > div:not(.language-container) img,
+        .language-toggle img {
+            filter: invert(1);
+        }
+
+        > .feedback-button-con {
+            background-color: rgb(133, 1, 1);
+
+            &:hover {
+                background-color: rgb(133, 1, 1);
+                filter: brightness(0.8);
+            }
+        }
+
+        .language-menu {
+            &::before {
+                background-color: $background-color-dark;
+                border-color: $secondary-color-light;
+            }
+
+            .language-options {
+                > div {
+                    background-color: $background-color-dark;
+                    border-color: $secondary-color-light;
+
+                    &:hover {
+                        filter: brightness(0.8);
+                    }
+
+                    img {
+                        filter: none;
+                    }
+                }
+            }
+        }
+    }
+
+    &.mode-dark:not(.mode-dark-history) {
+        .language-menu::before {
+            background-color: $buttons-color !important;
+            border-color: white !important;
+        }
+    }
+
+    &.mode-dark-history {
+        background-color: $background-color-dark;
+        border-color: white;
+
+        > div:not(.language-container):not(.feedback-button-con),
+        .language-toggle {
+            background-color: $background-color-dark;
+
+            &:hover {
+                background-color: $background-color-dark;
+            }
+        }
+
+        .language-menu::before {
+            background-color: $background-color-dark !important;
+            border-color: white !important;
+        }
+    }
+
+    &.container-geoportal-temp {
+        background-color: transparent;
+
+        > .go-back {
+            background-color: white;
+            width: 60px;
+            height: 60px;
+
+            &:hover {
+                background-color: $background-color-light;
+                filter: brightness(0.8);
+            }
+        }
+    }
+}
+
+@keyframes language-options-open {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

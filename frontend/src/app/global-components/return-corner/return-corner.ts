@@ -17,6 +17,7 @@ import { effect } from '@angular/core';
 })
 export class ReturnCorner {
   private router: Router = inject(Router);
+  public languageChangeClicked = signal<boolean>(false);
   public isDarkMode = inject(DarkMode).isDarkMode;
   public languageService = inject(LanguageService);
   public userData = JSON.parse(localStorage.getItem('userData') || '{}');

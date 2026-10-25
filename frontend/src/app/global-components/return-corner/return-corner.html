@@ -1,30 +1,46 @@
 <div class="container" [class.mode-dark]="isDarkMode() && url() !== '/geoportal'"
-[class.mode-dark-history]="isDarkMode() && (url().startsWith('/history') && url().includes('geoportal-temp') === false)"
-[class.container-history]="url() ==='/history' && (isDarkMode() === false)"
-[class.container-geoportal-temp]="url().includes('geoportal-temp')"
->
-    @if(url() !== '/') {
-        <div class="go-back" (click)="goBack()">
-            <img class="return-button" src="./images/icons/return.png" alt="Return" draggable="false"/>
-        </div>
+    [class.mode-dark-history]="isDarkMode() && (url().startsWith('/history') && !url().includes('geoportal-temp'))"
+    [class.container-history]="url() === '/history' && !isDarkMode()"
+    [class.container-geoportal-temp]="url().includes('geoportal-temp')">
+    @if (url() !== '/') {
+    <div class="go-back" (click)="goBack()">
+        <img class="return-button" src="./images/icons/return.png" alt="Return" draggable="false" />
+    </div>
     }
-    @if(url() !== '/geoportal' && url().includes('geoportal-temp') === false) {
-        <div (click)="switchColors()">
-            @if(isDarkMode()){
-                <img class="night-mode-button" src="./images/icons/sun.png" alt="Sun" draggable="false"/>
-            } @else {
-                <img class="night-mode-button" src="./images/icons/night-mode.png" alt="Night Mode" draggable="false"/>
+
+    @if (url() !== '/geoportal' && !url().includes('geoportal-temp')) {
+    <div (click)="switchColors()">
+        @if (isDarkMode()) {
+        <img class="night-mode-button" src="./images/icons/sun.png" alt="Sun" draggable="false" />
+        } @else {
+        <img class="night-mode-button" src="./images/icons/night-mode.png" alt="Night Mode" draggable="false" />
+        }
+    </div>
+
+    <div class="language-container">
+        <div class="language-menu" [class.language-menu-open]="languageChangeClicked()">
+            <div class="language-toggle" (click)="languageChangeClicked.set(!languageChangeClicked())">
+                <img class="language-button" src="./images/icons/language.png" alt="Language" draggable="false" />
+            </div>
+
+            @if (languageChangeClicked()) {
+            <div class="language-options">
+                @for (lang of languageService.languages; track lang) {
+                <div (click)="languageService.setLanguage(lang); languageChangeClicked.set(false)">
+                    <img [src]="'./images/flags/' + lang + '.svg'" [alt]="lang + '-flag'" draggable="false" />
+                </div>
+                }
+            </div>
             }
         </div>
-        <div (click)="languageService.toggleLanguage()">
-            <img class="language-button" src="./images/icons/language.png" alt="Language" draggable="false"/>
-        </div>
-        <div>
-            <img class="help-button" src="./images/icons/question.png" alt="Help" draggable="false"/>
-        </div>
-        <div class="feedback-button-con">
-            <img class="feedback-button" src="./images/icons/feedback.png" alt="Feedback" draggable="false"/>
-        </div>
+    </div>
+
+    <div>
+        <img class="help-button" src="./images/icons/question.png" alt="Help" draggable="false" />
+    </div>
+
+    <div class="feedback-button-con">
+        <img class="feedback-button" src="./images/icons/feedback.png" alt="Feedback" draggable="false" />
+    </div>
     }
-    
 </div>

@@ -1,6 +1,19 @@
 <div class="container">
-    <div (click)="languageService.toggleLanguage()">
-        <img class="language-button" src="./images/icons/language.png" alt="Language" draggable="false"/>
+    <div class="language-container">
+        <div class="language-menu" [class.language-menu-open]="languageChangeClicked()">
+            @if (languageChangeClicked()) {
+                <div class="language-options">
+                    @for (lang of languageService.languages; track lang) {
+                        <div (click)="languageService.setLanguage(lang); languageChangeClicked.set(false)">
+                            <img src="./images/flags/{{lang}}.svg" alt="{{lang}}-flag" draggable="false"/>
+                        </div>
+                    }
+                </div>
+            }
+            <div class="language-toggle" (click)="languageChangeClicked.set(!languageChangeClicked())">
+                <img class="language-button" src="./images/icons/language.png" alt="Language" draggable="false"/>
+            </div>
+        </div>
     </div>
     <div>
         <img class="help-button" src="./images/icons/question.png" alt="Help" draggable="false"/>

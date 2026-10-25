@@ -1,0 +1,383 @@
+{
+  "HOME": {
+    "SELECTION1": "Geoportál lokality",
+    "SELECTION2": "Historie aktivity uživatele",
+    "SELECTION3": "Procházet data o lokalitě",
+    "POPUP": {
+      "TITLE": "HISTORIE ČINNOSTI",
+      "TITLE2": "Exkluzivní sekce pro přihlášené uživatele",
+      "TITLE3": "Chcete-li zobrazit historii svých aktivit, přihlaste se nebo si vytvořte účet"
+    }
+  },
+  "LOGIN": {
+    "LOGIN-REGISTER": "Zaregistrujte se",
+    "LOGIN-LOGIN": "Přihlášení",
+    "LOGIN-SETTINGS": "Nastavení",
+    "LOGIN-LOGOUT": "Odhlásit se"
+  },
+  "AUTHOR": {
+    "AUTHOR-NAME": "Vývojář: Dawid Kalbarczyk",
+    "AUTHOR-TEXT": "Projekt vytvořený pro účely sebevzdělávání."
+  },
+  "POP-UP": {
+    "SAVED": {
+      "TITLE": "Vybrané objekty byly úspěšně uloženy",
+      "CLOSE-BUTT": "Zavřít",
+      "REDIRECT": "Zobrazit uložené analýzy"
+    },
+    "DELETE": {
+      "TITLE1": "Vybrané objekty budou smazány",
+      "TITLE2": "Pokračovat?"
+    },
+    "OBJ-SAVE": {
+      "TITLE": "Uložit vybrané objekty",
+      "INPUT": "Zadejte název nové vrstvy pro uložení vybraných objektů",
+      "PLACEHOLDER": "Název uložených objektů...",
+      "SAVE-BUTT": "Uložit",
+      "CANCEL-BUTT": "Zrušit"
+    },
+    "LOGIN": {
+      "TITLE": "Chcete-li tuto funkci používat, přihlaste se nebo se zaregistrujte",
+      "REGISTER": "Zaregistrujte se",
+      "LOGIN": "Přihlaste se",
+      "CANCEL-BUTT": "Zrušit"
+    },
+    "INFO": {
+      "TITLE": "Informace o atributu vrstvy",
+      "CLOSE-BUTT": "Zavřít"
+    },
+    "EMPTY-TABLE": {
+      "TITLE1": "Váš dotaz vrátil vrstvu s prázdnou tabulkou atributů.",
+      "TITLE2": "Zkuste jiný dotaz.",
+      "CLOSE-BUTT": "Zavřít"
+    },
+    "YES": "Ano",
+    "NO": "Ne"
+  },
+  "ATTRIBUTE-TOOLBAR": {
+    "SELECT": {
+      "NAME": "Najděte",
+      "ON": "Když je tento nástroj aktivní, kliknutím na záznam jej vyhledejte na mapě",
+      "OFF": "Vypněte nástroj pro lokalizaci záznamů na mapě"
+    },
+    "SEARCH": {
+      "NAME": "Hledat",
+      "PLACEHOLDER": "Hledat podle jména...",
+      "ON": "Vyhledávání záznamů podle názvu",
+      "OFF": "Vypněte vyhledávání záznamů"
+    },
+    "FILTER": {
+      "FILTERS-APPLIED": "Byly použity filtry",
+      "NAME": "Filtr",
+      "ON": "Filtrovat záznamy",
+      "OFF": "Vypněte filtrování záznamů",
+      "CONTENT": {
+        "TITLE": "Filtry",
+        "ADJUST": "Upravte stav",
+        "ALL": "všechny",
+        "ANY": "Jakékoliv",
+        "OPERATORS": {
+          "CONTAINS": "obsahuje",
+          "NOT-CONTAINS": "neobsahuje",
+          "EQUALS": "rovná se",
+          "NOT-EQUALS": "nerovná se",
+          "STARTS-WITH": "začíná s",
+          "ENDS-WITH": "končí s",
+          "LOWER-THAN": "je nižší než",
+          "LOWER-THAN-EQUALS": "je nižší nebo roven",
+          "GREATER-THAN": "je větší než",
+          "GREATER-THAN-EQUALS": "je větší nebo rovno",
+          "IS-NULL": "je nulový",
+          "IS-NOT-NULL": "není nulový"
+        },
+        "ATTRIBUTE": "-- atribut --",
+        "OPERATOR": "-- operátor --",
+        "INPUT-VALUE": "hodnota...",
+        "ADD-FILTER": "Přidat nový filtr",
+        "CLEAR-FILTERS": "Vymazat filtry",
+        "APPLY-FILTERS": "Použijte filtry"
+      }
+    },
+    "RESET": {
+      "NAME": "Resetovat filtry",
+      "ON": "Resetovat filtry"
+    },
+    "CALCULATE": {
+      "NAME": "Vypočítat pole",
+      "ON": "Vypočítejte pole na základě atributů",
+      "OFF": "Vypněte nástroj pro výpočet pole"
+    }
+  },
+  "GEOPORTAL": {
+    "ANALYSIS": "Analýza",
+    "ANALYSIS-CONTENT": {
+      "TITLE": "Analytický nástroj",
+      "TEXT": "Vyberte typ analýzy",
+      "ATTRIBUTE": "Atributová analýza",
+      "ATTRIBUTE-CONTENT": {
+        "TITLE": "Atributová analýza",
+        "TEXT": "Vytvořte dotaz pro výběr objektů",
+        "YOUR-ANALYSIS": "Vaše analýza",
+        "CHOOSE-LAYER": "Vyberte objekty z vrstvy:",
+        "CHOOSE-ATTRIBUTE": "kde atribut:",
+        "ATTRIBUTE-DESCRIPTIONS": {
+          "jpt_kod_je": "Kód katastrální jednotky. Obvykle identifikátor z evidence TERYT nebo z evidence pozemků a staveb.",
+          "jpt_sjr_ko": "Kód typu jednotky označující typ funkce, např. vojvodství, okres, obec nebo katastrální jednotka.",
+          "jpt_nazwa_": "Název správní jednotky, např. Varšavská čtvrť.",
+          "jpt_powier": "Plocha jednotky zaznamenaná v registru vyjádřená v hektarech.",
+          "jpt_organ_": "Informace o správním orgánu odpovědném za údaje jednotky.",
+          "jpt_kod__1": "Atribut související s kódem jednotky. Vysvětluje, proč kód jednotky nebyl vložen do databáze.",
+          "jpt_nazwa1": "Atribut související s názvem jednotky. Vysvětluje, proč název jednotky nebyl zadán do databáze.",
+          "jpt_organ1": "Atribut související s pravomocí jednotky. Vysvětluje, proč oprávnění jednotky nebylo zadáno do databáze.",
+          "jpt_wazna_": "Kód označující stav platnosti nebo stav informací o jednotce.",
+          "iip_przest": "Jmenný prostor identifikující datovou sadu v Národním registru hranic.",
+          "iip_identy": "Identifikátor prostorového prvku v Národním registru hranic.",
+          "jpt_kj_iip": "Jmenný prostor identifikující datovou sadu, přiřazený poskytovatelem datové sady.",
+          "jpt_kj_i_1": "Lokální identifikátor prostorového prvku přidělený poskytovatelem datové sady.",
+          "jpt_kj_i_2": "Identifikátor konkrétní verze prostorového prvku přidělený poskytovatelem datové sady.",
+          "jpt_sps_ko": "Právní postavení územního celku.",
+          "jpt_powi_1": "Opravená plocha jednotky územního členění vyjádřená v hektarech.",
+          "jpt_kj_i_3": "Atribut související s jmenným prostorem identifikujícím datovou sadu. Vysvětluje, proč jmenný prostor nebyl vložen do databáze.",
+          "jpt_jor_id": "Sloupec cizího klíče odkazující na PRGT_JEDNOSTKA_ORGANIZACYJNA. Identifikátor organizační jednotky v Národním registru hranic.",
+          "wersja_od": "Datum, kdy byla verze funkce zavedena nebo upravena v datové sadě.",
+          "wersja_do": "Datum, kdy byla verze funkce vyřazena z datové sady.",
+          "wazny_od": "Oficiální datum, kdy územní jednotka nabyla právní moci.",
+          "wazny_do": "Oficiální datum, kdy územní jednotka pozbyla právní účinnosti.",
+          "iip_wersja": "Identifikátor konkrétní verze prostorového prvku v Národním registru hranic. Pokud specifikace funkce obsahuje informace o životním cyklu, používá se k rozlišení jednotlivých verzí funkce identifikátor verze.",
+          "jpt_opis": "Popis jednotky územního členění.",
+          "jpt_id": "Sloupec primárního klíče v PRGT_JEDNOSTKA_PODZIALU_TERYTORIALNEGO. Identifikátor jednotky územního členění v Národním registru hranic.",
+          "regon": "REGON číslo územního členění jednotky.",
+          "shape_leng": "Délka geometrie prvku. U administrativních jednotek je to obvykle obvod polygonu.",
+          "shape_area": "Geometrická plocha polygonu územní jednotky.",
+          "shape_le_1": "Pole obsahující délku geometrie, vytvořené např. při exportu dat z GIS systému.",
+          "nazwa": "Název lokality, např. Krakov, Varšava nebo Gdaňsk.",
+          "rodzaj": "Typ lokality, např. vesnice, město nebo osada.",
+          "liczbamies": "Počet obyvatel lokality.",
+          "idprng": "Identifikátor objektu v Národním registru zeměpisných názvů.",
+          "wspgeog": "Zeměpisné souřadnice lokality v souřadnicovém systému WGS84.",
+          "wspxy": "Souřadnice lokality v projektovaném souřadnicovém systému PL-1992.",
+          "wojewodz": "Vojvodství, ve kterém se objekt nachází.",
+          "powiat": "Okres, ve kterém se objekt nachází.",
+          "gmina": "Komuna, ve které se objekt nachází.",
+          "idgminy": "Identifikátor obce v Národním registru hranic. Odpovídá identifikátoru TERYT."
+        },
+        "TABLE": {
+          "EMPTY-TABLE": "Stůl je prázdný! Vyberte vrstvu nebo spusťte dotaz pro zobrazení atributů.",
+          "SHOWN": "Zobrazení",
+          "FROM": "z",
+          "ROWS": "řádky",
+          "LOADING": "Načítání tabulky..."
+        },
+        "CONDITION": "stav...",
+        "SUBMIT-BUTT": "Analyzujte",
+        "UPDATE-BUTT": "Aktualizovat",
+        "TABLE-BUTT": "Zobrazit tabulku atributů",
+        "TABLE-BUTT-CLOSE": "Skrýt tabulku atributů",
+        "SAVE-BUTT": "Uložit analýzu atributů",
+        "POP-UP": {
+          "TITLE": "Informace o atributech vrstvy",
+          "BUTT": "Zavřít"
+        }
+      },
+      "SPATIAL": "Prostorová analýza",
+      "SPATIAL-CONTENT": {
+        "TITLE": "Prostorová analýza"
+      },
+      "SELECTION": "Výběr objektu",
+      "SELECTION-CONTENT": {
+        "TITLE": "Výběr objektu",
+        "TEXT1": "Kliknutím na mapu vyberte objekt",
+        "TEXT2": "Vrstva na výběr: ",
+        "SELECT": "Vyberte vrstvu",
+        "SELECT-COLUMN": "Vyberte atribut",
+        "SELECT-TITLES": {
+          "PAN": "země",
+          "WOJ": "vojvodství",
+          "POW": "Okres",
+          "GMI": "komuna",
+          "JEW": "město",
+          "LOCALITY": "Lokalita"
+        },
+        "WARNING-CONTENT": {
+          "TITLE": "Vybraný objekt bude ztracen<br>Přejete si pokračovat?",
+          "BUTT1": "Ano",
+          "BUTT2": "Ne"
+        },
+        "POPULATION": "Populace:",
+        "PICKED": "Vybráno: ",
+        "BUTT1": "Vymazat vybrané",
+        "BUTT2": "Uložit vybrané"
+      }
+    },
+    "MEASURE": "Změřte",
+    "SAVE": "Uložit analýzu",
+    "BROWSER": "Prohlížeč",
+    "BROWSER-CONTENT": {
+      "TEXT": "Hledat...",
+      "TEXT2": "Žádné výsledky vyhledávání"
+    },
+    "BASEMAP": "Základní mapa",
+    "BASEMAP-CONTENT": {
+      "LAY1": "Mapa OpenStreetMap",
+      "LAY2": "Ortofotomapa",
+      "LAY3": "Budovy (ve velkém měřítku)"
+    },
+    "INFO": "Info",
+    "INFO-DETAILS": {
+      "TITLE": "Informace o vrstvách",
+      "LAYER": "Vrstva:",
+      "ID": "ID ve vrstvě: ",
+      "LOCALITY": "lokalita: ",
+      "POPULATION": "Populace: ",
+      "DISTRICT": "okres: ",
+      "COMMUNE": "obec:",
+      "CITY": "město: ",
+      "VOIVODESHIP": "vojvodství: ",
+      "COUNTRY": "Země: "
+    },
+    "LAYERS": "Vrstvy",
+    "INFO-CONTENT": {
+      "LAY1": "Lokality",
+      "LAY2": "Hranice měst",
+      "LAY3": "Hranice obcí",
+      "LAY4": "Hranice okresů",
+      "LAY5": "Hranice vojvodství",
+      "LAY6": "Hranice zemí"
+    }
+  },
+  "HISTORY": {
+    "ADD-MORE": "Přidejte další data",
+    "NO-DATA": "Zatím nemáte žádná uložená data",
+    "LOADING": "Načítání uložených dat...",
+    "MAIN": {
+      "TITLE": "Uložená data",
+      "TILE-TITLE-SELECTION": "Vybráno:",
+      "TILE-TITLE-ANALYSIS": "Analýza atributů: ",
+      "TILE-TITLE-SPATIAL": "Prostorová analýza: "
+    },
+    "INNER": {
+      "LEFT-SECTION": {
+        "CREATION-DATE": "Datum vytvoření: ",
+        "CREATED": "vytvořený s",
+        "NR-OBJ": "Počet objektů ve vrstvě:",
+        "ALL-LOCALITIES": "Lokality v celé vrstvě: ",
+        "ALL-POPULATION": "Populace v celé vrstvě: ",
+        "OBJ-NAMES": "Názvy objektů ve vrstvě: ",
+        "LAYERFROM": "z vrstvy - ",
+        "LAYER-TYPES": {
+          "POLYGON": "Polygonová vrstva",
+          "POINT": "Bodová vrstva"
+        },
+        "SELECTION-TYPE": {
+          "MANUAL-SELECTION": "uživatelská volba",
+          "ATTRIBUTE-ANALYSIS": "analýza atributů",
+          "SPATIAL-ANALYSIS": "prostorová analýza"
+        },
+        "LAYER-TITLE": {
+          "SELECTED-OBJ-BY-HAND": "Ručně vybráno",
+          "SELECTED-OBJ-BY-ATTRIBUTE-ANALYSIS": "Analýza atributů",
+          "SELECTED-OBJ-BY-SPATIAL-ANALYSIS": "Prostorová analýza"
+        },
+        "ERROR": "Neznámý typ"
+      },
+      "RIGHT-SECTION": {
+        "MAP-TITLE": "Interaktivní náhled mapy",
+        "EXPORT-BUTTON": "Export dat"
+      }
+    }
+  },
+  "LOGIN-PAGE": {
+    "TITLE": "Zaregistrujte se",
+    "TITLE2": "Přihlaste se",
+    "TITLE-SIGNUP": "Klasická registrace",
+    "TITLE-SIGNIN": "Klasické přihlášení",
+    "TITLE-IN1-TEXT": "E-mailová adresa",
+    "TITLE-IN1-PLACEHOLDER": "Zadejte svou e-mailovou adresu",
+    "TITLE-IN2-TEXT": "Uživatelské jméno",
+    "TITLE-IN2-PLACEHOLDER": "Zadejte své uživatelské jméno",
+    "TITLE-IN3-TEXT": "Heslo",
+    "TITLE-IN3-PLACEHOLDER": "Zadejte své heslo",
+    "BUTTON-SIGNUP": "Zaregistrujte se",
+    "BUTTON-SIGNIN": "Přihlaste se",
+    "TITLE-SIGNUP-GOOGLE": "Zaregistrujte se u Google",
+    "TITLE-SIGNIN-GOOGLE": "Přihlaste se pomocí Google",
+    "BUTTON-SIGNUP-GOOGLE": "Google",
+    "BUTTON-SIGNIN-GOOGLE": "Google",
+    "HEADER": "ÚČET GOOGLE",
+    "HEADER-TEXT": "Zaregistrujte se jedním kliknutím.",
+    "HEADER-TEXT-LOGIN": "Přihlaste se jedním kliknutím.",
+    "BUTTON-HEADER": "Zaregistrujte se",
+    "BUTTON-HEADER-LOGIN": "Přihlaste se",
+    "ERROR-INV-EMAIL": "Neplatná e-mailová adresa.",
+    "ERROR-WEAK-PASS": "Heslo musí mít alespoň 6 znaků.",
+    "ERROR-EMAIL-TAKEN": "Tento e-mail již přijal jiný uživatel.",
+    "ERROR-USER-NOT-FOUND": "Nebyl nalezen žádný uživatel se zadanou e-mailovou adresou.",
+    "ERROR-WRONG-PASS": "Neplatný e-mail nebo heslo.",
+    "ERROR-INV-CRED": "Neplatné přihlašovací údaje."
+  },
+  "USER-SETTINGS": {
+    "REDIRECT": "Nejste přihlášeni. Přesměrování...",
+    "OPTION1": "Změnit uživatelské jméno",
+    "OPTION1-DETAILS": {
+      "TITLE": "Změnit uživatelské jméno",
+      "ERROR": "Nové uživatelské jméno a jeho potvrzení se neshodují.",
+      "SUCCESS": "Uživatelské jméno bylo úspěšně změněno.",
+      "DET1": "Zadejte své nové uživatelské jméno",
+      "DET1-PLACEHOLDER": "Nové uživatelské jméno...",
+      "DET2": "Potvrďte své nové uživatelské jméno",
+      "DET2-PLACEHOLDER": "Potvrdit nové uživatelské jméno...",
+      "DET3": "Zadejte své heslo",
+      "DET3-PLACEHOLDER": "Aktuální heslo...",
+      "BTN": "Odeslat"
+    },
+    "OPTION2": "Změnit email",
+    "OPTION2-DETAILS": {
+      "TITLE": "Změnit email",
+      "ERROR": "Nový e-mail a jeho potvrzení se neshodují.",
+      "ERROR-TAKEN": "Tento e-mail již přijal jiný uživatel.",
+      "ERROR-INV-EMAIL": "Neplatná e-mailová adresa.",
+      "SUCCESS": "E-mail byl úspěšně změněn.",
+      "DET1": "Zadejte svůj nový e-mail",
+      "DET1-PLACEHOLDER": "Nový email...",
+      "DET2": "Potvrďte svůj nový e-mail",
+      "DET2-PLACEHOLDER": "Potvrďte nový e-mail...",
+      "DET3": "Zadejte své heslo",
+      "DET3-PLACEHOLDER": "Aktuální heslo...",
+      "BTN": "Odeslat"
+    },
+    "OPTION3": "Změňte heslo",
+    "OPTION3-DETAILS": {
+      "TITLE": "Změňte heslo",
+      "ERROR": "Nové heslo a jeho potvrzení se neshodují.",
+      "ERROR-WEAK-PASS": "Heslo musí mít alespoň 8 znaků.",
+      "ERROR-INV-PASS": "Neplatné heslo. Zkuste to bez speciálních znaků nebo mezer.",
+      "SUCCESS": "Heslo bylo úspěšně změněno.",
+      "DET1": "Zadejte své aktuální heslo",
+      "DET1-PLACEHOLDER": "Aktuální heslo...",
+      "DET2": "Zadejte své nové heslo",
+      "DET2-PLACEHOLDER": "Nové heslo...",
+      "DET3": "Zadejte znovu své nové heslo",
+      "DET3-PLACEHOLDER": "Nové heslo...",
+      "BTN": "Odeslat"
+    },
+    "OPTION4": "Změnit profilový obrázek",
+    "OPTION4-DETAILS": {
+      "TITLE": "Změnit profilový obrázek",
+      "ERROR": "Změna profilového obrázku se nezdařila.",
+      "SUCCESS": "Profilový obrázek byl úspěšně změněn.",
+      "DET1": "Vyberte nový profilový obrázek",
+      "DET1-PLACEHOLDER": "Vyberte soubor...",
+      "DET2": "Zadejte své heslo",
+      "DET2-PLACEHOLDER": "Aktuální heslo...",
+      "BTN": "Odeslat"
+    },
+    "OPTION5": "Odstraňte všechny uložené vrstvy a objekty",
+    "OPTION6": "Smazat profilový obrázek",
+    "OPTION7": "Trvale smazat účet",
+    "USER-INFO": {
+      "TITLE1": "Uživatelské jméno",
+      "TITLE2": "E-mail",
+      "BUTTON": "Odhlaste se"
+    }
+  }
+}

@@ -1,0 +1,383 @@
+{
+  "HOME": {
+    "SELECTION1": "Helyi geoportál",
+    "SELECTION2": "Felhasználói tevékenység előzményei",
+    "SELECTION3": "Böngésszen a helyadatok között",
+    "POPUP": {
+      "TITLE": "TEVÉKENYSÉGTÖRTÉNET",
+      "TITLE2": "Exkluzív rész a bejelentkezett felhasználók számára",
+      "TITLE3": "Jelentkezzen be, vagy hozzon létre egy fiókot tevékenységi előzményeinek megtekintéséhez"
+    }
+  },
+  "LOGIN": {
+    "LOGIN-REGISTER": "Regisztráljon",
+    "LOGIN-LOGIN": "Bejelentkezés",
+    "LOGIN-SETTINGS": "Beállítások elemre",
+    "LOGIN-LOGOUT": "Jelentkezzen ki"
+  },
+  "AUTHOR": {
+    "AUTHOR-NAME": "Fejlesztő: Dawid Kalbarczyk",
+    "AUTHOR-TEXT": "Önképzési céllal készült projekt."
+  },
+  "POP-UP": {
+    "SAVED": {
+      "TITLE": "A kiválasztott objektumok mentése sikeresen megtörtént",
+      "CLOSE-BUTT": "Közeli",
+      "REDIRECT": "Mentett elemzések megtekintése"
+    },
+    "DELETE": {
+      "TITLE1": "A kiválasztott objektumok törlődnek",
+      "TITLE2": "Folytatja?"
+    },
+    "OBJ-SAVE": {
+      "TITLE": "Mentse a kiválasztott objektumokat",
+      "INPUT": "Adjon nevet az új fóliának a kijelölt objektumok mentéséhez",
+      "PLACEHOLDER": "A mentett objektumok neve...",
+      "SAVE-BUTT": "Megtakarítás",
+      "CANCEL-BUTT": "Mégsem"
+    },
+    "LOGIN": {
+      "TITLE": "Jelentkezzen be vagy regisztráljon a funkció használatához",
+      "REGISTER": "Regisztráljon",
+      "LOGIN": "Jelentkezzen be",
+      "CANCEL-BUTT": "Mégsem"
+    },
+    "INFO": {
+      "TITLE": "Réteg attribútum információ",
+      "CLOSE-BUTT": "Közeli"
+    },
+    "EMPTY-TABLE": {
+      "TITLE1": "A lekérdezés egy üres attribútumtáblázatot tartalmazó réteget adott vissza.",
+      "TITLE2": "Próbálkozzon másik lekérdezéssel.",
+      "CLOSE-BUTT": "Közeli"
+    },
+    "YES": "Igen",
+    "NO": "Nem"
+  },
+  "ATTRIBUTE-TOOLBAR": {
+    "SELECT": {
+      "NAME": "Keresse meg",
+      "ON": "Ha ez az eszköz aktív, kattintson egy rekordra, hogy megkeresse azt a térképen",
+      "OFF": "Kapcsolja ki a rekordok térképen történő megkeresésére szolgáló eszközt"
+    },
+    "SEARCH": {
+      "NAME": "Keresés",
+      "PLACEHOLDER": "Keresés név szerint...",
+      "ON": "Rekordok keresése név szerint",
+      "OFF": "Kapcsolja ki a rekordkeresést"
+    },
+    "FILTER": {
+      "FILTERS-APPLIED": "Szűrők kerültek alkalmazásra",
+      "NAME": "Szűrő",
+      "ON": "Rekordok szűrése",
+      "OFF": "Kapcsolja ki a rekordszűrést",
+      "CONTENT": {
+        "TITLE": "Szűrők",
+        "ADJUST": "Állítsa be az állapotot",
+        "ALL": "Minden",
+        "ANY": "Bármilyen",
+        "OPERATORS": {
+          "CONTAINS": "tartalmaz",
+          "NOT-CONTAINS": "nem tartalmaz",
+          "EQUALS": "egyenlő",
+          "NOT-EQUALS": "nem egyenlő",
+          "STARTS-WITH": "-vel kezdődik",
+          "ENDS-WITH": "-vel végződik",
+          "LOWER-THAN": "alacsonyabb, mint",
+          "LOWER-THAN-EQUALS": "kisebb vagy egyenlő, mint",
+          "GREATER-THAN": "nagyobb, mint",
+          "GREATER-THAN-EQUALS": "nagyobb vagy egyenlő, mint",
+          "IS-NULL": "nulla",
+          "IS-NOT-NULL": "nem nulla"
+        },
+        "ATTRIBUTE": "-- attribútum --",
+        "OPERATOR": "-- operátor --",
+        "INPUT-VALUE": "érték...",
+        "ADD-FILTER": "Új szűrő hozzáadása",
+        "CLEAR-FILTERS": "Tiszta szűrők",
+        "APPLY-FILTERS": "Szűrők alkalmazása"
+      }
+    },
+    "RESET": {
+      "NAME": "Szűrők visszaállítása",
+      "ON": "Szűrők visszaállítása"
+    },
+    "CALCULATE": {
+      "NAME": "Számítsa ki a mezőt",
+      "ON": "Számítson ki egy mezőt attribútumok alapján",
+      "OFF": "Kapcsolja ki a terepi számítási eszközt"
+    }
+  },
+  "GEOPORTAL": {
+    "ANALYSIS": "Elemzés",
+    "ANALYSIS-CONTENT": {
+      "TITLE": "Elemző eszköz",
+      "TEXT": "Válassza ki az elemzés típusát",
+      "ATTRIBUTE": "Attribútumelemzés",
+      "ATTRIBUTE-CONTENT": {
+        "TITLE": "Attribútumelemzés",
+        "TEXT": "Hozzon létre egy lekérdezést az objektumok kiválasztásához",
+        "YOUR-ANALYSIS": "Az Ön elemzése",
+        "CHOOSE-LAYER": "Objektumok kiválasztása a rétegből:",
+        "CHOOSE-ATTRIBUTE": "ahol attribútum:",
+        "ATTRIBUTE-DESCRIPTIONS": {
+          "jpt_kod_je": "Kataszteri egység kódja. Általában a TERYT nyilvántartásból vagy a telek- és épületnyilvántartásból származó azonosító.",
+          "jpt_sjr_ko": "A jellemző típusát jelző egységtípus kód, pl. vajdaság, kerület, község vagy kataszteri egység.",
+          "jpt_nazwa_": "A közigazgatási egység neve, pl. Varsó kerület.",
+          "jpt_powier": "Az egység nyilvántartásban szereplő területe, hektárban kifejezve.",
+          "jpt_organ_": "Tájékoztatás az egység adataiért felelős közigazgatási hatóságról.",
+          "jpt_kod__1": "Az egységkódhoz kapcsolódó attribútum. Elmagyarázza, hogy az egységkód miért nem került be az adatbázisba.",
+          "jpt_nazwa1": "Az egység nevéhez kapcsolódó attribútum. Elmagyarázza, hogy az egység neve miért nem került be az adatbázisba.",
+          "jpt_organ1": "Az egység jogosultságához kapcsolódó attribútum. Elmagyarázza, hogy az egység jogosultsága miért nem került be az adatbázisba.",
+          "jpt_wazna_": "Az egységre vonatkozó információk érvényességi állapotát vagy állapotát jelző kód.",
+          "iip_przest": "Névtér, amely azonosítja az adatkészletet a határok nemzeti nyilvántartásában.",
+          "iip_identy": "A térbeli elem azonosítója az Országos Határjegyzékben.",
+          "jpt_kj_iip": "Az adatkészletet azonosító névtér, amelyet az adatkészlet-szolgáltató rendelt hozzá.",
+          "jpt_kj_i_1": "A térbeli jellemző helyi azonosítója, amelyet az adatkészlet-szolgáltató rendelt hozzá.",
+          "jpt_kj_i_2": "A térbeli jellemző egy adott verziójának az adatkészlet-szolgáltató által hozzárendelt azonosítója.",
+          "jpt_sps_ko": "A területi felosztási egység jogállása.",
+          "jpt_powi_1": "A területi felosztási egység korrigált területe, hektárban kifejezve.",
+          "jpt_kj_i_3": "Az adatkészletet azonosító névtérhez kapcsolódó attribútum. Elmagyarázza, hogy a névtér miért nem került be az adatbázisba.",
+          "jpt_jor_id": "Idegen kulcs oszlop, amely PRGT_JEDNOSTKA_ORGANIZACYJNA-ra hivatkozik. A szervezeti egység azonosítója az Országos Határnyilvántartásban.",
+          "wersja_od": "Dátum, amikor a szolgáltatás verzióját bevezették vagy módosították az adatkészletben.",
+          "wersja_do": "Az a dátum, amikor a szolgáltatásverziót kivonták az adatkészletből.",
+          "wazny_od": "Hivatalos dátum, amikor a területi felosztási egység jogerőssé vált.",
+          "wazny_do": "Hivatalos dátum, amikor a területi felosztási egység jogilag megszűnt.",
+          "iip_wersja": "A térbeli jellemző adott változatának azonosítója a határok országos nyilvántartásában. Ha a szolgáltatás specifikációja életciklus-információkat tartalmaz, akkor a verzióazonosítót a rendszer a szolgáltatás egyes verzióinak megkülönböztetésére használja.",
+          "jpt_opis": "A területi felosztási egység leírása.",
+          "jpt_id": "Elsődleges kulcsoszlop itt: PRGT_JEDNOSTKA_PODZIALU_TERYTORIALNEGO. A területi felosztási egység azonosítója az Országos Határnyilvántartásban.",
+          "regon": "A területi beosztási egység REGON száma.",
+          "shape_leng": "A tereptárgy geometriájának hossza. A közigazgatási egységek esetében ez általában a sokszög kerülete.",
+          "shape_area": "A területi felosztási egység sokszögének geometriai területe.",
+          "shape_le_1": "A geometria hosszát tartalmazó mező, amelyet például GIS-rendszerből történő adatok exportálásakor hoznak létre.",
+          "nazwa": "A helység neve, pl. Krakkó, Varsó vagy Gdańsk.",
+          "rodzaj": "A helység típusa, pl. egy falu, város vagy település.",
+          "liczbamies": "A helység lakosainak száma.",
+          "idprng": "A tereptárgy azonosítója az Országos Földrajzi Névjegyzékben.",
+          "wspgeog": "A helység földrajzi koordinátái a WGS84 koordinátarendszerben.",
+          "wspxy": "A helység koordinátái a PL-1992 vetített koordinátarendszerben.",
+          "wojewodz": "Vajdaság, amelyben a terület található.",
+          "powiat": "kerület, amelyben a tereptárgy található.",
+          "gmina": "Község, amelyben a funkció található.",
+          "idgminy": "A község azonosítója az Országos Határjegyzékben. Megfelel a TERYT azonosítónak."
+        },
+        "TABLE": {
+          "EMPTY-TABLE": "Üres az asztal! Válasszon ki egy réteget, vagy futtasson egy lekérdezést az attribútumok megjelenítéséhez.",
+          "SHOWN": "Megjelenítés",
+          "FROM": "a",
+          "ROWS": "sorokat",
+          "LOADING": "Táblázat betöltése..."
+        },
+        "CONDITION": "állapot...",
+        "SUBMIT-BUTT": "Elemezze",
+        "UPDATE-BUTT": "Frissítés",
+        "TABLE-BUTT": "Attribútumtáblázat megjelenítése",
+        "TABLE-BUTT-CLOSE": "Attribútumtábla elrejtése",
+        "SAVE-BUTT": "Attribútumelemzés mentése",
+        "POP-UP": {
+          "TITLE": "Információ a rétegattribútumokról",
+          "BUTT": "Közeli"
+        }
+      },
+      "SPATIAL": "Térbeli elemzés",
+      "SPATIAL-CONTENT": {
+        "TITLE": "Térbeli elemzés"
+      },
+      "SELECTION": "Objektum kiválasztása",
+      "SELECTION-CONTENT": {
+        "TITLE": "Objektum kiválasztása",
+        "TEXT1": "Kattintson a térképre egy objektum kiválasztásához",
+        "TEXT2": "Választható réteg:",
+        "SELECT": "Válasszon réteget",
+        "SELECT-COLUMN": "Válasszon attribútumot",
+        "SELECT-TITLES": {
+          "PAN": "Ország",
+          "WOJ": "vajdaság",
+          "POW": "Kerület",
+          "GMI": "Közösség",
+          "JEW": "Város",
+          "LOCALITY": "Helység"
+        },
+        "WARNING-CONTENT": {
+          "TITLE": "A kiválasztott objektum elveszik<br>Folytatja?",
+          "BUTT1": "Igen",
+          "BUTT2": "Nem"
+        },
+        "POPULATION": "Lakosság:",
+        "PICKED": "Válogatott:",
+        "BUTT1": "Kijelölt törlése",
+        "BUTT2": "A kiválasztott mentése"
+      }
+    },
+    "MEASURE": "Intézkedés",
+    "SAVE": "Elemzés mentése",
+    "BROWSER": "Böngésző",
+    "BROWSER-CONTENT": {
+      "TEXT": "Keresés...",
+      "TEXT2": "Nincsenek keresési eredmények"
+    },
+    "BASEMAP": "Alaptérkép",
+    "BASEMAP-CONTENT": {
+      "LAY1": "OpenStreetMap térkép",
+      "LAY2": "Ortofototérkép",
+      "LAY3": "Épületek (nagy méretű)"
+    },
+    "INFO": "Info",
+    "INFO-DETAILS": {
+      "TITLE": "Információk a rétegekről",
+      "LAYER": "Réteg:",
+      "ID": "Azonosító a rétegben:",
+      "LOCALITY": "Helység:",
+      "POPULATION": "Lakosság:",
+      "DISTRICT": "Kerület:",
+      "COMMUNE": "Közösség:",
+      "CITY": "Város:",
+      "VOIVODESHIP": "Vajdaság:",
+      "COUNTRY": "Ország:"
+    },
+    "LAYERS": "Rétegek",
+    "INFO-CONTENT": {
+      "LAY1": "Helységek",
+      "LAY2": "A városok határai",
+      "LAY3": "A települések határai",
+      "LAY4": "A körzetek határai",
+      "LAY5": "A vajdaságok határai",
+      "LAY6": "Országhatárok"
+    }
+  },
+  "HISTORY": {
+    "ADD-MORE": "További adatok hozzáadása",
+    "NO-DATA": "Még nincsenek mentett adatai",
+    "LOADING": "Mentett adatok betöltése...",
+    "MAIN": {
+      "TITLE": "Mentett adatok",
+      "TILE-TITLE-SELECTION": "Kiválasztott:",
+      "TILE-TITLE-ANALYSIS": "Attribútum elemzés:",
+      "TILE-TITLE-SPATIAL": "Térbeli elemzés:"
+    },
+    "INNER": {
+      "LEFT-SECTION": {
+        "CREATION-DATE": "Létrehozás dátuma:",
+        "CREATED": "-val hozta létre",
+        "NR-OBJ": "Objektumok száma a rétegben:",
+        "ALL-LOCALITIES": "Helységek a teljes rétegben:",
+        "ALL-POPULATION": "Népesség a teljes rétegben:",
+        "OBJ-NAMES": "A rétegben lévő objektumok nevei:",
+        "LAYERFROM": "rétegből -",
+        "LAYER-TYPES": {
+          "POLYGON": "Sokszög réteg",
+          "POINT": "Pontréteg"
+        },
+        "SELECTION-TYPE": {
+          "MANUAL-SELECTION": "felhasználói választás",
+          "ATTRIBUTE-ANALYSIS": "attribútumelemzés",
+          "SPATIAL-ANALYSIS": "térbeli elemzés"
+        },
+        "LAYER-TITLE": {
+          "SELECTED-OBJ-BY-HAND": "Kézzel kiválasztott",
+          "SELECTED-OBJ-BY-ATTRIBUTE-ANALYSIS": "Attribútumelemzés",
+          "SELECTED-OBJ-BY-SPATIAL-ANALYSIS": "Térbeli elemzés"
+        },
+        "ERROR": "Nem ismert típus"
+      },
+      "RIGHT-SECTION": {
+        "MAP-TITLE": "Interaktív térkép előnézet",
+        "EXPORT-BUTTON": "Adatok exportálása"
+      }
+    }
+  },
+  "LOGIN-PAGE": {
+    "TITLE": "Regisztráljon",
+    "TITLE2": "Jelentkezzen be",
+    "TITLE-SIGNUP": "Klasszikus regisztráció",
+    "TITLE-SIGNIN": "Klasszikus bejelentkezés",
+    "TITLE-IN1-TEXT": "E-mail cím",
+    "TITLE-IN1-PLACEHOLDER": "Adja meg e-mail címét",
+    "TITLE-IN2-TEXT": "Felhasználónév",
+    "TITLE-IN2-PLACEHOLDER": "Adja meg felhasználónevét",
+    "TITLE-IN3-TEXT": "Jelszó",
+    "TITLE-IN3-PLACEHOLDER": "Adja meg jelszavát",
+    "BUTTON-SIGNUP": "Regisztráljon",
+    "BUTTON-SIGNIN": "Bejelentkezés",
+    "TITLE-SIGNUP-GOOGLE": "Regisztráljon a Google-lal",
+    "TITLE-SIGNIN-GOOGLE": "Jelentkezzen be a Google-lal",
+    "BUTTON-SIGNUP-GOOGLE": "Google",
+    "BUTTON-SIGNIN-GOOGLE": "Google",
+    "HEADER": "GOOGLE-FIÓK",
+    "HEADER-TEXT": "Regisztráljon egy kattintással.",
+    "HEADER-TEXT-LOGIN": "Jelentkezzen be egy kattintással.",
+    "BUTTON-HEADER": "Regisztráljon",
+    "BUTTON-HEADER-LOGIN": "Bejelentkezés",
+    "ERROR-INV-EMAIL": "Érvénytelen e-mail cím.",
+    "ERROR-WEAK-PASS": "A jelszónak legalább 6 karakter hosszúnak kell lennie.",
+    "ERROR-EMAIL-TAKEN": "Ezt az e-mailt már foglalta egy másik felhasználó.",
+    "ERROR-USER-NOT-FOUND": "Nem található felhasználó a megadott e-mail címmel.",
+    "ERROR-WRONG-PASS": "Érvénytelen e-mail cím vagy jelszó.",
+    "ERROR-INV-CRED": "Érvénytelen hitelesítő adatok."
+  },
+  "USER-SETTINGS": {
+    "REDIRECT": "Nincs bejelentkezve. Átirányítás...",
+    "OPTION1": "Felhasználónév módosítása",
+    "OPTION1-DETAILS": {
+      "TITLE": "Felhasználónév módosítása",
+      "ERROR": "Az új felhasználónév és annak megerősítése nem egyezik.",
+      "SUCCESS": "A felhasználónév megváltoztatása sikeres volt.",
+      "DET1": "Adja meg új felhasználónevét",
+      "DET1-PLACEHOLDER": "Új felhasználónév...",
+      "DET2": "Erősítse meg új felhasználónevét",
+      "DET2-PLACEHOLDER": "Új felhasználónév megerősítése...",
+      "DET3": "Adja meg jelszavát",
+      "DET3-PLACEHOLDER": "Jelenlegi jelszó...",
+      "BTN": "Beküld"
+    },
+    "OPTION2": "E-mail módosítás",
+    "OPTION2-DETAILS": {
+      "TITLE": "E-mail módosítás",
+      "ERROR": "Az új e-mail és a visszaigazolás nem egyezik.",
+      "ERROR-TAKEN": "Ezt az e-mailt már foglalta egy másik felhasználó.",
+      "ERROR-INV-EMAIL": "Érvénytelen e-mail cím.",
+      "SUCCESS": "Az e-mail cím sikeresen módosítva.",
+      "DET1": "Adja meg új e-mail címét",
+      "DET1-PLACEHOLDER": "Új email...",
+      "DET2": "Erősítse meg új e-mail címét",
+      "DET2-PLACEHOLDER": "Új e-mail megerősítése...",
+      "DET3": "Adja meg jelszavát",
+      "DET3-PLACEHOLDER": "Jelenlegi jelszó...",
+      "BTN": "Beküld"
+    },
+    "OPTION3": "Jelszó módosítása",
+    "OPTION3-DETAILS": {
+      "TITLE": "Jelszó módosítása",
+      "ERROR": "Az új jelszó és annak megerősítése nem egyezik.",
+      "ERROR-WEAK-PASS": "A jelszónak legalább 8 karakter hosszúnak kell lennie.",
+      "ERROR-INV-PASS": "Érvénytelen jelszó. Próbálja meg speciális karakterek vagy szóközök nélkül.",
+      "SUCCESS": "A jelszó sikeresen megváltozott.",
+      "DET1": "Adja meg jelenlegi jelszavát",
+      "DET1-PLACEHOLDER": "Jelenlegi jelszó...",
+      "DET2": "Adja meg új jelszavát",
+      "DET2-PLACEHOLDER": "Új jelszó...",
+      "DET3": "Írja be újra az új jelszavát",
+      "DET3-PLACEHOLDER": "Új jelszó...",
+      "BTN": "Beküld"
+    },
+    "OPTION4": "Profilkép módosítása",
+    "OPTION4-DETAILS": {
+      "TITLE": "Profilkép módosítása",
+      "ERROR": "Nem sikerült megváltoztatni a profilképet.",
+      "SUCCESS": "A profilkép sikeresen módosítva.",
+      "DET1": "Válasszon új profilképet",
+      "DET1-PLACEHOLDER": "Válasszon egy fájlt...",
+      "DET2": "Adja meg jelszavát",
+      "DET2-PLACEHOLDER": "Jelenlegi jelszó...",
+      "BTN": "Beküld"
+    },
+    "OPTION5": "Törölje az összes mentett réteget és objektumot",
+    "OPTION6": "Profilkép törlése",
+    "OPTION7": "Fiók végleges törlése",
+    "USER-INFO": {
+      "TITLE1": "Felhasználónév",
+      "TITLE2": "Email",
+      "BUTTON": "Jelentkezzen ki"
+    }
+  }
+}

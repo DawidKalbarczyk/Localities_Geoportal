@@ -1,0 +1,383 @@
+{
+  "HOME": {
+    "SELECTION1": "Géoportail de localité",
+    "SELECTION2": "Historique de l'activité des utilisateurs",
+    "SELECTION3": "Parcourir les données de localité",
+    "POPUP": {
+      "TITLE": "HISTORIQUE DE L'ACTIVITÉ",
+      "TITLE2": "Section exclusive pour les utilisateurs connectés",
+      "TITLE3": "Connectez-vous ou créez un compte pour afficher l'historique de vos activités"
+    }
+  },
+  "LOGIN": {
+    "LOGIN-REGISTER": "S'inscrire",
+    "LOGIN-LOGIN": "Se connecter",
+    "LOGIN-SETTINGS": "Paramètres",
+    "LOGIN-LOGOUT": "Se déconnecter"
+  },
+  "AUTHOR": {
+    "AUTHOR-NAME": "Développeur: Dawid Kalbarczyk",
+    "AUTHOR-TEXT": "Projet créé à des fins d'auto-éducation."
+  },
+  "POP-UP": {
+    "SAVED": {
+      "TITLE": "Les objets sélectionnés ont été enregistrés avec succès",
+      "CLOSE-BUTT": "Fermer",
+      "REDIRECT": "Afficher les analyses enregistrées"
+    },
+    "DELETE": {
+      "TITLE1": "Les objets sélectionnés seront supprimés",
+      "TITLE2": "Continuer?"
+    },
+    "OBJ-SAVE": {
+      "TITLE": "Enregistrer les objets sélectionnés",
+      "INPUT": "Entrez un nom pour le nouveau calque pour enregistrer les objets sélectionnés",
+      "PLACEHOLDER": "Nom des objets enregistrés...",
+      "SAVE-BUTT": "Sauvegarder",
+      "CANCEL-BUTT": "Annuler"
+    },
+    "LOGIN": {
+      "TITLE": "Connectez-vous ou inscrivez-vous pour utiliser cette fonctionnalité",
+      "REGISTER": "S'inscrire",
+      "LOGIN": "Se connecter",
+      "CANCEL-BUTT": "Annuler"
+    },
+    "INFO": {
+      "TITLE": "Informations sur les attributs de couche",
+      "CLOSE-BUTT": "Fermer"
+    },
+    "EMPTY-TABLE": {
+      "TITLE1": "Votre requête a renvoyé une couche avec une table attributaire vide.",
+      "TITLE2": "Essayez une autre requête.",
+      "CLOSE-BUTT": "Fermer"
+    },
+    "YES": "Oui",
+    "NO": "Non"
+  },
+  "ATTRIBUTE-TOOLBAR": {
+    "SELECT": {
+      "NAME": "Situer",
+      "ON": "Avec cet outil actif, cliquez sur un enregistrement pour le localiser sur la carte",
+      "OFF": "Désactivez l'outil de localisation des enregistrements sur la carte"
+    },
+    "SEARCH": {
+      "NAME": "Recherche",
+      "PLACEHOLDER": "Rechercher par nom...",
+      "ON": "Rechercher des enregistrements par nom",
+      "OFF": "Désactiver la recherche d'enregistrements"
+    },
+    "FILTER": {
+      "FILTERS-APPLIED": "Les filtres ont été appliqués",
+      "NAME": "Filtre",
+      "ON": "Filtrer les enregistrements",
+      "OFF": "Désactiver le filtrage des enregistrements",
+      "CONTENT": {
+        "TITLE": "Filtres",
+        "ADJUST": "Ajuster la condition",
+        "ALL": "Tous",
+        "ANY": "N'importe lequel",
+        "OPERATORS": {
+          "CONTAINS": "contient",
+          "NOT-CONTAINS": "ne contient pas",
+          "EQUALS": "est égal",
+          "NOT-EQUALS": "n'est pas égal",
+          "STARTS-WITH": "commence par",
+          "ENDS-WITH": "se termine par",
+          "LOWER-THAN": "est inférieur à",
+          "LOWER-THAN-EQUALS": "est inférieur ou égal à",
+          "GREATER-THAN": "est supérieur à",
+          "GREATER-THAN-EQUALS": "est supérieur ou égal à",
+          "IS-NULL": "est nul",
+          "IS-NOT-NULL": "n'est pas nul"
+        },
+        "ATTRIBUTE": "-- attribut --",
+        "OPERATOR": "-- opérateur --",
+        "INPUT-VALUE": "valeur...",
+        "ADD-FILTER": "Ajouter un nouveau filtre",
+        "CLEAR-FILTERS": "Effacer les filtres",
+        "APPLY-FILTERS": "Appliquer des filtres"
+      }
+    },
+    "RESET": {
+      "NAME": "Réinitialiser les filtres",
+      "ON": "Réinitialiser les filtres"
+    },
+    "CALCULATE": {
+      "NAME": "Calculer le champ",
+      "ON": "Calculer un champ en fonction des attributs",
+      "OFF": "Désactiver l'outil de calcul de champ"
+    }
+  },
+  "GEOPORTAL": {
+    "ANALYSIS": "Analyse",
+    "ANALYSIS-CONTENT": {
+      "TITLE": "Outil d'analyse",
+      "TEXT": "Choisir le type d'analyse",
+      "ATTRIBUTE": "Analyse des attributs",
+      "ATTRIBUTE-CONTENT": {
+        "TITLE": "Analyse des attributs",
+        "TEXT": "Créer une requête pour sélectionner des objets",
+        "YOUR-ANALYSIS": "Votre analyse",
+        "CHOOSE-LAYER": "Sélectionnez des objets dans le calque :",
+        "CHOOSE-ATTRIBUTE": "où attribut :",
+        "ATTRIBUTE-DESCRIPTIONS": {
+          "jpt_kod_je": "Code de l'unité cadastrale. Généralement un identifiant du registre TERYT ou du Registre foncier et bâti.",
+          "jpt_sjr_ko": "Code de type d'unité indiquant le type de fonctionnalité, par ex. une voïvodie, un district, une commune ou une unité cadastrale.",
+          "jpt_nazwa_": "Nom de l'unité administrative, par ex. Quartier de Varsovie.",
+          "jpt_powier": "Superficie de l'unité inscrite au registre, exprimée en hectares.",
+          "jpt_organ_": "Informations sur l'autorité administrative responsable des données de l'unité.",
+          "jpt_kod__1": "Attribut lié au code unité. Explique pourquoi le code de l'unité n'a pas été saisi dans la base de données.",
+          "jpt_nazwa1": "Attribut lié au nom de l'unité. Explique pourquoi le nom de l'unité n'a pas été saisi dans la base de données.",
+          "jpt_organ1": "Attribut lié à l'autorité de l'unité. Explique pourquoi l'autorité de l'unité n'a pas été saisie dans la base de données.",
+          "jpt_wazna_": "Code indiquant le statut de validité ou l'état des informations sur l'unité.",
+          "iip_przest": "Espace de noms identifiant l'ensemble de données dans le Registre national des limites.",
+          "iip_identy": "Identifiant de l'entité spatiale dans le Registre national des limites.",
+          "jpt_kj_iip": "Espace de noms identifiant l'ensemble de données, attribué par le fournisseur de l'ensemble de données.",
+          "jpt_kj_i_1": "Identifiant local de l'entité spatiale, attribué par le fournisseur de l'ensemble de données.",
+          "jpt_kj_i_2": "Identifiant d'une version spécifique de l'entité spatiale, attribué par le fournisseur de l'ensemble de données.",
+          "jpt_sps_ko": "Statut juridique de l'unité de division territoriale.",
+          "jpt_powi_1": "Superficie corrigée de l'unité de découpage territorial, exprimée en hectares.",
+          "jpt_kj_i_3": "Attribut lié à l'espace de noms identifiant l'ensemble de données. Explique pourquoi l'espace de noms n'a pas été saisi dans la base de données.",
+          "jpt_jor_id": "Colonne de clé étrangère faisant référence à PRGT_JEDNOSTKA_ORGANIZACYJNA. Identifiant de l'unité organisationnelle dans le Registre national des frontières.",
+          "wersja_od": "Date à laquelle la version de la fonctionnalité a été introduite ou modifiée dans l'ensemble de données.",
+          "wersja_do": "Date à laquelle la version de la fonctionnalité a été retirée de l'ensemble de données.",
+          "wazny_od": "Date officielle à laquelle l'unité de division territoriale est devenue juridiquement effective.",
+          "wazny_do": "Date officielle à laquelle l'unité de division territoriale a cessé d'être juridiquement efficace.",
+          "iip_wersja": "Identifiant d'une version spécifique de l'entité spatiale dans le Registre national des limites. Si la spécification de fonctionnalité inclut des informations sur le cycle de vie, l'identifiant de version est utilisé pour distinguer les versions individuelles de la fonctionnalité.",
+          "jpt_opis": "Description de l'unité de division territoriale.",
+          "jpt_id": "Colonne de clé primaire dans PRGT_JEDNOSTKA_PODZIALU_TERYTORIALNEGO. Identifiant de l'unité de découpage territorial au Registre National des Frontières.",
+          "regon": "Numéro REGON de l'unité de division territoriale.",
+          "shape_leng": "Longueur de la géométrie de l'entité. Pour les unités administratives, il s'agit généralement du périmètre du polygone.",
+          "shape_area": "Aire géométrique du polygone de l'unité de découpage territorial.",
+          "shape_le_1": "Champ contenant la longueur de la géométrie, créé par exemple lors de l'exportation de données depuis un système SIG.",
+          "nazwa": "Nom de la localité, par ex. Cracovie, Varsovie ou Gdańsk.",
+          "rodzaj": "Type de localité, par ex. un village, une ville ou une colonie.",
+          "liczbamies": "Nombre d'habitants de la localité.",
+          "idprng": "Identifiant de l'entité dans le Registre national des noms géographiques.",
+          "wspgeog": "Coordonnées géographiques de la localité dans le système de coordonnées WGS84.",
+          "wspxy": "Coordonnées de la localité dans le système de coordonnées projetées PL-1992.",
+          "wojewodz": "Voïvodie dans laquelle se trouve l'entité.",
+          "powiat": "District dans lequel se trouve l’entité.",
+          "gmina": "Commune dans laquelle se trouve l'entité.",
+          "idgminy": "Identifiant de la commune au Registre National des Limites. Correspond à l'identifiant TERYT."
+        },
+        "TABLE": {
+          "EMPTY-TABLE": "La table est vide ! Sélectionnez une couche ou exécutez une requête pour afficher les attributs.",
+          "SHOWN": "Affichage",
+          "FROM": "de",
+          "ROWS": "lignes",
+          "LOADING": "Chargement du tableau..."
+        },
+        "CONDITION": "condition...",
+        "SUBMIT-BUTT": "Analyser",
+        "UPDATE-BUTT": "Mise à jour",
+        "TABLE-BUTT": "Afficher la table attributaire",
+        "TABLE-BUTT-CLOSE": "Masquer la table attributaire",
+        "SAVE-BUTT": "Enregistrer l'analyse des attributs",
+        "POP-UP": {
+          "TITLE": "Informations sur les attributs des couches",
+          "BUTT": "Fermer"
+        }
+      },
+      "SPATIAL": "Analyse spatiale",
+      "SPATIAL-CONTENT": {
+        "TITLE": "Analyse spatiale"
+      },
+      "SELECTION": "Sélection d'objet",
+      "SELECTION-CONTENT": {
+        "TITLE": "Sélection d'objet",
+        "TEXT1": "Cliquez sur la carte pour sélectionner un objet",
+        "TEXT2": "Couche parmi laquelle sélectionner :",
+        "SELECT": "Choisir un calque",
+        "SELECT-COLUMN": "Choisir l'attribut",
+        "SELECT-TITLES": {
+          "PAN": "Pays",
+          "WOJ": "Voïvodie",
+          "POW": "District",
+          "GMI": "Commune",
+          "JEW": "Ville",
+          "LOCALITY": "Localité"
+        },
+        "WARNING-CONTENT": {
+          "TITLE": "L'objet sélectionné sera perdu.<br>Voulez-vous continuer ?",
+          "BUTT1": "Oui",
+          "BUTT2": "Non"
+        },
+        "POPULATION": "Population:",
+        "PICKED": "Choisi:",
+        "BUTT1": "Effacer la sélection",
+        "BUTT2": "Enregistrer la sélection"
+      }
+    },
+    "MEASURE": "Mesure",
+    "SAVE": "Enregistrer l'analyse",
+    "BROWSER": "Navigateur",
+    "BROWSER-CONTENT": {
+      "TEXT": "Recherche...",
+      "TEXT2": "Aucun résultat de recherche"
+    },
+    "BASEMAP": "Fond de carte",
+    "BASEMAP-CONTENT": {
+      "LAY1": "Carte OpenStreetMap",
+      "LAY2": "Ortophotocarte",
+      "LAY3": "Bâtiments (à grande échelle)"
+    },
+    "INFO": "Informations",
+    "INFO-DETAILS": {
+      "TITLE": "Informations sur les calques",
+      "LAYER": "Couche:",
+      "ID": "ID dans la couche :",
+      "LOCALITY": "Localité:",
+      "POPULATION": "Population:",
+      "DISTRICT": "District:",
+      "COMMUNE": "Commune :",
+      "CITY": "Ville:",
+      "VOIVODESHIP": "Voïvodie :",
+      "COUNTRY": "Pays:"
+    },
+    "LAYERS": "Calques",
+    "INFO-CONTENT": {
+      "LAY1": "Localités",
+      "LAY2": "Limites des villes",
+      "LAY3": "Limites des communes",
+      "LAY4": "Limites des districts",
+      "LAY5": "Limites des voïvodies",
+      "LAY6": "Frontières du pays"
+    }
+  },
+  "HISTORY": {
+    "ADD-MORE": "Ajouter plus de données",
+    "NO-DATA": "Vous n'avez pas encore de données enregistrées",
+    "LOADING": "Chargement des données enregistrées...",
+    "MAIN": {
+      "TITLE": "Données enregistrées",
+      "TILE-TITLE-SELECTION": "Choisi:",
+      "TILE-TITLE-ANALYSIS": "Analyse des attributs :",
+      "TILE-TITLE-SPATIAL": "Analyse spatiale :"
+    },
+    "INNER": {
+      "LEFT-SECTION": {
+        "CREATION-DATE": "Date de création :",
+        "CREATED": "créé avec",
+        "NR-OBJ": "Nombre d'objets dans le calque :",
+        "ALL-LOCALITIES": "Localités dans toute la couche :",
+        "ALL-POPULATION": "Population dans toute la couche :",
+        "OBJ-NAMES": "Noms des objets dans le calque :",
+        "LAYERFROM": "à partir du calque -",
+        "LAYER-TYPES": {
+          "POLYGON": "Couche de polygone",
+          "POINT": "Couche de points"
+        },
+        "SELECTION-TYPE": {
+          "MANUAL-SELECTION": "choix de l'utilisateur",
+          "ATTRIBUTE-ANALYSIS": "analyse d'attribut",
+          "SPATIAL-ANALYSIS": "analyse spatiale"
+        },
+        "LAYER-TITLE": {
+          "SELECTED-OBJ-BY-HAND": "Sélectionné à la main",
+          "SELECTED-OBJ-BY-ATTRIBUTE-ANALYSIS": "Analyse des attributs",
+          "SELECTED-OBJ-BY-SPATIAL-ANALYSIS": "Analyse spatiale"
+        },
+        "ERROR": "Type non connu"
+      },
+      "RIGHT-SECTION": {
+        "MAP-TITLE": "Aperçu de la carte interactive",
+        "EXPORT-BUTTON": "Exporter des données"
+      }
+    }
+  },
+  "LOGIN-PAGE": {
+    "TITLE": "S'inscrire",
+    "TITLE2": "Se connecter",
+    "TITLE-SIGNUP": "Inscription classique",
+    "TITLE-SIGNIN": "Connexion classique",
+    "TITLE-IN1-TEXT": "Adresse email",
+    "TITLE-IN1-PLACEHOLDER": "Entrez votre adresse e-mail",
+    "TITLE-IN2-TEXT": "Nom d'utilisateur",
+    "TITLE-IN2-PLACEHOLDER": "Entrez votre nom d'utilisateur",
+    "TITLE-IN3-TEXT": "Mot de passe",
+    "TITLE-IN3-PLACEHOLDER": "Entrez votre mot de passe",
+    "BUTTON-SIGNUP": "S'inscrire",
+    "BUTTON-SIGNIN": "Se connecter",
+    "TITLE-SIGNUP-GOOGLE": "Inscrivez-vous avec Google",
+    "TITLE-SIGNIN-GOOGLE": "Connectez-vous avec Google",
+    "BUTTON-SIGNUP-GOOGLE": "Google",
+    "BUTTON-SIGNIN-GOOGLE": "Google",
+    "HEADER": "COMPTE GOOGLE",
+    "HEADER-TEXT": "Inscrivez-vous en un clic.",
+    "HEADER-TEXT-LOGIN": "Connectez-vous en un seul clic.",
+    "BUTTON-HEADER": "S'inscrire",
+    "BUTTON-HEADER-LOGIN": "Se connecter",
+    "ERROR-INV-EMAIL": "Adresse e-mail invalide.",
+    "ERROR-WEAK-PASS": "Le mot de passe doit comporter au moins 6 caractères.",
+    "ERROR-EMAIL-TAKEN": "Cet email est déjà pris par un autre utilisateur.",
+    "ERROR-USER-NOT-FOUND": "Aucun utilisateur trouvé avec l'adresse e-mail fournie.",
+    "ERROR-WRONG-PASS": "Email ou mot de passe invalide.",
+    "ERROR-INV-CRED": "Identifiants invalides."
+  },
+  "USER-SETTINGS": {
+    "REDIRECT": "Vous n'êtes pas connecté. Redirection...",
+    "OPTION1": "Changer le nom d'utilisateur",
+    "OPTION1-DETAILS": {
+      "TITLE": "Changer le nom d'utilisateur",
+      "ERROR": "Le nouveau nom d'utilisateur et sa confirmation ne correspondent pas.",
+      "SUCCESS": "Le nom d'utilisateur a été modifié avec succès.",
+      "DET1": "Entrez votre nouveau nom d'utilisateur",
+      "DET1-PLACEHOLDER": "Nouveau nom d'utilisateur...",
+      "DET2": "Confirmez votre nouveau nom d'utilisateur",
+      "DET2-PLACEHOLDER": "Confirmez le nouveau nom d'utilisateur...",
+      "DET3": "Entrez votre mot de passe",
+      "DET3-PLACEHOLDER": "Mot de passe actuel...",
+      "BTN": "Soumettre"
+    },
+    "OPTION2": "Changer d'e-mail",
+    "OPTION2-DETAILS": {
+      "TITLE": "Changer d'e-mail",
+      "ERROR": "Le nouvel e-mail et sa confirmation ne correspondent pas.",
+      "ERROR-TAKEN": "Cet email est déjà pris par un autre utilisateur.",
+      "ERROR-INV-EMAIL": "Adresse e-mail invalide.",
+      "SUCCESS": "L'e-mail a été modifié avec succès.",
+      "DET1": "Entrez votre nouvel email",
+      "DET1-PLACEHOLDER": "Nouvel e-mail...",
+      "DET2": "Confirmez votre nouvel e-mail",
+      "DET2-PLACEHOLDER": "Confirmer le nouvel e-mail...",
+      "DET3": "Entrez votre mot de passe",
+      "DET3-PLACEHOLDER": "Mot de passe actuel...",
+      "BTN": "Soumettre"
+    },
+    "OPTION3": "Changer le mot de passe",
+    "OPTION3-DETAILS": {
+      "TITLE": "Changer le mot de passe",
+      "ERROR": "Le nouveau mot de passe et sa confirmation ne correspondent pas.",
+      "ERROR-WEAK-PASS": "Le mot de passe doit comporter au moins 8 caractères.",
+      "ERROR-INV-PASS": "Mot de passe invalide. Essayez sans caractères spéciaux ni espaces.",
+      "SUCCESS": "Le mot de passe a été modifié avec succès.",
+      "DET1": "Entrez votre mot de passe actuel",
+      "DET1-PLACEHOLDER": "Mot de passe actuel...",
+      "DET2": "Entrez votre nouveau mot de passe",
+      "DET2-PLACEHOLDER": "Nouveau mot de passe...",
+      "DET3": "Saisissez à nouveau votre nouveau mot de passe",
+      "DET3-PLACEHOLDER": "Nouveau mot de passe...",
+      "BTN": "Soumettre"
+    },
+    "OPTION4": "Changer la photo de profil",
+    "OPTION4-DETAILS": {
+      "TITLE": "Changer la photo de profil",
+      "ERROR": "Échec de la modification de la photo de profil.",
+      "SUCCESS": "La photo de profil a été modifiée avec succès.",
+      "DET1": "Sélectionnez une nouvelle photo de profil",
+      "DET1-PLACEHOLDER": "Choisissez un fichier...",
+      "DET2": "Entrez votre mot de passe",
+      "DET2-PLACEHOLDER": "Mot de passe actuel...",
+      "BTN": "Soumettre"
+    },
+    "OPTION5": "Supprimer tous les calques et objets enregistrés",
+    "OPTION6": "Supprimer la photo de profil",
+    "OPTION7": "Supprimer définitivement le compte",
+    "USER-INFO": {
+      "TITLE1": "Nom d'utilisateur",
+      "TITLE2": "E-mail",
+      "BUTTON": "Se déconnecter"
+    }
+  }
+}

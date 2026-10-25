@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { LanguageService } from '../../services/language/language-service';
 
 @Component({
@@ -9,4 +9,6 @@ import { LanguageService } from '../../services/language/language-service';
 })
 export class GeoportalCorner {
   public languageService = inject(LanguageService);
+
+  public languageChangeClicked = signal<boolean>(false);
 }

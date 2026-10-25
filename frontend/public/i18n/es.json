@@ -1,0 +1,383 @@
+{
+  "HOME": {
+    "SELECTION1": "Geoportal de localidad",
+    "SELECTION2": "Historial de actividad del usuario",
+    "SELECTION3": "Explorar datos de localidad",
+    "POPUP": {
+      "TITLE": "HISTORIAL DE ACTIVIDAD",
+      "TITLE2": "Sección exclusiva para usuarios registrados",
+      "TITLE3": "Inicia sesión o crea una cuenta para ver tu historial de actividad"
+    }
+  },
+  "LOGIN": {
+    "LOGIN-REGISTER": "Inscribirse",
+    "LOGIN-LOGIN": "Acceso",
+    "LOGIN-SETTINGS": "Ajustes",
+    "LOGIN-LOGOUT": "Finalizar la sesión"
+  },
+  "AUTHOR": {
+    "AUTHOR-NAME": "Desarrollador: Dawid Kalbarczyk",
+    "AUTHOR-TEXT": "Proyecto creado con fines de autoeducación."
+  },
+  "POP-UP": {
+    "SAVED": {
+      "TITLE": "Los objetos seleccionados se han guardado correctamente.",
+      "CLOSE-BUTT": "Cerca",
+      "REDIRECT": "Ver análisis guardados"
+    },
+    "DELETE": {
+      "TITLE1": "Los objetos seleccionados serán eliminados.",
+      "TITLE2": "¿Continuar?"
+    },
+    "OBJ-SAVE": {
+      "TITLE": "Guardar objetos seleccionados",
+      "INPUT": "Ingrese un nombre para la nueva capa para guardar los objetos seleccionados",
+      "PLACEHOLDER": "Nombre de los objetos guardados...",
+      "SAVE-BUTT": "Ahorrar",
+      "CANCEL-BUTT": "Cancelar"
+    },
+    "LOGIN": {
+      "TITLE": "Inicia sesión o regístrate para usar esta función",
+      "REGISTER": "Inscribirse",
+      "LOGIN": "Iniciar sesión",
+      "CANCEL-BUTT": "Cancelar"
+    },
+    "INFO": {
+      "TITLE": "Información de atributos de capa",
+      "CLOSE-BUTT": "Cerca"
+    },
+    "EMPTY-TABLE": {
+      "TITLE1": "Su consulta devolvió una capa con una tabla de atributos vacía.",
+      "TITLE2": "Pruebe una consulta diferente.",
+      "CLOSE-BUTT": "Cerca"
+    },
+    "YES": "Sí",
+    "NO": "No"
+  },
+  "ATTRIBUTE-TOOLBAR": {
+    "SELECT": {
+      "NAME": "Localizar",
+      "ON": "Con esta herramienta activa, haga clic en un registro para ubicarlo en el mapa.",
+      "OFF": "Desactivar la herramienta para localizar registros en el mapa."
+    },
+    "SEARCH": {
+      "NAME": "Buscar",
+      "PLACEHOLDER": "Buscar por nombre...",
+      "ON": "Buscar registros por nombre",
+      "OFF": "Desactivar la búsqueda de registros"
+    },
+    "FILTER": {
+      "FILTERS-APPLIED": "Se han aplicado filtros.",
+      "NAME": "Filtrar",
+      "ON": "Filtrar registros",
+      "OFF": "Desactivar el filtrado de registros",
+      "CONTENT": {
+        "TITLE": "Filtros",
+        "ADJUST": "Ajustar condición",
+        "ALL": "Todo",
+        "ANY": "Cualquier",
+        "OPERATORS": {
+          "CONTAINS": "contiene",
+          "NOT-CONTAINS": "no contiene",
+          "EQUALS": "es igual",
+          "NOT-EQUALS": "no es igual",
+          "STARTS-WITH": "comienza con",
+          "ENDS-WITH": "termina con",
+          "LOWER-THAN": "es menor que",
+          "LOWER-THAN-EQUALS": "es menor o igual a",
+          "GREATER-THAN": "es mayor que",
+          "GREATER-THAN-EQUALS": "es mayor o igual a",
+          "IS-NULL": "es nulo",
+          "IS-NOT-NULL": "no es nulo"
+        },
+        "ATTRIBUTE": "-- atributo --",
+        "OPERATOR": "-- operador --",
+        "INPUT-VALUE": "valor...",
+        "ADD-FILTER": "Agregar nuevo filtro",
+        "CLEAR-FILTERS": "Limpiar filtros",
+        "APPLY-FILTERS": "Aplicar filtros"
+      }
+    },
+    "RESET": {
+      "NAME": "Restablecer filtros",
+      "ON": "Restablecer filtros"
+    },
+    "CALCULATE": {
+      "NAME": "Calcular campo",
+      "ON": "Calcular un campo basado en atributos",
+      "OFF": "Apague la herramienta de cálculo de campo"
+    }
+  },
+  "GEOPORTAL": {
+    "ANALYSIS": "Análisis",
+    "ANALYSIS-CONTENT": {
+      "TITLE": "herramienta de análisis",
+      "TEXT": "Elija el tipo de análisis",
+      "ATTRIBUTE": "Análisis de atributos",
+      "ATTRIBUTE-CONTENT": {
+        "TITLE": "Análisis de atributos",
+        "TEXT": "Crear una consulta para seleccionar objetos.",
+        "YOUR-ANALYSIS": "Tu análisis",
+        "CHOOSE-LAYER": "Seleccionar objetos de la capa:",
+        "CHOOSE-ATTRIBUTE": "donde atributo:",
+        "ATTRIBUTE-DESCRIPTIONS": {
+          "jpt_kod_je": "Código de unidad catastral. Generalmente un identificador del registro TERYT o del Registro de Terrenos y Edificios.",
+          "jpt_sjr_ko": "Código de tipo de unidad que indica el tipo de característica, p.e. un voivodato, distrito, comuna o unidad catastral.",
+          "jpt_nazwa_": "Nombre de la unidad administrativa, p.e. Distrito de Varsovia.",
+          "jpt_powier": "Área de la unidad inscrita en el registro, expresada en hectáreas.",
+          "jpt_organ_": "Información sobre la autoridad administrativa responsable de los datos de la unidad.",
+          "jpt_kod__1": "Atributo relacionado con el código de la unidad. Explica por qué el código de la unidad no se ha ingresado en la base de datos.",
+          "jpt_nazwa1": "Atributo relacionado con el nombre de la unidad. Explica por qué el nombre de la unidad no se ha ingresado en la base de datos.",
+          "jpt_organ1": "Atributo relacionado con la autoridad de la unidad. Explica por qué la autoridad de la unidad no se ha ingresado en la base de datos.",
+          "jpt_wazna_": "Código que indica el estado de validez o estado de la información de la unidad.",
+          "iip_przest": "Espacio de nombres que identifica el conjunto de datos en el Registro Nacional de Límites.",
+          "iip_identy": "Identificador del accidente espacial en el Registro Nacional de Límites.",
+          "jpt_kj_iip": "Espacio de nombres que identifica el conjunto de datos, asignado por el proveedor del conjunto de datos.",
+          "jpt_kj_i_1": "Identificador local de la característica espacial, asignado por el proveedor del conjunto de datos.",
+          "jpt_kj_i_2": "Identificador de una versión específica de la característica espacial, asignado por el proveedor del conjunto de datos.",
+          "jpt_sps_ko": "Régimen jurídico de la unidad de división territorial.",
+          "jpt_powi_1": "Área corregida de la unidad de división territorial, expresada en hectáreas.",
+          "jpt_kj_i_3": "Atributo relacionado con el espacio de nombres que identifica el conjunto de datos. Explica por qué el espacio de nombres no se ha ingresado en la base de datos.",
+          "jpt_jor_id": "Columna de clave externa que hace referencia a PRGT_JEDNOSTKA_ORGANIZACYJNA. Identificador de la unidad organizativa en el Registro Nacional de Límites.",
+          "wersja_od": "Fecha en la que se introdujo o modificó la versión de la característica en el conjunto de datos.",
+          "wersja_do": "Fecha en la que se retiró la versión de la característica del conjunto de datos.",
+          "wazny_od": "Fecha oficial en que la unidad de división territorial entró en vigor legalmente.",
+          "wazny_do": "Fecha oficial en que la unidad de división territorial dejó de tener efectos jurídicos.",
+          "iip_wersja": "Identificador de una versión específica del accidente espacial en el Registro Nacional de Límites. Si la especificación de la característica incluye información del ciclo de vida, el identificador de versión se utiliza para distinguir versiones individuales de la característica.",
+          "jpt_opis": "Descripción de la unidad de división territorial.",
+          "jpt_id": "Columna de clave principal en PRGT_JEDNOSTKA_PODZIALU_TERYTORIALNEGO. Identificador de la unidad de división territorial en el Registro Nacional de Límites.",
+          "regon": "Número REGON de la unidad de división territorial.",
+          "shape_leng": "Longitud de la geometría de la entidad. Para las unidades administrativas, suele ser el perímetro del polígono.",
+          "shape_area": "Área geométrica del polígono de la unidad de división territorial.",
+          "shape_le_1": "Campo que contiene la longitud de la geometría, creado, por ejemplo, al exportar datos desde un sistema GIS.",
+          "nazwa": "Nombre de la localidad, p.e. Cracovia, Varsovia o Gdańsk.",
+          "rodzaj": "Tipo de localidad, p.e. un pueblo, ciudad o asentamiento.",
+          "liczbamies": "Número de habitantes de la localidad.",
+          "idprng": "Identificador del rasgo en el Registro Nacional de Nombres Geográficos.",
+          "wspgeog": "Coordenadas geográficas de la localidad en el sistema de coordenadas WGS84.",
+          "wspxy": "Coordenadas de la localidad en el sistema de coordenadas proyectadas PL-1992.",
+          "wojewodz": "Voivodato en el que se encuentra la entidad.",
+          "powiat": "Distrito en el que se encuentra la característica.",
+          "gmina": "Comuna en la que se ubica la característica.",
+          "idgminy": "Identificador de la comuna en el Registro Nacional de Límites. Corresponde al identificador TERYT."
+        },
+        "TABLE": {
+          "EMPTY-TABLE": "¡La mesa está vacía! Seleccione una capa o ejecute una consulta para mostrar atributos.",
+          "SHOWN": "Demostración",
+          "FROM": "de",
+          "ROWS": "filas",
+          "LOADING": "Cargando tabla..."
+        },
+        "CONDITION": "condición...",
+        "SUBMIT-BUTT": "Analizar",
+        "UPDATE-BUTT": "Actualizar",
+        "TABLE-BUTT": "Mostrar tabla de atributos",
+        "TABLE-BUTT-CLOSE": "Ocultar tabla de atributos",
+        "SAVE-BUTT": "Guardar análisis de atributos",
+        "POP-UP": {
+          "TITLE": "Información sobre atributos de capa",
+          "BUTT": "Cerca"
+        }
+      },
+      "SPATIAL": "Análisis espacial",
+      "SPATIAL-CONTENT": {
+        "TITLE": "Análisis espacial"
+      },
+      "SELECTION": "Selección de objetos",
+      "SELECTION-CONTENT": {
+        "TITLE": "Selección de objetos",
+        "TEXT1": "Haga clic en el mapa para seleccionar un objeto",
+        "TEXT2": "Capa para seleccionar:",
+        "SELECT": "Elige capa",
+        "SELECT-COLUMN": "Elige atributo",
+        "SELECT-TITLES": {
+          "PAN": "País",
+          "WOJ": "Voivodato",
+          "POW": "Distrito",
+          "GMI": "Comuna",
+          "JEW": "Ciudad",
+          "LOCALITY": "Localidad"
+        },
+        "WARNING-CONTENT": {
+          "TITLE": "El objeto seleccionado se perderá<br>¿Quieres continuar?",
+          "BUTT1": "Sí",
+          "BUTT2": "No"
+        },
+        "POPULATION": "Población:",
+        "PICKED": "Escogido:",
+        "BUTT1": "Borrar seleccionado",
+        "BUTT2": "Guardar seleccionado"
+      }
+    },
+    "MEASURE": "Medida",
+    "SAVE": "Guardar análisis",
+    "BROWSER": "Navegador",
+    "BROWSER-CONTENT": {
+      "TEXT": "Buscar...",
+      "TEXT2": "Sin resultados de búsqueda"
+    },
+    "BASEMAP": "Mapa base",
+    "BASEMAP-CONTENT": {
+      "LAY1": "Mapa de OpenStreetMap",
+      "LAY2": "Ortofotomapa",
+      "LAY3": "Edificios (a gran escala)"
+    },
+    "INFO": "Información",
+    "INFO-DETAILS": {
+      "TITLE": "Información sobre capas",
+      "LAYER": "Capa:",
+      "ID": "ID en capa:",
+      "LOCALITY": "Localidad:",
+      "POPULATION": "Población:",
+      "DISTRICT": "Distrito:",
+      "COMMUNE": "Comuna:",
+      "CITY": "Ciudad:",
+      "VOIVODESHIP": "Voivodato:",
+      "COUNTRY": "País:"
+    },
+    "LAYERS": "capas",
+    "INFO-CONTENT": {
+      "LAY1": "Localidades",
+      "LAY2": "Límites de las ciudades",
+      "LAY3": "Límites de las comunas",
+      "LAY4": "Límites de los distritos",
+      "LAY5": "Límites de los voivodados",
+      "LAY6": "Límites del país"
+    }
+  },
+  "HISTORY": {
+    "ADD-MORE": "Añadir más datos",
+    "NO-DATA": "Aún no tienes datos guardados",
+    "LOADING": "Cargando datos guardados...",
+    "MAIN": {
+      "TITLE": "Datos guardados",
+      "TILE-TITLE-SELECTION": "Seleccionado:",
+      "TILE-TITLE-ANALYSIS": "Análisis de atributos:",
+      "TILE-TITLE-SPATIAL": "Análisis espacial:"
+    },
+    "INNER": {
+      "LEFT-SECTION": {
+        "CREATION-DATE": "Fecha de creación:",
+        "CREATED": "creado con",
+        "NR-OBJ": "Número de objetos en la capa:",
+        "ALL-LOCALITIES": "Localidades en toda la capa:",
+        "ALL-POPULATION": "Población en toda la capa:",
+        "OBJ-NAMES": "Nombres de objetos en la capa:",
+        "LAYERFROM": "de capa -",
+        "LAYER-TYPES": {
+          "POLYGON": "capa de polígono",
+          "POINT": "capa de puntos"
+        },
+        "SELECTION-TYPE": {
+          "MANUAL-SELECTION": "elección del usuario",
+          "ATTRIBUTE-ANALYSIS": "análisis de atributos",
+          "SPATIAL-ANALYSIS": "análisis espacial"
+        },
+        "LAYER-TITLE": {
+          "SELECTED-OBJ-BY-HAND": "Seleccionado a mano",
+          "SELECTED-OBJ-BY-ATTRIBUTE-ANALYSIS": "Análisis de atributos",
+          "SELECTED-OBJ-BY-SPATIAL-ANALYSIS": "Análisis espacial"
+        },
+        "ERROR": "tipo no conocido"
+      },
+      "RIGHT-SECTION": {
+        "MAP-TITLE": "Vista previa del mapa interactivo",
+        "EXPORT-BUTTON": "Exportar datos"
+      }
+    }
+  },
+  "LOGIN-PAGE": {
+    "TITLE": "Inscribirse",
+    "TITLE2": "Iniciar sesión",
+    "TITLE-SIGNUP": "Registro clásico",
+    "TITLE-SIGNIN": "Iniciar sesión clásico",
+    "TITLE-IN1-TEXT": "Dirección de correo electrónico",
+    "TITLE-IN1-PLACEHOLDER": "Introduce tu dirección de correo electrónico",
+    "TITLE-IN2-TEXT": "Nombre de usuario",
+    "TITLE-IN2-PLACEHOLDER": "Ingrese su nombre de usuario",
+    "TITLE-IN3-TEXT": "Contraseña",
+    "TITLE-IN3-PLACEHOLDER": "Introduce tu contraseña",
+    "BUTTON-SIGNUP": "Inscribirse",
+    "BUTTON-SIGNIN": "Acceso",
+    "TITLE-SIGNUP-GOOGLE": "Regístrate con Google",
+    "TITLE-SIGNIN-GOOGLE": "Iniciar sesión con Google",
+    "BUTTON-SIGNUP-GOOGLE": "Google",
+    "BUTTON-SIGNIN-GOOGLE": "Google",
+    "HEADER": "CUENTA DE GOOGLE",
+    "HEADER-TEXT": "Regístrate con un clic.",
+    "HEADER-TEXT-LOGIN": "Inicia sesión con un clic.",
+    "BUTTON-HEADER": "Inscribirse",
+    "BUTTON-HEADER-LOGIN": "Acceso",
+    "ERROR-INV-EMAIL": "Dirección de correo electrónico no válida.",
+    "ERROR-WEAK-PASS": "La contraseña debe tener al menos 6 caracteres.",
+    "ERROR-EMAIL-TAKEN": "Este correo electrónico ya fue recibido por otro usuario.",
+    "ERROR-USER-NOT-FOUND": "No se encontró ningún usuario con la dirección de correo electrónico proporcionada.",
+    "ERROR-WRONG-PASS": "Correo electrónico o contraseña no válidos.",
+    "ERROR-INV-CRED": "Credenciales no válidas."
+  },
+  "USER-SETTINGS": {
+    "REDIRECT": "No has iniciado sesión. Redirigiendo...",
+    "OPTION1": "Cambiar nombre de usuario",
+    "OPTION1-DETAILS": {
+      "TITLE": "Cambiar nombre de usuario",
+      "ERROR": "El nuevo nombre de usuario y su confirmación no coinciden.",
+      "SUCCESS": "El nombre de usuario se cambió correctamente.",
+      "DET1": "Ingrese su nuevo nombre de usuario",
+      "DET1-PLACEHOLDER": "Nuevo nombre de usuario...",
+      "DET2": "Confirma tu nuevo nombre de usuario",
+      "DET2-PLACEHOLDER": "Confirmar nuevo nombre de usuario...",
+      "DET3": "Introduce tu contraseña",
+      "DET3-PLACEHOLDER": "Contraseña actual...",
+      "BTN": "Entregar"
+    },
+    "OPTION2": "Cambiar correo electrónico",
+    "OPTION2-DETAILS": {
+      "TITLE": "Cambiar correo electrónico",
+      "ERROR": "El nuevo correo electrónico y su confirmación no coinciden.",
+      "ERROR-TAKEN": "Este correo electrónico ya fue recibido por otro usuario.",
+      "ERROR-INV-EMAIL": "Dirección de correo electrónico no válida.",
+      "SUCCESS": "El correo electrónico se cambió correctamente.",
+      "DET1": "Introduce tu nuevo correo electrónico",
+      "DET1-PLACEHOLDER": "Nuevo correo electrónico...",
+      "DET2": "Confirma tu nuevo correo electrónico",
+      "DET2-PLACEHOLDER": "Confirmar nuevo correo electrónico...",
+      "DET3": "Introduce tu contraseña",
+      "DET3-PLACEHOLDER": "Contraseña actual...",
+      "BTN": "Entregar"
+    },
+    "OPTION3": "Cambiar la contraseña",
+    "OPTION3-DETAILS": {
+      "TITLE": "Cambiar la contraseña",
+      "ERROR": "La nueva contraseña y su confirmación no coinciden.",
+      "ERROR-WEAK-PASS": "La contraseña debe tener al menos 8 caracteres.",
+      "ERROR-INV-PASS": "Contraseña no válida. Pruebe sin caracteres especiales ni espacios.",
+      "SUCCESS": "La contraseña se cambió correctamente.",
+      "DET1": "Ingrese su contraseña actual",
+      "DET1-PLACEHOLDER": "Contraseña actual...",
+      "DET2": "Ingresa tu nueva contraseña",
+      "DET2-PLACEHOLDER": "Nueva contraseña...",
+      "DET3": "Ingrese su nueva contraseña nuevamente",
+      "DET3-PLACEHOLDER": "Nueva contraseña...",
+      "BTN": "Entregar"
+    },
+    "OPTION4": "Cambiar foto de perfil",
+    "OPTION4-DETAILS": {
+      "TITLE": "Cambiar foto de perfil",
+      "ERROR": "No se pudo cambiar la imagen de perfil.",
+      "SUCCESS": "La imagen de perfil se cambió correctamente.",
+      "DET1": "Selecciona una nueva foto de perfil",
+      "DET1-PLACEHOLDER": "Elige un archivo...",
+      "DET2": "Introduce tu contraseña",
+      "DET2-PLACEHOLDER": "Contraseña actual...",
+      "BTN": "Entregar"
+    },
+    "OPTION5": "Eliminar todas las capas y objetos guardados",
+    "OPTION6": "Eliminar foto de perfil",
+    "OPTION7": "Eliminar cuenta permanentemente",
+    "USER-INFO": {
+      "TITLE1": "Nombre de usuario",
+      "TITLE2": "Correo electrónico",
+      "BUTTON": "Finalizar la sesión"
+    }
+  }
+}
