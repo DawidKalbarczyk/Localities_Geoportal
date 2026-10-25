@@ -227,9 +227,25 @@ export class AttributeTableToolbarService {
                 return true;
             }));
         });
-
-
         console.log('Applied filters:', this.filters());
+        this.appliedFiltersPopUp.set(true);
+        this.hideAppliedFiltersPopUp.set(false);
+
+        requestAnimationFrame(() => {
+            this.hideAppliedFiltersPopUp.set(true);
+        });
+
+        setTimeout(() => {
+            this.hideAppliedFiltersPopUp.set(false);
+
+            setTimeout(() => {
+                this.appliedFiltersPopUp.set(false);
+            }, 500);
+        }, 1500);
     }
+
+    public appliedFiltersPopUp = signal<boolean>(false);
+    public hideAppliedFiltersPopUp = signal<boolean>(false);
+    private filtersTimeout: any = null;
 
 }

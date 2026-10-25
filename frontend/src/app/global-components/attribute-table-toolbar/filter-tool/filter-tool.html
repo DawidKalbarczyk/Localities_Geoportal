@@ -1,7 +1,10 @@
 <div class="filter-tool-container" [class.filter-tool-container-on]="ToolbarService.ToolbarTools['filterTool']()">
-    <div class="applied-filters-pop-up">
-        <p>abrakadabra</p>
-    </div>
+    @if (ToolbarService.appliedFiltersPopUp()) {
+        <div class="applied-filters-pop-up" [class.applied-filters-pop-up-on]="ToolbarService.hideAppliedFiltersPopUp()">
+            <p>{{'ATTRIBUTE-TOOLBAR.FILTER.FILTERS-APPLIED' | translate}}</p>
+        </div>
+    }
+    
     <div class="header-con">
         <div class="title-con">
             <div><p>{{'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.TITLE' | translate}}</p></div>

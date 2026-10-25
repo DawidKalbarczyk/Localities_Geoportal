@@ -67,6 +67,7 @@
       "OFF": "Wyłącz wyszukiwarkę rekordów"
     },
     "FILTER": {
+      "FILTERS-APPLIED": "Zastosowano filtry",
       "NAME": "Filtruj",
       "ON": "Filtracja rekordów",
       "OFF": "Wyłącz filtrację rekordów",

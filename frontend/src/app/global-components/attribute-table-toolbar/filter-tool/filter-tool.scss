@@ -29,11 +29,28 @@
 
         .applied-filters-pop-up {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            inset: 0;
             z-index: 999999999;
             background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+
+            &.applied-filters-pop-up-on {
+                opacity: 1;
+            }
+
+            > p {
+                font-size: 1.5rem;
+                padding: 1rem 2rem;
+                border-radius: 1rem;
+                font-weight: 600;
+                background-color: $secondary-color-light;
+                color: #000;
+                text-align: center;
+            }
         }
 
         .header-con {

@@ -24,7 +24,7 @@
         <img src="./images/icons/filter.png" draggable="false" alt="Filter Item">
         <p>{{'ATTRIBUTE-TOOLBAR.FILTER.NAME' | translate}}</p>
     </button>
-    <button class="reset-filter" 
+    <button class="reset-filter" (click)="resetFilterTool()"
     [disabled]="ToolbarService.locateRowStyleOn() === true" 
     [matTooltip]="'ATTRIBUTE-TOOLBAR.RESET.ON' | translate">
         <img src="./images/icons/reset.png" draggable="false" alt="Reset Filter">

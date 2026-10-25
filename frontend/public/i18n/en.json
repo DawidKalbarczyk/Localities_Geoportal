@@ -67,6 +67,7 @@
       "OFF": "Turn off record search"
     },
     "FILTER": {
+      "FILTERS-APPLIED": "Filters has been applied",
       "NAME": "Filter",
       "ON": "Filter records",
       "OFF": "Turn off record filtering",

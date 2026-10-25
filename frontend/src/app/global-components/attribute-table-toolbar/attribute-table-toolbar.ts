@@ -54,6 +54,7 @@ export class AttributeTableToolbar implements OnDestroy {
     if (!this.map.getLayers().getArray().includes(this.highlightLayer)) {
       this.map.addLayer(this.highlightLayer);
     }
+    this.ToolbarService.showTransformButton.set(true);
     this.rowLocated.emit(row);
   }
 
@@ -102,7 +103,10 @@ export class AttributeTableToolbar implements OnDestroy {
   
 
   // RESET FILTER TOOL
-
+  public resetFilterTool(): void {
+    this.ToolbarService.newShownTable.set(null);
+    this.ToolbarService.resetFilters();
+  }
   // CALCULATE FIELD TOOL
   public isCalculateFieldToolActive = this.ToolbarTools['calculateFieldTool'];
 

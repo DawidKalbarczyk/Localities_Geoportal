@@ -62,9 +62,7 @@
                             </tbody>
                         </table>
                     </div>
-                    @if (ToolbarService.locateRowStyleOn() === false) {
-                        <app-filter-tool [shownTable]="shownTable()"></app-filter-tool>
-                    }
+                    <app-filter-tool [shownTable]="shownTable()"></app-filter-tool>
                     
                 </div>
 
@@ -77,15 +75,13 @@
                     <app-attribute-table-toolbar #toolbar [attributeSuggestionsTableSearch]="attributeSuggestionsTableSearch()" [shownTable]="shownTable()" (rowLocated)="revealRow($event, table, tableScroll, toolbar)"></app-attribute-table-toolbar>
                 </div>
             </div>
-            @if (ToolbarService.showTransformButton()) {
-                <div class="transform-back-con">
-                    <button (click)="ToolbarService.locateRowStyleOn.set(!ToolbarService.locateRowStyleOn());
-                    ToolbarService.didUserClickedOffLocateRowStyle.set(!ToolbarService.locateRowStyleOn())">
-                        <img src="./images/icons/bracket.png" draggable="false" [class.transform-back-img]="!ToolbarService.locateRowStyleOn()"
-                        alt="Transform Attribute Table">
-                    </button>
-                </div>
-            }
+            <div class="transform-back-con">
+                <button (click)="ToolbarService.locateRowStyleOn.set(!ToolbarService.locateRowStyleOn());
+                ToolbarService.didUserClickedOffLocateRowStyle.set(!ToolbarService.locateRowStyleOn())">
+                    <img src="./images/icons/bracket.png" draggable="false" [class.transform-back-img]="!ToolbarService.locateRowStyleOn()"
+                    alt="Transform Attribute Table">
+                </button>
+            </div>
 
         } @else {
             <div class="attribute-table-progress" role="status">{{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.LOADING' | translate}}</div>
