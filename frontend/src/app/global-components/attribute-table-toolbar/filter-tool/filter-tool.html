@@ -52,7 +52,13 @@
                     
                 </select>
                 <input type="text" [placeholder]="'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.INPUT-VALUE' | translate" [value]="ToolbarService.filters()[filterNr].value" #valueSelect
+                [attr.list]="'toolbar-filter-suggestions-' + filterNr"
                 (change)="ToolbarService.updateFilterParameter(filterNr, 'value', valueSelect.value)">
+                <datalist [id]="'toolbar-filter-suggestions-' + filterNr" >
+                    @for (value of ToolbarService.shownTableFilterAttributes()[filterNr] ?? ['']; track value) {
+                        <option [value]="value">{{value}}</option>
+                    }
+                </datalist>
                 <div (click)="ToolbarService.decrementFilterNr(filterNr)">
                     <img src="./images/icons/close.png" alt="Delete filter">
                 </div>
@@ -77,7 +83,8 @@
             {{'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.CLEAR-FILTERS' | translate}}</button>
         </div>
         <div class="footer-apply-con">
-            <button class="footer-apply-butt" (click)="ToolbarService.applyFilters(shownTable())">{{'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.APPLY-FILTERS' | translate}}</button>
+            <button class="footer-apply-butt" [disabled]="!ToolbarService.filtersAreComplete()"
+            (click)="ToolbarService.applyFilters(shownTable())">{{'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.APPLY-FILTERS' | translate}}</button>
         </div>
     </div>
 </div>

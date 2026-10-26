@@ -165,6 +165,7 @@
         },
         "TABLE": {
           "EMPTY-TABLE": "The table is empty! Select a layer or run a query to display attributes.",
+          "EMPTY-FILTER-RESULT": "Filtering returned an empty table.",
           "SHOWN": "Showing",
           "FROM": "of",
           "ROWS": "rows",

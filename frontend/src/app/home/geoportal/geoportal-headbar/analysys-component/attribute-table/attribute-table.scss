@@ -22,7 +22,7 @@
     font-size: 0.85rem;
     line-height: 1.5;
     color: $buttons-color;
-    min-height: 10rem;
+    min-height: 15rem;
     transition: left 1s ease;
 
     &.main-con-transform {
@@ -208,6 +208,13 @@
         .data-spacer td {
             padding: 0;
             border: none;
+        }
+
+        .empty-filter-row td {
+            padding: 1rem;
+            text-align: center;
+            color: #666;
+            font-weight: 600;
         }
 
         .data-row {

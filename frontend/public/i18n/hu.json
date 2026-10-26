@@ -163,6 +163,7 @@
         },
         "TABLE": {
           "EMPTY-TABLE": "Üres az asztal! Válasszon ki egy réteget, vagy futtasson egy lekérdezést az attribútumok megjelenítéséhez.",
+          "EMPTY-FILTER-RESULT": "A szűrés üres táblát adott vissza.",
           "SHOWN": "Megjelenítés",
           "FROM": "a",
           "ROWS": "sorokat",

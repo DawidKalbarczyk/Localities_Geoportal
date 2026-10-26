@@ -34,6 +34,11 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if (ToolbarService.newShownTable() !== null && table.length === 0) {
+                                    <tr class="empty-filter-row">
+                                        <td colspan="100">{{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.TABLE.EMPTY-FILTER-RESULT' | translate}}</td>
+                                    </tr>
+                                }
                                 @if (rowStartIndex() > 0) {
                                     <tr class="data-spacer" aria-hidden="true" [style.height.px]="rowStartIndex() * rowHeight">
                                         <td [attr.colspan]="columnCount(table[0])"></td>

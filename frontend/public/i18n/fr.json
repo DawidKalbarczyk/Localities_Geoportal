@@ -163,6 +163,7 @@
         },
         "TABLE": {
           "EMPTY-TABLE": "La table est vide ! Sélectionnez une couche ou exécutez une requête pour afficher les attributs.",
+          "EMPTY-FILTER-RESULT": "Le filtrage a renvoyé une table vide.",
           "SHOWN": "Affichage",
           "FROM": "de",
           "ROWS": "lignes",

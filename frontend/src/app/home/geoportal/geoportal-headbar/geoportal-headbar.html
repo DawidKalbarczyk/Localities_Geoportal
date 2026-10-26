@@ -57,17 +57,23 @@
         <div class="baselayer-container" (click)="$event.stopPropagation()"
         [class]="headbarKeys.baseLayer ? 'enter-animation-opacity' : 'leave-animation-opacity'"  >
             <div>
-                <p>{{ 'GEOPORTAL.BASEMAP-CONTENT.LAY1' | translate }}</p>
+                <div>
+                    <p>{{ 'GEOPORTAL.BASEMAP-CONTENT.LAY1' | translate }}</p>
+                </div>
                 <mat-slide-toggle [checked]="mapLayerService.isVisible('osmLayer')"
                     (change)="mapLayerService.setLayerVisibility('osmLayer', $event.checked)"></mat-slide-toggle>
             </div>
             <div>
-                <p>{{ 'GEOPORTAL.BASEMAP-CONTENT.LAY2' | translate }}</p>
+                <div>
+                    <p>{{ 'GEOPORTAL.BASEMAP-CONTENT.LAY2' | translate }}</p>
+                </div>
                 <mat-slide-toggle [checked]="mapLayerService.isVisible('ortoLayer')"
                     (change)="mapLayerService.setLayerVisibility('ortoLayer', $event.checked)"></mat-slide-toggle>
             </div>
             <div>
-                <p>{{ 'GEOPORTAL.BASEMAP-CONTENT.LAY3' | translate }}</p>
+                <div>
+                    <p>{{ 'GEOPORTAL.BASEMAP-CONTENT.LAY3' | translate }}</p>
+                </div>
                 <mat-slide-toggle [checked]="mapLayerService.isVisible('budLayer')"
                     (change)="mapLayerService.setLayerVisibility('budLayer', $event.checked)"></mat-slide-toggle>
             </div>
@@ -102,32 +108,45 @@
         @if(headbarKeys.layers){
         <div class="layers-container enter-animation" (click)="$event.stopPropagation()">
             <div>
-                <p>{{ 'GEOPORTAL.INFO-CONTENT.LAY1' | translate }}</p>
+                <div>
+                    <p>{{ 'GEOPORTAL.INFO-CONTENT.LAY1' | translate }}</p>
+                </div>
                 <mat-slide-toggle [checked]="mapLayerService.isVisible('vectorLayer')"
                     (change)="mapLayerService.setLayerVisibility('vectorLayer', $event.checked)"></mat-slide-toggle>
             </div>
             <div>
-                <p>{{ 'GEOPORTAL.INFO-CONTENT.LAY2' | translate }}</p>
+                <div>
+                    <p>{{ 'GEOPORTAL.INFO-CONTENT.LAY2' | translate }}</p>
+                </div>
+                
                 <mat-slide-toggle [checked]="mapLayerService.isVisible('boundsLayerCities')"
                     (change)="mapLayerService.setLayerVisibility('boundsLayerCities', $event.checked)"></mat-slide-toggle>
             </div>
             <div>
-                <p>{{ 'GEOPORTAL.INFO-CONTENT.LAY3' | translate }}</p>
+                <div>
+                    <p>{{ 'GEOPORTAL.INFO-CONTENT.LAY3' | translate }}</p>
+                </div>
                 <mat-slide-toggle [checked]="mapLayerService.isVisible('boundsLayerGminy')"
                     (change)="mapLayerService.setLayerVisibility('boundsLayerGminy', $event.checked)"></mat-slide-toggle>
             </div>
             <div>
-                <p>{{ 'GEOPORTAL.INFO-CONTENT.LAY4' | translate }}</p>
+                <div>
+                    <p>{{ 'GEOPORTAL.INFO-CONTENT.LAY4' | translate }}</p>
+                </div>
                 <mat-slide-toggle [checked]="mapLayerService.isVisible('boundsLayerPowiaty')"
                     (change)="mapLayerService.setLayerVisibility('boundsLayerPowiaty', $event.checked)"></mat-slide-toggle>
             </div>
             <div>
-                <p>{{ 'GEOPORTAL.INFO-CONTENT.LAY5' | translate }}</p>
+                <div>
+                    <p>{{ 'GEOPORTAL.INFO-CONTENT.LAY5' | translate }}</p>
+                </div>
                 <mat-slide-toggle [checked]="mapLayerService.isVisible('boundsLayerWojewodz')"
                     (change)="mapLayerService.setLayerVisibility('boundsLayerWojewodz', $event.checked)"></mat-slide-toggle>
             </div>
             <div>
-                <p>{{ 'GEOPORTAL.INFO-CONTENT.LAY6' | translate }}</p>
+                <div>
+                    <p>{{ 'GEOPORTAL.INFO-CONTENT.LAY6' | translate }}</p>
+                </div>
                 <mat-slide-toggle [checked]="mapLayerService.isVisible('boundsLayerPanstwo')"
                     (change)="mapLayerService.setLayerVisibility('boundsLayerPanstwo', $event.checked)"></mat-slide-toggle>
             </div>

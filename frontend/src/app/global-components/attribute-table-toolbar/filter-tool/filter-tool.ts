@@ -1,6 +1,6 @@
-import { Component, inject, OnDestroy, input, computed} from '@angular/core';
+import { Component, inject, OnDestroy, input, computed, signal, effect} from '@angular/core';
 import { AttributeTableToolbarService } from '../../../services/attribute-table-toolbar-service/attribute-table-toolbar-service';
-import { AsyncPipe, KeyValuePipe } from '@angular/common';
+import { AsyncPipe, KeyValuePipe} from '@angular/common';
 import { Form, NgModel } from '@angular/forms';
 import { TranslatePipe } from '../../../pipes/translate.pipe';
 import { PopUpService } from '../../../services/pop-up-service/pop-up-service';
@@ -16,6 +16,12 @@ export class FilterTool implements OnDestroy {
   public PopUpService = inject(PopUpService);
   public shownTable = input<Promise<Record<string, unknown>[]>>(Promise.resolve([]));
 
+  constructor() {
+    effect(() => {
+      this.ToolbarService.setShownTable(this.shownTable());
+    })
+  }
+
   ngOnDestroy(): void {
     this.ToolbarService.resetToolbarTools('filterTool');
   }
@@ -23,7 +29,7 @@ export class FilterTool implements OnDestroy {
   public shownTableKeys = computed(() => {
     return this.shownTable().then(table => {
       if (table.length === 0) return [];
-      return Object.keys(table[0]);
+      return (Object.keys(table[0]).filter(key => key !== 'wkb_geometry'));
     });
   })
 
@@ -35,4 +41,6 @@ export class FilterTool implements OnDestroy {
     this.PopUpService.typeOfPopUp.set('info');
     this.PopUpService.getDescriptionsJSON();
   }
+
+  searchInput = signal<string>('');
 }

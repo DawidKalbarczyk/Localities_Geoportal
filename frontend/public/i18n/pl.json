@@ -165,6 +165,7 @@
         },
         "TABLE": {
           "EMPTY-TABLE": "Tabela jest pusta! Wybierz warstwę lub wykonaj zapytanie, aby wyświetlić atrybuty.",
+          "EMPTY-FILTER-RESULT": "Filtracja zwróciła pustą tabelę.",
           "SHOWN": "Wyświetlono",
           "FROM": "z",
           "ROWS": "wierszy",
