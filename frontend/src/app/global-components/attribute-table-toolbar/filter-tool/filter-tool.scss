@@ -6,8 +6,6 @@
     min-width: 0;
     transition: flex-basis 0.3s ease, max-width 0.3s ease;
 
-    
-
     &:has(.filter-tool-container-on) {
         flex-basis: 50%;
         max-width: 50%;
@@ -25,7 +23,15 @@
         padding: 1rem 0;
         overflow: auto;
         background-color: #f6f6f6;
-        border-left: 5px rgba(0,0,0,0.5) solid;
+        border-left: 5px solid rgba(0, 0, 0, 0.5);
+
+        > .header-con,
+        > .filter-content,
+        > .footer-con {
+            width: auto;
+            min-width: 0;
+            box-sizing: border-box;
+        }
 
         .applied-filters-pop-up {
             position: absolute;
@@ -55,11 +61,22 @@
 
         .header-con {
             display: flex;
-            justify-content: space-between;
             flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
             align-items: center;
+            gap: 1rem;
             padding: 0 1rem 0 2rem;
-            
+            white-space: nowrap;
+
+            > div {
+                flex: 0 0 auto;
+            }
+
+            > div:last-child {
+                margin-left: auto;
+            }
+
             .title-con {
                 display: flex;
                 justify-content: flex-start;
@@ -85,8 +102,8 @@
                         color: white;
                     }
                 }
-
             }
+
             .conditions-con {
                 display: flex;
                 justify-content: flex-end;
@@ -103,13 +120,15 @@
                     }
 
                     > button {
+                        flex: 0 0 auto;
                         padding: 0.5rem 1rem;
                         border: none;
                         transition: filter 0.3s ease;
                         font-size: 0.875rem;
-                        box-shadow: 2px 2px 5px rgba(0,0,0,0.35);
+                        white-space: nowrap;
+                        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.35);
                         cursor: pointer;
-                        
+
                         &.all-filters {
                             background-color: $buttons-color;
                             color: white;
@@ -128,6 +147,7 @@
                                 }
                             }
                         }
+
                         &.or-filters {
                             background-color: $secondary-color-light;
                             color: #000;
@@ -150,30 +170,48 @@
                 }
             }
         }
+
         .filter-content {
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            align-items: flex-start;
+            align-items: stretch;
             gap: 0.5rem;
             padding: 0 1rem 0 2rem;
+
+            // Wspólny rozmiar i wyrównanie przycisków usuwania i pomocy.
+            .filter-row > div:last-child,
+            .filter-add-row .help-butt {
+                flex: 0 0 1.75rem;
+                width: 1.75rem;
+                height: 1.75rem;
+                padding: 0;
+                margin-left: auto;
+                box-sizing: border-box;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                cursor: pointer;
+            }
 
             .filter-row {
                 display: flex;
                 flex-direction: row;
+                flex-wrap: nowrap;
                 justify-content: flex-start;
                 align-items: center;
                 gap: 0.5rem;
-                width: 100%;
-                min-width: 0;
+                width: max-content;
+                min-width: 100%;
+                box-sizing: border-box;
 
                 select {
-                    flex: 1 1 0;
-                    width: 0;
-                    min-width: 0;
+                    flex: 0 0 auto;
+                    min-width: max-content;
                     background-color: white;
                     padding: 0.5rem 1rem;
-                    border: 1px solid rgba(0,0,0,0.2);
+                    border: 1px solid rgba(0, 0, 0, 0.2);
                     border-radius: 0.25rem;
                     transition: filter 0.3s ease;
                     cursor: pointer;
@@ -186,13 +224,13 @@
                         filter: brightness(0.8);
                     }
                 }
+
                 input {
-                    flex: 1 1 0;
-                    width: 0;
-                    min-width: 0;
+                    flex: 0 0 auto;
+                    min-width: max-content;
                     padding: 0.5rem 1rem;
                     background-color: white;
-                    border: 1px solid rgba(0,0,0,0.2);
+                    border: 1px solid rgba(0, 0, 0, 0.2);
                     border-radius: 0.25rem;
                     transition: filter 0.3s ease;
 
@@ -204,75 +242,52 @@
                         filter: brightness(0.8);
                     }
                 }
-                >div {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    margin-left: 0.5rem;
-                    border-radius: 50%;
+
+                > div:last-child {
                     transition: background-color 0.3s ease;
-                    
-                    cursor: pointer;
 
                     img {
+                        display: block;
                         width: 1.75rem;
                         height: 1.75rem;
-                        cursor: pointer;
                         transition: filter 0.3s ease;
-                        
-                        
                     }
+
                     &:hover {
+                        background-color: $buttons-color;
+
                         img {
                             filter: invert(100%);
                         }
-                        
-                        background-color: $buttons-color;
                     }
-
-                    
                 }
             }
+
             .filter-add-row {
                 display: flex;
-                justify-content: space-between;
                 flex-direction: row;
-                align-items: flex-start;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                align-items: center;
+                gap: 1rem;
                 width: 100%;
+                box-sizing: border-box;
 
-                .help-butt {
-                    border-radius: 50%;
-                    background-color: white;
-                    box-shadow: 2px 2px 5px rgba(0,0,0,0.35);
-                    padding: 0.375rem;
-                    display: flex;
-                    justify-content: flex-end;
-                    align-items: center;
-                    transition: filter 0.3s ease;
-                    cursor: pointer;
-
-                    img {
-                        width: 1rem;
-                        height: 1rem;
-                    }
-
-                    &:hover {
-                        filter: brightness(0.8);
-                    }
-                }
                 > div {
+                    flex: 0 0 auto;
 
                     > button {
                         padding: 0.5rem 1rem;
                         border: none;
                         background-color: $buttons-color;
-                        box-shadow: 2px 2px 5px rgba(0,0,0,0.35);
+                        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.35);
                         border-radius: 0.5rem;
                         display: flex;
                         flex-direction: row;
                         justify-content: center;
                         align-items: center;
                         gap: 0.5rem;
+                        white-space: nowrap;
                         transition: filter 0.3s ease;
                         cursor: pointer;
 
@@ -281,6 +296,7 @@
                             height: 1rem;
                             filter: invert(100%);
                         }
+
                         > p {
                             font-size: 0.75rem;
                             color: white;
@@ -291,38 +307,65 @@
                         }
                     }
                 }
-                
+
+                .help-butt {
+                    background-color: white;
+                    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.35);
+                    transition: filter 0.3s ease;
+
+                    img {
+                        display: block;
+                        width: 1rem;
+                        height: 1rem;
+                    }
+
+                    &:hover {
+                        filter: brightness(0.8);
+                    }
+                }
             }
         }
+
         .footer-con {
-            border-top: 1px solid rgba(0,0,0,0.2);
+            border-top: 1px solid rgba(0, 0, 0, 0.2);
             border-radius: 0 0 0.5rem 0.5rem;
             display: flex;
+            flex-wrap: nowrap;
             justify-content: space-between;
             align-items: center;
+            gap: 1rem;
             padding: 0.75rem 1rem 0 2rem;
+            white-space: nowrap;
 
-            >div {
+            > div {
                 display: flex;
+                flex: 0 0 auto;
                 justify-content: center;
                 align-items: center;
 
-                >button {
+                &:last-child {
+                    margin-left: auto;
+                }
+
+                > button {
                     padding: 0.5rem 1rem;
                     border: none;
-                    box-shadow: 2px 2px 5px rgba(0,0,0,0.35);
+                    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.35);
                     border-radius: 0.5rem;
                     font-size: 0.875rem;
+                    white-space: nowrap;
                     transition: filter 0.3s ease;
                     cursor: pointer;
 
                     &.footer-clear-butt {
                         background-color: $secondary-color-light;
                         color: #000;
+
                         &:hover {
                             filter: brightness(0.8);
                         }
                     }
+
                     &.footer-apply-butt {
                         background-color: $buttons-color;
                         color: white;
@@ -343,8 +386,9 @@
         }
 
         &.filter-tool-container-on {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: minmax(max-content, 1fr);
+            align-content: start;
             animation: filter-tool-slide-in 0.3s ease-out both;
         }
     }
