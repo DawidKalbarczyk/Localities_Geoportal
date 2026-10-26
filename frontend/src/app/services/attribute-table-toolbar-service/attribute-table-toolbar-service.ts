@@ -3,6 +3,7 @@ import { Map } from 'ol';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { transformExtent } from 'ol/proj';
+import { KeyValuePipe } from '@angular/common';
 
 export type ToolbarTool = {
     [key: string]: WritableSignal<boolean>;
@@ -249,4 +250,35 @@ export class AttributeTableToolbarService {
     public appliedFiltersPopUp = signal<boolean>(false);
     public hideAppliedFiltersPopUp = signal<boolean>(false);
 
+    private filterAttributes = computed(() => {
+        let filterAttributeList = [];
+        for (const filter of Object.values(this.filters())) {
+            filterAttributeList.push(filter.attribute);
+        }
+        return filterAttributeList;
+    });
+
+    private shownTable = signal<Record<string, unknown>[]>([]);
+    public async setShownTable(table: Promise<Record<string, unknown>[]>): Promise<void> {
+        this.shownTable.set(await table);
+    }
+    public shownTableFilterAttributes = computed(() => {
+        const suggestedNames: Record<number, string[]> = {};
+
+        for (const [filterNr, filter] of Object.entries(this.filters())) {
+            const names: string[] = [];
+
+            for (const row of this.shownTable()) {
+            const name = row[filter.attribute];
+
+            if (typeof name === 'string' && !names.includes(name)) {
+                names.push(name);
+            }
+            }
+
+            suggestedNames[Number(filterNr)] = names.sort((a, b) => a.localeCompare(b)).slice(0, 50);
+        }
+        console.log('Suggested names for filters:', suggestedNames);
+        return suggestedNames;
+    });
 }

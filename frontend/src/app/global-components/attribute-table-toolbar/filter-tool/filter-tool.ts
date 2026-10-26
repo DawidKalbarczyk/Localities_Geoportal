@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, input, computed} from '@angular/core';
+import { Component, inject, OnDestroy, input, computed, signal, effect} from '@angular/core';
 import { AttributeTableToolbarService } from '../../../services/attribute-table-toolbar-service/attribute-table-toolbar-service';
 import { AsyncPipe, KeyValuePipe } from '@angular/common';
 import { Form, NgModel } from '@angular/forms';
@@ -15,6 +15,12 @@ export class FilterTool implements OnDestroy {
   public ToolbarService = inject(AttributeTableToolbarService);
   public PopUpService = inject(PopUpService);
   public shownTable = input<Promise<Record<string, unknown>[]>>(Promise.resolve([]));
+
+  constructor() {
+    effect(() => {
+      this.ToolbarService.setShownTable(this.shownTable());
+    })
+  }
 
   ngOnDestroy(): void {
     this.ToolbarService.resetToolbarTools('filterTool');
@@ -35,4 +41,6 @@ export class FilterTool implements OnDestroy {
     this.PopUpService.typeOfPopUp.set('info');
     this.PopUpService.getDescriptionsJSON();
   }
+
+  searchInput = signal<string>('');
 }
