@@ -54,8 +54,8 @@
                 <input type="text" [placeholder]="'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.INPUT-VALUE' | translate" [value]="ToolbarService.filters()[filterNr].value" #valueSelect
                 [attr.list]="'toolbar-filter-suggestions-' + filterNr"
                 (change)="ToolbarService.updateFilterParameter(filterNr, 'value', valueSelect.value)">
-                <datalist [id]="'toolbar-filter-suggestions-' + filterNr">
-                    @for (value of ToolbarService.shownTableFilterAttributes()[filterNr] ?? ['']; track value) {
+                <datalist [id]="'toolbar-filter-suggestions-' + filterNr" >
+                    @for (value of (ToolbarService.shownTableFilterAttributes()[filterNr] ?? ['']) | slice:0:50; track value) {
                         <option [value]="value">{{value}}</option>
                     }
                 </datalist>

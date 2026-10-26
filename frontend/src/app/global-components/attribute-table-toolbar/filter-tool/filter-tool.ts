@@ -1,13 +1,13 @@
 import { Component, inject, OnDestroy, input, computed, signal, effect} from '@angular/core';
 import { AttributeTableToolbarService } from '../../../services/attribute-table-toolbar-service/attribute-table-toolbar-service';
-import { AsyncPipe, KeyValuePipe } from '@angular/common';
+import { AsyncPipe, KeyValuePipe, SlicePipe } from '@angular/common';
 import { Form, NgModel } from '@angular/forms';
 import { TranslatePipe } from '../../../pipes/translate.pipe';
 import { PopUpService } from '../../../services/pop-up-service/pop-up-service';
 
 @Component({
   selector: 'app-filter-tool',
-  imports: [AsyncPipe, KeyValuePipe, TranslatePipe],
+  imports: [AsyncPipe, KeyValuePipe, TranslatePipe, SlicePipe],
   templateUrl: './filter-tool.html',
   styleUrl: './filter-tool.scss',
 })
