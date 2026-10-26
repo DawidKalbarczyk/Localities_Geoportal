@@ -286,7 +286,7 @@
                             color: white;
                         }
 
-                        &:hover {
+                        &:not(:disabled):hover {
                             filter: brightness(1.5);
                         }
                     }
@@ -326,7 +326,15 @@
                     &.footer-apply-butt {
                         background-color: $buttons-color;
                         color: white;
-                        &:hover {
+
+                        &:disabled {
+                            background-color: #b8b8b8;
+                            color: #f2f2f2;
+                            cursor: not-allowed;
+                            opacity: 0.7;
+                        }
+
+                        &:not(:disabled):hover {
                             filter: brightness(1.5);
                         }
                     }

@@ -163,6 +163,7 @@
         },
         "TABLE": {
           "EMPTY-TABLE": "Der Tisch ist leer! Wählen Sie einen Layer aus oder führen Sie eine Abfrage aus, um Attribute anzuzeigen.",
+          "EMPTY-FILTER-RESULT": "Die Filterung hat eine leere Tabelle zurückgegeben.",
           "SHOWN": "Zeigt",
           "FROM": "von",
           "ROWS": "Reihen",

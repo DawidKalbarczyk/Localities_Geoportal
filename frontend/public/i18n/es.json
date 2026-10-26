@@ -163,6 +163,7 @@
         },
         "TABLE": {
           "EMPTY-TABLE": "¡La mesa está vacía! Seleccione una capa o ejecute una consulta para mostrar atributos.",
+          "EMPTY-FILTER-RESULT": "El filtrado devolvió una tabla vacía.",
           "SHOWN": "Demostración",
           "FROM": "de",
           "ROWS": "filas",

@@ -83,7 +83,8 @@
             {{'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.CLEAR-FILTERS' | translate}}</button>
         </div>
         <div class="footer-apply-con">
-            <button class="footer-apply-butt" (click)="ToolbarService.applyFilters(shownTable())">{{'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.APPLY-FILTERS' | translate}}</button>
+            <button class="footer-apply-butt" [disabled]="!ToolbarService.filtersAreComplete()"
+            (click)="ToolbarService.applyFilters(shownTable())">{{'ATTRIBUTE-TOOLBAR.FILTER.CONTENT.APPLY-FILTERS' | translate}}</button>
         </div>
     </div>
 </div>

@@ -139,6 +139,13 @@ export class AttributeTableToolbarService {
     });
     
     public filterNrs = computed(() => Object.keys(this.filters()).map(Number));
+    public filtersAreComplete = computed(() =>
+        Object.values(this.filters()).every(filter =>
+            filter.attribute.trim() !== '' &&
+            filter.operator.trim() !== '' &&
+            filter.value.trim() !== '',
+        ),
+    );
     public filterType = signal<string>('and');
     public incrementFilterNr(): void {
         this.filters.update((value => {
@@ -276,7 +283,7 @@ export class AttributeTableToolbarService {
             }
             }
 
-            suggestedNames[Number(filterNr)] = names.sort((a, b) => a.localeCompare(b)).slice(0, 50);
+            suggestedNames[Number(filterNr)] = names.sort((a, b) => a.localeCompare(b));
         }
         console.log('Suggested names for filters:', suggestedNames);
         return suggestedNames;

@@ -163,6 +163,7 @@
         },
         "TABLE": {
           "EMPTY-TABLE": "Stôl je prázdny! Vyberte vrstvu alebo spustite dotaz na zobrazenie atribútov.",
+          "EMPTY-FILTER-RESULT": "Filtrovanie vrátilo prázdnu tabuľku.",
           "SHOWN": "Zobrazuje sa",
           "FROM": "z",
           "ROWS": "riadkov",
