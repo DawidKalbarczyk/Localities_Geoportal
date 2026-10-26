@@ -9,6 +9,7 @@ x-environment:
 
 services:
   postgres:
+    platform: linux/amd64
     build:
       context: ..
       dockerfile: docker/postgres/Dockerfile
