@@ -29,7 +29,7 @@ export class FilterTool implements OnDestroy {
   public shownTableKeys = computed(() => {
     return this.shownTable().then(table => {
       if (table.length === 0) return [];
-      return Object.keys(table[0]);
+      return (Object.keys(table[0]).filter(key => key !== 'wkb_geometry'));
     });
   })
 
