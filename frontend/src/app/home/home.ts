@@ -18,7 +18,7 @@ export class Home {
   private loginService = inject(LoginService);
 
   public isDarkMode = inject(DarkMode).isDarkMode;
-  public isLoggedIn = signal<boolean>(true);//this.loginService.isLoggedIn;
+  public isLoggedIn = this.loginService.isLoggedIn;
 
   
   public wasMiddleClicked = signal<boolean>(false);
