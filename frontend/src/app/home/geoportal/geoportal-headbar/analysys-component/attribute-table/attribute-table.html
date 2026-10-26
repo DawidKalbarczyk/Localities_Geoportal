@@ -12,7 +12,7 @@
             <div class="attribute-table-tools"></div>
         </div>
     } @else {
-        @if ((ToolbarService.newShownTable() ?? (shownTable() | async)); as table) {
+        @if ((ToolbarService.newShownTable() || (shownTable() | async)); as table) {
             @let visibleRows = table | slice: rowStartIndex() : rowStartIndex() + visibleRowCount();
             <div class="attribute-table-panel">
                 <div class="attribute-table-content">
