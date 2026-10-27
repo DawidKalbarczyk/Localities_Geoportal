@@ -33,10 +33,6 @@ export class FilterTool implements OnDestroy {
     });
   })
 
-  testFunc(): void {
-    console.log("Applying filters to table:", this.shownTableKeys());
-  }
-
   public showStaticHelp(): void {
     this.PopUpService.typeOfPopUp.set('info');
     this.PopUpService.getDescriptionsJSON();

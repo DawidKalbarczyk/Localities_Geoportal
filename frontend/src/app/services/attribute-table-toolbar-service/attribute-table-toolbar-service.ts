@@ -79,8 +79,15 @@ export class AttributeTableToolbarService {
             "ATTRIBUTE-TOOLBAR.CALCULATE.ON"
     }));
     public toggleActivationTool(toolKey: keyof typeof this.ToolbarTools): void {
-        console.log("WORKSSSSSS")
-        this.ToolbarTools[toolKey].set(!this.ToolbarTools[toolKey]());
+        const activate = !this.ToolbarTools[toolKey]();
+
+        if (activate && toolKey === 'filterTool') {
+            this.ToolbarTools['calculateFieldTool'].set(false);
+        } else if (activate && toolKey === 'calculateFieldTool') {
+            this.ToolbarTools['filterTool'].set(false);
+        }
+
+        this.ToolbarTools[toolKey].set(activate);
     }
   // SELECTION TOOL
     public mainMap: Map | null = null;
