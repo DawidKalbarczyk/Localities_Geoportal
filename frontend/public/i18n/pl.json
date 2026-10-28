@@ -92,12 +92,38 @@
           "IS-NULL": "jest puste",
           "IS-NOT-NULL": "nie jest puste"
         },
-        "ATTRIBUTE": "-- atrybut --",
-        "OPERATOR": "-- operator --",
+        "ATTRIBUTE": "- atrybut -",
+        "OPERATOR": "- operator -",
         "INPUT-VALUE": "wartość...",
         "ADD-FILTER": "Dodaj filtr",
         "CLEAR-FILTERS": "Wyczyść filtry",
         "APPLY-FILTERS": "Zastosuj filtry"
+      }
+    },
+    "CALCULATE-FIELD": {
+      "HEADER": {
+        "TITLE": "Kalkulator pól",
+        "BUTT-NEW": "Stwórz nowe pole",
+        "BUTT-EXISTING": "Użyj istniejącego pola"
+      },
+      "CONTENT": {
+        "INPUT-FIELD": "Wpisz nazwę nowego pola...",
+        "SELECT-FIELD": "- Wybierz pole -",
+        "FIELD-TYPE": "- Typ pola -",
+        "EXPRESSION": "Wyrażenie",
+        "EXPRESSION-PLACEHOLDER": "Wpisz tutaj swoje wyrażenie do obliczenia pola...",
+        "FUNCTIONS": "Funkcje",
+        "FUNCTIONS-NAMES": {
+          "FIELDS-AND-VALUES": "Pola i wartości",
+          "DATE-AND-TIME": "Data i czas",
+          "MATH": "Matematyka",
+          "OPERATORS": "Operatory",
+          "MAPS-OPERATORS": "Operacje słownikowe",
+          "STRING-OPERATORS": "Operacje tekstowe"
+        }
+      },
+      "FOOTER": {
+        "BUTT-CALCULATE": "Oblicz"
       }
     },
     "RESET": {

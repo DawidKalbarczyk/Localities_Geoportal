@@ -6,10 +6,11 @@ import { TranslatePipe } from '../../../../../pipes/translate.pipe';
 import { AttributeTableToolbar } from '../../../../../global-components/attribute-table-toolbar/attribute-table-toolbar';
 import { AttributeTableToolbarService } from '../../../../../services/attribute-table-toolbar-service/attribute-table-toolbar-service';
 import { FilterTool } from '../../../../../global-components/attribute-table-toolbar/filter-tool/filter-tool';
+import { CalculationTool } from '../../../../../global-components/attribute-table-toolbar/calculation-tool/calculation-tool';
 
 @Component({
   selector: 'app-attribute-table',
-  imports: [FilterTool, AsyncPipe, KeyValuePipe, SlicePipe, CdkScrollable, MatTooltipModule, TranslatePipe, AttributeTableToolbar],
+  imports: [CalculationTool, FilterTool, AsyncPipe, KeyValuePipe, SlicePipe, CdkScrollable, MatTooltipModule, TranslatePipe, AttributeTableToolbar],
   templateUrl: './attribute-table.html',
   styleUrl: './attribute-table.scss',
   providers: [{

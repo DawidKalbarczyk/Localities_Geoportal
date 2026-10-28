@@ -90,12 +90,38 @@
           "IS-NULL": "ist null",
           "IS-NOT-NULL": "ist nicht null"
         },
-        "ATTRIBUTE": "-- Attribut --",
-        "OPERATOR": "-- Betreiber --",
+        "ATTRIBUTE": "- Attribut -",
+        "OPERATOR": "- Betreiber -",
         "INPUT-VALUE": "Wert...",
         "ADD-FILTER": "Neuen Filter hinzufügen",
         "CLEAR-FILTERS": "Filter löschen",
         "APPLY-FILTERS": "Wenden Sie Filter an"
+      }
+    },
+    "CALCULATE-FIELD": {
+      "HEADER": {
+        "TITLE": "Feldrechner",
+        "BUTT-NEW": "Neues Feld erstellen",
+        "BUTT-EXISTING": "Vorhandenes Feld verwenden"
+      },
+      "CONTENT": {
+        "INPUT-FIELD": "Namen für das neue Feld eingeben...",
+        "SELECT-FIELD": "- Feld auswählen -",
+        "FIELD-TYPE": "- Feldtyp -",
+        "EXPRESSION": "Ausdruck",
+        "EXPRESSION-PLACEHOLDER": "Ausdruck zur Feldberechnung eingeben...",
+        "FUNCTIONS": "Funktionen",
+        "FUNCTIONS-NAMES": {
+          "FIELDS-AND-VALUES": "Felder und Werte",
+          "DATE-AND-TIME": "Datum und Zeit",
+          "MATH": "Mathematik",
+          "OPERATORS": "Operatoren",
+          "MAPS-OPERATORS": "Operationen mit Schlüssel-Wert-Paaren",
+          "STRING-OPERATORS": "Zeichenkettenoperationen"
+        }
+      },
+      "FOOTER": {
+        "BUTT-CALCULATE": "Berechnen"
       }
     },
     "RESET": {

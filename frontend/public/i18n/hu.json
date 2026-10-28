@@ -90,12 +90,38 @@
           "IS-NULL": "nulla",
           "IS-NOT-NULL": "nem nulla"
         },
-        "ATTRIBUTE": "-- attribútum --",
-        "OPERATOR": "-- operátor --",
+        "ATTRIBUTE": "- attribútum -",
+        "OPERATOR": "- operátor -",
         "INPUT-VALUE": "érték...",
         "ADD-FILTER": "Új szűrő hozzáadása",
         "CLEAR-FILTERS": "Tiszta szűrők",
         "APPLY-FILTERS": "Szűrők alkalmazása"
+      }
+    },
+    "CALCULATE-FIELD": {
+      "HEADER": {
+        "TITLE": "Mezőkalkulátor",
+        "BUTT-NEW": "Új mező létrehozása",
+        "BUTT-EXISTING": "Meglévő mező használata"
+      },
+      "CONTENT": {
+        "INPUT-FIELD": "Adja meg az új mező nevét...",
+        "SELECT-FIELD": "- Válasszon mezőt -",
+        "FIELD-TYPE": "- Mezőtípus -",
+        "EXPRESSION": "Kifejezés",
+        "EXPRESSION-PLACEHOLDER": "Adja meg a mező kiszámításához szükséges kifejezést...",
+        "FUNCTIONS": "Függvények",
+        "FUNCTIONS-NAMES": {
+          "FIELDS-AND-VALUES": "Mezők és értékek",
+          "DATE-AND-TIME": "Dátum és idő",
+          "MATH": "Matematika",
+          "OPERATORS": "Operátorok",
+          "MAPS-OPERATORS": "Szótárműveletek",
+          "STRING-OPERATORS": "Szövegműveletek"
+        }
+      },
+      "FOOTER": {
+        "BUTT-CALCULATE": "Számítás"
       }
     },
     "RESET": {

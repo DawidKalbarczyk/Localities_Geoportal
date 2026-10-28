@@ -90,12 +90,38 @@
           "IS-NULL": "je nulový",
           "IS-NOT-NULL": "není nulový"
         },
-        "ATTRIBUTE": "-- atribut --",
-        "OPERATOR": "-- operátor --",
+        "ATTRIBUTE": "- atribut -",
+        "OPERATOR": "- operátor -",
         "INPUT-VALUE": "hodnota...",
         "ADD-FILTER": "Přidat nový filtr",
         "CLEAR-FILTERS": "Vymazat filtry",
         "APPLY-FILTERS": "Použijte filtry"
+      }
+    },
+    "CALCULATE-FIELD": {
+      "HEADER": {
+        "TITLE": "Kalkulátor polí",
+        "BUTT-NEW": "Vytvořit nové pole",
+        "BUTT-EXISTING": "Použít existující pole"
+      },
+      "CONTENT": {
+        "INPUT-FIELD": "Zadejte název nového pole...",
+        "SELECT-FIELD": "- Vyberte pole -",
+        "FIELD-TYPE": "- Typ pole -",
+        "EXPRESSION": "Výraz",
+        "EXPRESSION-PLACEHOLDER": "Zadejte výraz pro výpočet pole...",
+        "FUNCTIONS": "Funkce",
+        "FUNCTIONS-NAMES": {
+          "FIELDS-AND-VALUES": "Pole a hodnoty",
+          "DATE-AND-TIME": "Datum a čas",
+          "MATH": "Matematika",
+          "OPERATORS": "Operátory",
+          "MAPS-OPERATORS": "Operace se slovníky",
+          "STRING-OPERATORS": "Textové operace"
+        }
+      },
+      "FOOTER": {
+        "BUTT-CALCULATE": "Vypočítat"
       }
     },
     "RESET": {
