@@ -4,6 +4,7 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { transformExtent } from 'ol/proj';
 import { KeyValuePipe } from '@angular/common';
+import { HostListener } from '@angular/core';
 
 export type ToolbarTool = {
     [key: string]: WritableSignal<boolean>;
@@ -295,4 +296,61 @@ export class AttributeTableToolbarService {
         console.log('Suggested names for filters:', suggestedNames);
         return suggestedNames;
     });
+
+
+////////////////////////////////////////////////
+  // CALCULATE FIELD TOOL
+/////////////////////////////////////////////////
+    
+    private functionsModel = signal<Record<string, string[]>>({});
+    public getFunctionsModel(model: Record<string, string[]>): void {
+        this.functionsModel.set(model);
+    }
+    public newFieldName = signal<string>('');
+    public dataType = signal<string | null>(null);
+    public userExpression = signal<string>('');
+    public existingFieldName = signal<string | null>(null);
+    public calculationType = signal<string>('new');
+    
+    public resetCalculateFieldTool(): void {
+        this.newFieldName.set('');
+        this.dataType.set(null);
+        this.userExpression.set('');
+        this.existingFieldName.set(null);
+        this.calculationType.set('new');
+        this.userSelectedText.set('');
+    }
+    private shownTableForCalculateField = computed<Record<string, unknown>[]>(() => {
+        const table = this.newShownTable();
+        return structuredClone(table?.length ? table : this.shownTable());
+    });
+
+    public userSelectedText = signal<string>('');
+    public readSelection(textarea: HTMLTextAreaElement): void {
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+
+        if (start === end) return;
+
+        const selectedText = textarea.value.slice(start, end);
+        this.userSelectedText.set(selectedText);
+    }
+
+    public insertFunctionIntoExpression(functionName: string): void {
+        if (this.userSelectedText()) {
+            this.userExpression.update(expression =>
+                expression.replace(
+                    this.userSelectedText(), `${functionName}(${this.userSelectedText()})`));
+        } else {
+            this.userExpression.update(expression => expression + functionName);
+        }
+    }
+
+    // Field name
+    // Update existing field (zrobić radio checkboxy z tą samą nazwą co field name) i potem wyborem
+    // Field type
+    // EXPRESSION 
+    //     * tutaj zrobić dosłownie dowolność w obliczeniach
+    //     * dodać takie jakby select jak w QGIS czyli np Date: {age, day}, Fields: {Kolumna 1, Kolumna 2}
+    //      Zrobić przekierowanie na pandas????????
 }

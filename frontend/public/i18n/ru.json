@@ -90,12 +90,38 @@
           "IS-NULL": "является нулевым",
           "IS-NOT-NULL": "не является нулевым"
         },
-        "ATTRIBUTE": "-- атрибут --",
-        "OPERATOR": "-- оператор --",
+        "ATTRIBUTE": "- атрибут -",
+        "OPERATOR": "- оператор -",
         "INPUT-VALUE": "ценить...",
         "ADD-FILTER": "Добавить новый фильтр",
         "CLEAR-FILTERS": "Очистить фильтры",
         "APPLY-FILTERS": "Применить фильтры"
+      }
+    },
+    "CALCULATE-FIELD": {
+      "HEADER": {
+        "TITLE": "Калькулятор полей",
+        "BUTT-NEW": "Создать новое поле",
+        "BUTT-EXISTING": "Использовать существующее поле"
+      },
+      "CONTENT": {
+        "INPUT-FIELD": "Введите имя нового поля...",
+        "SELECT-FIELD": "- Выберите поле -",
+        "FIELD-TYPE": "- Тип поля -",
+        "EXPRESSION": "Выражение",
+        "EXPRESSION-PLACEHOLDER": "Введите выражение для вычисления поля...",
+        "FUNCTIONS": "Функции",
+        "FUNCTIONS-NAMES": {
+          "FIELDS-AND-VALUES": "Поля и значения",
+          "DATE-AND-TIME": "Дата и время",
+          "MATH": "Математика",
+          "OPERATORS": "Операторы",
+          "MAPS-OPERATORS": "Операции со словарями",
+          "STRING-OPERATORS": "Текстовые операции"
+        }
+      },
+      "FOOTER": {
+        "BUTT-CALCULATE": "Вычислить"
       }
     },
     "RESET": {

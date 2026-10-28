@@ -1,0 +1,443 @@
+@use '../../../../variables' as *;
+
+:host {
+    flex: 0 0 0;
+    display: flex;
+    min-width: 0;
+    transition: flex-basis 0.3s ease, max-width 0.3s ease;
+
+    &:has(.calculation-tool-on) {
+        flex-basis: 50%;
+        max-width: 50%;
+    }
+
+    .calculation-tool {
+        display: none;
+        flex: 0 0 100%;
+        max-width: 100%;
+        min-width: 0;
+        min-height: 0;
+        box-sizing: border-box;
+        overflow: auto;
+        padding: 1rem 1rem 1rem 1rem;
+        flex-direction: column;
+        gap: 1rem;
+        border-left: 5px solid rgba(0, 0, 0, 0.5);
+
+        &.calculation-tool-on {
+            display: flex;
+            animation: calculation-tool-slide-in 0.3s ease-out both;
+        }
+
+        > .calculation-tool-header,
+        > .calculation-tool-content,
+        > .calculation-tool-footer {
+            flex-shrink: 0;
+        }
+
+        .calculation-tool-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+
+            .calculation-tool-title {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+
+                p {
+                    font-size: 1.25rem;
+                    font-weight: bold;
+                    margin: 0;
+                }
+            }
+            .calculation-tool-header-buttons {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: flex-end;
+
+                > button {
+                    flex: 0 0 auto;
+                    padding: 0.5rem 1rem;
+                    border: none;
+                    transition: filter 0.3s ease;
+                    font-size: 0.875rem;
+                    white-space: nowrap;
+                    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.35);
+                    transition: 
+                        background-color 0.3s ease,
+                        color 0.3s ease,
+                        filter 0.3s ease;
+                    cursor: pointer;
+                }
+                .header-create-new-button {
+                    background-color: $buttons-color;
+                    color: white;
+                    border-radius: 0.5rem 0 0 0.5rem;
+
+                    &:hover {
+                        filter: brightness(1.5);
+                    }
+
+                    &.button-new-switch {
+                        background-color: $secondary-color-light !important;
+                        color: #000 !important;
+
+                        &:hover {
+                            filter: brightness(0.8) !important;
+                        }
+                    }
+                }
+                .header-update-existing-button {
+                    background-color: $secondary-color-light;
+                    color: #000;
+                    border-radius: 0 0.5rem 0.5rem 0;
+
+                    &:hover {
+                        filter: brightness(0.8);
+                    }
+
+                    &.button-existing-switch {
+                        background-color: $buttons-color !important;
+                        color: white !important;
+
+                        &:hover {
+                            filter: brightness(1.5) !important;
+                        }
+                    }
+
+                    
+                }
+            }
+        }
+        .calculation-tool-content {
+            display: grid;
+            grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+            gap: 1rem;
+
+            .calculation-tool-left-content {
+                min-width: 0;
+                display: grid;
+                grid-template-columns: minmax(0, 1fr);
+                grid-template-rows: auto 1fr;
+                gap: 0.5rem;
+
+                .left-content-field {
+                    min-width: 0;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.5rem;
+
+                    input,
+                    select {
+                        min-width: 0;
+                        min-height: 0;
+                        height: 1.75rem;
+                        box-sizing: border-box;
+                        font-family: inherit;
+                        line-height: 1.5;
+                    }
+
+                    input {
+                        flex: 1;
+                        padding: 0.25rem 0.5rem;
+                        font-size: 0.75rem;
+                        border: 1px solid rgba(0,0,0,0.35);
+                        border-radius: 0.5rem;
+                        background-color: white;
+
+                        &:focus {
+                            outline: none;
+                        }
+                    }
+
+                    select {
+                        flex: 1;
+                        appearance: base-select;
+                        background-color: white;
+                        border-radius: 0.5rem;
+                        font-size: 0.75rem;
+                        padding: 0.25rem 0.5rem;
+                        border: 1px solid rgba(0,0,0,0.35);
+                        cursor: pointer;
+
+                        &.field-type-select {
+                            flex: 0 0 auto;
+                            width: auto;
+                            max-width: 100%;
+                        }
+
+                        &:focus {
+                            outline: none;
+                        }
+                        &::picker(select) {
+                            appearance: base-select;
+                        }
+                        option {
+                            background-color: white;
+                        }
+                        option:hover,
+                        option:focus,
+                        option:checked {
+                            background-color: $secondary-color-light;
+                            cursor: pointer;
+                        }
+                    }
+                }
+                .left-content-textarea {
+                    display: flex;
+                    flex-direction: column;
+                    min-width: 0;
+                    min-height: 0;
+                    width: 100%;
+                    label {
+                        font-size: 0.875rem;
+                        font-weight: bold;
+                    }
+                    .expression-editor {
+                        position: relative;
+                        display: flex;
+                        flex: 1;
+                        min-width: 0;
+                        min-height: 4rem;
+                        border: 1px solid #767676;
+                        font-family: monospace;
+                        font-size: 0.75rem;
+                        line-height: 1.5;
+
+                        &:focus-within {
+                            outline: 2px solid $buttons-color;
+                            outline-offset: -1px;
+                        }
+                    }
+                    .expression-line-numbers {
+                        position: absolute;
+                        inset: 0;
+                        overflow: hidden;
+                        box-sizing: border-box;
+                        scrollbar-gutter: stable;
+                        pointer-events: none;
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            inset: 0 auto 0 0;
+                            width: var(--line-number-width);
+                            box-sizing: border-box;
+                            border-right: 1px solid #ccc;
+                            background-color: $background-color-light;
+                        }
+
+                        > div {
+                            padding: 0.5rem 0.5rem 0.5rem calc(var(--line-number-width) + 0.5rem);
+                        }
+
+                        .expression-line {
+                            position: relative;
+                            display: block;
+                            min-height: 1.5em;
+                            white-space: pre-wrap;
+                            word-break: normal;
+                            overflow-wrap: anywhere;
+                            color: transparent;
+
+                            &::before {
+                                content: attr(data-line);
+                                position: absolute;
+                                top: 0;
+                                right: calc(100% + 0.5rem);
+                                width: var(--line-number-width);
+                                padding-inline: 0.25ch;
+                                box-sizing: border-box;
+                                color: #666;
+                                text-align: right;
+                                white-space: nowrap;
+                            }
+                        }
+                    }
+                    textarea {
+                        flex: 1;
+                        border: 1px solid rgba(0, 0, 0, 0.35);
+                        font: inherit;
+                        min-width: 0;
+                        min-height: 4rem;
+                        width: 100%;
+                        font-size: 0.75rem;
+                        resize: none;
+                        overflow-x: hidden;
+                        overflow-y: auto;
+                        scrollbar-gutter: stable;
+                        white-space: pre-wrap;
+                        word-break: normal;
+                        overflow-wrap: anywhere;
+                        margin: 0;
+                        border: none;
+                        outline: none;
+                        padding: 0.5rem 0.5rem 0.5rem calc(var(--line-number-width) + 0.5rem);
+                        box-sizing: border-box;
+
+                        &:focus {
+                            outline: none;
+                        }
+                    }
+                }
+            }
+            .calculation-tool-right-content {
+                min-width: 0;
+                background-color: $secondary-color-light;
+                border: 2px solid $secondary-color-light;
+                padding: 0.5rem 0 0 0rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.25rem;
+                border-radius: 0.5rem;
+                > p {
+                    font-size: 0.875rem;
+                    font-weight: bold;
+                    text-align: center;
+                }
+                > div {
+                    overflow-y: auto;
+                    min-width: 0;
+                    display: grid;
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                    align-items: stretch;
+
+                    details {
+                        min-width: 0;
+                        max-width: 100%;
+                        box-sizing: border-box;
+                        overflow-wrap: anywhere;
+                        padding: 0.5rem;
+
+                        &:nth-child(4n + 1),
+                        &:nth-child(4n) {
+                            background-color: white;
+
+                            >div button:hover {
+                                background-color: $background-color-light;
+                            }
+                        }
+                        &:nth-child(4n + 2),
+                        &:nth-child(4n + 3) {
+                            background-color: $background-color-light;
+
+                            >div button:hover {
+                                background-color: $secondary-color-light;
+                            }
+                        }
+
+                        summary {
+                            font-size: 0.75rem;
+                            white-space: normal;
+                            word-break: normal;
+                            overflow-wrap: anywhere;
+                            transition: color 0.3s ease;
+                            cursor: pointer;
+
+                            &:hover {
+                                color: rgba(0,0,0,0.5)
+                            }
+                        }  
+                        div {
+                            min-width: 0;
+                            padding: 0 0 0 0.5rem;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 0.2rem;
+                            
+                            button {
+                                display: grid;
+                                grid-template-columns: max-content minmax(0, 1fr);
+                                align-items: start;
+                                column-gap: 0.25rem;
+                                background-color: inherit;
+                                word-break: normal;
+                                overflow-wrap: anywhere;
+                                border: none;
+                                cursor: pointer;
+                                font-size: 0.75rem;
+                                border-radius: 0 0.25rem 0.25rem 0;
+                                transition: background-color 0.3s ease;
+                                text-align: left;
+
+                                .function-label {
+                                    min-width: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        .calculation-tool-footer {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            button {
+                flex: 0 0 auto;
+                padding: 0.5rem 1rem;
+                border: none;
+                transition: filter 0.3s ease;
+                font-size: 0.875rem;
+                white-space: nowrap;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.35);
+                transition: filter 0.3s ease;
+                cursor: pointer;
+
+                &.footer-help-button {
+                    flex: 0 0 2rem;
+                    width: 2rem;
+                    height: 2rem;
+                    padding: 0;
+                    box-sizing: border-box;
+                    background-color: white;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    img {
+                        display: block;
+                        width: 1.25rem;
+                        height: 1.25rem;
+                    }
+
+                    &:hover {
+                        filter: brightness(0.8);
+                    }
+                }
+                &.footer-apply-button {
+                    background-color: $buttons-color;
+                    color: white;
+                    border-radius: 0.5rem;
+
+                    &:hover {
+                        filter: brightness(1.5);
+                    }
+                }
+            }
+            
+        }
+        
+
+        
+    }
+}
+
+@keyframes calculation-tool-slide-in {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}

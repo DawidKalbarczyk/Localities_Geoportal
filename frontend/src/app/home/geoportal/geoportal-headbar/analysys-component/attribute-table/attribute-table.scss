@@ -7,7 +7,7 @@
 
     display: block;
     position: fixed;
-    max-height: 35vh;
+    max-height: 40vh;
     bottom: $basic-padding-bottom;
     right: 0;
     left: 33%;
@@ -112,8 +112,6 @@
         flex-wrap: nowrap;
         overflow-x: auto;
         overflow-y: hidden;
-        scrollbar-width: thin;
-        scrollbar-color: #a3a3a3 #f6f6f6;
         gap: 0.5rem;
         flex-shrink: 0;
         padding: 0.65rem 1rem;
@@ -133,21 +131,6 @@
         min-width: 0;
         min-height: 0;
         overflow: auto;
-
-        &::-webkit-scrollbar {
-            width: 0.625rem;
-            height: 0.625rem;
-        }
-
-        &::-webkit-scrollbar-track:vertical {
-            margin-top: var(--table-header-height);
-        }
-
-        &::-webkit-scrollbar-thumb {
-            min-height: 3rem;
-            min-width: 3rem;
-            background-color: #a3a3a3;
-        }
     }
 
     .attribute-table-progress {

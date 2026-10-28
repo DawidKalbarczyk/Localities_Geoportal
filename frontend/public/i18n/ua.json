@@ -98,6 +98,32 @@
         "APPLY-FILTERS": "Застосувати фільтри"
       }
     },
+    "CALCULATE-FIELD": {
+      "HEADER": {
+        "TITLE": "Калькулятор полів",
+        "BUTT-NEW": "Створити нове поле",
+        "BUTT-EXISTING": "Використати наявне поле"
+      },
+      "CONTENT": {
+        "INPUT-FIELD": "Введіть назву нового поля...",
+        "SELECT-FIELD": "- Виберіть поле -",
+        "FIELD-TYPE": "- Тип поля -",
+        "EXPRESSION": "Вираз",
+        "EXPRESSION-PLACEHOLDER": "Введіть вираз для обчислення поля...",
+        "FUNCTIONS": "Функції",
+        "FUNCTIONS-NAMES": {
+          "FIELDS-AND-VALUES": "Поля та значення",
+          "DATE-AND-TIME": "Дата й час",
+          "MATH": "Математика",
+          "OPERATORS": "Оператори",
+          "MAPS-OPERATORS": "Операції зі словниками",
+          "STRING-OPERATORS": "Текстові операції"
+        }
+      },
+      "FOOTER": {
+        "BUTT-CALCULATE": "Обчислити"
+      }
+    },
     "RESET": {
       "NAME": "Скинути фільтри",
       "ON": "Скинути фільтри"

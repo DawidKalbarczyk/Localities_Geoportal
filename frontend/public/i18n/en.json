@@ -92,12 +92,38 @@
           "IS-NULL": "is null",
           "IS-NOT-NULL": "is not null"
         },
-        "ATTRIBUTE": "-- attribute --",
-        "OPERATOR": "-- operator --",
+        "ATTRIBUTE": "- attribute -",
+        "OPERATOR": "- operator -",
         "INPUT-VALUE": "value...",
         "ADD-FILTER": "Add new filter",
         "CLEAR-FILTERS": "Clear filters",
         "APPLY-FILTERS": "Apply filters"
+      }
+    },
+    "CALCULATE-FIELD": {
+      "HEADER": {
+        "TITLE": "Field calculator",
+        "BUTT-NEW": "Create new field",
+        "BUTT-EXISTING": "Use existing field"
+      },
+      "CONTENT": {
+        "INPUT-FIELD": "Enter a new field name...",
+        "SELECT-FIELD": "- Select a field -",
+        "FIELD-TYPE": "- Field type -",
+        "EXPRESSION": "Expression",
+        "EXPRESSION-PLACEHOLDER": "Enter an expression to calculate the field...",
+        "FUNCTIONS": "Functions",
+        "FUNCTIONS-NAMES": {
+          "FIELDS-AND-VALUES": "Fields and values",
+          "DATE-AND-TIME": "Date and time",
+          "MATH": "Math",
+          "OPERATORS": "Operators",
+          "MAPS-OPERATORS": "Dictionary operations",
+          "STRING-OPERATORS": "String operations"
+        }
+      },
+      "FOOTER": {
+        "BUTT-CALCULATE": "Calculate"
       }
     },
     "RESET": {

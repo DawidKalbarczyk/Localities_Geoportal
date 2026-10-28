@@ -1,0 +1,87 @@
+<div class="calculation-tool" [class.calculation-tool-on]="ToolbarService.ToolbarTools['calculateFieldTool']()">
+    <div class="calculation-tool-header">
+        <div class="calculation-tool-title">
+            <p>{{'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.HEADER.TITLE' | translate}}</p>
+        </div>
+        <div class="calculation-tool-header-buttons">
+            <button class="header-create-new-button" (click)="ToolbarService.calculationType.set('new')"
+            [class.button-new-switch]="ToolbarService.calculationType() === 'update'">
+                {{'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.HEADER.BUTT-NEW' | translate}}
+            </button>
+            <button class="header-update-existing-button" (click)="ToolbarService.calculationType.set('update')"
+            [class.button-existing-switch]="ToolbarService.calculationType() === 'update'">
+                {{'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.HEADER.BUTT-EXISTING' | translate}}
+            </button>
+        </div>
+    </div>
+    <div class="calculation-tool-content"> <!--GRID 1fr 1fr-->
+        <div class="calculation-tool-left-content"> <!--GRID 1fr 3fr || flex-->
+            <div class="left-content-field">
+                @if (ToolbarService.calculationType() === 'update') {
+                    <select #fieldSelect (change)="ToolbarService.existingFieldName.set(fieldSelect.value)">
+                        <option selected disabled>{{'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.CONTENT.SELECT-FIELD' | translate}}</option>
+                        @for (field of shownTableKeys() | async; track field) {
+                            <option [value]="field">{{field}}</option>
+                        }
+                    </select>
+                } @else {
+                    <input type="text" [placeholder]="'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.CONTENT.INPUT-FIELD' | translate"
+                    [ngModel]="ToolbarService.newFieldName()" (ngModelChange)="ToolbarService.newFieldName.set($event)">
+                    <select #dataTypeSelect class="field-type-select" (change)="ToolbarService.dataType.set(dataTypeSelect.value)">
+                        <option selected disabled value>{{'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.CONTENT.FIELD-TYPE' | translate}}</option>
+                        <option value="int">Integer</option>
+                        <option value="float">Float</option>
+                        <option value="str">Text</option>
+                        <option value="date">Date</option>
+                    </select>
+                }
+                
+            </div>
+            <div class="left-content-textarea">
+                <label for="calculation-expression">{{'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.CONTENT.EXPRESSION' | translate}}</label>
+                <div class="expression-editor"
+                    [style.--line-number-width]="(expressionLines().length.toString().length + 1) + 'ch'">
+                    <div class="expression-line-numbers" aria-hidden="true">
+                        <div [style.transform]="'translateY(' + -expressionScrollTop() + 'px)'">
+                            @for (line of expressionLines(); track line.number) {
+                                <span class="expression-line" [attr.data-line]="line.number">{{ line.text || ' ' }}</span>
+                            }
+                        </div>
+                    </div>
+                    <textarea #expressionInput id="calculation-expression" wrap="soft" spellcheck="false"
+                        [placeholder]="'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.CONTENT.EXPRESSION-PLACEHOLDER' | translate"
+                        (select)="ToolbarService.readSelection(expressionInput)"
+                        [value]="expression()"
+                        (input)="expression.set(expressionInput.value)"
+                        (scroll)="expressionScrollTop.set(expressionInput.scrollTop)"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="calculation-tool-right-content">
+            <p>{{'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.CONTENT.FUNCTIONS' | translate}}</p>
+            <div>
+                @for (function of functionsModel() | keyvalue; track function) {
+                    <details>
+                        <summary>{{function.key | translate}}</summary>
+                        <div>
+                            @for (func of function.value; track func) {
+                                <button type="button" (click)="ToolbarService.insertFunctionIntoExpression(func)">
+                                    <span aria-hidden="true">&#8226;&#160;</span>
+                                    <span class="function-label">{{func}}</span>
+                                </button>
+                            }
+                        </div>
+                    </details>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="calculation-tool-footer">
+        <button class="footer-help-button" >
+            <img src="./images/icons/question.png">
+        </button>
+        <button class="footer-apply-button" >
+            {{'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.FOOTER.BUTT-CALCULATE' | translate}}
+        </button>
+    </div>
+</div>

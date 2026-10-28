@@ -90,12 +90,38 @@
           "IS-NULL": "es nulo",
           "IS-NOT-NULL": "no es nulo"
         },
-        "ATTRIBUTE": "-- atributo --",
-        "OPERATOR": "-- operador --",
+        "ATTRIBUTE": "- atributo -",
+        "OPERATOR": "- operador -",
         "INPUT-VALUE": "valor...",
         "ADD-FILTER": "Agregar nuevo filtro",
         "CLEAR-FILTERS": "Limpiar filtros",
         "APPLY-FILTERS": "Aplicar filtros"
+      }
+    },
+    "CALCULATE-FIELD": {
+      "HEADER": {
+        "TITLE": "Calculadora de campos",
+        "BUTT-NEW": "Crear campo nuevo",
+        "BUTT-EXISTING": "Usar campo existente"
+      },
+      "CONTENT": {
+        "INPUT-FIELD": "Introduzca el nombre del nuevo campo...",
+        "SELECT-FIELD": "- Seleccione un campo -",
+        "FIELD-TYPE": "- Tipo de campo -",
+        "EXPRESSION": "Expresión",
+        "EXPRESSION-PLACEHOLDER": "Introduzca una expresión para calcular el campo...",
+        "FUNCTIONS": "Funciones",
+        "FUNCTIONS-NAMES": {
+          "FIELDS-AND-VALUES": "Campos y valores",
+          "DATE-AND-TIME": "Fecha y hora",
+          "MATH": "Matemáticas",
+          "OPERATORS": "Operadores",
+          "MAPS-OPERATORS": "Operaciones con diccionarios",
+          "STRING-OPERATORS": "Operaciones con cadenas"
+        }
+      },
+      "FOOTER": {
+        "BUTT-CALCULATE": "Calcular"
       }
     },
     "RESET": {
