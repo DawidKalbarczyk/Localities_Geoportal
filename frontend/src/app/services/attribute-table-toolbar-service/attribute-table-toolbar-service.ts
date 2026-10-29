@@ -320,6 +320,7 @@ export class AttributeTableToolbarService {
         this.calculationType.set('new');
         this.userSelectedText.set('');
     }
+    
     private shownTableForCalculateField = computed<Record<string, unknown>[]>(() => {
         const table = this.newShownTable();
         return structuredClone(table?.length ? table : this.shownTable());
