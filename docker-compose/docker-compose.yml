@@ -76,6 +76,26 @@ services:
       default:
         aliases:
           - springboot
+  fastapi:
+    build:
+      context: ..
+      dockerfile: docker/fastapi/Dockerfile
+    image: 'angular-springbootapp-fastapi'
+    container_name: Angular-SpringBootApp-${ENV_NAME}-fastapi
+    restart: always
+    environment:
+      - *env-postgres-db
+      - *env-postgres-user
+      - *env-postgres-password
+      - *env-geoserver-user
+      - *env-geoserver-password
+      - *env-firebase-service-account-json-base64
+    ports:
+      - "${FASTAPI_PORT}:8000"
+    networks:
+      default:
+        aliases:
+          - fastapi
 
   nginx:
     build:
