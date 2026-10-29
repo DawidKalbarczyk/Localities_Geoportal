@@ -90,6 +90,7 @@ services:
       - *env-geoserver-user
       - *env-geoserver-password
       - *env-firebase-service-account-json-base64
+      - FASTAPI_PORT=${FASTAPI_PORT}
     ports:
       - "${FASTAPI_PORT}:8000"
     networks:
