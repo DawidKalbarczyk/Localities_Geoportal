@@ -340,7 +340,7 @@ def date_and_time_match(func):
                         monthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
                         month = monthList.index(date[1]) + 1
                     date[1] = str(month).zfill(2)
-                    dt.date(int(date[0]), int(date[1]), int(date[2]))  # Validate date
+                    date2 = dt.date(int(date[0]), int(date[1]), int(date[2]))  # Validate date
                     format = format_ipt.split(".")
                     new_format = []
                     for idx, fmt in enumerate(format):
@@ -351,11 +351,9 @@ def date_and_time_match(func):
                                 new_format.append(f"{(date[2]).zfill(2)}")
                             case 'ddd':
                                 weekdayList = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-                                date2 = dt.datetime.fromisoformat("-".join(date))
                                 new_format.append(f"{weekdayList[date2.weekday()]}")
                             case 'dddd':
                                 weekdayList = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-                                date2 = dt.datetime.fromisoformat("-".join(date))
                                 new_format.append(f"{weekdayList[date2.weekday()]}")
                             case 'M':
                                 new_format.append(f"{(date[1]).lstrip('0')}")
