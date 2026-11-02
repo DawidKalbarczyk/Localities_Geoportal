@@ -88,13 +88,13 @@ def math_match(func):
         case "degrees":
             def _degrees(arg):
                 #format degrees(3.14)
-                return (arg * 180) / m.pi
+                return (float(arg) * 180) / m.pi
                 # float - 179.9087476710785
             return _degrees
         case "radians":
             def _radians(arg):
                 #format radians(180)
-                return (arg * m.pi) / 180
+                return (float(arg) * m.pi) / 180
                 # float - 3.141592653589793
             return _radians
         case "exp":
@@ -143,6 +143,8 @@ def math_match(func):
         case "pi":
             def _pi(arg):
                 #format pi()
+                if arg != "":
+                    raise ValueError("pi function does not take any arguments.")
                 return m.pi
                 # float - 3.141592653589793
             return _pi
@@ -157,22 +159,31 @@ def math_match(func):
             def _rand(arg):
                 #format rand(1, 10)
                 randomItems = list(map(int, arg.split(",")))
-                if len(randomItems) == 2:
+                if len(randomItems) < 2:
+                    raise ValueError("rand function requires at least two arguments: min and max values.")
+                elif len(randomItems) == 2:
                     return r.randint(randomItems[0], randomItems[1])
                     # int - 7
+                # With seed
                 elif len(randomItems) == 3:
                     return r.Random(randomItems[2]).randint(randomItems[0], randomItems[1])
                     # int - 7
+                else:
+                    raise ValueError("rand function accepts at most three arguments: min, max, and optional seed.")
             return _rand
         case "randf":
             def _randf(arg):
                 #format randf(0, 1)
                 randomItems = list(map(float, arg.split(",")))
-                if len(randomItems) == 2:
+                if len(randomItems) < 2:
+                    raise ValueError("randf function requires at least two arguments: min and max values.")
+                elif len(randomItems) == 2:
                     return r.uniform(randomItems[0], randomItems[1])
                     # float - 0.42
                 elif len(randomItems) == 3:
                     return r.Random(randomItems[2]).uniform(randomItems[0], randomItems[1])
+                else: 
+                    raise ValueError("randf function accepts at most three arguments: min, max, and optional seed.")
                     # float - 0.42
             return _randf
         case "round":
