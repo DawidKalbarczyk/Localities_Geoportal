@@ -2,7 +2,7 @@ import datetime as dt
 import re
 from tokenize import TokenError
 
-from sympy import parse_expr
+from sympy.parsing.sympy_parser import convert_xor, parse_expr, standard_transformations
 
 from .calc_tool_matches import date_and_time as dtm
 from .calc_tool_matches import dictionary as dcm
@@ -87,7 +87,10 @@ class ExpressionParser:
             local_dictionary[name] = _single_argument(function)
 
         try:
-            parsed_expr = parse_expr(self.expression, local_dict=local_dictionary)
+            parsed_expr = parse_expr(
+                self.expression, 
+                transformations=standard_transformations + (convert_xor,), #needs , after convert_xor
+                local_dict=local_dictionary)
             return parsed_expr
         except (TokenError, SyntaxError, ValueError, TypeError) as e:
             print(f"Error parsing expression: {e}")
