@@ -1,3 +1,4 @@
+import datetime as dt
 import re
 from tokenize import TokenError
 
@@ -8,6 +9,19 @@ from .calc_tool_matches import dictionary as dcm
 from .calc_tool_matches import fields_and_values as fvm
 from .calc_tool_matches import math as mtm
 from .calc_tool_matches import string as stm
+
+
+def _single_argument(function):
+    def execute(*args, **kwargs):
+        if (len(args) == 1 and not kwargs and isinstance(args[0], dt.timedelta)):
+            return function(args[0])
+
+        arguments = [str(value) for value in args]
+        arguments.extend(f"{name}={value}" for name, value in kwargs.items())
+        argument = ", ".join(arguments)
+        return function(argument)
+
+    return execute
 
 
 class ExpressionParser:
@@ -60,10 +74,20 @@ class ExpressionParser:
                         break
                 except (ValueError, OSError, OverflowError) as exc:
                     print(f"Error defining function {func['name']}: {exc}") 
-          
+
     def parse_expression(self):
+        local_dictionary = {}
+
+        for func in self.expressionFunctions:
+            name = func["name"]
+            if name not in self.definedFunctions:
+                raise ValueError(f"Unknown function: {name}")
+    
+        for name, function in self.definedFunctions.items():
+            local_dictionary[name] = _single_argument(function)
+
         try:
-            parsed_expr = parse_expr(self.expression)
+            parsed_expr = parse_expr(self.expression, local_dict=local_dictionary)
             return parsed_expr
         except (TokenError, SyntaxError, ValueError, TypeError) as e:
             print(f"Error parsing expression: {e}")
