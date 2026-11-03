@@ -31,21 +31,28 @@ class ExpressionParser:
         self.definedFunctions = {}
 
     def find_function_call(self):
-        for match in re.finditer(r"\b([A-Za-z_]\w*)\s*\(", self.expression):
+        masked = re.sub(
+            r"""('''|\"\"\"|'|")(?:\\.|(?!\1)[^\\])*\1""",
+            lambda match: " " * len(match.group(0)),
+            self.expression,
+            flags=re.DOTALL,
+        )
+
+        for match in re.finditer(r"\b([A-Za-z_]\w*)\s*\(", masked):
             start = match.end()
             depth = 1
 
-            for i in range(start, len(self.expression)):
-                if self.expression[i] == "(":
+            for i in range(start, len(masked)):
+                if masked[i] == "(":
                     depth += 1
-                elif self.expression[i] == ")":
+                elif masked[i] == ")":
                     depth -= 1
 
                 if depth == 0:
                     self.expressionFunctions.append({
                         "name": match.group(1),
                         "arguments": self.expression[start:i],
-                        "expression": self.expression[match.start():i + 1]
+                        "expression": self.expression[match.start():i + 1],
                     })
                     break
             else:
@@ -77,6 +84,20 @@ class ExpressionParser:
 
     def parse_expression(self):
         local_dictionary = {}
+        direct_functions = {
+            "ascii",
+            "concat",
+            "regexp_match",
+            "regexp_replace",
+            "regexp_substr",
+            "format_number",
+            "length",
+            "lower",
+            "title",
+            "upper",
+            "ltrim",
+            "trim",
+        }
 
         for func in self.expressionFunctions:
             name = func["name"]
@@ -84,11 +105,21 @@ class ExpressionParser:
                 raise ValueError(f"Unknown function: {name}")
     
         for name, function in self.definedFunctions.items():
-            local_dictionary[name] = _single_argument(function)
+            if name in direct_functions:
+                local_dictionary[name] = function
+            else:
+                local_dictionary[name] = _single_argument(function)
+        string_pattern = r"""('''|\"\"\"|'|")(?:\\.|(?!\1)[^\\])*\1"""
 
+        expression = re.sub(
+            rf"{string_pattern}|#[^\n]*|\s+",
+            lambda match: match.group(0) if match.group(1) else " ",
+            self.expression,
+            flags=re.DOTALL,
+        )
         try:
             parsed_expr = parse_expr(
-                self.expression, 
+                expression, 
                 transformations=standard_transformations + (convert_xor,), #needs , after convert_xor
                 local_dict=local_dictionary)
             return parsed_expr
