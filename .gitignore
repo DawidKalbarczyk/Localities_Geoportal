@@ -27,3 +27,4 @@ docker-compose/docker
 notatki.txt
 data/
 ssh-keys/
+.vscode
