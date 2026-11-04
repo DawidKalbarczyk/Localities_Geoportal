@@ -182,11 +182,10 @@ def string_match(func):
                 return match.group(0) if match else ""
             return _regexp_substr
         case "replace":
-            def _replace(arg):
-                ipt = list(map(str, arg.split(", ")))
-                if len(ipt) != 3:
+            def _replace(*args):
+                if len(args) != 3:
                     raise ValueError("replace function requires exactly three arguments: the string, the old substring, and the new substring")
-                argument, old, new = ipt
+                argument, old, new = map(str, args)
                 return argument.replace(old, new)
             return _replace
         case "right":

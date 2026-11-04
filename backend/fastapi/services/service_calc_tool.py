@@ -90,6 +90,7 @@ class ExpressionParser:
             "regexp_match",
             "regexp_replace",
             "regexp_substr",
+            "replace",
             "format_number",
             "length",
             "lower",
