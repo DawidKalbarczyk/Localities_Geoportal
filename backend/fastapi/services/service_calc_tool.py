@@ -90,6 +90,7 @@ class ExpressionParser:
             "regexp_match",
             "regexp_replace",
             "regexp_substr",
+            "replace",
             "format_number",
             "length",
             "lower",
@@ -97,6 +98,19 @@ class ExpressionParser:
             "upper",
             "ltrim",
             "trim",
+            "map",
+            "map_concat",
+            "map_insert",
+            "map_prefix_keys",
+            "map_get",
+            "map_delete",
+            "map_exist",
+            "map_akeys",
+            "map_avals",
+            "map_to_html_dl",
+            "map_to_html_table",
+            "to_json",
+            "url_encode",
         }
 
         for func in self.expressionFunctions:
