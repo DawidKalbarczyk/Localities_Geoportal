@@ -1,4 +1,4 @@
-FROM python:3.14-slim
+FROM python:3.12.3-slim
 
 WORKDIR /code
 COPY docker/fastapi/requirements.txt /code/requirements.txt

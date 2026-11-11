@@ -17,7 +17,7 @@ jobs:
     name: Python calculation tool tests
     runs-on: ubuntu-latest
     container:
-      image: python:3.14-slim
+      image: python:3.12.3-slim
     timeout-minutes: 15
 
     env:
