@@ -10,12 +10,14 @@ router = APIRouter(prefix="/calculate-tool", tags=["Calculate-Field-Tool"])
 
 class UserExpression(BaseModel):
     expression: str
+    table: list[dict]
+    tableKeys: list[str]
 
 #Avoiding search params in user url
 @router.post("/calculate-field")
 async def calculate_field(user_expression: UserExpression):
     try:
-        CalcExpressionParser= ExpressionParser(user_expression.expression)
+        CalcExpressionParser= ExpressionParser(user_expression.expression, user_expression.table, user_expression.tableKeys)
         CalcExpressionParser.find_function_call()
         CalcExpressionParser.writeFunctions()
         result = CalcExpressionParser.parse_expression()

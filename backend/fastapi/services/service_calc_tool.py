@@ -3,6 +3,7 @@ import re
 from tokenize import TokenError
 
 from sympy.parsing.sympy_parser import convert_xor, parse_expr, standard_transformations
+from functools import partial
 
 from .calc_tool_matches import date_and_time as dtm
 from .calc_tool_matches import dictionary as dcm
@@ -25,8 +26,10 @@ def _single_argument(function):
 
 
 class ExpressionParser:
-    def __init__(self, expression: str):
+    def __init__(self, expression: str, table: list[dict], tableKeys: list[str]):
         self.expression = expression
+        self.table = table
+        self.tableKeys = tableKeys
         self.expressionFunctions = []
         self.definedFunctions = {}
 
@@ -72,7 +75,16 @@ class ExpressionParser:
 # OR, −, +, ×, ÷, ÷÷, [], %, ^, =, ≠, <, >, ≤, ≥, ||, ∼
     def writeFunctions(self):
         for func in self.expressionFunctions:
-            match_functions = [dtm.date_and_time_match, fvm.fields_and_values_match, dcm.dictionary_match, stm.string_match, mtm.math_match]
+            match_functions = [
+                partial(
+                    fvm.fields_and_values_match,
+                    table=self.table,
+                    tableKeys=self.tableKeys
+                ),
+                dtm.date_and_time_match,
+                dcm.dictionary_match, 
+                stm.string_match, 
+                mtm.math_match]
             for m_func in match_functions:
                 try:
                     result = m_func(func["name"])
@@ -112,6 +124,7 @@ class ExpressionParser:
             "to_json",
             "url_encode",
         }
+        table_functions = self.tableKeys
 
         for func in self.expressionFunctions:
             name = func["name"]
@@ -119,7 +132,7 @@ class ExpressionParser:
                 raise ValueError(f"Unknown function: {name}")
     
         for name, function in self.definedFunctions.items():
-            if name in direct_functions:
+            if name in direct_functions or name in table_functions:
                 local_dictionary[name] = function
             else:
                 local_dictionary[name] = _single_argument(function)
