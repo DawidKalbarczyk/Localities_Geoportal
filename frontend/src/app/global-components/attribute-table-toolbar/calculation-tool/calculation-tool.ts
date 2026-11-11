@@ -1,8 +1,11 @@
-import { Component, computed, effect, inject, input, OnDestroy, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, OnDestroy, signal, untracked } from '@angular/core';
 import { AttributeTableToolbarService } from '../../../services/attribute-table-toolbar-service/attribute-table-toolbar-service';
 import { FormsModule, NgModel } from '@angular/forms';
 import { AsyncPipe, KeyValuePipe } from '@angular/common';
 import { TranslatePipe } from '../../../pipes/translate.pipe';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-calculation-tool',
@@ -35,6 +38,48 @@ export class CalculationTool implements OnDestroy {
     effect(() => {
       this.functionsModelCreate();
     });
+    effect(() => {
+      const result = this.parserResult();
+      untracked(() => {
+        this.ToolbarService.setParserResult(result);
+      });
+    })
+  }
+  private http = inject(HttpClient);
+  public parserResult = signal<Record<string, unknown> | null>(null);
+  public parserError = signal<string>('');
+
+  public async submitExpression(): Promise<void> {
+    let checked_keys = []
+    for (const key of await this.shownTableKeys()) {
+      if (this.expression().includes(key)) {
+        checked_keys.push(key);
+      }
+    }
+    const table = (await this.shownTable()).map(row => 
+      Object.fromEntries(
+        Object.entries(row).filter(([key]) => 
+          key !== 'wkb_geometry' &&
+          checked_keys.includes(key)
+        )
+      )
+    )
+    console.log(table);
+    try {
+      const result = await firstValueFrom(this.http.post<Record<string, unknown>>('/calculate-tool/calculate-field', { 
+        expression: this.expression(), 
+        table: table, 
+        tableKeys: await this.shownTableKeys() 
+      }));
+      this.parserResult.set(result);
+    } catch (error: unknown) {
+      const detail = error instanceof HttpErrorResponse 
+        ? error.error.detail 
+        : 'Unknown error';
+
+      this.parserError.set(typeof detail === 'string' ? detail : 'Nie udało się wykonać obliczenia.');
+    }
+    
   }
 
   public functionsModel = signal<Record<string, string[]>>({});

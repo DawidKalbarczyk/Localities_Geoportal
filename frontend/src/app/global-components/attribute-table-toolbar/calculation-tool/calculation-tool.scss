@@ -10,7 +10,21 @@
         flex-basis: 50%;
         max-width: 50%;
     }
-
+    .test-fastapi {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        z-index: 999999999;
+        font-size: 2rem;
+        pointer-events: none;
+        background-color: transparent;
+        justify-content: center;
+        align-items: center;
+        div {
+            pointer-events: auto;
+            background-color: white;
+        }
+    }
     .calculation-tool {
         display: none;
         flex: 0 0 100%;
@@ -165,12 +179,6 @@
                         border: 1px solid rgba(0,0,0,0.35);
                         cursor: pointer;
 
-                        &.field-type-select {
-                            flex: 0 0 auto;
-                            width: auto;
-                            max-width: 100%;
-                        }
-
                         &:focus {
                             outline: none;
                         }
@@ -201,9 +209,11 @@
                     .expression-editor {
                         position: relative;
                         display: flex;
+                        flex-direction: column;
                         flex: 1;
                         min-width: 0;
-                        min-height: 4rem;
+                        min-height: 8rem;
+                        overflow: hidden;
                         border: 1px solid #767676;
                         font-family: monospace;
                         font-size: 0.75rem;
@@ -213,77 +223,121 @@
                             outline: 2px solid $buttons-color;
                             outline-offset: -1px;
                         }
-                    }
-                    .expression-line-numbers {
-                        position: absolute;
-                        inset: 0;
-                        overflow: hidden;
-                        box-sizing: border-box;
-                        scrollbar-gutter: stable;
-                        pointer-events: none;
 
-                        &::before {
-                            content: '';
-                            position: absolute;
-                            inset: 0 auto 0 0;
-                            width: var(--line-number-width);
-                            box-sizing: border-box;
-                            border-right: 1px solid #ccc;
-                            background-color: $background-color-light;
+                        &.expression-editor-error {
+                            border-color: #b42318;
+
+                            .expression-input-area {
+                                margin-bottom: 3.5rem;
+                            }
+
+                            &:focus-within {
+                                outline-color: #b42318;
+                            }
                         }
 
-                        > div {
-                            padding: 0.5rem 0.5rem 0.5rem calc(var(--line-number-width) + 0.5rem);
-                        }
-
-                        .expression-line {
+                        .expression-input-area {
                             position: relative;
-                            display: block;
-                            min-height: 1.5em;
+                            display: flex;
+                            flex: 1;
+                            min-width: 0;
+                            min-height: 0;
+                            margin-bottom: 0;
+                            overflow: hidden;
+                            transition: margin-bottom 0.3s ease;
+                        }
+
+                        .calculation-error {
+                            position: absolute;
+                            inset: auto 0 0;
+                            height: 3.5rem;
+                            box-sizing: border-box;
+                            padding: 0.5rem;
+                            overflow: auto;
+                            border-top: 1px solid #b42318;
+                            background-color: #fff1f0;
+                            color: #912018;
+                            font-size: 0.75rem;
+                            line-height: 1.5;
+                            white-space: pre-wrap;
+                            overflow-wrap: anywhere;
+                            animation: calculation-error-in 0.3s ease-out both;
+                        }
+
+                    }
+                    > div {
+                        .expression-line-numbers {
+                            position: absolute;
+                            inset: 0;
+                            overflow: hidden;
+                            box-sizing: border-box;
+                            scrollbar-gutter: stable;
+                            pointer-events: none;
+
+                            &::before {
+                                content: '';
+                                position: absolute;
+                                inset: 0 auto 0 0;
+                                width: var(--line-number-width);
+                                box-sizing: border-box;
+                                border-right: 1px solid #ccc;
+                                background-color: $background-color-light;
+                            }
+
+                            > div {
+                                padding: 0.5rem 0.5rem 0.5rem calc(var(--line-number-width) + 0.5rem);
+                            }
+
+                            .expression-line {
+                                position: relative;
+                                display: block;
+                                min-height: 1.5em;
+                                white-space: pre-wrap;
+                                word-break: normal;
+                                overflow-wrap: anywhere;
+                                color: transparent;
+
+                                &::before {
+                                    content: attr(data-line);
+                                    position: absolute;
+                                    top: 0;
+                                    right: calc(100% + 0.5rem);
+                                    width: var(--line-number-width);
+                                    padding-inline: 0.25ch;
+                                    box-sizing: border-box;
+                                    color: #666;
+                                    text-align: right;
+                                    white-space: nowrap;
+                                }
+                            }
+                        }
+                        textarea {
+                            flex: 1;
+                            border: 1px solid rgba(0, 0, 0, 0.35);
+                            font: inherit;
+                            min-width: 0;
+                            min-height: 0;
+                            width: 100%;
+                            font-size: 0.75rem;
+                            resize: none;
+                            overflow-x: hidden;
+                            overflow-y: auto;
+                            scrollbar-gutter: stable;
                             white-space: pre-wrap;
                             word-break: normal;
                             overflow-wrap: anywhere;
-                            color: transparent;
+                            margin: 0;
+                            border: none;
+                            outline: none;
+                            padding: 0.5rem 0.5rem 0.5rem calc(var(--line-number-width) + 0.5rem);
+                            box-sizing: border-box;
 
-                            &::before {
-                                content: attr(data-line);
-                                position: absolute;
-                                top: 0;
-                                right: calc(100% + 0.5rem);
-                                width: var(--line-number-width);
-                                padding-inline: 0.25ch;
-                                box-sizing: border-box;
-                                color: #666;
-                                text-align: right;
-                                white-space: nowrap;
+                            &:focus {
+                                outline: none;
                             }
                         }
                     }
-                    textarea {
-                        flex: 1;
-                        border: 1px solid rgba(0, 0, 0, 0.35);
-                        font: inherit;
-                        min-width: 0;
-                        min-height: 4rem;
-                        width: 100%;
-                        font-size: 0.75rem;
-                        resize: none;
-                        overflow-x: hidden;
-                        overflow-y: auto;
-                        scrollbar-gutter: stable;
-                        white-space: pre-wrap;
-                        word-break: normal;
-                        overflow-wrap: anywhere;
-                        margin: 0;
-                        border: none;
-                        outline: none;
-                        padding: 0.5rem 0.5rem 0.5rem calc(var(--line-number-width) + 0.5rem);
-                        box-sizing: border-box;
-
-                        &:focus {
-                            outline: none;
-                        }
-                    }
+                    
                 }
             }
             .calculation-tool-right-content {
@@ -419,8 +473,13 @@
                     color: white;
                     border-radius: 0.5rem;
 
-                    &:hover {
+                    &:hover:not(:disabled) {
                         filter: brightness(1.5);
+                    }
+
+                    &:disabled {
+                        cursor: not-allowed;
+                        opacity: 0.5;
                     }
                 }
             }
@@ -429,6 +488,18 @@
         
 
         
+    }
+}
+
+@keyframes calculation-error-in {
+    from {
+        opacity: 0;
+        transform: translateY(0.5rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 

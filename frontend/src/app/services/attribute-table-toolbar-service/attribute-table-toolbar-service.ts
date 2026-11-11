@@ -307,43 +307,87 @@ export class AttributeTableToolbarService {
         this.functionsModel.set(model);
     }
     public newFieldName = signal<string>('');
-    public dataType = signal<string | null>(null);
     public userExpression = signal<string>('');
     public existingFieldName = signal<string | null>(null);
     public calculationType = signal<string>('new');
     
     public resetCalculateFieldTool(): void {
         this.newFieldName.set('');
-        this.dataType.set(null);
         this.userExpression.set('');
         this.existingFieldName.set(null);
         this.calculationType.set('new');
         this.userSelectedText.set('');
     }
     
-    private shownTableForCalculateField = computed<Record<string, unknown>[]>(() => {
-        const table = this.newShownTable();
-        return structuredClone(table?.length ? table : this.shownTable());
-    });
+    private parserResult = signal<Record<string, unknown> | null>(null);
+    public shownTableForCalculateField = computed<Record<string, unknown>[]>(() =>
+        structuredClone(this.newShownTable() ?? this.shownTable())
+    );
+    public setParserResult(result: Record<string, unknown> | null): void {
+        this.parserResult.set(result);
+        if (result === null) return;
+
+        const table = this.shownTable();
+        const value = result['RESULT'];
+        const columnName = this.calculationType() === 'new' 
+            ? this.newFieldName()
+            : this.existingFieldName() ?? '';
+        if (columnName === '') {
+            console.error('Column name is null while calculation type is "existing".');
+            return;
+        } 
+        for (const row of table) {
+            if (Array.isArray(value)) {
+                if (value.length === table.length) {
+                    row[columnName] = value[table.indexOf(row)]
+                } else if (value.length < table.length) {
+                    row[columnName] = value;
+                } else {
+                    console.error('Parser result length exceeds shown table length.', value.length, table.length);
+                    console.error('Parser result:', value);
+                }
+            } else {
+                row[columnName] = value;
+            }
+        }
+
+        this.shownTable.set([...table]);
+        this.newShownTable.update(rows => rows === null ? null : [...rows]);
+    }
 
     public userSelectedText = signal<string>('');
     public readSelection(textarea: HTMLTextAreaElement): void {
         const start = textarea.selectionStart;
         const end = textarea.selectionEnd;
 
-        if (start === end) return;
-
         const selectedText = textarea.value.slice(start, end);
         this.userSelectedText.set(selectedText);
     }
 
-    public insertFunctionIntoExpression(functionName: string): void {
+    private setCursorIntoParanthesis(textarea: HTMLTextAreaElement, oldSelectionStart: number, oldTextAreaLength: number): void {
+        requestAnimationFrame(() => {
+            textarea.focus();
+            const newTextAreaLength = textarea.textLength;
+            const textLength = newTextAreaLength - oldTextAreaLength;
+            const cursorPosition = oldSelectionStart + textLength - 1;
+            textarea.setSelectionRange(cursorPosition, cursorPosition);
+        });
+        
+    }
+    public insertFunctionIntoExpression(functionName: string, textarea: HTMLTextAreaElement): void {
+        this.readSelection(textarea);
+
         if (this.userSelectedText()) {
             this.userExpression.update(expression =>
                 expression.replace(
                     this.userSelectedText(), `${functionName}(${this.userSelectedText()})`));
         } else {
-            this.userExpression.update(expression => expression + functionName);
+            const oldSelectionStart = textarea.selectionStart;
+            const oldTextAreaLength = textarea.textLength;
+            this.userExpression.update(expression => 
+                expression.slice(0, oldSelectionStart) + functionName + '()' + expression.slice(oldSelectionStart)
+            )
+            this.setCursorIntoParanthesis(textarea, oldSelectionStart, oldTextAreaLength);
         }
     }
 
