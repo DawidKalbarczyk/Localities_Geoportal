@@ -323,6 +323,17 @@ export class AttributeTableToolbarService {
     public shownTableForCalculateField = computed<Record<string, unknown>[]>(() =>
         structuredClone(this.newShownTable() ?? this.shownTable())
     );
+    private shownTableKeys = computed(() => {
+        const table = this.shownTableForCalculateField();
+        if (table.length === 0) return [];
+        return Object.keys(table[0]).filter(key => key !== 'wkb_geometry');
+    });
+
+    private nextIndex = signal<number>(0);
+    private getNextIndexForNewFieldName(): number {
+        this.nextIndex.update(index => index + 1);
+        return this.nextIndex();
+    }
     public setParserResult(result: Record<string, unknown> | null): void {
         this.parserResult.set(result);
         if (result === null) return;
@@ -330,7 +341,9 @@ export class AttributeTableToolbarService {
         const table = this.shownTable();
         const value = result['RESULT'];
         const columnName = this.calculationType() === 'new' 
-            ? this.newFieldName()
+            ? (this.shownTableKeys().includes(this.newFieldName())
+                ? `${this.newFieldName()}_${this.getNextIndexForNewFieldName()}` 
+                : this.newFieldName())
             : this.existingFieldName() ?? '';
         if (columnName === '') {
             console.error('Column name is null while calculation type is "existing".');
