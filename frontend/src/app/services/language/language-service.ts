@@ -34,7 +34,7 @@ export class LanguageService {
     await this.loadTranslations(language);
   }
 
-  translate(key: string): string {
+  translate(key: string, params: Record<string, string | number> = {}): string {
     const value = key.split('.').reduce<unknown>(
       (translation, part) =>
         typeof translation === 'object' && translation !== null
@@ -43,7 +43,13 @@ export class LanguageService {
       this.translations(),
     );
 
-    return typeof value === 'string' ? value : key;
+    if (typeof value !== 'string') return key;
+
+    return value.replace(
+      /\{\{\s*(\w+)\s*\}\}/g,
+      (placeholder: string, name: string) =>
+        params[name] !== undefined ? String(params[name]) : placeholder,
+    );
   }
 
   private async loadTranslations(language: Language): Promise<void> {

@@ -10,6 +10,7 @@ from .calc_tool_matches import dictionary as dcm
 from .calc_tool_matches import fields_and_values as fvm
 from .calc_tool_matches import math as mtm
 from .calc_tool_matches import string as stm
+from .service_translate_errors import CalculationError
 
 
 def _single_argument(function):
@@ -59,7 +60,11 @@ class ExpressionParser:
                     })
                     break
             else:
-                raise ValueError(f"Unmatched parentheses in expression: {self.expression}")
+                raise CalculationError(
+                    code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.UNMATCHED_PARENTHESIS",
+                    params={"expression": self.expression},
+                    message=f"Unmatched parenthesis in expression: {self.expression}",
+                )
 
 # FUNCTIONS: 
 # age, datetime_from_epoch, day, day_of_week, epoch, format_date, hour, make_date, make_datetime, make_interval, 
@@ -129,7 +134,11 @@ class ExpressionParser:
         for func in self.expressionFunctions:
             name = func["name"]
             if name not in self.definedFunctions:
-                raise ValueError(f"Unknown function: {name}")
+                raise CalculationError(
+                    code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.UNKNOWN_FUNCTION",
+                    params={"function": name},
+                    message=f"Unknown function: {name}",
+                )
     
         for name, function in self.definedFunctions.items():
             if name in direct_functions or name in table_functions:
@@ -150,6 +159,12 @@ class ExpressionParser:
                 transformations=standard_transformations + (convert_xor,), #needs , after convert_xor
                 local_dict=local_dictionary)
             return parsed_expr
+        except CalculationError:
+            raise
         except (TokenError, SyntaxError, ValueError, TypeError) as e:
             print(f"Error parsing expression: {e}")
-            raise ValueError(f"Error parsing expression: {e}")
+            raise CalculationError(
+                code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.PARSE_ERROR",
+                params={"expression": self.expression},
+                message=f"Error parsing expression: {e}",
+            ) from e
