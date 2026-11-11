@@ -15,7 +15,7 @@ concurrency:
 jobs:
   python-tests:
     name: Python calculation tool tests
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     container:
       image: python:3.14-slim
     timeout-minutes: 15
