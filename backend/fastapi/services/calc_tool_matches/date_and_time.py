@@ -1,6 +1,7 @@
 import datetime as dt
 import math as m
 import re
+from ..service_translate_errors import CalculationError
 
 
 def match_time_format(tmp_arg, arg):
@@ -33,7 +34,11 @@ def match_time_format(tmp_arg, arg):
     or re.fullmatch(r"-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)? (?:years?|months?|weeks?|days?|hours?|minutes?|seconds?)", arg)):
         value, unit = arg.split(" ")
         if (float(value) < 0):
-            raise ValueError(f"Invalid date format: {arg}. Expected a valid date in the format YYYY-MM-DD HH:MM:SS")    
+            raise CalculationError(
+                code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_DATE_FORMAT",
+                params={"date": arg},
+                message=f"Negative interval is not allowed: {arg}",
+            )
         
         result = float(value) * float(seconds_per_unit[unit.rstrip("s")])
         result /= float(seconds_per_unit[tmp_arg])
@@ -41,7 +46,11 @@ def match_time_format(tmp_arg, arg):
             result = int(result)
         return f"{result} {tmp_arg}{'' if result == 1 else 's'}"
     else:
-        raise ValueError(f"Invalid date format: {arg}. Expected a valid date in the format YYYY-MM-DD HH:MM:SS or an interval in the format <value> <unit>")
+        raise CalculationError(
+            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_DATE_FORMAT_INTERVAL",
+            params={"date": arg},
+            message=f"Invalid date format or interval: {arg}. Expected format: YYYY-MM-DD HH:MM:SS or <value> <unit>",
+        )
 
 def date_and_time_match(func):
     match func:
@@ -54,18 +63,20 @@ def date_and_time_match(func):
                     re.fullmatch(pattern, value)
                     for value in (later_date, earlier_date)
                 ):
-                    raise ValueError(
-                        f"Invalid date format: {arg}. "
-                        "Expected YYYY-MM-DD or YYYY-MM-DD HH:MM:SS "
-                        "(space or T separator; optional fractional seconds)."
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_DATE_FORMAT_MATCH",
+                        params={"date": arg},
+                        message=f"Invalid date format: {arg}. Expected format: YYYY-MM-DD HH:MM:SS",
                     )
 
                 start = dt.datetime.fromisoformat(earlier_date)
                 end = dt.datetime.fromisoformat(later_date)
 
                 if end < start:
-                    raise ValueError(
-                        "The first date must not be earlier than the second date."
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_DATE_EARLIER",
+                        params={"start": earlier_date, "end": later_date},
+                        message=f"End date {later_date} is earlier than start date {earlier_date}.",
                     )
 
                 return end - start
@@ -77,21 +88,37 @@ def date_and_time_match(func):
                 try:
                     epoch_time = int(arg)
                 except ValueError:
-                    raise ValueError(f"Invalid epoch time: {arg}. Expected a non-negative integer.")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_EPOCH_TIME",
+                        params={"epoch": arg},
+                        message=f"Invalid epoch time: {arg}. Expected a non-negative integer.",
+                    )
                 if not int(arg) >= 0:
-                    raise ValueError(f"Invalid epoch time: {arg}. Expected a non-negative integer.")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_EPOCH_TIME",
+                        params={"epoch": arg},
+                        message=f"Invalid epoch time: {arg}. Expected a non-negative integer.",
+                    )
                 try:
                     return dt.datetime.fromtimestamp(epoch_time).isoformat(sep=" ")
                 except (OSError, OverflowError, ValueError) as exc:
-                    raise ValueError(f"Invalid epoch time: {arg}. Expected a valid epoch time.") from exc
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.EXCEEDED_EPOCH_TIME",
+                        params={"epoch": arg},
+                        message=f"Exceeded epoch time: {arg}. Please provide a valid epoch time.",
+                    ) from exc
                 # str - "2023-11-14 23:13:20"
             return _datetime_from_epoch
         case "day_of_week":
             def _day_of_week(arg):
                 #format day_of_week(2026-10-30)
                 if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", arg):
-                    raise ValueError(f"Invalid date format: {arg}. Expected a valid date in the format YYYY-MM-DD")
-                
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.DAY_OF_WEEK",
+                        params={"date": arg},
+                        message=f"Invalid date format: {arg}. Expected a valid date in the format YYYY-MM-DD",
+                    )
+
                 date = dt.datetime.fromisoformat(arg)
                 return (date.weekday() + 1)
                 # int - 4
@@ -100,7 +127,11 @@ def date_and_time_match(func):
             def _epoch(arg):
                 #format epoch(2026-10-30 13:00:00)
                 if not re.fullmatch(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}", arg):
-                    raise ValueError(f"Invalid date format: {arg}. Expected a valid date in the format YYYY-MM-DD HH:MM:SS")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.EPOCH",
+                        params={"date": arg},
+                        message=f"Invalid date format: {arg}. Expected a valid date in the format YYYY-MM-DD HH:MM:SS",
+                    )
                 to_date = dt.datetime.fromisoformat(arg)
                 return int(to_date.timestamp())
                 # int - 1793365200
@@ -112,7 +143,11 @@ def date_and_time_match(func):
                 date_str, format_str = map(str.strip, arg.split(","))
                 date_y, date_m, date_d = map(str, date_str.split("-"))
                 if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", date_str):
-                    raise ValueError(f"Invalid date format: {date_str}. Expected a valid date in the format YYYY-MM-DD")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.FORMAT_DATE",
+                        params={"date": date_str},
+                        message=f"Invalid date format: {arg}. Expected a valid date in the format YYYY-MM-DD",
+                    )
                 
                 date_obj = [date_y, date_m, date_d]
                 #Checks and reports ValueError if the date is invalid or the format is invalid
@@ -122,7 +157,11 @@ def date_and_time_match(func):
 
                 proper_format = ["d", "dd", "ddd", "dddd", "M", "MM", "MMM", "MMMM", "yy", "yyyy"]
                 if format_x not in proper_format or format_y not in proper_format or format_z not in proper_format:
-                    raise ValueError(f"Invalid format: {format_str}")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.PROPER_FORMAT",
+                        params={"format": format_str},
+                        message=f"Invalid format: {format_str}",
+                    )
                 
                 def getRightFormat():
                     fmt = f"{format_x}.{format_y}.{format_z}"
@@ -145,9 +184,12 @@ def date_and_time_match(func):
                         return ["0", "2", "1"]
                         # list[str] - ["0", "2", "1"]
                     else:
-                        raise ValueError(f"Invalid format: {format_str}")
-                    
-                
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.PROPER_FORMAT2",
+                            params={"format": format_str},
+                            message=f"Invalid format: {format_str}",
+                        )
+
                 new_format = []
                 for tempIdx, fmt in zip(getRightFormat(), [format_x, format_y, format_z]):
                     tempIdx = int(tempIdx)
@@ -195,10 +237,18 @@ def date_and_time_match(func):
                 time_str, format_str = map(str.strip, arg.split(","))
                 time = list(map(int, time_str.split(":")))
                 if not re.fullmatch(r"\d{1,2}:\d{1,2}:\d{1,2}", time_str):
-                    raise ValueError(f"Invalid time format: {time_str}. Expected a valid time in the format HH:MM:SS")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_DATE_TIME",
+                        params={"time": time_str},
+                        message=f"Invalid time format: {time_str}. Expected a valid time in the format HH:MM:SS",
+                    )
                 
                 if len(time) not in (2, 3):
-                    raise ValueError(f"Invalid time: {time_str}")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_DATE_TIME",
+                        params={"time": time_str},
+                        message=f"Invalid time format: {time_str}. Expected a valid time in the format HH:MM or HH:MM:SS",
+                    )
                 # Validate time and raise ValueError if invalid
                 dt.time(*time)
                 ###############################
@@ -206,8 +256,12 @@ def date_and_time_match(func):
                 proper_format = ["h", "hh", "H", "HH", "m", "mm", "s", "ss"]
                 for fmt in format_str.split(":"):
                     if fmt not in proper_format:
-                        raise ValueError(f"Invalid format: {format_str}")
-                    
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.PROPER_FORMAT",
+                            params={"format": format_str},
+                            message=f"Invalid format: {format_str}",
+                        )
+
                 def getRightFormat():
                     fmt = format_str
                     if (re.fullmatch("(h|hh|H|HH)\\:(m|mm)\\:(s|ss)", fmt)):
@@ -247,7 +301,11 @@ def date_and_time_match(func):
                         return ["2", "1"]
                         # list[str] - ["2", "1"]
                     else:
-                        raise ValueError(f"Invalid format: {format_str}")
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_DATE_TIME",
+                            params={"time": time_str},
+                            message=f"Invalid time format: {time_str}. Expected a valid time in the format HH:MM:SS or HH:MM",
+                        )
                     
                 new_format = []
                 for tempIdx, fmt in zip(getRightFormat(), format_str.split(":")):
@@ -285,7 +343,11 @@ def date_and_time_match(func):
             def _make_date(arg):
                 #format make_date(2026, 10, 30)
                 if not re.fullmatch(r"\d{4},\s*\d{1,2},\s*\d{1,2}", arg):
-                    raise ValueError(f"Invalid date format: {arg}. Expected a valid date in the format YYYY, MM, DD")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.MAKE_DATE_FORMAT",
+                        params={"date": arg},
+                        message=f"Invalid date format: {arg}. Expected a valid date in the format YYYY, MM, DD",
+                    )
                 year, month, day = map(int, arg.split(","))
                 return dt.date(year, month, day).isoformat()
                 # str - "2026-10-30"
@@ -294,12 +356,24 @@ def date_and_time_match(func):
             def _to_date(arg):
                 _input = arg.split(",")
                 if len(_input) not in [1, 2]:
-                    raise ValueError(f"Invalid number of arguments: {arg}. Expected 1 or 2 arguments.")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_DATE_ARGUMENT_COUNT",
+                        params={"arguments": arg},
+                        message=f"Invalid number of arguments: {arg}. Expected 1 or 2 arguments.",
+                    )
                 #QGIS ma z przecinkiem, ale tu robię bez
                 if len(_input) == 2 and not re.fullmatch(r"(d{1,4}|dd|ddd|dddd|M{1,4}|MM|MMM|MMMM|yy|yyyy)(\.(d{1,4}|dd|ddd|dddd|M{1,4}|MM|MMM|MMMM|yy|yyyy)){2}", _input[1].strip()):
-                                                raise ValueError(f"Invalid format: {_input[1].strip()}. Expected a valid format in the format d.M.yyyy or dd.MM.yyyy or ddd.MMM.yy etc.")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_DATE_FORMAT",
+                        params={"format": _input[1].strip()},
+                        message=f"Invalid format: {_input[1].strip()}. Expected a valid format in the format d.M.yyyy or dd.MM.yyyy or ddd.MMM.yy etc.",
+                    )
                 if not re.fullmatch(r"\d{4}-\d{1,2}-\d{1,2}|\d{1,2}-\d{1,2}-\d{4}|\d{4} \w+ \d{1,2}|\d{1,2} \w+ \d{4}", _input[0].strip()):
-                    raise ValueError(f"Invalid date format: {arg}. Expected a valid date in the format YYYY-MM-DD/DD-MM-YYYY or YYYY MMMM DD/DD MMMM YYYY")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_DATE_INPUT",
+                        params={"date": arg},
+                        message=f"Invalid date format: {arg}. Expected a valid date in the format YYYY-MM-DD/DD-MM-YYYY or YYYY MMMM DD/DD MMMM YYYY",
+                    )
                 
                 if len(_input) == 1:
                     date = _input[0].strip()
@@ -316,7 +390,11 @@ def date_and_time_match(func):
                         monthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
                         m = monthList.index(m) + 1
                     if len(date) != 3:
-                        raise ValueError(f"Invalid date format: {arg}. Expected a valid date in the format YYYY-MM-DD/DD-MM-YYYY or YYYY MMMM DD/DD MMMM YYYY")
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_DATE_INPUT",
+                            params={"date": arg},
+                            message=f"Invalid date format: {arg}. Expected a valid date in the format YYYY-MM-DD/DD-MM-YYYY or YYYY MMMM DD/DD MMMM YYYY",
+                        )
                     if len(date[0]) == 4:
                         year = int(date[0])
                         day = int(date[2])
@@ -324,7 +402,11 @@ def date_and_time_match(func):
                         year = int(date[2])
                         day = int(date[0])
                     else:
-                        raise ValueError(f"Invalid date format: {arg}. Expected a valid date in the format YYYY-MM-DD/DD-MM-YYYY or YYYY MMMM DD/DD MMMM YYYY")
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_DATE_INPUT",
+                            params={"date": arg},
+                            message=f"Invalid date format: {arg}. Expected a valid date in the format YYYY-MM-DD/DD-MM-YYYY or YYYY MMMM DD/DD MMMM YYYY",
+                        )
                     return dt.date(year, m, day).isoformat()
                 elif len(_input) == 2:
                     date, format_ipt = map(str.strip, arg.split(","))
@@ -378,7 +460,11 @@ def date_and_time_match(func):
             def _make_datetime(arg):
                 #format make_datetime(2026, 10, 30, 13, 5, 9)
                 if not re.fullmatch(r"\d{4},\s*\d{1,2},\s*\d{1,2},\s*\d{1,2},\s*\d{1,2},\s*\d{1,2}", arg):
-                    raise ValueError(f"Invalid datetime format: {arg}. Expected a valid datetime in the format YYYY, MM, DD, HH, MM, SS")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.MAKE_DATETIME_FORMAT",
+                        params={"datetime": arg},
+                        message=f"Invalid datetime format: {arg}. Expected a valid datetime in the format YYYY, MM, DD, HH, MM, SS",
+                    )
                 year, month, day, hour, minute, second = map(int, arg.split(","))
                 return dt.datetime(year, month, day, hour, minute, second).isoformat(sep=" ")
                 # str - "2026-10-30 13:05:09"
@@ -387,7 +473,11 @@ def date_and_time_match(func):
             def _to_datetime(arg):
                 _input = list(map(str.strip, arg.split(",")))
                 if len(_input) not in [1, 2] or not _input[0]:
-                    raise ValueError(f"Invalid datetime arguments: {arg}. Expected datetime or datetime, format")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_DATETIME_ARGUMENTS",
+                        params={"arguments": arg},
+                        message=f"Invalid datetime arguments: {arg}. Expected datetime or datetime, format",
+                    )
 
                 datetime_ipt = _input[0]
                 monthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
@@ -397,7 +487,11 @@ def date_and_time_match(func):
                 if len(_input) == 2:
                     format_ipt = _input[1]
                     if not re.fullmatch(r"(?:dddd|ddd|dd|d|MMMM|MMM|MM|M|yyyy|yy|HH|H|hh|h|mm|m|ss|s)(?:[ .:/-]+(?:dddd|ddd|dd|d|MMMM|MMM|MM|M|yyyy|yy|HH|H|hh|h|mm|m|ss|s))*", format_ipt):
-                        raise ValueError(f"Invalid datetime format: {format_ipt}")
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_DATETIME_FORMAT",
+                            params={"format": format_ipt},
+                            message=f"Invalid datetime format: {format_ipt}",
+                        )
                     format_parts = re.split(r"[ .:/-]+", format_ipt)
                     format_fields = []
                     for fmt in format_parts:
@@ -417,9 +511,17 @@ def date_and_time_match(func):
                             case "s" | "ss":
                                 format_fields.append("second")
                     if len(format_fields) != len(set(format_fields)):
-                        raise ValueError(f"Invalid datetime format: {format_ipt}. Expected unique components")
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_DATETIME_UNIQUE_COMPONENTS",
+                            params={"format": format_ipt},
+                            message=f"Invalid datetime format: {format_ipt}. Expected unique components",
+                        )
                     if not all(field in format_fields for field in ["year", "month", "day"]):
-                        raise ValueError(f"Invalid datetime format: {format_ipt}. Expected year, month and day components")
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_DATETIME_REQUIRED_COMPONENTS",
+                            params={"format": format_ipt},
+                            message=f"Invalid datetime format: {format_ipt}. Expected year, month and day components",
+                        )
 
                 # ISO is recognized directly, including the examples with a supplied format.
                 iso_input = re.fullmatch(r"\d{4}-\d{1,2}-\d{1,2}(?:[ T]\d{1,2}:\d{1,2}(?::\d{1,2}(?:\.\d{1,6})?)?)?", datetime_ipt)
@@ -429,7 +531,11 @@ def date_and_time_match(func):
                     if len(datetime_parts) == 2 and ":" in datetime_parts[1]:
                         date_ipt, time_ipt = datetime_parts
                         if not re.fullmatch(r"\d{1,2}:\d{1,2}(?::\d{1,2}(?:\.\d{1,6})?)?", time_ipt):
-                            raise ValueError(f"Invalid time format: {time_ipt}. Expected HH:mm or HH:mm:ss")
+                            raise CalculationError(
+                                code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_DATETIME_TIME",
+                                params={"time": time_ipt},
+                                message=f"Invalid time format: {time_ipt}. Expected HH:mm or HH:mm:ss",
+                            )
                         time_parts = time_ipt.split(":")
                         hour, minute = int(time_parts[0]), int(time_parts[1])
                         if len(time_parts) == 3:
@@ -443,13 +549,21 @@ def date_and_time_match(func):
                         date_ipt = datetime_ipt
 
                     if not re.fullmatch(r"\d{4}-\d{1,2}-\d{1,2}|\d{1,2}-\d{1,2}-\d{4}|\d{4} (?:[A-Za-z]+|\d{1,2}) \d{1,2}|\d{1,2} (?:[A-Za-z]+|\d{1,2}) \d{4}", date_ipt):
-                        raise ValueError(f"Invalid date format: {date_ipt}. Expected YYYY-MM-DD, DD-MM-YYYY, YYYY MMMM DD or DD MMMM YYYY")
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_DATETIME_DATE",
+                            params={"date": date_ipt},
+                            message=f"Invalid date format: {date_ipt}. Expected YYYY-MM-DD, DD-MM-YYYY, YYYY MMMM DD or DD MMMM YYYY",
+                        )
                     if "-" in date_ipt:
                         date_parts = date_ipt.split("-")
                     else:
                         date_parts = date_ipt.split(" ")
                     if len(date_parts) != 3:
-                        raise ValueError(f"Invalid date components: {date_ipt}")
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_DATE_COMPONENTS",
+                            params={"date": date_ipt},
+                            message=f"Invalid date components: {date_ipt}",
+                        )
                     try:
                         month = int(date_parts[1])
                     except ValueError:
@@ -459,7 +573,11 @@ def date_and_time_match(func):
                         elif month_ipt in shortMonthList:
                             month = shortMonthList.index(month_ipt) + 1
                         else:
-                            raise ValueError(f"Invalid month name: {date_parts[1]}")
+                            raise CalculationError(
+                                code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_MONTH_NAME",
+                                params={"month": date_parts[1]},
+                                message=f"Invalid month name: {date_parts[1]}",
+                            )
                     if len(date_parts[0]) == 4:
                         year = int(date_parts[0])
                         day = int(date_parts[2])
@@ -467,15 +585,27 @@ def date_and_time_match(func):
                         year = int(date_parts[2])
                         day = int(date_parts[0])
                     else:
-                        raise ValueError(f"Invalid date format: {date_ipt}. Expected a four-digit year")
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_DATETIME_YEAR_REQUIRED",
+                            params={"date": date_ipt},
+                            message=f"Invalid date format: {date_ipt}. Expected a four-digit year",
+                        )
                     return dt.datetime(year, month, day, hour, minute, second, microsecond)
 
                 # For other layouts, each token identifies its input component.
                 if not re.fullmatch(r"[A-Za-z0-9]+(?:[ .:/-][A-Za-z0-9]+)*", datetime_ipt):
-                    raise ValueError(f"Invalid datetime components: {datetime_ipt}")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_DATETIME_COMPONENTS",
+                        params={"datetime": datetime_ipt},
+                        message=f"Invalid datetime components: {datetime_ipt}",
+                    )
                 input_parts = re.split(r"[ .:/-]+", datetime_ipt)
                 if len(input_parts) != len(format_parts):
-                    raise ValueError(f"Invalid datetime and format lengths: {datetime_ipt}, {_input[1]}. Expected the same number of components")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_DATETIME_COMPONENT_COUNT",
+                        params={"datetime": datetime_ipt, "format": _input[1]},
+                        message=f"Invalid datetime and format lengths: {datetime_ipt}, {_input[1]}. Expected the same number of components",
+                    )
                 year, month, day = None, None, None
                 hour, minute, second = 0, 0, 0
                 weekday = None
@@ -484,63 +614,111 @@ def date_and_time_match(func):
                         case "d" | "dd":
                             pattern = r"\d{2}" if fmt == "dd" else r"\d{1,2}"
                             if not re.fullmatch(pattern, value):
-                                raise ValueError(f"Invalid day: {value} for format {fmt}")
+                                raise CalculationError(
+                                    code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_DAY_FORMAT",
+                                    params={"value": value, "format": fmt},
+                                    message=f"Invalid day: {value} for format {fmt}",
+                                )
                             day = int(value)
                         case "ddd":
                             weekdayList = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
                             weekday_ipt = value.capitalize()
                             if weekday_ipt not in weekdayList:
-                                raise ValueError(f"Invalid weekday: {value}")
+                                raise CalculationError(
+                                    code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_WEEKDAY",
+                                    params={"weekday": value},
+                                    message=f"Invalid weekday: {value}",
+                                )
                             weekday = weekdayList.index(weekday_ipt)
                         case "dddd":
                             weekdayList = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
                             weekday_ipt = value.capitalize()
                             if weekday_ipt not in weekdayList:
-                                raise ValueError(f"Invalid weekday: {value}")
+                                raise CalculationError(
+                                    code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_WEEKDAY",
+                                    params={"weekday": value},
+                                    message=f"Invalid weekday: {value}",
+                                )
                             weekday = weekdayList.index(weekday_ipt)
                         case "M" | "MM":
                             pattern = r"\d{2}" if fmt == "MM" else r"\d{1,2}"
                             if not re.fullmatch(pattern, value):
-                                raise ValueError(f"Invalid month: {value} for format {fmt}")
+                                raise CalculationError(
+                                    code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_MONTH_FORMAT",
+                                    params={"value": value, "format": fmt},
+                                    message=f"Invalid month: {value} for format {fmt}",
+                                )
                             month = int(value)
                         case "MMM":
                             month_ipt = value.capitalize()
                             if month_ipt not in shortMonthList:
-                                raise ValueError(f"Invalid abbreviated month: {value}")
+                                raise CalculationError(
+                                    code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_MONTH_ABBREVIATION",
+                                    params={"month": value},
+                                    message=f"Invalid abbreviated month: {value}",
+                                )
                             month = shortMonthList.index(month_ipt) + 1
                         case "MMMM":
                             month_ipt = value.capitalize()
                             if month_ipt not in monthList:
-                                raise ValueError(f"Invalid month name: {value}")
+                                raise CalculationError(
+                                    code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_MONTH_NAME",
+                                    params={"month": value},
+                                    message=f"Invalid month name: {value}",
+                                )
                             month = monthList.index(month_ipt) + 1
                         case "yy":
                             if not re.fullmatch(r"\d{2}", value):
-                                raise ValueError(f"Invalid two-digit year: {value}")
+                                raise CalculationError(
+                                    code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_TWO_DIGIT_YEAR",
+                                    params={"year": value},
+                                    message=f"Invalid two-digit year: {value}",
+                                )
                             year = int(value)
                             year += 2000 if year <= 68 else 1900
                         case "yyyy":
                             if not re.fullmatch(r"\d{4}", value):
-                                raise ValueError(f"Invalid four-digit year: {value}")
+                                raise CalculationError(
+                                    code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_FOUR_DIGIT_YEAR",
+                                    params={"year": value},
+                                    message=f"Invalid four-digit year: {value}",
+                                )
                             year = int(value)
                         case "h" | "hh" | "H" | "HH":
                             pattern = r"\d{2}" if len(fmt) == 2 else r"\d{1,2}"
                             if not re.fullmatch(pattern, value):
-                                raise ValueError(f"Invalid hour: {value} for format {fmt}")
+                                raise CalculationError(
+                                    code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_HOUR_FORMAT",
+                                    params={"value": value, "format": fmt},
+                                    message=f"Invalid hour: {value} for format {fmt}",
+                                )
                             hour = int(value)
                         case "m" | "mm":
                             pattern = r"\d{2}" if fmt == "mm" else r"\d{1,2}"
                             if not re.fullmatch(pattern, value):
-                                raise ValueError(f"Invalid minute: {value} for format {fmt}")
+                                raise CalculationError(
+                                    code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_MINUTE_FORMAT",
+                                    params={"value": value, "format": fmt},
+                                    message=f"Invalid minute: {value} for format {fmt}",
+                                )
                             minute = int(value)
                         case "s" | "ss":
                             pattern = r"\d{2}" if fmt == "ss" else r"\d{1,2}"
                             if not re.fullmatch(pattern, value):
-                                raise ValueError(f"Invalid second: {value} for format {fmt}")
+                                raise CalculationError(
+                                    code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INVALID_SECOND_FORMAT",
+                                    params={"value": value, "format": fmt},
+                                    message=f"Invalid second: {value} for format {fmt}",
+                                )
                             second = int(value)
 
                 result = dt.datetime(year, month, day, hour, minute, second)
                 if weekday is not None and result.weekday() != weekday:
-                    raise ValueError(f"Invalid weekday for datetime: {datetime_ipt}")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.DATETIME_WEEKDAY_MISMATCH",
+                        params={"datetime": datetime_ipt},
+                        message=f"Invalid weekday for datetime: {datetime_ipt}",
+                    )
                 return result
             return _to_datetime
         case "make_interval":
@@ -551,16 +729,28 @@ def date_and_time_match(func):
                 arguments_dict = {}
                 for p in params:
                     if "=" not in p:
-                        raise ValueError(f"Invalid parameter format: {p}. Expected format: key=value")
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INTERVAL_PARAMETER_FORMAT",
+                            params={"parameter": p},
+                            message=f"Invalid parameter format: {p}. Expected format: key=value",
+                        )
                     p_val = float(p.split("=", 1)[1])
 
                     if not m.isfinite(p_val) or p_val < 0:
-                        raise ValueError(f"Invalid parameter value: {p.split('=')[1]}. Expected a non-negative integer.")
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INTERVAL_NON_NEGATIVE_VALUE",
+                            params={"value": p.split('=')[1]},
+                            message=f"Invalid parameter value: {p.split('=')[1]}. Expected a non-negative integer.",
+                        )
                     
                     p_key, item_value = p.split("=", 1)
                     p_key = p_key.strip()
                     if p_key not in param_keys:
-                        raise ValueError(f"Invalid parameter key: {p_key}. Expected one of: {param_keys}")
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INTERVAL_PARAMETER_KEY",
+                            params={"key": p_key, "keys": ", ".join(param_keys)},
+                            message=f"Invalid parameter key: {p_key}. Expected one of: {param_keys}",
+                        )
                     arguments_dict[p_key] = float(item_value.strip())
                 result = 0.0
                 biggest_unit = None
@@ -596,7 +786,11 @@ def date_and_time_match(func):
                 tmp_param = []
                 params = []
                 if not input_params or len(input_params) % 2 != 0:
-                    raise ValueError(f"Invalid parameter format: {arg}. Expected format: value unit [value unit ...]")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_INTERVAL_FORMAT",
+                        params={"interval": arg},
+                        message=f"Invalid parameter format: {arg}. Expected format: value unit [value unit ...]",
+                    )
                 
                 for i_p in input_params:
                     tmp_param.append(i_p)
@@ -609,11 +803,23 @@ def date_and_time_match(func):
                 for p in params:
                     p_val = float(p.split(" ")[0])
                     if not m.isfinite(p_val) or p_val < 0:
-                        raise ValueError(f"Invalid parameter value: {p_val}")
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INTERVAL_NON_NEGATIVE_VALUE",
+                            params={"value": str(p_val)},
+                            message=f"Invalid parameter value: {p_val}",
+                        )
                     if " " not in p:
-                        raise ValueError(f"Invalid parameter format: {p}. Expected format: key=value")
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INTERVAL_PARAMETER_FORMAT",
+                            params={"parameter": p},
+                            message=f"Invalid parameter format: {p}. Expected format: key=value",
+                        )
                     if p.split(" ")[1] not in param_keys:
-                        raise ValueError(f"Invalid parameter key: {p.split(' ')[1]}. Expected one of: {param_keys}")
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.INTERVAL_PARAMETER_KEY",
+                            params={"key": p.split(' ')[1], "keys": ", ".join(param_keys)},
+                            message=f"Invalid parameter key: {p.split(' ')[1]}. Expected one of: {param_keys}",
+                        )
                     for p_key in param_keys:
                         if p.split(" ")[1] == p_key:
                             arguments_dict[p_key] = float(p.split(" ")[0])
@@ -687,7 +893,11 @@ def date_and_time_match(func):
             def _make_time(arg):
                 h, m, tmp_s = map(str.strip, arg.split(","))
                 if not re.fullmatch(r"\d{1,2},\s*\d{1,2},\s*\d{1,2}(?:\.\d+)?", arg):
-                    raise ValueError(f"Invalid time format: {arg}. Expected a valid time in the format HH, MM, SS")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.MAKE_TIME_FORMAT",
+                        params={"time": arg},
+                        message=f"Invalid time format: {arg}. Expected a valid time in the format HH, MM, SS",
+                    )
                 h, m = int(h), int(m)
                 if "." in str(tmp_s):
                     seconds, fraction = tmp_s.split(".")
@@ -697,7 +907,11 @@ def date_and_time_match(func):
                     s = int(tmp_s)
                     ms = 0
                 if not (0 <= h < 24 and 0 <= m < 60 and 0 <= s < 60):
-                    raise ValueError(f"Invalid time values: {arg}. Expected hours (0-23), minutes (0-59), seconds (0-59)")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.MAKE_TIME_VALUES",
+                        params={"time": arg},
+                        message=f"Invalid time values: {arg}. Expected hours (0-23), minutes (0-59), seconds (0-59)",
+                    )
                 return dt.time(int(h), int(m), s, ms * 1000).isoformat(timespec="milliseconds")
             return _make_time
         case "to_time":
@@ -706,31 +920,63 @@ def date_and_time_match(func):
                 p_time, p_format = map(str.strip, arg.split(","))
 
                 if not re.fullmatch(r"\d{2}:\d{2}(?::\d{2})?", p_time):
-                    raise ValueError(f"Invalid time format: {p_time}. Expected a valid time in the format HH:MM or HH:MM:SS")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_TIME_INPUT",
+                        params={"time": p_time},
+                        message=f"Invalid time format: {p_time}. Expected a valid time in the format HH:MM or HH:MM:SS",
+                    )
                 if (
                     not re.fullmatch(r"(?:HH|hh|mm|MM|ss|SS):(?:HH|hh|mm|MM|ss|SS)", p_format)
                     and not re.fullmatch(r"(?:HH|hh|mm|MM|ss|SS):(?:HH|hh|mm|MM|ss|SS):(?:HH|hh|mm|MM|ss|SS)", p_format)
                 ):
-                    raise ValueError(f"Invalid time format: {p_format}. Expected a valid time format in the format HH:MM or HH:MM:SS")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_TIME_FORMAT",
+                        params={"format": p_format},
+                        message=f"Invalid time format: {p_format}. Expected a valid time format in the format HH:MM or HH:MM:SS",
+                    )
 
                 time, format = p_time.strip().split(":"), p_format.strip().split(":")
                 if len(time) != len(format):
-                                                raise ValueError(f"Invalid time and format lengths: {p_time}, {p_format}. Expected the same number of components in time and format.")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_TIME_COMPONENT_COUNT",
+                        params={"time": p_time, "format": p_format},
+                        message=f"Invalid time and format lengths: {p_time}, {p_format}. Expected the same number of components in time and format.",
+                    )
                 for idx, t in enumerate(time):
                     if format[idx] in ["HH", "hh"] and not (0 <= int(t) < 24):
-                        raise ValueError(f"Invalid time value: {t}. Expected a valid hour in the range 0-23 for format {format[idx]}")
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_TIME_HOUR_RANGE",
+                            params={"value": t, "format": format[idx]},
+                            message=f"Invalid time value: {t}. Expected a valid hour in the range 0-23 for format {format[idx]}",
+                        )
                     if format[idx] in ["mm", "MM"] and not (0 <= int(t) < 60):
-                        raise ValueError(f"Invalid time value: {t}. Expected a valid minute in the range 0-59 for format {format[idx]}")
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_TIME_MINUTE_RANGE",
+                            params={"value": t, "format": format[idx]},
+                            message=f"Invalid time value: {t}. Expected a valid minute in the range 0-59 for format {format[idx]}",
+                        )
                     if format[idx] in ["ss", "SS"] and not (0 <= int(t) < 60):
-                        raise ValueError(f"Invalid time value: {t}. Expected a valid second in the range 0-59 for format {format[idx]}")
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_TIME_SECOND_RANGE",
+                            params={"value": t, "format": format[idx]},
+                            message=f"Invalid time value: {t}. Expected a valid second in the range 0-59 for format {format[idx]}",
+                        )
                 if len(format) != len(set(format)):
-                    raise ValueError(f"Invalid time format: {p_format}. Expected unique components in the format.")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_TIME_UNIQUE_COMPONENTS",
+                        params={"format": p_format},
+                        message=f"Invalid time format: {p_format}. Expected unique components in the format.",
+                    )
                 else:
                     chk_list = format.copy()
                     for idx, fmt in enumerate(chk_list):
                         chk_list[idx] = fmt.upper()
                     if len(chk_list) != len(set(chk_list)):
-                        raise ValueError(f"Invalid time format: {p_format}. Expected unique components in the format.")
+                        raise CalculationError(
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.TO_TIME_UNIQUE_COMPONENTS",
+                            params={"format": p_format},
+                            message=f"Invalid time format: {p_format}. Expected unique components in the format.",
+                        )
                     
                 
                 pairs = {}
@@ -760,7 +1006,11 @@ def date_and_time_match(func):
                 if arg == "":
                     return dt.datetime.now().isoformat(sep=" ")
                 else:
-                    raise ValueError(f"Invalid parameter format: {arg}. Expected no parameters for now()")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.NOW_ARGUMENTS",
+                        params={"arguments": arg},
+                        message=f"Invalid parameter format: {arg}. Expected no parameters for now()",
+                    )
             return _now
         case _:
             return None

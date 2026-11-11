@@ -6,6 +6,7 @@ import { TranslatePipe } from '../../../pipes/translate.pipe';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { LanguageService } from '../../../services/language/language-service';
 
 @Component({
   selector: 'app-calculation-tool',
@@ -46,6 +47,7 @@ export class CalculationTool implements OnDestroy {
     })
   }
   private http = inject(HttpClient);
+  private languageService = inject(LanguageService);
   public parserResult = signal<Record<string, unknown> | null>(null);
   public parserError = signal<string>('');
 
@@ -72,12 +74,17 @@ export class CalculationTool implements OnDestroy {
         tableKeys: await this.shownTableKeys() 
       }));
       this.parserResult.set(result);
+      this.parserError.set('');
     } catch (error: unknown) {
       const detail = error instanceof HttpErrorResponse 
-        ? error.error.detail 
+        ? error.error?.detail
         : 'Unknown error';
 
-      this.parserError.set(typeof detail === 'string' ? detail : 'Nie udało się wykonać obliczenia.');
+      if (typeof detail === 'object' && detail !== null && typeof detail.code === 'string') {
+        this.parserError.set(this.languageService.translate(detail.code, detail.params));
+      } else {
+        this.parserError.set(typeof detail === 'string' ? detail : 'Nie udało się wykonać obliczenia.');
+      }
     }
     
   }
@@ -154,11 +161,11 @@ export class CalculationTool implements OnDestroy {
         '%', // %
         '^', // ^
         '=', // =
-        '≠', // !=
+        '!=', // !=
         '<', // <
         '>', // >
-        '≤', // <=
-        '≥', // >=
+        '<=', // <=
+        '>=', // >=
         '||', // ||
         '∼', // ~
         'AND',
@@ -219,5 +226,17 @@ export class CalculationTool implements OnDestroy {
       ]
     });
   }
+
+
+
+  public model: Record<string, string> = {
+    'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.CONTENT.FUNCTIONS-NAMES.FIELDS-AND-VALUES': "FIELDS-AND-VALUES",
+    'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.CONTENT.FUNCTIONS-NAMES.DATE-AND-TIME': "DATE-AND-TIME",
+    'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.CONTENT.FUNCTIONS-NAMES.MATH': "MATH",
+    'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.CONTENT.FUNCTIONS-NAMES.OPERATORS': "OPERATORS",
+    'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.CONTENT.FUNCTIONS-NAMES.MAPS-OPERATORS': "MAPS-OPERATORS",
+    'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.CONTENT.FUNCTIONS-NAMES.STRING-OPERATORS': "STRING-OPERATORS"
+  };
   
+
 }

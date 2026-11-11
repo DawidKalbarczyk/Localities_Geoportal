@@ -1,6 +1,8 @@
 import math as m
 import random as r
 
+from ..service_translate_errors import CalculationError
+
 
 def math_match(func):
     match func:
@@ -144,7 +146,11 @@ def math_match(func):
             def _pi(arg):
                 #format pi()
                 if arg != "":
-                    raise ValueError("pi function does not take any arguments.")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.PI_ARGUMENTS",
+                        params={},
+                        message="pi function does not take any arguments.",
+                    )
                 return m.pi
                 # float - 3.141592653589793
             return _pi
@@ -160,7 +166,11 @@ def math_match(func):
                 #format rand(1, 10)
                 randomItems = list(map(int, arg.split(",")))
                 if len(randomItems) < 2:
-                    raise ValueError("rand function requires at least two arguments: min and max values.")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.RANDOM_MIN_ARGUMENTS",
+                        params={"function": 'rand'},
+                        message="rand function requires at least two arguments: min and max values.",
+                    )
                 elif len(randomItems) == 2:
                     return r.randint(randomItems[0], randomItems[1])
                     # int - 7
@@ -169,21 +179,33 @@ def math_match(func):
                     return r.Random(randomItems[2]).randint(randomItems[0], randomItems[1])
                     # int - 7
                 else:
-                    raise ValueError("rand function accepts at most three arguments: min, max, and optional seed.")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.RANDOM_MAX_ARGUMENTS",
+                        params={"function": 'rand'},
+                        message="rand function accepts at most three arguments: min, max, and optional seed.",
+                    )
             return _rand
         case "randf":
             def _randf(arg):
                 #format randf(0, 1)
                 randomItems = list(map(float, arg.split(",")))
                 if len(randomItems) < 2:
-                    raise ValueError("randf function requires at least two arguments: min and max values.")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.RANDOM_MIN_ARGUMENTS",
+                        params={"function": 'randf'},
+                        message="randf function requires at least two arguments: min and max values.",
+                    )
                 elif len(randomItems) == 2:
                     return r.uniform(randomItems[0], randomItems[1])
                     # float - 0.42
                 elif len(randomItems) == 3:
                     return r.Random(randomItems[2]).uniform(randomItems[0], randomItems[1])
                 else: 
-                    raise ValueError("randf function accepts at most three arguments: min, max, and optional seed.")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.RANDOM_MAX_ARGUMENTS",
+                        params={"function": 'randf'},
+                        message="randf function accepts at most three arguments: min, max, and optional seed.",
+                    )
                     # float - 0.42
             return _randf
         case "round":
@@ -198,9 +220,17 @@ def math_match(func):
                 #format scale_exponential(5, 0, 10, 0, 100, 2)
                 value, domain_min, domain_max, range_min, range_max, exponent = map(float, arg.split(","))
                 if domain_min >= domain_max:
-                    raise ValueError("domain_min must be less than domain_max")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.SCALE_DOMAIN_RANGE",
+                        params={"min": str(domain_min), "max": str(domain_max)},
+                        message="domain_min must be less than domain_max",
+                    )
                 if exponent <= 0:
-                    raise ValueError("exponent must be greater than 0")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.SCALE_POSITIVE_EXPONENT",
+                        params={"exponent": str(exponent)},
+                        message="exponent must be greater than 0",
+                    )
                 if value <= domain_min:
                     return range_min
                     # float - 0.0
@@ -222,7 +252,11 @@ def math_match(func):
                 #format scale_linear(5, 0, 10, 0, 100)
                 value, domain_min, domain_max, range_min, range_max = map(float, arg.split(","))
                 if domain_min >= domain_max:
-                    raise ValueError("domain_max must be greater than domain_min")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.SCALE_DOMAIN_RANGE",
+                        params={"min": str(domain_min), "max": str(domain_max)},
+                        message="domain_max must be greater than domain_min",
+                    )
                 if value <= domain_min:
                     return range_min
                     # float - 0.0
@@ -238,9 +272,17 @@ def math_match(func):
                 #format scale_polynomial(5, 0, 10, 0, 100, 2)
                 value, domain_min, domain_max, range_min, range_max, exponent = map(float, arg.split(","))
                 if domain_min >= domain_max:
-                    raise ValueError("domain_min must be less than domain_max")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.SCALE_DOMAIN_RANGE",
+                        params={"min": str(domain_min), "max": str(domain_max)},
+                        message="domain_min must be less than domain_max",
+                    )
                 if exponent <= 0:
-                    raise ValueError("exponent must be greater than 0")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.SCALE_POSITIVE_EXPONENT",
+                        params={"exponent": str(exponent)},
+                        message="exponent must be greater than 0",
+                    )
                 if value <= domain_min:
                     return range_min
                     # float - 0.0
@@ -256,7 +298,11 @@ def math_match(func):
                 #format scale_logarithmic(5, 1, 10, 0, 100)
                 value, domain_min, domain_max, range_min, range_max = map(float, arg.split(","))
                 if domain_min >= domain_max:
-                    raise ValueError("domain_min must be less than domain_max")
+                    raise CalculationError(
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.SCALE_DOMAIN_RANGE",
+                        params={"min": str(domain_min), "max": str(domain_max)},
+                        message="domain_min must be less than domain_max",
+                    )
                 if value <= domain_min:
                     return range_min
                     # float - 0.0
