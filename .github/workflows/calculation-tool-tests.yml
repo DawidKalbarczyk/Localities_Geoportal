@@ -1,0 +1,43 @@
+name: Test calculation tool services and functions
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python-tests:
+    name: Python calculation tool tests
+    runs-on: self-hosted
+    timeout-minutes: 15
+
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: backend/fastapi/services/calc_tool_matches/tests_MADE_BY_AI/requirements.txt
+      
+      - name: Install test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r backend/fastapi/services/calc_tool_matches/tests_MADE_BY_AI/requirements.txt
+        
+      - name: Run ruff linter
+        run: ruff check backend/fastapi/services/calc_tool_matches/tests_MADE_BY_AI --output-format=github
+
+      - name: Run existing Python tests
+        run: python -m pytest backend/fastapi/services/calc_tool_matches/tests_MADE_BY_AI -q --tb=short -p no:cacheprovider

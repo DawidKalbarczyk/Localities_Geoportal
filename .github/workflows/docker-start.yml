@@ -1,32 +1,39 @@
 name: Build, push and deploy Docker image to Docker
 on:
-  push:
+  workflow_run:
+    workflows:
+      - Test calculation tool services and functions
     branches:
       - main
+    types:
+      - completed
 
 permissions:
   contents: read
   packages: write
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.workflow_run.head_branch }}
   cancel-in-progress: true
 
 jobs:
   build-and-push:
     name: Build and Push Docker Image
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' }}
     runs-on: self-hosted
 
-    environment: ${{ github.ref_name }}
+    environment: ${{ github.event.workflow_run.head_branch }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
 
       - name: Set GeoServer workspace for GitHub
         run: find frontend/src -type f -name '*.ts' -exec sed -i 's/AngularLocal/AngularAppSpring/g' {} +
 
       - name: Create .env file 
         run: |
-          echo "ENV_NAME=${{github.ref_name}}" >> .env
+          echo "ENV_NAME=${{github.event.workflow_run.head_branch}}" >> .env
           echo "POSTGRES_PORT=${{secrets.POSTGRES_PORT}}" >> .env
           echo "POSTGRES_USER=${{secrets.POSTGRES_USER}}" >> .env
           echo "POSTGRES_PASSWORD=${{secrets.POSTGRES_PASSWORD}}" >> .env
@@ -38,10 +45,10 @@ jobs:
           echo "GEOSERVER_ADMIN_PASSWORD=${{secrets.GEOSERVER_ADMIN_PASSWORD}}" >> .env
           echo "GEOSERVER_ADMIN_USER=${{secrets.GEOSERVER_ADMIN_USER}}" >> .env
           echo "FIREBASE_SERVICE_ACCOUNT_JSON_BASE64=${{secrets.FIREBASE_SERVICE_ACCOUNT_JSON_BASE64}}" >> .env
-
+      
       - name: Launch Docker Environment
         env: 
-          ENV_NAME: ${{github.ref_name}}
+          ENV_NAME: ${{github.event.workflow_run.head_branch}}
           POSTGRES_PORT: ${{secrets.POSTGRES_PORT}}
           POSTGRES_USER: ${{secrets.POSTGRES_USER}}
           POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
