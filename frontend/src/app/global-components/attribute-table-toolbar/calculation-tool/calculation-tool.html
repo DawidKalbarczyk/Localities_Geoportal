@@ -67,7 +67,9 @@
                         <summary>{{function.key | translate}}</summary>
                         <div>
                             @for (func of function.value; track func) {
-                                <button type="button" (click)="ToolbarService.insertFunctionIntoExpression(func, expressionInput)">
+                                <button type="button" (click)="ToolbarService.insertFunctionIntoExpression(func, expressionInput)"
+                                (mouseenter)="functionHoverEnter(function.key, func)"
+                                (mouseleave)="functionHoverLeave()">
                                     <span aria-hidden="true">&#8226;&#160;</span>
                                     <span class="function-label">{{func}}</span>
                                 </button>
@@ -89,3 +91,10 @@
         </button>
     </div>
 </div>
+
+@if (functionTooltip(); as tooltip) {
+    <div class="function-tooltip" role="tooltip"
+        (mouseenter)="keepFunctionTooltipOpen()" (mouseleave)="functionHoverLeave()">
+        <p>{{ tooltip | translate }}</p>
+    </div>
+}

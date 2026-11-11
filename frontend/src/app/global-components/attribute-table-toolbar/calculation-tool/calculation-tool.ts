@@ -31,6 +31,7 @@ export class CalculationTool implements OnDestroy {
   })
 
   ngOnDestroy() {
+    this.hideFunctionTooltip();
     this.ToolbarService.resetCalculateFieldTool();
   }
 
@@ -45,6 +46,11 @@ export class CalculationTool implements OnDestroy {
         this.ToolbarService.setParserResult(result);
       });
     })
+    effect(() => {
+      if (!this.ToolbarService.ToolbarTools['calculateFieldTool']()) {
+        this.hideFunctionTooltip();
+      }
+    });
   }
   private http = inject(HttpClient);
   private languageService = inject(LanguageService);
@@ -237,6 +243,45 @@ export class CalculationTool implements OnDestroy {
     'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.CONTENT.FUNCTIONS-NAMES.MAPS-OPERATORS': "MAPS-OPERATORS",
     'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.CONTENT.FUNCTIONS-NAMES.STRING-OPERATORS': "STRING-OPERATORS"
   };
+
+  private timeout: ReturnType<typeof setTimeout> | null = null;
+  public functionTooltip = signal<string | null>(null);
+
+  public functionHoverEnter(
+    category: string,
+    func: string,
+  ): void {
+    this.hideFunctionTooltip();
+    this.timeout = setTimeout(() => {
+      const group = this.model[category];
+
+      this.functionTooltip.set(
+        group === 'FIELDS-AND-VALUES'
+          ? 'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.TOOLTIPS.FIELDS-AND-VALUES.TITLE'
+          : `ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.TOOLTIPS.${group}.${func.toUpperCase()}.TITLE`,
+      );
+      this.timeout = null;
+    }, 500);
+  }
+
+  public functionHoverLeave(): void {
+    this.keepFunctionTooltipOpen();
+    this.timeout = setTimeout(() => {
+      this.hideFunctionTooltip();
+    }, 250);
+  }
+
+  public keepFunctionTooltipOpen(): void {
+    if (this.timeout !== null) {
+      clearTimeout(this.timeout);
+      this.timeout = null;
+    }
+  }
+
+  public hideFunctionTooltip(): void {
+    this.keepFunctionTooltipOpen();
+    this.functionTooltip.set(null);
+  }
   
 
 }

@@ -123,22 +123,44 @@
         }
       },
       "TOOLTIPS": {
+        "TITLE": "Podpowiedź",
         "FIELDS-AND-VALUES": {
+          "INFO": "Pola i wartości atrybutów",
           "TITLE": "Pola i wartości"
         },
         "DATE-AND-TIME": {
+          "INFO": "Funkcje daty i czasu",
           "TITLE": "Data i czas"
         },
         "MATH": {
-          "TITLE": "Matematyka"
-        },
-        "OPERATORS": {
-          "TITLE": "Operatory"
+          "INFO": "Funkcje matematyczne",
+          "ABS": {
+            "TITLE": "Funkcja abs()",
+            "DESCRIPTION": "Funkcja zwracająca wartość bezwzględną liczby.",
+            "SYNTAX": "abs(wartość)",
+            "ARGUMENTS": {
+              "A-KEY": "wartość",
+              "A-DESCRIPTION": "Liczba, której wartość bezwzględna ma zostać obliczona."
+            },
+            "EXAMPLES": {
+              "EX1": "abs(-5)",
+              "RES1": "5",
+              "EX2": "abs(3.14)",
+              "RES2": "3.14",
+              "EX3": "abs(-2.718)",
+              "RES3": "2.718"
+            }
+          },
+          "ACOS": {
+            "TITLE": ""
+          }
         },
         "MAPS-OPERATORS": {
+          "INFO": "Funkcje słownikowe",
           "TITLE": "Operacje słownikowe"
         },
         "STRING-OPERATORS": {
+          "INFO": "Funkcje tekstowe",
           "TITLE": "Operacje tekstowe"
         }
       },

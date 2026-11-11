@@ -355,9 +355,9 @@
                     text-align: center;
                 }
                 > div {
-                    overflow-y: auto;
                     min-width: 0;
                     display: grid;
+                    overflow-y: auto;
                     grid-template-columns: repeat(2, minmax(0, 1fr));
                     align-items: stretch;
 
@@ -418,6 +418,7 @@
                                 border-radius: 0 0.25rem 0.25rem 0;
                                 transition: background-color 0.3s ease;
                                 text-align: left;
+                                position: relative;
 
                                 .function-label {
                                     min-width: 0;
@@ -488,6 +489,40 @@
         
 
         
+    }
+}
+
+.function-tooltip {
+    position: fixed;
+    top: 15vh;
+    bottom: 45vh;
+    left: 75%;
+    right: 3rem;
+    z-index: 100000000;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: orange;
+    color: black;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    animation: function-tooltip-in 0.3s ease;
+
+    p {
+        margin: 0;
+    }
+}
+
+@keyframes function-tooltip-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
     }
 }
 
