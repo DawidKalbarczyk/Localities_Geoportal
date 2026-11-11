@@ -33,4 +33,4 @@ async def calculate_field(user_expression: UserExpression):
             "real": result.real,
             "imag": result.imag
         }
-    return {"Result from user expression using Calculate Tool": result}
+    return {"RESULT": result}

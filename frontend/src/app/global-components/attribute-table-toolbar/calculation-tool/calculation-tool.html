@@ -27,33 +27,35 @@
                 } @else {
                     <input type="text" [placeholder]="'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.CONTENT.INPUT-FIELD' | translate"
                     [ngModel]="ToolbarService.newFieldName()" (ngModelChange)="ToolbarService.newFieldName.set($event)">
-                    <select #dataTypeSelect class="field-type-select" (change)="ToolbarService.dataType.set(dataTypeSelect.value)">
-                        <option selected disabled value>{{'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.CONTENT.FIELD-TYPE' | translate}}</option>
-                        <option value="int">Integer</option>
-                        <option value="float">Float</option>
-                        <option value="str">Text</option>
-                        <option value="date">Date</option>
-                    </select>
                 }
                 
             </div>
             <div class="left-content-textarea">
                 <label for="calculation-expression">{{'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.CONTENT.EXPRESSION' | translate}}</label>
                 <div class="expression-editor"
+                    [class.expression-editor-error]="!!parserError()"
                     [style.--line-number-width]="(expressionLines().length.toString().length + 1) + 'ch'">
-                    <div class="expression-line-numbers" aria-hidden="true">
-                        <div [style.transform]="'translateY(' + -expressionScrollTop() + 'px)'">
-                            @for (line of expressionLines(); track line.number) {
-                                <span class="expression-line" [attr.data-line]="line.number">{{ line.text || ' ' }}</span>
-                            }
+                    <div class="expression-input-area">
+                        <div class="expression-line-numbers" aria-hidden="true">
+                            <div [style.transform]="'translateY(' + -expressionScrollTop() + 'px)'">
+                                @for (line of expressionLines(); track line.number) {
+                                    <span class="expression-line" [attr.data-line]="line.number">{{ line.text || ' ' }}</span>
+                                }
+                            </div>
                         </div>
+                        <textarea #expressionInput id="calculation-expression" wrap="soft" spellcheck="false"
+                            [attr.aria-invalid]="parserError() ? 'true' : null"
+                            [attr.aria-describedby]="parserError() ? 'calculation-expression-error' : null"
+                            [placeholder]="'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.CONTENT.EXPRESSION-PLACEHOLDER' | translate"
+                            (select)="ToolbarService.readSelection(expressionInput)"
+                            [value]="expression()"
+                            (input)="expression.set(expressionInput.value)"
+                            (scroll)="expressionScrollTop.set(expressionInput.scrollTop)">
+                        </textarea>
                     </div>
-                    <textarea #expressionInput id="calculation-expression" wrap="soft" spellcheck="false"
-                        [placeholder]="'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.CONTENT.EXPRESSION-PLACEHOLDER' | translate"
-                        (select)="ToolbarService.readSelection(expressionInput)"
-                        [value]="expression()"
-                        (input)="expression.set(expressionInput.value)"
-                        (scroll)="expressionScrollTop.set(expressionInput.scrollTop)"></textarea>
+                    @if (parserError(); as message) {
+                        <div id="calculation-expression-error" class="calculation-error" role="alert">{{ message }}</div>
+                    }
                 </div>
             </div>
         </div>
@@ -65,7 +67,7 @@
                         <summary>{{function.key | translate}}</summary>
                         <div>
                             @for (func of function.value; track func) {
-                                <button type="button" (click)="ToolbarService.insertFunctionIntoExpression(func)">
+                                <button type="button" (click)="ToolbarService.insertFunctionIntoExpression(func, expressionInput)">
                                     <span aria-hidden="true">&#8226;&#160;</span>
                                     <span class="function-label">{{func}}</span>
                                 </button>
@@ -80,7 +82,9 @@
         <button class="footer-help-button" >
             <img src="./images/icons/question.png">
         </button>
-        <button class="footer-apply-button" >
+        <button class="footer-apply-button" (click)="submitExpression(); parserError.set('')" 
+        [disabled]="!expression().trim() || (ToolbarService.calculationType() === 'new'
+        ? !ToolbarService.newFieldName().trim() : ToolbarService.existingFieldName() === null)">
             {{'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.FOOTER.BUTT-CALCULATE' | translate}}
         </button>
     </div>

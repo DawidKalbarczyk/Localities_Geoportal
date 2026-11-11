@@ -32,7 +32,7 @@ jobs:
           python -m pip install -r backend/fastapi/services/calc_tool_matches/tests_MADE_BY_AI/requirements.txt
         
       - name: Run ruff linter
-        run: ruff check backend/fastapi/services/calc_tool_matches/tests_MADE_BY_AI --output-format=github
+        run: ruff check backend/fastapi/services/calc_tool_matches/tests_MADE_BY_AI --output-format=full
 
       - name: Run existing Python tests
         run: python -m pytest backend/fastapi/services/calc_tool_matches/tests_MADE_BY_AI -q --tb=short -p no:cacheprovider
