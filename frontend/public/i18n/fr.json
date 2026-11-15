@@ -120,6 +120,1789 @@
           "STRING-OPERATORS": "Opérations sur les chaînes"
         }
       },
+      "TOOLTIPS": {
+        "TITLE": "Aide",
+        "SYNTAX": "Syntaxe",
+        "ARGUMENTS": "Arguments",
+        "EXAMPLES": "Exemples",
+        "FIELDS-AND-VALUES": {
+          "INFO": "Champs et valeurs d'attribut",
+          "TITLE": "Champs et valeurs",
+          "DESC": {
+            "DESCRIPTION": "Cliquez pour ajouter le champ entier à l'expression. Une fois que vous avez créé l'expression complète, cliquez sur le bouton « Calculer » pour calculer les valeurs du champ sélectionné à l'aide de l'expression."
+          }
+        },
+        "DATE-AND-TIME": {
+          "INFO": "Fonctions date et heure",
+          "TITLE": "Date et heure",
+          "_AGE": {
+            "TITLE": "Fonction age()",
+            "DESCRIPTION": "Une fonction qui calcule la différence entre une date ultérieure et une date antérieure. Renvoie un intervalle de temps de type timedelta, qui peut être transmis à des fonctions telles que day(), hour() ou second(). Si la première date est antérieure à la seconde, une erreur est générée.",
+            "SYNTAX": "age(date_de_fin, date_de_début)",
+            "ARGUMENTS": {
+              "A-KEY": "date_de_fin",
+              "A-DESCRIPTION": "date ultérieure au format YYYY-MM-DD ou YYYY-MM-DD HH:MM:SS, éventuellement avec une fraction de seconde de un à six chiffres. Aucune heure ne signifie minuit.",
+              "B-KEY": "date_de_début",
+              "B-DESCRIPTION": "date antérieure dans le même format que la date de fin. Peut être égal à la date de fin ; alors la différence est nulle."
+            },
+            "EXAMPLES": {
+              "EX1": "age('2026-10-30 13:00:00', '2026-10-29 10:00:00')",
+              "RES1": "1 day, 3:00:00",
+              "EX2": "age('2026-10-30', '2026-10-29')",
+              "RES2": "1 day, 0:00:00",
+              "EX3": "age('2026-10-30', '2026-10-30')",
+              "RES3": "0:00:00"
+            }
+          },
+          "_DATETIME_FROM_EPOCH": {
+            "TITLE": "Fonction datetime_from_epoch()",
+            "DESCRIPTION": "Fonction qui convertit le nombre de secondes depuis le début de l'époque Unix (1970-01-01 00:00:00 UTC) en une chaîne de caractères au format YYYY-MM-DD HH:MM:SS. Le résultat correspond au fuseau horaire local du serveur et n'inclut pas d'indicateur de zone.",
+            "SYNTAX": "datetime_from_epoch(secondes)",
+            "ARGUMENTS": {
+              "A-KEY": "secondes",
+              "A-DESCRIPTION": "secondes entières non négatives depuis le début de l'époque Unix, par ex. 1700000000. La valeur doit être comprise dans la plage de dates prise en charge par le serveur."
+            },
+            "EXAMPLES": {
+              "EX1": "datetime_from_epoch(0)",
+              "RES1": "1970-01-01 00:00:00 (pour serveur dans la zone UTC)",
+              "EX2": "datetime_from_epoch(1700000000)",
+              "RES2": "2023-11-14 22:13:20 (pour serveur dans la zone UTC)",
+              "EX3": "datetime_from_epoch(86400)",
+              "RES3": "1970-01-02 00:00:00 (pour serveur dans la zone UTC)"
+            }
+          },
+          "_DAY": {
+            "TITLE": "Fonction day()",
+            "DESCRIPTION": "Fonction qui renvoie le jour du mois pour une date ou la durée totale d'un intervalle de temps converti en jours. Le résultat est une chaîne avec un nombre et l'unité anglaise day ou days, par ex. 30 days. Un jour correspond aux heures 24.",
+            "SYNTAX": "day(date_ou_intervalle)",
+            "ARGUMENTS": {
+              "A-KEY": "date_ou_intervalle",
+              "A-DESCRIPTION": "date au format YYYY-MM-DD ou YYYY-MM-DD HH:MM:SS (éventuellement avec une fraction de seconde jusqu'à six chiffres), résultat age() de type timedelta ou un intervalle non négatif écrit sous forme de nombre et d'unité anglaise : year, month, week, day, hour, minute ou second, également au pluriel. L'année correspond à 365,25 jours et le mois au 1/12 de l'année."
+            },
+            "EXAMPLES": {
+              "EX1": "day('2026-10-30')",
+              "RES1": "30 days",
+              "EX2": "day('48 hours')",
+              "RES2": "2 days",
+              "EX3": "day('12 hours')",
+              "RES3": "0.5 days"
+            }
+          },
+          "_DAY_OF_WEEK": {
+            "TITLE": "Fonction day_of_week()",
+            "DESCRIPTION": "Fonction qui renvoie le numéro du jour de la semaine sous forme d'entier de 1 à 7 : lundi est 1 et dimanche est 7.",
+            "SYNTAX": "day_of_week(date)",
+            "ARGUMENTS": {
+              "A-KEY": "date",
+              "A-DESCRIPTION": "date correcte au format YYYY-MM-DD, sans la partie heure. Le mois et le jour doivent être écrits sur deux chiffres."
+            },
+            "EXAMPLES": {
+              "EX1": "day_of_week('2026-10-30')",
+              "RES1": "5",
+              "EX2": "day_of_week('2026-10-26')",
+              "RES2": "1",
+              "EX3": "day_of_week('2026-11-01')",
+              "RES3": "7"
+            }
+          },
+          "_EPOCH": {
+            "TITLE": "Fonction epoch()",
+            "DESCRIPTION": "Fonction qui renvoie un nombre entier de secondes depuis le début de l'époque Unix (1970-01-01 00:00:00 UTC). La date et l'heure fournies sont interprétées dans le fuseau horaire local du serveur.",
+            "SYNTAX": "epoch(date_et_heure)",
+            "ARGUMENTS": {
+              "A-KEY": "date_et_heure",
+              "A-DESCRIPTION": "date et heure correctes au format YYYY-MM-DD HH:MM:SS. Des secondes sont nécessaires ; les fractions de seconde et les marquages de fuseau horaire ne sont pas pris en charge."
+            },
+            "EXAMPLES": {
+              "EX1": "epoch('1970-01-01 00:00:00')",
+              "RES1": "0 (pour serveur dans la zone UTC)",
+              "EX2": "epoch('2023-11-14 22:13:20')",
+              "RES2": "1700000000 (pour serveur dans la zone UTC)",
+              "EX3": "epoch('1970-01-02 00:00:00')",
+              "RES3": "86400 (pour serveur dans la zone UTC)"
+            }
+          },
+          "_FORMAT_DATE": {
+            "TITLE": "Fonction format_date()",
+            "DESCRIPTION": "Une fonction qui formate une date en une chaîne de caractères selon un format donné. Les noms des jours de la semaine et des mois sont renvoyés en anglais.",
+            "SYNTAX": "format_date(date, format)",
+            "ARGUMENTS": {
+              "A-KEY": "date",
+              "A-DESCRIPTION": "date correcte au format YYYY-MM-DD. Le mois et le jour doivent être écrits sur deux chiffres.",
+              "B-KEY": "format",
+              "B-DESCRIPTION": "exactement trois composants : jour (d, dd, ddd ou dddd), mois (M, MM, MMM ou MMMM) et année (yy ou yyyy), dans n'importe quel ordre, séparés par des points. Dans le cas de MMM ou MMMM, le résultat est séparé par des espaces, dans les autres cas par des points.",
+              "TYPES": {
+                "d": "jour du mois sans zéro non significatif (1-31)",
+                "dd": "jour du mois avec zéro non significatif (01-31)",
+                "ddd": "nom anglais court du jour de la semaine, par ex. Thu",
+                "dddd": "nom anglais complet du jour de la semaine, par ex. Thursday",
+                "M": "mois sans zéro non significatif (1-12)",
+                "MM": "mois avec zéro non significatif (01-12)",
+                "MMM": "nom anglais court du mois, par ex. Feb",
+                "MMMM": "nom anglais complet du mois, par ex. February",
+                "yy": "les deux derniers chiffres de l'année, par ex. 26",
+                "yyyy": "année complète, par ex. 2026"
+              }
+            },
+            "EXAMPLES": {
+              "EX1": "format_date('2026-02-05', 'dd.MM.yyyy')",
+              "RES1": "05.02.2026",
+              "EX2": "format_date('2026-02-05', 'dd.MMMM.yyyy')",
+              "RES2": "05 February 2026",
+              "EX3": "format_date('2026-02-05', 'ddd.MM.yy')",
+              "RES3": "Thu.02.26"
+            }
+          },
+          "_HOUR": {
+            "TITLE": "Fonction hour()",
+            "DESCRIPTION": "Fonction qui renvoie l'heure (0-23) à partir d'une date et d'une heure, ou la durée totale d'un intervalle convertie en heures. Le résultat est une chaîne avec un nombre et l'unité anglaise hour ou hours, par ex. 13 hours. Un jour correspond aux heures 24.",
+            "SYNTAX": "hour(date_heure_ou_intervalle)",
+            "ARGUMENTS": {
+              "A-KEY": "date_heure_ou_intervalle",
+              "A-DESCRIPTION": "date et heure au format YYYY-MM-DD HH:MM:SS (éventuellement avec une fraction de seconde jusqu'à six chiffres), résultat age() de type timedelta ou un intervalle non négatif écrit sous forme de nombre et d'unité anglaise : year, month, week, day, hour, minute ou second, également au pluriel. Une date seule ou une heure seule n’est pas prise en charge. L'année correspond à 365,25 jours et le mois au 1/12 de l'année."
+            },
+            "EXAMPLES": {
+              "EX1": "hour('2026-10-30 13:05:09')",
+              "RES1": "13 hours",
+              "EX2": "hour('2.125 days')",
+              "RES2": "51 hours",
+              "EX3": "hour(age('2026-10-30 13:00:00', '2026-10-29 10:00:00'))",
+              "RES3": "27 hours"
+            }
+          },
+          "_MAKE_DATE": {
+            "TITLE": "Fonction make_date()",
+            "DESCRIPTION": "Une fonction qui crée une date à partir de l'année, du mois et du jour. Renvoie une chaîne au format YYYY-MM-DD. Dates incorrectes, par ex. Février 30, provoque une erreur.",
+            "SYNTAX": "make_date(année, mois, jour)",
+            "ARGUMENTS": {
+              "A-KEY": "année",
+              "A-DESCRIPTION": "année écrite en quatre chiffres, dans la plage 0001-9999.",
+              "B-KEY": "mois",
+              "B-DESCRIPTION": "numéro du mois de 1 à 12, écrit en un ou deux chiffres.",
+              "C-KEY": "jour",
+              "C-DESCRIPTION": "jour du mois écrit en un ou deux chiffres. Doit exister dans le mois et l'année sélectionnés."
+            },
+            "EXAMPLES": {
+              "EX1": "make_date(2026, 10, 30)",
+              "RES1": "2026-10-30",
+              "EX2": "make_date(2026, 2, 5)",
+              "RES2": "2026-02-05",
+              "EX3": "make_date(2024, 2, 29)",
+              "RES3": "2024-02-29"
+            }
+          },
+          "_MAKE_DATETIME": {
+            "TITLE": "Fonction make_datetime()",
+            "DESCRIPTION": "Une fonction qui crée une date et une heure à partir de six composants. Renvoie une chaîne au format YYYY-MM-DD HH:MM:SS. Tous les composants sont requis et doivent produire une date et une heure valides.",
+            "SYNTAX": "make_datetime(année, mois, jour, heure, minute, seconde)",
+            "ARGUMENTS": {
+              "A-KEY": "année",
+              "A-DESCRIPTION": "année écrite en quatre chiffres, dans la plage 0001-9999.",
+              "B-KEY": "mois",
+              "B-DESCRIPTION": "numéro de mois de 1 à 12.",
+              "C-KEY": "jour",
+              "C-DESCRIPTION": "un jour qui existe dans le mois et l'année donnés.",
+              "D-KEY": "heure",
+              "D-DESCRIPTION": "un entier compris entre 0 et 23.",
+              "E-KEY": "minute",
+              "E-DESCRIPTION": "un entier compris entre 0 et 59.",
+              "F-KEY": "seconde",
+              "F-DESCRIPTION": "entier de 0 à 59, sans partie fractionnaire. Tous les composants, à l'exception de l'année, peuvent être écrits avec un ou deux chiffres."
+            },
+            "EXAMPLES": {
+              "EX1": "make_datetime(2026, 10, 30, 13, 5, 9)",
+              "RES1": "2026-10-30 13:05:09",
+              "EX2": "make_datetime(2026, 2, 5, 0, 0, 0)",
+              "RES2": "2026-02-05 00:00:00",
+              "EX3": "make_datetime(2024, 2, 29, 23, 59, 59)",
+              "RES3": "2024-02-29 23:59:59"
+            }
+          },
+          "_MAKE_INTERVAL": {
+            "TITLE": "Fonction make_interval()",
+            "DESCRIPTION": "Une fonction qui crée un intervalle de temps en utilisant les arguments unit=value. Renvoie une chaîne de caractères avec la somme convertie dans la plus grande unité donnée ; pour les valeurs inférieures à 1, vous pouvez sélectionner une unité plus petite. L'année correspond à 365,25 jours et le mois au 1/12 de l'année. Le nom de l'unité dans le résultat est toujours au pluriel, par ex. 1 days.",
+            "SYNTAX": "make_interval(unité=valeur, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "unité",
+              "A-DESCRIPTION": "au moins un nom d'unité : years, months, weeks, days, hours, minutes ou seconds. Les arguments sont séparés par des virgules. Lors de la répétition d'une unité, la dernière valeur est prise en compte.",
+              "B-KEY": "valeur",
+              "B-DESCRIPTION": "un nombre fini non négatif attribué à une unité avec le signe =. Les fractions décimales écrites avec un point sont autorisées, par ex. days=2.5."
+            },
+            "EXAMPLES": {
+              "EX1": "make_interval(days=2, hours=3)",
+              "RES1": "2.125 days",
+              "EX2": "make_interval(hours=1, minutes=30)",
+              "RES2": "1.5 hours",
+              "EX3": "make_interval(hours=0.5)",
+              "RES3": "30 minutes"
+            }
+          },
+          "_MAKE_TIME": {
+            "TITLE": "Fonction make_time()",
+            "DESCRIPTION": "Une fonction qui crée le temps à partir d'heures, de minutes et de secondes. Renvoie une chaîne au format HH:MM:SS.sss, toujours avec trois chiffres en millisecondes. Les autres chiffres des fractions de seconde sont tronqués sans arrondi.",
+            "SYNTAX": "make_time(heure, minute, seconde)",
+            "ARGUMENTS": {
+              "A-KEY": "heure",
+              "A-DESCRIPTION": "un entier de 0 à 23, écrit en un ou deux chiffres.",
+              "B-KEY": "minute",
+              "B-DESCRIPTION": "un entier de 0 à 59, écrit en un ou deux chiffres.",
+              "C-KEY": "seconde",
+              "C-DESCRIPTION": "un nombre de 0 à une valeur inférieure à 60. La partie entière doit comporter un ou deux chiffres ; la partie fractionnaire facultative est écrite après un point. L'absence de partie fractionnaire donne des millisecondes 000."
+            },
+            "EXAMPLES": {
+              "EX1": "make_time(13, 5, 9)",
+              "RES1": "13:05:09.000",
+              "EX2": "make_time(0, 0, 0.5)",
+              "RES2": "00:00:00.500",
+              "EX3": "make_time(23, 59, 59.1239)",
+              "RES3": "23:59:59.123"
+            }
+          },
+          "_MINUTE": {
+            "TITLE": "Fonction minute()",
+            "DESCRIPTION": "Fonction qui renvoie la minute (0-59) de la date et de l'heure, ou la durée totale de l'intervalle convertie en minutes. Le résultat est une chaîne avec un nombre et l'unité anglaise minute ou minutes, par ex. 5 minutes.",
+            "SYNTAX": "minute(date_heure_ou_intervalle)",
+            "ARGUMENTS": {
+              "A-KEY": "date_heure_ou_intervalle",
+              "A-DESCRIPTION": "date et heure au format YYYY-MM-DD HH:MM:SS (éventuellement avec une fraction de seconde jusqu'à six chiffres), résultat age() de type timedelta ou un intervalle non négatif écrit sous forme de nombre et d'unité anglaise : year, month, week, day, hour, minute ou second, également au pluriel. Une date seule ou une heure seule n’est pas prise en charge. L'année correspond à 365,25 jours et le mois au 1/12 de l'année."
+            },
+            "EXAMPLES": {
+              "EX1": "minute('2026-10-30 13:05:09')",
+              "RES1": "5 minutes",
+              "EX2": "minute('1.5 hours')",
+              "RES2": "90 minutes",
+              "EX3": "minute('30 seconds')",
+              "RES3": "0.5 minutes"
+            }
+          },
+          "_MONTH": {
+            "TITLE": "Fonction month()",
+            "DESCRIPTION": "Renvoie le numéro du mois (1-12) d’une date ou la durée totale d’un intervalle convertie en mois. Le résultat est une chaîne contenant un nombre et l’unité anglaise month ou months, par exemple 10 months. Un mois correspond à 1/12 d’une année de 365,25 jours, et non à la durée d’un mois calendaire particulier.",
+            "SYNTAX": "month(date_ou_intervalle)",
+            "ARGUMENTS": {
+              "A-KEY": "date_ou_intervalle",
+              "A-DESCRIPTION": "date au format YYYY-MM-DD ou YYYY-MM-DD HH:MM:SS (éventuellement avec une fraction de seconde jusqu'à six chiffres), résultat age() de type timedelta ou un intervalle non négatif écrit sous forme de nombre et d'unité anglaise : year, month, week, day, hour, minute ou second, également au pluriel."
+            },
+            "EXAMPLES": {
+              "EX1": "month('2026-10-30')",
+              "RES1": "10 months",
+              "EX2": "month('1 year')",
+              "RES2": "12 months",
+              "EX3": "month('1 month')",
+              "RES3": "1 month"
+            }
+          },
+          "_NOW": {
+            "TITLE": "Fonction now()",
+            "DESCRIPTION": "Fonction qui renvoie la date et l'heure actuelles du serveur sous forme de chaîne au format YYYY-MM-DD HH:MM:SS, avec six chiffres de la partie fractionnaire lorsque les microsecondes sont différentes de zéro. Il utilise l'heure du serveur local et n'ajoute pas de repère de fuseau horaire. Chaque appel relit l'heure.",
+            "SYNTAX": "now()",
+            "ARGUMENTS": {
+              "A-KEY": "aucun",
+              "A-DESCRIPTION": "la fonction ne prend aucun argument."
+            },
+            "EXAMPLES": {
+              "EX1": "now()",
+              "RES1": "par ex. 2026-10-30 13:05:09.123456 (le résultat dépend de l'heure de l'appel et de l'heure du serveur)"
+            }
+          },
+          "_SECOND": {
+            "TITLE": "Fonction second()",
+            "DESCRIPTION": "Fonction qui renvoie la seconde (0-59) de la date et de l'heure, ou la durée totale de l'intervalle convertie en secondes. Le résultat est une chaîne avec un nombre et l'unité anglaise second ou seconds, par ex. 9 seconds. Sautez une fraction de seconde dans la date et l'heure ; dans l'intervalle, il conserve la partie fractionnaire.",
+            "SYNTAX": "second(date_heure_ou_intervalle)",
+            "ARGUMENTS": {
+              "A-KEY": "date_heure_ou_intervalle",
+              "A-DESCRIPTION": "date et heure au format YYYY-MM-DD HH:MM:SS (éventuellement avec une fraction de seconde jusqu'à six chiffres), résultat age() de type timedelta ou un intervalle non négatif écrit sous forme de nombre et d'unité anglaise : year, month, week, day, hour, minute ou second, également au pluriel. Une date seule ou une heure seule n’est pas prise en charge. L'année correspond à 365,25 jours et le mois au 1/12 de l'année."
+            },
+            "EXAMPLES": {
+              "EX1": "second('2026-10-30 13:05:09.123456')",
+              "RES1": "9 seconds",
+              "EX2": "second('1.5 minutes')",
+              "RES2": "90 seconds",
+              "EX3": "second('0.5 seconds')",
+              "RES3": "0.5 seconds"
+            }
+          },
+          "_TO_DATE": {
+            "TITLE": "Fonction to_date()",
+            "DESCRIPTION": "Une fonction qui lit une date et renvoie une chaîne de caractères. Sans format, il renvoie YYYY-MM-DD. Le format facultatif spécifie le format de sortie : les composants numériques sont séparés par des tirets et le nom du mois est séparé par des espaces. Il n'est pas utilisé pour spécifier le format d'entrée.",
+            "SYNTAX": "to_date(date, [format])",
+            "ARGUMENTS": {
+              "A-KEY": "date",
+              "A-DESCRIPTION": "date correcte dans le système YYYY-MM-DD, DD-MM-YYYY, YYYY MMMM DD ou DD MMMM YYYY. L'année doit comporter quatre chiffres et le jour et le mois doivent comporter un ou deux chiffres. Le nom du mois doit être un nom anglais complet avec une lettre majuscule, par ex. February.",
+              "B-KEY": "format",
+              "B-DESCRIPTION": "Sortie format en option à partir de trois composants séparés par des points. Balises disponibles : d et dd (jour du mois), ddd et dddd (nom anglais du jour de la semaine), M et MM (numéro du mois), MMM et MMMM (nom anglais du mois), yy et yyyy (année). L'exemple dd.MM.yyyy produit le résultat 05-02-2026. Sans cet argument, le résultat est format YYYY-MM-DD."
+            },
+            "EXAMPLES": {
+              "EX1": "to_date('05-02-2026')",
+              "RES1": "2026-02-05",
+              "EX2": "to_date('5 February 2026', 'dd.MM.yyyy')",
+              "RES2": "05-02-2026",
+              "EX3": "to_date('2026-02-05', 'dd.MMMM.yyyy')",
+              "RES3": "05 February 2026"
+            }
+          },
+          "_TO_DATETIME": {
+            "TITLE": "Fonction to_datetime()",
+            "DESCRIPTION": "Une fonction qui lit la date et l'heure, renvoyant un objet datetime sans fuseau horaire. Le temps manquant signifie minuit, et les minutes ou secondes manquées valent zéro. L'option format décrit les composants d'entrée ; pour l'entrée ISO, le backend reconnaît directement la date et l'heure, également avec le format donné.",
+            "SYNTAX": "to_datetime(date_et_heure, [format])",
+            "ARGUMENTS": {
+              "A-KEY": "date_et_heure",
+              "A-DESCRIPTION": "pas de format : date YYYY-MM-DD, DD-MM-YYYY, YYYY MMMM DD ou DD MMMM YYYY, éventuellement avec l'heure HH:mm ou HH:mm:ss après l'espace. Les noms de mois anglais complets et abrégés, insensibles à la casse, sont pris en charge. ISO peut contenir T entre la date et l'heure et jusqu'à six chiffres de fractions de seconde. Lors de la spécification du format, d'autres dispositions de composants sont possibles.",
+              "B-KEY": "format",
+              "B-DESCRIPTION": "format d'entrée facultatif. Il doit contenir l'année (yy ou yyyy), le mois (M, MM, MMM ou MMMM) et le jour du mois (d ou dd). Il peut aussi contenir le jour de la semaine (ddd ou dddd), l'heure (h, hh, H ou HH), la minute (m ou mm) et la seconde (s ou ss). Les composants sont séparés par des espaces, des points, des deux-points, des barres obliques ou des tirets et ne doivent pas se répéter. Les symboles numériques doublés exigent deux chiffres. Avec yy, les valeurs 00-68 désignent 2000-2068 et les valeurs 69-99 désignent 1969-1999. Les heures vont de 0 à 23, même avec h et hh ; AM/PM n'est pas pris en charge. Le jour de la semaine indiqué doit correspondre à la date."
+            },
+            "EXAMPLES": {
+              "EX1": "to_datetime('2026-10-30T13:05:09.123456')",
+              "RES1": "2026-10-30 13:05:09.123456",
+              "EX2": "to_datetime('30/10/2026 13:05', 'dd/MM/yyyy HH:mm')",
+              "RES2": "2026-10-30 13:05:00",
+              "EX3": "to_datetime('5 February 2026')",
+              "RES3": "2026-02-05 00:00:00"
+            }
+          },
+          "_TO_INTERVAL": {
+            "TITLE": "Fonction to_interval()",
+            "DESCRIPTION": "Une fonction qui lit un intervalle de temps à partir d'un texte contenant des paires d'unités numériques. Renvoie une chaîne de caractères avec la somme convertie dans la plus grande unité donnée ; pour les valeurs inférieures à 1, vous pouvez sélectionner une unité plus petite. L'année correspond à 365,25 jours et le mois au 1/12 de l'année. Le nom de l'unité dans le résultat est toujours au pluriel, par ex. 1 days.",
+            "SYNTAX": "to_interval(intervalle)",
+            "ARGUMENTS": {
+              "A-KEY": "intervalle",
+              "A-DESCRIPTION": "une chaîne de caractères avec au moins une unité numérique de paire, par ex. 2 days 3 hours. Les nombres doivent être non négatifs et finis ; peut avoir la partie fractionnaire écrite avec un point. Les unités sont requises au pluriel : years, months, weeks, days, hours, minutes ou seconds. Tous les éléments sont séparés par des espaces simples, sans virgules. Lors de la répétition d'une unité, la dernière valeur est prise en compte."
+            },
+            "EXAMPLES": {
+              "EX1": "to_interval('2 days 3 hours')",
+              "RES1": "2.125 days",
+              "EX2": "to_interval('1 hours 30 minutes')",
+              "RES2": "1.5 hours",
+              "EX3": "to_interval('0.5 hours')",
+              "RES3": "30 minutes"
+            }
+          },
+          "_TO_TIME": {
+            "TITLE": "Fonction to_time()",
+            "DESCRIPTION": "Une fonction qui lit l'heure selon le format d'entrée donné et renvoie l'objet time. Le format détermine la signification et l'ordre des composants d'entrée. Le composant omis a la valeur zéro et le résultat est présenté sous la forme HH:MM:SS.",
+            "SYNTAX": "to_time(heure, format)",
+            "ARGUMENTS": {
+              "A-KEY": "heure",
+              "A-DESCRIPTION": "deux ou trois composants numériques séparés par des deux-points. Chacun doit avoir exactement deux chiffres, par ex. 13:05 ou 09:05:13. L'heure doit être dans la plage 0-23 et les minutes et les secondes doivent être dans la plage 0-59. Les fractions de seconde ne sont pas prises en charge.",
+              "B-KEY": "format",
+              "B-DESCRIPTION": "entrée requise format avec le même nombre de composants que le temps. HH ou hh (heure en 24-heure), mm ou MM (minute) et ss ou SS (seconde), dans n'importe quel ordre, séparés par des deux-points, sont pris en charge. Les composants ne peuvent pas être répétés, même avec des lettres de tailles différentes. Exemple ss:mm:HH lit d'abord la seconde, puis les minutes et les heures."
+            },
+            "EXAMPLES": {
+              "EX1": "to_time('13:05', 'HH:mm')",
+              "RES1": "13:05:00",
+              "EX2": "to_time('09:05:13', 'ss:mm:HH')",
+              "RES2": "13:05:09",
+              "EX3": "to_time('05:09', 'mm:ss')",
+              "RES3": "00:05:09"
+            }
+          },
+          "_WEEK": {
+            "TITLE": "Fonction week()",
+            "DESCRIPTION": "Fonction qui renvoie le numéro de semaine ISO (1-53) pour une date ou la durée totale de l'intervalle convertie en semaines. Le résultat est une chaîne avec un nombre et l'unité anglaise week ou weeks, par ex. 44 weeks. Une semaine correspond à sept jours. Le numéro de semaine ISO au tournant de l'année peut appartenir à une année différente de la date.",
+            "SYNTAX": "week(date_ou_intervalle)",
+            "ARGUMENTS": {
+              "A-KEY": "date_ou_intervalle",
+              "A-DESCRIPTION": "date au format YYYY-MM-DD ou YYYY-MM-DD HH:MM:SS (éventuellement avec une fraction de seconde jusqu'à six chiffres), résultat age() de type timedelta ou un intervalle non négatif écrit sous forme de nombre et d'unité anglaise : year, month, week, day, hour, minute ou second, également au pluriel. L'année correspond à 365,25 jours et le mois au 1/12 de l'année."
+            },
+            "EXAMPLES": {
+              "EX1": "week('2026-10-30')",
+              "RES1": "44 weeks",
+              "EX2": "week('2021-01-01')",
+              "RES2": "53 weeks",
+              "EX3": "week('14 days')",
+              "RES3": "2 weeks"
+            }
+          },
+          "_YEAR": {
+            "TITLE": "Fonction year()",
+            "DESCRIPTION": "Fonction qui renvoie l'année à partir d'une date ou la durée totale d'un intervalle convertie en années. Le résultat est une chaîne avec un nombre et l'unité anglaise year ou years, par ex. 2026 years. Lors de la conversion des intervalles, l'année correspond à 365,25 jours.",
+            "SYNTAX": "year(date_ou_intervalle)",
+            "ARGUMENTS": {
+              "A-KEY": "date_ou_intervalle",
+              "A-DESCRIPTION": "date au format YYYY-MM-DD ou YYYY-MM-DD HH:MM:SS (éventuellement avec une fraction de seconde jusqu'à six chiffres), résultat age() de type timedelta ou un intervalle non négatif écrit sous forme de nombre et d'unité anglaise : year, month, week, day, hour, minute ou second, également au pluriel. Le mois correspond au 1/12 de l'année."
+            },
+            "EXAMPLES": {
+              "EX1": "year('2026-10-30')",
+              "RES1": "2026 years",
+              "EX2": "year('12 months')",
+              "RES2": "1 year",
+              "EX3": "year('730.5 days')",
+              "RES3": "2 years"
+            }
+          }
+        },
+        "MATH": {
+          "INFO": "Fonctions mathématiques",
+          "TITLE": "Mathématiques",
+          "_ABS": {
+            "TITLE": "Fonction abs()",
+            "DESCRIPTION": "Une fonction qui renvoie la valeur absolue d'un nombre.",
+            "SYNTAX": "abs(valeur)",
+            "ARGUMENTS": {
+              "A-KEY": "valeur",
+              "A-DESCRIPTION": "le nombre dont la valeur absolue doit être calculée."
+            },
+            "EXAMPLES": {
+              "EX1": "abs(-5)",
+              "RES1": "5",
+              "EX2": "abs(3.14)",
+              "RES2": "3.14",
+              "EX3": "abs(-2.718)",
+              "RES3": "2.718"
+            }
+          },
+          "_ACOS": {
+            "TITLE": "Fonction acos()",
+            "DESCRIPTION": "Une fonction qui renvoie la valeur du cosinus inverse en radians.",
+            "SYNTAX": "acos(valeur)",
+            "ARGUMENTS": {
+              "A-KEY": "valeur",
+              "A-DESCRIPTION": "le nombre pour lequel le cosinus inverse doit être calculé. La valeur doit être comprise entre -1 et 1."
+            },
+            "EXAMPLES": {
+              "EX1": "acos(0)",
+              "RES1": "1.5708",
+              "EX2": "acos(-0.5)",
+              "RES2": "2.0944",
+              "EX3": "acos(1)",
+              "RES3": "0"
+            }
+          },
+          "_ACTG": {
+            "TITLE": "Fonction actg()",
+            "DESCRIPTION": "Fonction qui renvoie la valeur cotangente inverse en radians, calculée comme atan(1 / valeur). Pour les valeurs négatives, renvoie un angle négatif.",
+            "SYNTAX": "actg(valeur)",
+            "ARGUMENTS": {
+              "A-KEY": "valeur",
+              "A-DESCRIPTION": "le nombre pour lequel la cotangente inverse doit être calculée. La valeur peut être n'importe quel nombre réel autre que zéro."
+            },
+            "EXAMPLES": {
+              "EX1": "actg(1)",
+              "RES1": "0.7854",
+              "EX2": "actg(-1)",
+              "RES2": "-0.7854",
+              "EX3": "actg(2)",
+              "RES3": "0.4636"
+            }
+          },
+          "_ACTG2": {
+            "TITLE": "Fonction actg2()",
+            "DESCRIPTION": "Fonction qui renvoie un angle en radians, calculé comme atan2(1 / y, x), en tenant compte des signes des arguments.",
+            "SYNTAX": "actg2(y, x)",
+            "ARGUMENTS": {
+              "A-KEY": "y",
+              "A-DESCRIPTION": "un nombre dont l'inverse est utilisé comme premier argument de la fonction atan2(). Doit être un nombre réel autre que zéro.",
+              "B-KEY": "x",
+              "B-DESCRIPTION": "un nombre utilisé comme deuxième argument de la fonction atan2(). Il peut s'agir de n'importe quel nombre réel."
+            },
+            "EXAMPLES": {
+              "EX1": "actg2(1, 1)",
+              "RES1": "0.7854",
+              "EX2": "actg2(1, -1)",
+              "RES2": "2.3562",
+              "EX3": "actg2(-1, 1)",
+              "RES3": "-0.7854"
+            }
+          },
+          "_ASIN": {
+            "TITLE": "Fonction asin()",
+            "DESCRIPTION": "Une fonction qui renvoie la valeur sinusoïdale inverse en radians.",
+            "SYNTAX": "asin(valeur)",
+            "ARGUMENTS": {
+              "A-KEY": "valeur",
+              "A-DESCRIPTION": "le nombre pour lequel le sinus inverse doit être calculé. La valeur doit être comprise entre -1 et 1."
+            },
+            "EXAMPLES": {
+              "EX1": "asin(0)",
+              "RES1": "0",
+              "EX2": "asin(-0.5)",
+              "RES2": "-0.5236",
+              "EX3": "asin(1)",
+              "RES3": "1.5708"
+            }
+          },
+          "_ATAN": {
+            "TITLE": "Fonction atan()",
+            "DESCRIPTION": "Une fonction qui renvoie la valeur de la tangente inverse en radians.",
+            "SYNTAX": "atan(valeur)",
+            "ARGUMENTS": {
+              "A-KEY": "valeur",
+              "A-DESCRIPTION": "le nombre pour lequel la tangente inverse doit être calculée. La valeur peut être n’importe quel nombre réel."
+            },
+            "EXAMPLES": {
+              "EX1": "atan(0)",
+              "RES1": "0",
+              "EX2": "atan(-0.5)",
+              "RES2": "-0.4636",
+              "EX3": "atan(1)",
+              "RES3": "0.7854"
+            }
+          },
+          "_ATAN2": {
+            "TITLE": "Fonction atan2()",
+            "DESCRIPTION": "Une fonction qui renvoie la tangente inverse en radians, étant donné le signe des deux arguments.",
+            "SYNTAX": "atan2(y, x)",
+            "ARGUMENTS": {
+              "A-KEY": "y",
+              "A-DESCRIPTION": "valeur y pour le calcul de la tangente inverse. Numéro réel.",
+              "B-KEY": "x",
+              "B-DESCRIPTION`": "valeur x pour le calcul de la tangente inverse. Numéro réel."
+            },
+            "EXAMPLES": {
+              "EX1": "atan2(0, -1)",
+              "RES1": "3.1416",
+              "EX2": "atan2(1, 0)",
+              "RES2": "1.5708",
+              "EX3": "atan2(1, 1)",
+              "RES3": "0.7854"
+            }
+          },
+          "_CEIL": {
+            "TITLE": "Fonction ceil()",
+            "DESCRIPTION": "Une fonction qui renvoie une valeur arrondie.",
+            "SYNTAX": "ceil(valeur)",
+            "ARGUMENTS": {
+              "A-KEY": "valeur",
+              "A-DESCRIPTION": "le nombre dont la valeur doit être arrondie."
+            },
+            "EXAMPLES": {
+              "EX1": "ceil(16.2)",
+              "RES1": "17",
+              "EX2": "ceil(-9.2)",
+              "RES2": "-9",
+              "EX3": "ceil(0)",
+              "RES3": "0"
+            }
+          },
+          "_CLAMP": {
+            "TITLE": "Fonction clamp()",
+            "DESCRIPTION": "Une fonction qui renvoie une valeur limitée à une plage spécifiée.",
+            "SYNTAX": "clamp(min, valeur, max)",
+            "ARGUMENTS": {
+              "A-KEY": "min",
+              "A-DESCRIPTION": "la valeur minimale à laquelle la valeur doit être limitée. Si la valeur est inférieure, min est renvoyé.",
+              "B-KEY": "valeur",
+              "B-DESCRIPTION": "valeur à limiter à une plage spécifique.",
+              "C-KEY": "max",
+              "C-DESCRIPTION": "la valeur maximale à laquelle la valeur doit être limitée. Si la valeur est supérieure, max est renvoyé."
+            },
+            "EXAMPLES": {
+              "EX1": "clamp(0, 5, 10)",
+              "RES1": "5",
+              "EX2": "clamp(0, -5, 10)",
+              "RES2": "0",
+              "EX3": "clamp(0, 15, 10)",
+              "RES3": "10"
+            }
+          },
+          "_COS": {
+            "TITLE": "Fonction cos()",
+            "DESCRIPTION": "Une fonction qui renvoie une valeur cosinus.",
+            "SYNTAX": "cos(radians)",
+            "ARGUMENTS": {
+              "A-KEY": "radians",
+              "A-DESCRIPTION": "la valeur en radians pour laquelle le cosinus doit être calculé. La valeur peut être n’importe quel nombre réel."
+            },
+            "EXAMPLES": {
+              "EX1": "cos(0)",
+              "RES1": "1",
+              "EX2": "cos(-1)",
+              "RES2": "0.5403",
+              "EX3": "cos(1)",
+              "RES3": "0.5403"
+            }
+          },
+          "_CTG": {
+            "TITLE": "Fonction ctg()",
+            "DESCRIPTION": "Fonction qui renvoie la valeur de la cotangente, calculée comme l'inverse de la tangente.",
+            "SYNTAX": "ctg(radians)",
+            "ARGUMENTS": {
+              "A-KEY": "radians",
+              "A-DESCRIPTION": "la valeur de l'angle en radians pour lequel la cotangente doit être calculée. La tangente de cet angle doit être non nulle."
+            },
+            "EXAMPLES": {
+              "EX1": "ctg(1)",
+              "RES1": "0.6421",
+              "EX2": "ctg(-1)",
+              "RES2": "-0.6421",
+              "EX3": "ctg(0.5)",
+              "RES3": "1.8305"
+            }
+          },
+          "_DEGREES": {
+            "TITLE": "Fonction degrees()",
+            "DESCRIPTION": "Fonction qui convertit une valeur d'angle de radians en degrés.",
+            "SYNTAX": "degrees(radians)",
+            "ARGUMENTS": {
+              "A-KEY": "radians",
+              "A-DESCRIPTION": "la valeur de l'angle en radians à convertir en degrés. La valeur peut être n’importe quel nombre réel."
+            },
+            "EXAMPLES": {
+              "EX1": "degrees(-1)",
+              "RES1": "57.2958",
+              "EX2": "degrees(2)",
+              "RES2": "114.5916",
+              "EX3": "degrees(pi())",
+              "RES3": "180"
+            }
+          },
+          "_EXP": {
+            "TITLE": "Fonction exp()",
+            "DESCRIPTION": "Une fonction qui renvoie la valeur d'une fonction exponentielle à partir d'un nombre.",
+            "SYNTAX": "exp(valeur)",
+            "ARGUMENTS": {
+              "A-KEY": "valeur",
+              "A-DESCRIPTION": "le nombre pour lequel la fonction exponentielle doit être évaluée. La valeur peut être n’importe quel nombre réel."
+            },
+            "EXAMPLES": {
+              "EX1": "exp(0)",
+              "RES1": "1",
+              "EX2": "exp(1)",
+              "RES2": "2.7183",
+              "EX3": "exp(-1)",
+              "RES3": "0.3679"
+            }
+          },
+          "_FLOOR": {
+            "TITLE": "Fonction floor()",
+            "DESCRIPTION": "Une fonction qui renvoie une valeur arrondie à l'inférieur.",
+            "SYNTAX": "floor(valeur)",
+            "ARGUMENTS": {
+              "A-KEY": "valeur",
+              "A-DESCRIPTION": "le nombre dont la valeur doit être arrondie à l’inférieur."
+            },
+            "EXAMPLES": {
+              "EX1": "floor(3.7)",
+              "RES1": "3",
+              "EX2": "floor(-3.7)",
+              "RES2": "-4",
+              "EX3": "floor(0)",
+              "RES3": "0"
+            }
+          },
+          "_LN": {
+            "TITLE": "Fonction ln()",
+            "DESCRIPTION": "Une fonction qui renvoie le logarithme népérien d'un nombre.",
+            "SYNTAX": "ln(valeur)",
+            "ARGUMENTS": {
+              "A-KEY": "valeur",
+              "A-DESCRIPTION": "le nombre pour lequel le logarithme népérien doit être calculé. La valeur doit être supérieure à zéro."
+            },
+            "EXAMPLES": {
+              "EX1": "ln(1)",
+              "RES1": "0",
+              "EX2": "ln(2.7183)",
+              "RES2": "1",
+              "EX3": "ln(10)",
+              "RES3": "2.3026"
+            }
+          },
+          "_LOG": {
+            "TITLE": "Fonction log()",
+            "DESCRIPTION": "Une fonction qui renvoie le logarithme d'un nombre avec une base donnée.",
+            "SYNTAX": "log(base, valeur)",
+            "ARGUMENTS": {
+              "A-KEY": "base",
+              "A-DESCRIPTION": "base du logarithme. La valeur doit être supérieure à zéro et ne peut pas être nulle.",
+              "B-KEY": "valeur",
+              "B-DESCRIPTION": "le nombre pour lequel le logarithme doit être calculé. La valeur doit être supérieure à zéro."
+            },
+            "EXAMPLES": {
+              "EX1": "log(2, 32)",
+              "RES1": "5",
+              "EX2": "log(10, 100)",
+              "RES2": "2",
+              "EX3": "log(2, 1)",
+              "RES3": "0"
+            }
+          },
+          "_LOG10": {
+            "TITLE": "Fonction log10()",
+            "DESCRIPTION": "Une fonction qui renvoie le logarithme décimal d'un nombre.",
+            "SYNTAX": "log10(valeur)",
+            "ARGUMENTS": {
+              "A-KEY": "valeur",
+              "A-DESCRIPTION": "le nombre pour lequel le logarithme décimal doit être calculé. La valeur doit être supérieure à zéro."
+            },
+            "EXAMPLES": {
+              "EX1": "log10(1)",
+              "RES1": "0",
+              "EX2": "log10(100)",
+              "RES2": "2",
+              "EX3": "log10(5)",
+              "RES3": "0.6989"
+            }
+          },
+          "_MAX": {
+            "TITLE": "Fonction max()",
+            "DESCRIPTION": "Une fonction qui renvoie la plus grande valeur de toutes les valeurs saisies.",
+            "SYNTAX": "max(valeur1, valeur2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "valeur",
+              "A-DESCRIPTION": "nombres consécutifs parmi lesquels la plus grande valeur doit être sélectionnée. Vous pouvez fournir n'importe quel nombre d'arguments."
+            },
+            "EXAMPLES": {
+              "EX1": "max(3, 7, 2)",
+              "RES1": "7",
+              "EX2": "max(-5, -2, -8)",
+              "RES2": "-2",
+              "EX3": "max(1.5, 2.3, 0.9)",
+              "RES3": "2.3"
+            }
+          },
+          "_MIN": {
+            "TITLE": "Fonction min()",
+            "DESCRIPTION": "Une fonction qui renvoie la plus petite valeur de toutes les valeurs saisies.",
+            "SYNTAX": "min(valeur1, valeur2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "valeur",
+              "A-DESCRIPTION": "nombres consécutifs parmi lesquels la plus petite valeur doit être sélectionnée. Vous pouvez fournir n'importe quel nombre d'arguments."
+            },
+            "EXAMPLES": {
+              "EX1": "min(3, 7, 2)",
+              "RES1": "2",
+              "EX2": "min(-5, -2, -8)",
+              "RES2": "-8",
+              "EX3": "min(1.5, 2.3, 0.9)",
+              "RES3": "0.9"
+            }
+          },
+          "_PI": {
+            "TITLE": "Fonction pi()",
+            "DESCRIPTION": "Une fonction qui renvoie la valeur du nombre pi. Il n'accepte aucun argument.",
+            "SYNTAX": "pi()",
+            "ARGUMENTS": {},
+            "EXAMPLES": {
+              "EX1": "pi()",
+              "RES1": "3.1416...",
+              "EX2": "cos(pi())",
+              "RES2": "-1",
+              "EX3": "sin(pi())",
+              "RES3": "0"
+            }
+          },
+          "_POW": {
+            "TITLE": "Fonction pow()",
+            "DESCRIPTION": "Une fonction qui renvoie le résultat de l'élévation de la base à une puissance donnée.",
+            "SYNTAX": "pow(base, exposant)",
+            "ARGUMENTS": {
+              "A-KEY": "base",
+              "A-DESCRIPTION": "le nombre à élever à une puissance. Pour une base négative, l’exposant doit être un nombre entier.",
+              "B-KEY": "exposant",
+              "B-DESCRIPTION": "un nombre précisant la puissance à laquelle la base doit être élevée. Pour une base égale à zéro, l’exposant ne peut pas être négatif."
+            },
+            "EXAMPLES": {
+              "EX1": "pow(2, 3)",
+              "RES1": "8",
+              "EX2": "pow(9, 0.5)",
+              "RES2": "3",
+              "EX3": "pow(2, -2)",
+              "RES3": "0.25"
+            }
+          },
+          "_RADIANS": {
+            "TITLE": "Fonction radians()",
+            "DESCRIPTION": "Fonction qui convertit une valeur d'angle de degrés en radians.",
+            "SYNTAX": "radians(degrés)",
+            "ARGUMENTS": {
+              "A-KEY": "degrés",
+              "A-DESCRIPTION": "la valeur de l'angle en degrés à convertir en radians. La valeur peut être n’importe quel nombre réel."
+            },
+            "EXAMPLES": {
+              "EX1": "radians(180)",
+              "RES1": "3.1416",
+              "EX2": "radians(90)",
+              "RES2": "1.5708",
+              "EX3": "radians(45)",
+              "RES3": "0.7854"
+            }
+          },
+          "_RAND": {
+            "TITLE": "Fonction rand()",
+            "DESCRIPTION": "Une fonction qui renvoie une valeur entière aléatoire du minimum au maximum. graine peut être administré en plus pour obtenir des résultats reproductibles à chaque fois.",
+            "SYNTAX": "rand(min, max, [graine])",
+            "ARGUMENTS": {
+              "A-KEY": "min",
+              "A-DESCRIPTION": "la valeur minimale de l'intervalle à partir duquel une valeur aléatoire doit être générée. Doit être un entier.",
+              "B-KEY": "max",
+              "B-DESCRIPTION": "la valeur maximale de l'intervalle à partir duquel une valeur aléatoire doit être générée. Doit être un entier.",
+              "C-KEY": "graine",
+              "C-DESCRIPTION": "un paramètre facultatif qui vous permet d'obtenir des résultats reproductibles à chaque fois que la fonction est appelée avec la même graine. Désactivé par défaut."
+            },
+            "EXAMPLES": {
+              "EX1": "rand(1, 10)",
+              "RES1": "5",
+              "EX2": "rand(1, 100)",
+              "RES2": "42",
+              "EX3": "rand(1, 10, 42)",
+              "RES3": "3"
+            }
+          },
+          "_RANDF": {
+            "TITLE": "Fonction randf()",
+            "DESCRIPTION": "Une fonction qui renvoie une valeur aléatoire à virgule flottante entre une plage donnée du minimum au maximum. graine peut être administré en plus pour obtenir des résultats reproductibles à chaque fois.",
+            "SYNTAX": "randf(min, max, [graine])",
+            "ARGUMENTS": {
+              "A-KEY": "min",
+              "A-DESCRIPTION": "la valeur minimale de l'intervalle à partir duquel une valeur aléatoire doit être générée.",
+              "B-KEY": "max",
+              "B-DESCRIPTION": "la valeur maximale de l'intervalle à partir duquel une valeur aléatoire doit être générée.",
+              "C-KEY": "graine",
+              "C-DESCRIPTION": "un paramètre facultatif qui vous permet d'obtenir des résultats reproductibles à chaque fois que la fonction est appelée avec la même graine. Désactivé par défaut."
+            },
+            "EXAMPLES": {
+              "EX1": "randf(1.0, 10.0)",
+              "RES1": "5.5",
+              "EX2": "randf(1.0, 100.0)",
+              "RES2": "42.3",
+              "EX3": "randf(1.0, 10.0, 42)",
+              "RES3": "3.7"
+            }
+          },
+          "_ROOT": {
+            "TITLE": "Fonction root()",
+            "DESCRIPTION": "Renvoie la racine de degré donné d’un nombre.",
+            "SYNTAX": "root(valeur, degré)",
+            "ARGUMENTS": {
+              "A-KEY": "valeur",
+              "A-DESCRIPTION": "le nombre dont la racine doit être calculée.",
+              "B-KEY": "degré",
+              "B-DESCRIPTION": "le degré de la racine. Il peut s’agir de tout nombre réel non nul."
+            },
+            "EXAMPLES": {
+              "EX1": "root(27, 3)",
+              "RES1": "3",
+              "EX2": "root(16, 2)",
+              "RES2": "4",
+              "EX3": "root(16, -2)",
+              "RES3": "0.25"
+            }
+          },
+          "_ROUND": {
+            "TITLE": "Fonction round()",
+            "DESCRIPTION": "Fonction qui arrondit un nombre à un nombre donné de décimales. Si le deuxième argument est manquant, le nombre sera arrondi à l'entier le plus proche.",
+            "SYNTAX": "round(valeur, [décimales])",
+            "ARGUMENTS": {
+              "A-KEY": "valeur",
+              "A-DESCRIPTION": "le nombre à arrondir.",
+              "B-KEY": "décimales",
+              "B-DESCRIPTION": "un paramètre facultatif spécifiant le nombre de décimales auxquelles arrondir le nombre. La valeur par défaut est 0."
+            },
+            "EXAMPLES": {
+              "EX1": "round(3.14159)",
+              "RES1": "3",
+              "EX2": "round(3.14159, 2)",
+              "RES2": "3.14",
+              "EX3": "round(3.14159, 4)",
+              "RES3": "3.1416"
+            }
+          },
+          "_SCALE_EXPONENTIAL": {
+            "TITLE": "Fonction scale_exponential()",
+            "DESCRIPTION": "Fonction qui convertit une valeur de la plage d'entrée en plage de sortie selon une courbe exponentielle. Les valeurs inférieures à la plage d'entrée renvoient minimum_sortie et les valeurs supérieures à la plage renvoient maximum_sortie.",
+            "SYNTAX": "scale_exponential(valeur, minimum_entrée, maximum_entrée, minimum_sortie, maximum_sortie, base)",
+            "ARGUMENTS": {
+              "A-KEY": "valeur",
+              "A-DESCRIPTION": "le nombre à convertir en plage de sortie.",
+              "B-KEY": "minimum_entrée",
+              "B-DESCRIPTION": "limite inférieure de la plage d’entrée. Doit être inférieur à maximum_entrée.",
+              "C-KEY": "maximum_entrée",
+              "C-DESCRIPTION": "limite supérieure de la plage d’entrée. Doit être supérieur à minimum_entrée.",
+              "D-KEY": "minimum_sortie",
+              "D-DESCRIPTION": "valeur de sortie correspondant à minimum_entrée. Il est également renvoyé pour les valeurs inférieures à minimum_entrée.",
+              "E-KEY": "maximum_sortie",
+              "E-DESCRIPTION": "valeur de sortie correspondant à maximum_entrée. Il est également renvoyé pour les valeurs supérieures à maximum_entrée.",
+              "F-KEY": "base",
+              "F-DESCRIPTION": "base de puissance qui détermine la forme de la courbe exponentielle. Doit être supérieur à zéro. Pour la valeur 1, la fonction fonctionne comme scale_linear()."
+            },
+            "EXAMPLES": {
+              "EX1": "scale_exponential(5, 0, 10, 0, 100, 2)",
+              "RES1": "3.0303",
+              "EX2": "scale_exponential(5, 0, 10, 0, 100, 1)",
+              "RES2": "50",
+              "EX3": "scale_exponential(15, 0, 10, 0, 100, 2)",
+              "RES3": "100"
+            }
+          },
+          "_SCALE_LINEAR": {
+            "TITLE": "Fonction scale_linear()",
+            "DESCRIPTION": "Fonction qui convertit linéairement une valeur d’une plage d’entrée en plage de sortie, en conservant la proportion de la position de la valeur dans la plage. Les valeurs inférieures à la plage d'entrée renvoient minimum_sortie et les valeurs supérieures à la plage renvoient maximum_sortie.",
+            "SYNTAX": "scale_linear(valeur, minimum_entrée, maximum_entrée, minimum_sortie, maximum_sortie)",
+            "ARGUMENTS": {
+              "A-KEY": "valeur",
+              "A-DESCRIPTION": "le nombre à convertir en plage de sortie.",
+              "B-KEY": "minimum_entrée",
+              "B-DESCRIPTION": "limite inférieure de la plage d’entrée. Doit être inférieur à maximum_entrée.",
+              "C-KEY": "maximum_entrée",
+              "C-DESCRIPTION": "limite supérieure de la plage d’entrée. Doit être supérieur à minimum_entrée.",
+              "D-KEY": "minimum_sortie",
+              "D-DESCRIPTION": "valeur de sortie correspondant à minimum_entrée. Il est également renvoyé pour les valeurs inférieures à minimum_entrée.",
+              "E-KEY": "maximum_sortie",
+              "E-DESCRIPTION": "valeur de sortie correspondant à maximum_entrée. Il est également renvoyé pour les valeurs supérieures à maximum_entrée."
+            },
+            "EXAMPLES": {
+              "EX1": "scale_linear(5, 0, 10, 0, 100)",
+              "RES1": "50",
+              "EX2": "scale_linear(-5, 0, 10, 0, 100)",
+              "RES2": "0",
+              "EX3": "scale_linear(15, 0, 10, 0, 100)",
+              "RES3": "100"
+            }
+          },
+          "_SCALE_LOGARITHMIC": {
+            "TITLE": "Fonction scale_logarithmic()",
+            "DESCRIPTION": "Fonction qui convertit une valeur de la plage d'entrée en plage de sortie de manière logarithmique, sur la base de logarithmes naturels. Les valeurs inférieures à la plage d'entrée renvoient minimum_sortie et les valeurs supérieures à la plage renvoient maximum_sortie.",
+            "SYNTAX": "scale_logarithmic(valeur, minimum_entrée, maximum_entrée, minimum_sortie, maximum_sortie)",
+            "ARGUMENTS": {
+              "A-KEY": "valeur",
+              "A-DESCRIPTION": "le nombre à convertir en plage de sortie. Les valeurs inférieures ou égales à minimum_entrée renvoient minimum_sortie sans prendre le logarithme.",
+              "B-KEY": "minimum_entrée",
+              "B-DESCRIPTION": "limite inférieure de la plage d’entrée. Doit être supérieur à zéro et inférieur à maximum_entrée pour calculer les logarithmes.",
+              "C-KEY": "maximum_entrée",
+              "C-DESCRIPTION": "limite supérieure de la plage d’entrée. Doit être supérieur à minimum_entrée et supérieur à zéro.",
+              "D-KEY": "minimum_sortie",
+              "D-DESCRIPTION": "valeur de sortie correspondant à minimum_entrée. Il est également renvoyé pour les valeurs inférieures à minimum_entrée.",
+              "E-KEY": "maximum_sortie",
+              "E-DESCRIPTION": "valeur de sortie correspondant à maximum_entrée. Il est également renvoyé pour les valeurs supérieures à maximum_entrée."
+            },
+            "EXAMPLES": {
+              "EX1": "scale_logarithmic(5, 1, 10, 0, 100)",
+              "RES1": "69.8970",
+              "EX2": "scale_logarithmic(10, 1, 100, 0, 100)",
+              "RES2": "50",
+              "EX3": "scale_logarithmic(0, 1, 10, 0, 100)",
+              "RES3": "0"
+            }
+          },
+          "_SCALE_POLYNOMIAL": {
+            "TITLE": "Fonction scale_polynomial()",
+            "DESCRIPTION": "Fonction qui convertit une valeur d'une plage d'entrée en plage de sortie en élevant sa position relative dans la plage à une puissance donnée. Les valeurs inférieures à la plage d'entrée renvoient minimum_sortie et les valeurs supérieures à la plage renvoient maximum_sortie.",
+            "SYNTAX": "scale_polynomial(valeur, minimum_entrée, maximum_entrée, minimum_sortie, maximum_sortie, exposant)",
+            "ARGUMENTS": {
+              "A-KEY": "valeur",
+              "A-DESCRIPTION": "le nombre à convertir en plage de sortie.",
+              "B-KEY": "minimum_entrée",
+              "B-DESCRIPTION": "limite inférieure de la plage d’entrée. Doit être inférieur à maximum_entrée.",
+              "C-KEY": "maximum_entrée",
+              "C-DESCRIPTION": "limite supérieure de la plage d’entrée. Doit être supérieur à minimum_entrée.",
+              "D-KEY": "minimum_sortie",
+              "D-DESCRIPTION": "valeur de sortie correspondant à minimum_entrée. Il est également renvoyé pour les valeurs inférieures à minimum_entrée.",
+              "E-KEY": "maximum_sortie",
+              "E-DESCRIPTION": "valeur de sortie correspondant à maximum_entrée. Il est également renvoyé pour les valeurs supérieures à maximum_entrée.",
+              "F-KEY": "exposant",
+              "F-DESCRIPTION": "exposant de puissance déterminant la forme de la courbe. Doit être supérieur à zéro. Pour la valeur 1, la fonction fonctionne comme scale_linear()."
+            },
+            "EXAMPLES": {
+              "EX1": "scale_polynomial(5, 0, 10, 0, 100, 2)",
+              "RES1": "25",
+              "EX2": "scale_polynomial(5, 0, 10, 0, 100, 1)",
+              "RES2": "50",
+              "EX3": "scale_polynomial(-5, 0, 10, 0, 100, 2)",
+              "RES3": "0"
+            }
+          },
+          "_SIN": {
+            "TITLE": "Fonction sin()",
+            "DESCRIPTION": "Une fonction qui renvoie une valeur sinusoïdale.",
+            "SYNTAX": "sin(angle)",
+            "ARGUMENTS": {
+              "A-KEY": "angle",
+              "A-DESCRIPTION": "angle en radians."
+            },
+            "EXAMPLES": {
+              "EX1": "sin(0)",
+              "RES1": "0",
+              "EX2": "sin(pi()/2)",
+              "RES2": "1",
+              "EX3": "sin(pi())",
+              "RES3": "0"
+            }
+          },
+          "_SQRT": {
+            "TITLE": "Fonction sqrt()",
+            "DESCRIPTION": "Une fonction qui renvoie la racine carrée d'un nombre.",
+            "SYNTAX": "sqrt(valeur)",
+            "ARGUMENTS": {
+              "A-KEY": "valeur",
+              "A-DESCRIPTION": "le nombre pour lequel la racine carrée doit être calculée. La valeur doit être supérieure ou égale à zéro."
+            },
+            "EXAMPLES": {
+              "EX1": "sqrt(4)",
+              "RES1": "2",
+              "EX2": "sqrt(9)",
+              "RES2": "3",
+              "EX3": "sqrt(0)",
+              "RES3": "0"
+            }
+          },
+          "_TAN": {
+            "TITLE": "Fonction tan()",
+            "DESCRIPTION": "Une fonction qui renvoie la valeur tangente.",
+            "SYNTAX": "tan(angle)",
+            "ARGUMENTS": {
+              "A-KEY": "angle",
+              "A-DESCRIPTION": "angle en radians."
+            },
+            "EXAMPLES": {
+              "EX1": "tan(0)",
+              "RES1": "0",
+              "EX2": "tan(pi()/4)",
+              "RES2": "1",
+              "EX3": "tan(pi()/2)",
+              "RES3": "Erreur : la tangente n'existe pas pour l'angle pi()/2."
+            }
+          }
+        },
+        "MAPS-OPERATORS": {
+          "INFO": "Fonctions du dictionnaire",
+          "TITLE": "Opérations sur les dictionnaires",
+          "_FROM_JSON": {
+            "TITLE": "Fonction from_json()",
+            "DESCRIPTION": "Fonction qui transforme une chaîne de caractères au format JSON en une structure de données normale.",
+            "SYNTAX": "from_json(chaîne_json)",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne_json",
+              "A-DESCRIPTION": "Une chaîne au format JSON."
+            },
+            "EXAMPLES": {
+              "EX1": "from_json('{\"key\": \"value\"}')",
+              "RES1": "{key: value}",
+              "EX2": "from_json('[1, 2, 3]')",
+              "RES2": "[1, 2, 3]",
+              "EX3": "from_json('{\"numbers\": [1, 2, 3]}')",
+              "RES3": "{numbers: [1, 2, 3]}"
+            }
+          },
+          "_MAP": {
+            "TITLE": "Fonction map()",
+            "DESCRIPTION": "Fonction qui crée un dictionnaire à partir de paires clé-valeur fournies successivement. Vous pouvez spécifier n'importe quel nombre de paires d'arguments.",
+            "SYNTAX": "map(clé1, valeur1, clé2, valeur2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "clé",
+              "A-DESCRIPTION": "clés suivantes à utiliser dans le dictionnaire. Chaque clé doit être unique.",
+              "B-KEY": "valeur",
+              "B-DESCRIPTION": "valeurs ultérieures à attribuer aux touches correspondantes."
+            },
+            "EXAMPLES": {
+              "EX1": "map('a', 1, 'b', 2)",
+              "RES1": "{a: 1, b: 2}",
+              "EX2": "map('x', 'hello', 'y', 'world')",
+              "RES2": "{x: hello, y: world}",
+              "EX3": "map('key1', true, 'key2', false)",
+              "RES3": "{key1: true, key2: false}"
+            }
+          },
+          "_MAP_AKEYS": {
+            "TITLE": "Fonction map_akeys()",
+            "DESCRIPTION": "Une fonction qui renvoie toutes les clés du dictionnaire donné sous forme de clés dans un tableau",
+            "SYNTAX": "map_akeys(dictionnaire)",
+            "ARGUMENTS": {
+              "A-KEY": "dictionnaire",
+              "A-DESCRIPTION": "dictionnaire à partir duquel toutes les clés doivent être récupérées."
+            },
+            "EXAMPLES": {
+              "EX1": "map_akeys(map('a', 1, 'b', 2))",
+              "RES1": "[a, b]",
+              "EX2": "map_akeys(map('x', 'hello', 'y', 'world'))",
+              "RES2": "[x, y]",
+              "EX3": "map_akeys({'key1', true, 'key2', false})",
+              "RES3": "[key1, key2]"
+            }
+          },
+          "_MAP_AVALS": {
+            "TITLE": "Fonction map_avals()",
+            "DESCRIPTION": "Une fonction qui renvoie toutes les valeurs du dictionnaire donné sous forme de valeurs dans un tableau",
+            "SYNTAX": "map_avals(dictionnaire)",
+            "ARGUMENTS": {
+              "A-KEY": "dictionnaire",
+              "A-DESCRIPTION": "dictionnaire à partir duquel toutes les valeurs doivent être récupérées."
+            },
+            "EXAMPLES": {
+              "EX1": "map_avals(map('a', 1, 'b', 2))",
+              "RES1": "[1, 2]",
+              "EX2": "map_avals(map('x', 'hello', 'y', 'world'))",
+              "RES2": "['hello', 'world']",
+              "EX3": "map_avals({'key1', true, 'key2', false})",
+              "RES3": "[true, false]"
+            }
+          },
+          "_MAP_CONCAT": {
+            "TITLE": "map_concat()",
+            "DESCRIPTION": "Fonction qui combine deux ou plusieurs dictionnaires de valeurs en un seul. Si les mêmes clés apparaissent dans les dictionnaires, les valeurs du dernier dictionnaire écrasent les précédentes.",
+            "SYNTAX": "map_concat(dictionnaire1, dictionnaire2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "dictionnaire",
+              "A-DESCRIPTION": "les dictionnaires ultérieurs de valeurs doivent être combinés en un seul dictionnaire."
+            },
+            "EXAMPLES": {
+              "EX1": "map_concat(map('a', 1, 'b', 2), map('c', 3, 'd', 4))",
+              "RES1": "{a: 1, b: 2, c: 3, d: 4}",
+              "EX2": "map_concat(map('a', 1, 'b', 2), map('b', 3, 'c', 4))",
+              "RES2": "{a: 1, b: 3, c: 4}",
+              "EX3": "map_concat(map('x', 'hello'), map('y', 'world'), map('y', '!'))",
+              "RES3": "{x: 'hello', y: '!'}"
+            }
+          },
+          "_MAP_DELETE": {
+            "TITLE": "Fonction map_delete()",
+            "DESCRIPTION": "Une fonction qui renvoie un dictionnaire de valeurs avec la clé donnée supprimée. Si la clé n'existe pas dans le dictionnaire, le dictionnaire d'origine est renvoyé.",
+            "SYNTAX": "map_delete(dictionnaire, clé)",
+            "ARGUMENTS": {
+              "A-KEY": "dictionnaire",
+              "A-DESCRIPTION": "dictionnaire à partir duquel la clé doit être supprimée.",
+              "B-KEY": "clé",
+              "B-DESCRIPTION": "la clé à supprimer du dictionnaire."
+            },
+            "EXAMPLES": {
+              "EX1": "map_delete(map('a', 1, 'b', 2), 'a')",
+              "RES1": "{b: 2}",
+              "EX2": "map_delete(map('x', 'hello', 'y', 'world'), 'y')",
+              "RES2": "{x: 'hello'}",
+              "EX3": "map_delete({'key1', true, 'key2', false}, 'key3')",
+              "RES3": "{key1: true, key2: false}"
+            }
+          },
+          "_MAP_EXIST": {
+            "TITLE": "Fonction map_exist()",
+            "DESCRIPTION": "Renvoie True si la clé indiquée existe dans le dictionnaire ; sinon, renvoie False.",
+            "SYNTAX": "map_exist(dictionnaire, clé)",
+            "ARGUMENTS": {
+              "A-KEY": "dictionnaire",
+              "A-DESCRIPTION": "dictionnaire dans lequel la clé doit être vérifiée.",
+              "B-KEY": "clé",
+              "B-DESCRIPTION": "la clé à vérifier."
+            },
+            "EXAMPLES": {
+              "EX1": "map_exist(map('a', 1, 'b', 2), 'a')",
+              "RES1": "True",
+              "EX2": "map_exist(map('x', 'hello', 'y', 'world'), 'z')",
+              "RES2": "False",
+              "EX3": "map_exist({'key1', true, 'key2', false}, 'key2')",
+              "RES3": "True"
+            }
+          },
+          "_MAP_GET": {
+            "TITLE": "Fonction map_get()",
+            "DESCRIPTION": "Une fonction qui renvoie une valeur de dictionnaire pour la clé donnée. La clé doit exister dans le dictionnaire, sinon une erreur sera renvoyée.",
+            "SYNTAX": "map_get(dictionnaire, clé)",
+            "ARGUMENTS": {
+              "A-KEY": "dictionnaire",
+              "A-DESCRIPTION": "dictionnaire à partir duquel la valeur doit être récupérée.",
+              "B-KEY": "clé",
+              "B-DESCRIPTION": "la clé pour laquelle récupérer la valeur."
+            },
+            "EXAMPLES": {
+              "EX1": "map_get(map('a', 1, 'b', 2), 'a')",
+              "RES1": "1",
+              "EX2": "map_get(map('x', 'hello', 'y', 'world'), 'y')",
+              "RES2": "'world'",
+              "EX3": "map_get({'key1': true, 'key2': false}, 'key2')",
+              "RES3": "false"
+            }
+          },
+          "_MAP_INSERT": {
+            "TITLE": "Fonction map_insert()",
+            "DESCRIPTION": "Une fonction qui renvoie un dictionnaire de valeurs avec la paire clé-valeur donnée ajoutée. Si la clé existe déjà dans le dictionnaire, sa valeur sera écrasée.",
+            "SYNTAX": "map_insert(dictionnaire, clé, valeur)",
+            "ARGUMENTS": {
+              "A-KEY": "dictionnaire",
+              "A-DESCRIPTION": "dictionnaire auquel la paire clé-valeur doit être ajoutée.",
+              "B-KEY": "clé",
+              "B-DESCRIPTION": "la clé à ajouter au dictionnaire.",
+              "C-KEY": "valeur",
+              "C-DESCRIPTION": "valeur à attribuer à la clé fournie."
+            },
+            "EXAMPLES": {
+              "EX1": "map_insert(map('a', 1, 'b', 2), 'c', 3)",
+              "RES1": "{a: 1, b: 2, c: 3}",
+              "EX2": "map_insert(map('x', 'hello', 'y', 'world'), 'y', '!')",
+              "RES2": "{x: 'hello', y: '!'}",
+              "EX3": "map_insert({'key1': true, 'key2': false}, 'key3', null)",
+              "RES3": "{key1: true, key2: false, key3: null}"
+            }
+          },
+          "_MAP_PREFIX_KEYS": {
+            "TITLE": "Fonction map_prefix_keys()",
+            "DESCRIPTION": "Une fonction qui renvoie un dictionnaire avec toutes les clés préfixées par le préfixe donné.",
+            "SYNTAX": "map_prefix_keys(dictionnaire, préfixe)",
+            "ARGUMENTS": {
+              "A-KEY": "dictionnaire",
+              "A-DESCRIPTION": "dictionnaire dont les clés doivent être préfixées.",
+              "B-KEY": "préfixe",
+              "B-DESCRIPTION": "préfixe à ajouter à toutes les clés du dictionnaire."
+            },
+            "EXAMPLES": {
+              "EX1": "map_prefix_keys(map('a', 1, 'b', 2), 'prefix_')",
+              "RES1": "{prefix_a: 1, prefix_b: 2}",
+              "EX2": "map_prefix_keys(map('x', 'hello', 'y', 'world'), 'pre_')",
+              "RES2": "{pre_x: 'hello', pre_y: 'world'}",
+              "EX3": "map_prefix_keys({'key1': true, 'key2': false}, 'my_')",
+              "RES3": "{my_key1: true, my_key2: false}"
+            }
+          },
+          "_MAP_TO_HTML_DL": {
+            "TITLE": "Fonction map_to_html_dl()",
+            "DESCRIPTION": "Fonction qui renvoie une chaîne représentant une liste de définitions HTML basée sur le dictionnaire fourni.",
+            "SYNTAX": "map_to_html_dl(dictionnaire)",
+            "ARGUMENTS": {
+              "A-KEY": "dictionnaire",
+              "A-DESCRIPTION": "dictionnaire à partir duquel créer la liste de définitions HTML."
+            },
+            "EXAMPLES": {
+              "EX1": "map_to_html_dl(map('a', 1, 'b', 2))",
+              "RES1": "<dl><dt>a</dt><dd>1</dd><dt>b</dt><dd>2</dd></dl>",
+              "EX2": "map_to_html_dl(map('x', 'hello', 'y', 'world'))",
+              "RES2": "<dl><dt>x</dt><dd>hello</dd><dt>y</dt><dd>world</dd></dl>",
+              "EX3": "map_to_html_dl({'key1': true, 'key2': false})",
+              "RES3": "<dl><dt>key1</dt><dd>true</dd><dt>key2</dt><dd>false</dd></dl>"
+            }
+          },
+          "_MAP_TO_HTML_TABLE": {
+            "TITLE": "Fonction map_to_html_table()",
+            "DESCRIPTION": "Fonction qui renvoie une chaîne représentant la table HTML basée sur le dictionnaire fourni.",
+            "SYNTAX": "map_to_html_table(dictionnaire)",
+            "ARGUMENTS": {
+              "A-KEY": "dictionnaire",
+              "A-DESCRIPTION": "dictionnaire à partir duquel la table HTML doit être créée."
+            },
+            "EXAMPLES": {
+              "EX1": "map_to_html_table(map('a', 1, 'b', 2))",
+              "RES1": "<table><tr><th>a</th><td>1</td></tr><tr><th>b</th><td>2</td></tr></table>",
+              "EX2": "map_to_html_table(map('x', 'hello', 'y', 'world'))",
+              "RES2": "<table><tr><th>x</th><td>hello</td></tr><tr><th>y</th><td>world</td></tr></table>",
+              "EX3": "map_to_html_table({'key1': true, 'key2': false})",
+              "RES3": "<table><tr><th>key1</th><td>true</td></tr><tr><th>key2</th><td>false</td></tr></table>"
+            }
+          },
+          "_TO_JSON": {
+            "TITLE": "Fonction to_json()",
+            "DESCRIPTION": "Fonction qui renvoie une chaîne représentant des données au format JSON, basée sur un dictionnaire de valeurs, un tableau ou une autre valeur donné.",
+            "SYNTAX": "to_json(données)",
+            "ARGUMENTS": {
+              "A-KEY": "données",
+              "A-DESCRIPTION": "un dictionnaire de valeurs, un tableau ou une autre valeur à convertir en format JSON."
+            },
+            "EXAMPLES": {
+              "EX1": "to_json(map('a', 1, 'b', 2))",
+              "RES1": "{\"a\": 1, \"b\": 2}",
+              "EX2": "to_json([1, 2, 3])",
+              "RES2": "[1, 2, 3]",
+              "EX3": "to_json({'key1': true, 'key2': false})",
+              "RES3": "{\"key1\": true, \"key2\": false}"
+            }
+          },
+          "_URL_ENCODE": {
+            "TITLE": "Fonction url_encode()",
+            "DESCRIPTION": "Fonction qui renvoie une chaîne de caractères codée avec des caractères spéciaux au format URL.",
+            "SYNTAX": "url_encode(chaîne)",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "une chaîne de caractères à encoder au format URL."
+            },
+            "EXAMPLES": {
+              "EX1": "url_encode('Hello World!')",
+              "RES1": "Hello%20World%21",
+              "EX2": "url_encode('a+b=c&d=e')",
+              "RES2": "a%2Bb%3Dc%26d%3De",
+              "EX3": "url_encode('https://example.com/?q=search')",
+              "RES3": "https%3A%2F%2Fexample.com%2F%3Fq%3Dsearch"
+            }
+          }
+        },
+        "STRING-OPERATORS": {
+          "INFO": "Fonctions de texte",
+          "TITLE": "Opérations sur les chaînes",
+          "_ASCII": {
+            "TITLE": "Fonction ascii()",
+            "DESCRIPTION": "Une fonction qui renvoie la valeur ASCII du premier caractère de la chaîne donnée.",
+            "SYNTAX": "ascii(chaîne)",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "la chaîne à partir de laquelle récupérer la valeur ASCII du premier caractère."
+            },
+            "EXAMPLES": {
+              "EX1": "ascii('A')",
+              "RES1": "65",
+              "EX2": "ascii('Hello')",
+              "RES2": "72",
+              "EX3": "ascii('!')",
+              "RES3": "33"
+            }
+          },
+          "_CHAR": {
+            "TITLE": "Fonction char()",
+            "DESCRIPTION": "Une fonction qui renvoie le caractère correspondant au code donné ASCII.",
+            "SYNTAX": "char(code)",
+            "ARGUMENTS": {
+              "A-KEY": "code",
+              "A-DESCRIPTION": "code ASCII pour lequel le caractère correspondant est à renvoyer."
+            },
+            "EXAMPLES": {
+              "EX1": "char(65)",
+              "RES1": "A",
+              "EX2": "char(81)",
+              "RES2": "Q",
+              "EX3": "char(33)",
+              "RES3": "!"
+            }
+          },
+          "_CONCAT": {
+            "TITLE": "Fonction concat()",
+            "DESCRIPTION": "Une fonction qui combine plusieurs chaînes en une seule.",
+            "SYNTAX": "concat(chaîne1, chaîne2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "chaînes de caractères consécutives à combiner en une seule. Vous pouvez fournir n'importe quel nombre d'arguments."
+            },
+            "EXAMPLES": {
+              "EX1": "concat('Hello', ' ', 'World')",
+              "RES1": "Hello World",
+              "EX2": "concat('A', 'B', 'C')",
+              "RES2": "ABC",
+              "EX3": "concat('foo  ', '  bar')",
+              "RES3": "foo    bar"
+            }
+          },
+          "_FORMAT": {
+            "TITLE": "Fonction format()",
+            "DESCRIPTION": "Fonction qui formate une chaîne de caractères en remplaçant les balises %1, %2, %3, etc. par des arguments ultérieurs. La numérotation commence par 1. Les balises sans argument correspondant restent inchangées.",
+            "SYNTAX": "format(chaîne, argument1, argument2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "une chaîne de caractères contenant des emplacements pour les arguments, marquée comme %1, %2, %3, etc. La même balise peut apparaître plusieurs fois. La chaîne ne peut pas contenir de virgule suivie d'un espace car elle est utilisée pour séparer les arguments.",
+              "B-KEY": "argument",
+              "B-DESCRIPTION": "les valeurs suivantes à insérer aux endroits marqués de balises : le premier argument remplace %1, le second remplace %2, etc. Au moins une valeur doit être fournie. Les valeurs ne peuvent pas être du texte vide ou contenir une virgule suivie d'un espace."
+            },
+            "EXAMPLES": {
+              "EX1": "format('Witaj %1! Czas to %2.', 'Jan', '10:00')",
+              "RES1": "Witaj Jan! Czas to 10:00.",
+              "EX2": "format('Liczba: %1; Tekst: %2', 42, 'Hello')",
+              "RES2": "Liczba: 42; Tekst: Hello",
+              "EX3": "format('Dzień: %1; Miesiąc: %2; Rok: %3', 25, 12, 2024)",
+              "RES3": "Dzień: 25; Miesiąc: 12; Rok: 2024"
+            }
+          },
+          "_FORMAT_DATE": {
+            "TITLE": "Fonction format_date()",
+            "DESCRIPTION": "Fonction qui formate un type de données ou une chaîne de caractères en une chaîne de caractères spécifiée.",
+            "SYNTAX": "format_date(date, format)",
+            "ARGUMENTS": {
+              "A-KEY": "date",
+              "A-DESCRIPTION": "une date ou une valeur de chaîne au format YYYY-MM-DD, par ex. 2026-02-05. La date doit être correcte et le mois et le jour doivent être écrits sur deux chiffres.",
+              "B-KEY": "format",
+              "B-DESCRIPTION": "une chaîne spécifiant la format de sortie. Il doit contenir exactement trois éléments : jour (d, dd, ddd ou dddd), mois (M, MM, MMM ou MMMM) et année (yy ou yyyy), dans n'importe quel ordre, séparés par des points, par ex. dd.MM.yyyy. Pour le nom du mois (MMM ou MMMM), le résultat est séparé par des espaces, sinon par des points.",
+              "TYPES": {
+                "d": "jour du mois sous forme de nombre sans zéro non significatif (1-31), par ex. 5",
+                "dd": "jour du mois sous forme de nombre à deux chiffres (01-31), par ex. 05",
+                "ddd": "nom anglais abrégé du jour de la semaine (Mon, Tue, Wed, Thu, Fri, Sat, Sun)",
+                "dddd": "nom anglais complet du jour de la semaine (Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday)",
+                "M": "mois sous forme de nombre sans zéro non significatif (1-12), par ex. 2",
+                "MM": "mois sous forme de nombre à deux chiffres (01-12), par ex. 02",
+                "MMM": "nom anglais abrégé du mois (Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec)",
+                "MMMM": "nom anglais complet du mois (January, February, March, April, May, June, July, August, September, October, November, December)",
+                "yy": "les deux derniers chiffres de l'année (00-99), par ex. 26 pour l'année 2026",
+                "yyyy": "année sous forme de nombre à quatre chiffres, par ex. 2026"
+              }
+            },
+            "EXAMPLES": {
+              "EX1": "format_date('2026-02-05', 'dd.MM.yyyy')",
+              "RES1": "05.02.2026",
+              "EX2": "format_date('2026-02-05', 'dd.MMMM.yyyy')",
+              "RES2": "05 February 2026",
+              "EX3": "format_date('2026-02-05', 'ddd.MM.yy')",
+              "RES3": "Thu.02.26"
+            }
+          },
+          "_FORMAT_TIME": {
+            "TITLE": "Fonction format_time()",
+            "DESCRIPTION": "Une fonction qui formate l'heure selon le format donné. Il prend en charge la notation horaire 12 avec la désignation AM ou PM ajoutée automatiquement et la notation horaire 24.",
+            "SYNTAX": "format_time(heure, format)",
+            "ARGUMENTS": {
+              "A-KEY": "heure",
+              "A-DESCRIPTION": "une chaîne contenant l'heure, la minute et la seconde séparées par des deux-points, par ex. 13:05:09. Chaque ingrédient peut avoir un ou deux chiffres. L'heure doit être dans la plage 0-23 et les minutes et les secondes doivent être dans la plage 0-59. Les trois composants sont également requis lorsque la format de sortie n’en contient que deux.",
+              "B-KEY": "format",
+              "B-DESCRIPTION": "une chaîne spécifiant la format de sortie. Doit contenir deux ou trois composants horaires différents : heure (h, hh, H ou HH), minute (m ou mm) et seconde (s ou ss), dans n'importe quel ordre, séparés par des deux-points. L'utilisation de h ou hh ajoute automatiquement un espace et la désignation AM ou PM à la fin du résultat.",
+              "TYPES": {
+                "h": "heure en notation 12-heure sans zéro non significatif (1-12), par ex. 1 pour l'heure 13 ; ajoute la désignation AM ou PM",
+                "hh": "l'heure dans la notation horaire 12 avec un zéro non significatif (01-12), par ex. 01 pour l'heure 13 ; ajoute la désignation AM ou PM",
+                "H": "heure en notation 24-heure sans zéro non significatif (0-23), par ex. 5",
+                "HH": "heure en notation 24-heure avec un zéro non significatif (00-23), par ex. 05",
+                "m": "minute sans zéro non significatif (0-59), par ex. 5",
+                "mm": "minute avec un zéro non significatif (00-59), par ex. 05",
+                "s": "seconde sans zéro non significatif (0-59), par ex. 9",
+                "ss": "seconde avec un zéro non significatif (00-59), par ex. 09"
+              }
+            },
+            "EXAMPLES": {
+              "EX1": "format_time('13:05:09', 'HH:mm:ss')",
+              "RES1": "13:05:09",
+              "EX2": "format_time('13:05:09', 'hh:mm:ss')",
+              "RES2": "01:05:09 PM",
+              "EX3": "format_time('00:00:00', 'h:mm')",
+              "RES3": "12:00 AM"
+            }
+          },
+          "_LEFT": {
+            "TITLE": "Fonction left()",
+            "DESCRIPTION": "Une fonction qui renvoie un nombre spécifié de caractères à partir du début de la chaîne donnée.",
+            "SYNTAX": "left(chaîne, nombre_de_caractères)",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "la chaîne à partir de laquelle récupérer les caractères depuis le début.",
+              "B-KEY": "nombre_de_caractères",
+              "B-DESCRIPTION": "le nombre de caractères à récupérer depuis le début de la chaîne. Doit être un entier non négatif."
+            },
+            "EXAMPLES": {
+              "EX1": "left('Hello World', 5)",
+              "RES1": "Hello",
+              "EX2": "left('abcdef', 3)",
+              "RES2": "abc",
+              "EX3": "left('12345', 0)",
+              "RES3": ""
+            }
+          },
+          "_LENGTH": {
+            "TITLE": "Fonction length()",
+            "DESCRIPTION": "Une fonction qui renvoie le nombre de caractères d'une chaîne donnée.",
+            "SYNTAX": "length(chaîne)",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "une chaîne dont la longueur doit être calculée."
+            },
+            "EXAMPLES": {
+              "EX1": "length('Hello')",
+              "RES1": "5",
+              "EX2": "length('')",
+              "RES2": "0",
+              "EX3": "length('123456789')",
+              "RES3": "9"
+            }
+          },
+          "_LOWER": {
+            "TITLE": "Fonction lower()",
+            "DESCRIPTION": "Une fonction qui renvoie une chaîne de caractères au format minuscule.",
+            "SYNTAX": "lower(chaîne)",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "la chaîne de caractères à convertir en minuscules."
+            },
+            "EXAMPLES": {
+              "EX1": "lower('HELLO')",
+              "RES1": "hello",
+              "EX2": "lower('World')",
+              "RES2": "world",
+              "EX3": "lower('123')",
+              "RES3": "123"
+            }
+          },
+          "_LPAD": {
+            "TITLE": "Fonction lpad()",
+            "DESCRIPTION": "Fonction qui renvoie une chaîne de caractères complétée à une largeur de chaîne spécifiée avec les caractères spécifiés. Si la chaîne d'entrée est plus longue que la largeur spécifiée, elle sera tronquée à gauche.",
+            "SYNTAX": "lpad(chaîne, largeur, caractère)",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "la corde à remplir.",
+              "B-KEY": "largeur",
+              "B-DESCRIPTION": "largeur de chaîne spécifiée.",
+              "C-KEY": "caractère",
+              "C-DESCRIPTION": "le caractère à utiliser pour compléter la chaîne."
+            },
+            "EXAMPLES": {
+              "EX1": "lpad('Hello', 10, ' ')",
+              "RES1": "     Hello",
+              "EX2": "lpad('World', 10, '0')",
+              "RES2": "00000World",
+              "EX3": "lpad('123', 5, '0')",
+              "RES3": "00123"
+            }
+          },
+          "_LTRIM": {
+            "TITLE": "Fonction ltrim()",
+            "DESCRIPTION": "Une fonction qui renvoie une chaîne de caractères tronquée par des espaces. Il est possible de fournir un argument caractère supplémentaire pour les tronquer du côté gauche de la chaîne.",
+            "SYNTAX": "ltrim(chaîne, [caractères])",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "la chaîne à tronquer.",
+              "B-KEY": "caractères",
+              "B-DESCRIPTION": "caractères à supprimer du côté gauche de la chaîne."
+            },
+            "EXAMPLES": {
+              "EX1": "ltrim('  Hello  ')",
+              "RES1": "Hello  ",
+              "EX2": "ltrim('yyzzzxxxxxxWorld  ', 'xyz')",
+              "RES2": "World  ",
+              "EX3": "ltrim('---Hello---', '-')",
+              "RES3": "Hello---"
+            }
+          },
+          "_REGEXP_MATCH": {
+            "TITLE": "Fonction regexp_match()",
+            "DESCRIPTION": "Une fonction qui renvoie la première position de correspondance de l'expression donnée dans la chaîne donnée. Si aucune correspondance n’est trouvée, renvoie 0.",
+            "SYNTAX": "regexp_match(chaîne, expression)",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "la chaîne dans laquelle rechercher une correspondance.",
+              "B-KEY": "expression",
+              "B-DESCRIPTION": "l'expression à rechercher dans la chaîne. Il est possible d'utiliser les expressions RegEx."
+            },
+            "EXAMPLES": {
+              "EX1": "regexp_match('Hello World', 'World')",
+              "RES1": "7",
+              "EX2": "regexp_match('Hello World', 'xyz')",
+              "RES2": "0",
+              "EX3": "regexp_match('abc123', '\\d+')",
+              "RES3": "4"
+            }
+          },
+          "_REGEXP_REPLACE": {
+            "TITLE": "Fonction regexp_replace()",
+            "DESCRIPTION": "Une fonction qui renvoie une chaîne avec des parties remplacées qui correspondent à l'expression donnée.",
+            "SYNTAX": "regexp_replace(chaîne, expression, remplacement)",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "la chaîne de caractères dans laquelle remplacer.",
+              "B-KEY": "expression",
+              "B-DESCRIPTION": "l'expression à rechercher dans la chaîne. Il est possible d'utiliser les expressions RegEx.",
+              "C-KEY": "remplacement",
+              "C-DESCRIPTION": "une chaîne de caractères pour remplacer les fragments correspondants."
+            },
+            "EXAMPLES": {
+              "EX1": "regexp_replace('Hello World', 'World', 'Universe')",
+              "RES1": "Hello Universe",
+              "EX2": "regexp_replace('abc123', '\\d+', 'X')",
+              "RES2": "abcXXX",
+              "EX3": "regexp_replace('foo bar baz', 'ba.', 'qux')",
+              "RES3": "foo qux qux"
+            }
+          },
+          "_REGEXP_SUBSTR": {
+            "TITLE": "Fonction regexp_substr()",
+            "DESCRIPTION": "Une fonction qui renvoie la partie d'une chaîne qui correspond à l'expression donnée. S'il y a plusieurs correspondances, la première est renvoyée. S'il n'y a pas de correspondance, il renvoie une chaîne vide.",
+            "SYNTAX": "regexp_substr(chaîne, expression)",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "la chaîne à partir de laquelle renvoyer la pièce.",
+              "B-KEY": "expression",
+              "B-DESCRIPTION": "l'expression par laquelle sélectionner une partie de la chaîne. Il est possible d'utiliser les expressions RegEx précédées de \\ comme dans l'exemple."
+            },
+            "EXAMPLES": {
+              "EX1": "regexp_substr('Hello World', 'World')",
+              "RES1": "World",
+              "EX2": "regexp_substr('abc123', '\\d+')",
+              "RES2": "123",
+              "EX3": "regexp_substr('foo bar baz', 'ba.')",
+              "RES3": "bar"
+            }
+          },
+          "_REPLACE": {
+            "TITLE": "Fonction replace()",
+            "DESCRIPTION": "Une fonction qui renvoie une nouvelle chaîne de caractères avec des parties de la chaîne donnée remplacées.",
+            "SYNTAX": "replace(chaîne, caractères_à_remplacer, remplacement)",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "la chaîne de caractères dans laquelle remplacer.",
+              "B-KEY": "caractères_à_remplacer",
+              "B-DESCRIPTION": "la chaîne à remplacer.",
+              "C-KEY": "remplacement",
+              "C-DESCRIPTION": "une chaîne de caractères pour remplacer les caractères donnés."
+            },
+            "EXAMPLES": {
+              "EX1": "replace('Hello World', 'World', 'Universe')",
+              "RES1": "Hello Universe",
+              "EX2": "replace('abc123', '123', 'XYZ')",
+              "RES2": "abcXYZ",
+              "EX3": "replace('foo bar baz', 'ba', 'qu')",
+              "RES3": "foo qur quz"
+            }
+          },
+          "_RIGHT": {
+            "TITLE": "Fonction right()",
+            "DESCRIPTION": "Une fonction qui renvoie un nombre spécifié de caractères à partir de la fin de la chaîne donnée.",
+            "SYNTAX": "right(chaîne, nombre_de_caractères)",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "la chaîne à partir de laquelle renvoyer la pièce.",
+              "B-KEY": "nombre_de_caractères",
+              "B-DESCRIPTION": "Le nombre de caractères à renvoyer à partir de la fin de la chaîne."
+            },
+            "EXAMPLES": {
+              "EX1": "right('Hello World', 5)",
+              "RES1": "World",
+              "EX2": "right('abcdef', 3)",
+              "RES2": "def",
+              "EX3": "right('123456789', 2)",
+              "RES3": "89"
+            }
+          },
+          "_RPAD": {
+            "TITLE": "Fonction rpad()",
+            "DESCRIPTION": "Fonction qui renvoie une chaîne de caractères complétée à une largeur de chaîne spécifiée avec les caractères spécifiés. Si la chaîne d'entrée est plus longue que la largeur spécifiée, elle sera tronquée à droite.",
+            "SYNTAX": "rpad(chaîne, largeur, caractère)",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "la corde à remplir.",
+              "B-KEY": "largeur",
+              "B-DESCRIPTION": "la largeur spécifiée à laquelle la chaîne doit être complétée.",
+              "C-KEY": "caractère",
+              "C-DESCRIPTION": "le caractère à utiliser pour compléter la chaîne."
+            },
+            "EXAMPLES": {
+              "EX1": "rpad('Hello', 10, ' ')",
+              "RES1": "Hello     ",
+              "EX2": "rpad('World', 10, '0')",
+              "RES2": "World00000",
+              "EX3": "rpad('123', 5, '0')",
+              "RES3": "12300"
+            }
+          },
+          "_RTRIM": {
+            "TITLE": "Fonction rtrim()",
+            "DESCRIPTION": "Une fonction qui renvoie une chaîne de caractères tronquée par des espaces. Il est possible de fournir un argument caractère supplémentaire pour les tronquer à droite de la chaîne.",
+            "SYNTAX": "rtrim(chaîne, [caractères])",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "la chaîne à tronquer.",
+              "B-KEY": "caractères",
+              "B-DESCRIPTION": "un argument facultatif qui spécifie les caractères à tronquer à partir du côté droit de la chaîne."
+            },
+            "EXAMPLES": {
+              "EX1": "rtrim('Hello World ')",
+              "RES1": "Hello World",
+              "EX2": "rtrim('12345', '5')",
+              "RES2": "1234",
+              "EX3": "rtrim('abcxyz', 'xyz')",
+              "RES3": "abc"
+            }
+          },
+          "_STRPOS": {
+            "TITLE": "Fonction strpos()",
+            "DESCRIPTION": "Une fonction qui renvoie la première position de l'expression recherchée dans la chaîne de caractères donnée. Si aucune correspondance n’est trouvée, renvoie 0.",
+            "SYNTAX": "strpos(chaîne, texte_recherché)",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "la chaîne de caractères dans laquelle rechercher l'expression.",
+              "B-KEY": "texte_recherché",
+              "B-DESCRIPTION": "l'expression à rechercher dans la chaîne."
+            },
+            "EXAMPLES": {
+              "EX1": "strpos('Hello World', 'World')",
+              "RES1": "7",
+              "EX2": "strpos('Hello World', 'xyz')",
+              "RES2": "0",
+              "EX3": "strpos('a123b123c123', '123')",
+              "RES3": "1"
+            }
+          },
+          "_SUBSTR": {
+            "TITLE": "Fonction substr()",
+            "DESCRIPTION": "Fonction qui renvoie une chaîne de caractères tronquée à partir de la chaîne donnée, commençant à une position spécifiée et éventuellement d'une longueur spécifiée.",
+            "SYNTAX": "substr(chaîne, position, [longueur])",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "la chaîne à partir de laquelle récupérer la sous-chaîne.",
+              "B-KEY": "position",
+              "B-DESCRIPTION": "la position à partir de laquelle la sous-chaîne doit commencer.",
+              "C-KEY": "longueur",
+              "C-DESCRIPTION": "un argument facultatif qui spécifie la longueur de la sous-chaîne. Nécessite un entier. Si un nombre négatif est spécifié, la fin de la sous-chaîne sera tronquée de ce nombre de caractères à partir de la fin de la chaîne."
+            },
+            "EXAMPLES": {
+              "EX1": "substr('Hello World', 6)",
+              "RES1": "World",
+              "EX2": "substr('Hello World', 2, 5)",
+              "RES2": "llo",
+              "EX3": "substr('abcdef', 2, -2)",
+              "RES3": "bcd"
+            }
+          },
+          "_TITLE": {
+            "TITLE": "Fonction title()",
+            "DESCRIPTION": "Fonction qui convertit le premier caractère de chaque mot d'une chaîne donnée en majuscule et les caractères restants en minuscules.",
+            "SYNTAX": "title(chaîne)",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "la chaîne à traiter."
+            },
+            "EXAMPLES": {
+              "EX1": "title('hello world')",
+              "RES1": "Hello World",
+              "EX2": "title('javaScript is fun')",
+              "RES2": "Javascript Is Fun",
+              "EX3": "title('123abc DEF')",
+              "RES3": "123abc Def"
+            }
+          },
+          "_TO_STRING": {
+            "TITLE": "Fonction to_string()",
+            "DESCRIPTION": "Une fonction qui convertit un nombre donné en une chaîne de caractères.",
+            "SYNTAX": "to_string(nombre)",
+            "ARGUMENTS": {
+              "A-KEY": "nombre",
+              "A-DESCRIPTION": "le nombre à convertir en chaîne."
+            },
+            "EXAMPLES": {
+              "EX1": "to_string(123)",
+              "RES1": "123",
+              "EX2": "to_string(45.67)",
+              "RES2": "45.67",
+              "EX3": "to_string(-89)",
+              "RES3": "-89"
+            }
+          },
+          "_TRIM": {
+            "TITLE": "Fonction trim()",
+            "DESCRIPTION": "Une fonction qui supprime les espaces au début et à la fin d'une chaîne donnée.",
+            "SYNTAX": "trim(chaîne)",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "la chaîne à partir de laquelle supprimer les espaces."
+            },
+            "EXAMPLES": {
+              "EX1": "trim('  Hello World  ')",
+              "RES1": "Hello World",
+              "EX2": "trim('   abc   ')",
+              "RES2": "abc",
+              "EX3": "trim('   123   ')",
+              "RES3": "123"
+            }
+          },
+          "_UPPER": {
+            "TITLE": "Fonction upper()",
+            "DESCRIPTION": "Une fonction qui renvoie une chaîne de caractères au format majuscule.",
+            "SYNTAX": "upper(chaîne)",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "la chaîne à convertir en majuscule."
+            },
+            "EXAMPLES": {
+              "EX1": "upper('hello world')",
+              "RES1": "HELLO WORLD",
+              "EX2": "upper('JavaScript')",
+              "RES2": "JAVASCRIPT",
+              "EX3": "upper('123abc')",
+              "RES3": "123ABC"
+            }
+          },
+          "_WORDWRAP": {
+            "TITLE": "Fonction wordwrap()",
+            "DESCRIPTION": "Une fonction qui renvoie une chaîne enveloppée dans une largeur spécifiée.",
+            "SYNTAX": "wordwrap(chaîne, largeur)",
+            "ARGUMENTS": {
+              "A-KEY": "chaîne",
+              "A-DESCRIPTION": "la chaîne à enrouler.",
+              "B-KEY": "largeur",
+              "B-DESCRIPTION": "la largeur spécifiée à laquelle la chaîne doit être renvoyée. Doit être un entier supérieur à 0."
+            },
+            "EXAMPLES": {
+              "EX1": "wordwrap('To jest długi ciąg znaków, który ma zostać zawinięty.', 10)",
+              "RES1": "To jest\n długi ciąg\n znaków, który\n ma zostać\n zawinięty.",
+              "EX2": "wordwrap('Hello World', 5)",
+              "RES2": "Hello\nWorld",
+              "EX3": "wordwrap('1234567890', 3)",
+              "RES3": "123\n456\n789\n0"
+            }
+          }
+        }
+      },
       "ERRORS": {
         "UNMATCHED_PARENTHESIS": "Parenthèses non appariées dans l’expression : {{expression}}.",
         "UNKNOWN_FUNCTION": "Fonction inconnue : {{function}}.",

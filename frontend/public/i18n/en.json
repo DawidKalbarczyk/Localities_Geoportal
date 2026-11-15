@@ -122,6 +122,1789 @@
           "STRING-OPERATORS": "String operations"
         }
       },
+      "TOOLTIPS": {
+        "TITLE": "Tooltip",
+        "SYNTAX": "Syntax",
+        "ARGUMENTS": "Arguments",
+        "EXAMPLES": "Examples",
+        "FIELDS-AND-VALUES": {
+          "INFO": "Attribute fields and values",
+          "TITLE": "Fields and values",
+          "DESC": {
+            "DESCRIPTION": "Click to add the entire field to the expression. Once you have created the complete expression, click the 'Calculate' button to calculate the values for the selected field using the expression."
+          }
+        },
+        "DATE-AND-TIME": {
+          "INFO": "Date and time functions",
+          "TITLE": "Date and time",
+          "_AGE": {
+            "TITLE": "Function age()",
+            "DESCRIPTION": "A function that calculates the difference between a later and an earlier date. Returns a time interval of type timedelta, which can be passed to functions such as day(), hour() or second(). If the first date is earlier than the second, it throws an error.",
+            "SYNTAX": "age(end_date, start_date)",
+            "ARGUMENTS": {
+              "A-KEY": "end_date",
+              "A-DESCRIPTION": "later date in the format YYYY-MM-DD or YYYY-MM-DD HH:MM:SS, optionally with a fraction of a second from one to six digits. No time means midnight.",
+              "B-KEY": "start_date",
+              "B-DESCRIPTION": "earlier date in the same format as the end date. May be equal to the end date; then the difference is zero."
+            },
+            "EXAMPLES": {
+              "EX1": "age('2026-10-30 13:00:00', '2026-10-29 10:00:00')",
+              "RES1": "1 day, 3:00:00",
+              "EX2": "age('2026-10-30', '2026-10-29')",
+              "RES2": "1 day, 0:00:00",
+              "EX3": "age('2026-10-30', '2026-10-30')",
+              "RES3": "0:00:00"
+            }
+          },
+          "_DATETIME_FROM_EPOCH": {
+            "TITLE": "Function datetime_from_epoch()",
+            "DESCRIPTION": "Converts the number of seconds since the Unix epoch (1970-01-01 00:00:00 UTC) to a string in YYYY-MM-DD HH:MM:SS format. The result uses the server’s local time zone and does not include a time zone indicator.",
+            "SYNTAX": "datetime_from_epoch(seconds)",
+            "ARGUMENTS": {
+              "A-KEY": "seconds",
+              "A-DESCRIPTION": "a non-negative integer number of seconds since the Unix epoch, e.g. 1700000000. The value must fall within the date range supported by the server."
+            },
+            "EXAMPLES": {
+              "EX1": "datetime_from_epoch(0)",
+              "RES1": "1970-01-01 00:00:00 (for server in zone UTC)",
+              "EX2": "datetime_from_epoch(1700000000)",
+              "RES2": "2023-11-14 22:13:20 (for server in zone UTC)",
+              "EX3": "datetime_from_epoch(86400)",
+              "RES3": "1970-01-02 00:00:00 (for server in zone UTC)"
+            }
+          },
+          "_DAY": {
+            "TITLE": "Function day()",
+            "DESCRIPTION": "A function that returns the day of the month for a date or the total length of a time interval converted to days. The result is a string with a number and the English unit day or days, e.g. 30 days. A day corresponds to 24 hours.",
+            "SYNTAX": "day(date_or_interval)",
+            "ARGUMENTS": {
+              "A-KEY": "date_or_interval",
+              "A-DESCRIPTION": "a date in YYYY-MM-DD or YYYY-MM-DD HH:MM:SS format (optionally with up to six fractional-second digits), a timedelta returned by age(), or a non-negative interval expressed as a number and an English unit: year, month, week, day, hour, minute or second, including plural forms. A year is 365.25 days, and a month is 1/12 of a year."
+            },
+            "EXAMPLES": {
+              "EX1": "day('2026-10-30')",
+              "RES1": "30 days",
+              "EX2": "day('48 hours')",
+              "RES2": "2 days",
+              "EX3": "day('12 hours')",
+              "RES3": "0.5 days"
+            }
+          },
+          "_DAY_OF_WEEK": {
+            "TITLE": "Function day_of_week()",
+            "DESCRIPTION": "Function that returns the day of the week number as an integer from 1 to 7: Monday is 1 and Sunday is 7.",
+            "SYNTAX": "day_of_week(date)",
+            "ARGUMENTS": {
+              "A-KEY": "date",
+              "A-DESCRIPTION": "correct date in the format YYYY-MM-DD, without the time part. The month and day must be written in two digits."
+            },
+            "EXAMPLES": {
+              "EX1": "day_of_week('2026-10-30')",
+              "RES1": "5",
+              "EX2": "day_of_week('2026-10-26')",
+              "RES2": "1",
+              "EX3": "day_of_week('2026-11-01')",
+              "RES3": "7"
+            }
+          },
+          "_EPOCH": {
+            "TITLE": "Function epoch()",
+            "DESCRIPTION": "Returns the integer number of seconds since the Unix epoch (1970-01-01 00:00:00 UTC). The input date and time are interpreted in the server’s local time zone.",
+            "SYNTAX": "epoch(date_time)",
+            "ARGUMENTS": {
+              "A-KEY": "date_time",
+              "A-DESCRIPTION": "correct date and time in the format YYYY-MM-DD HH:MM:SS. Seconds are required; fractions of a second and time zone markings are not supported."
+            },
+            "EXAMPLES": {
+              "EX1": "epoch('1970-01-01 00:00:00')",
+              "RES1": "0 (for server in zone UTC)",
+              "EX2": "epoch('2023-11-14 22:13:20')",
+              "RES2": "1700000000 (for server in zone UTC)",
+              "EX3": "epoch('1970-01-02 00:00:00')",
+              "RES3": "86400 (for server in zone UTC)"
+            }
+          },
+          "_FORMAT_DATE": {
+            "TITLE": "Function format_date()",
+            "DESCRIPTION": "A function that formats a date into a string of characters according to a given format. The names of the days of the week and months are returned in English.",
+            "SYNTAX": "format_date(date, format)",
+            "ARGUMENTS": {
+              "A-KEY": "date",
+              "A-DESCRIPTION": "correct date in the format YYYY-MM-DD. The month and day must be written in two digits.",
+              "B-KEY": "format",
+              "B-DESCRIPTION": "exactly three components: day (d, dd, ddd or dddd), month (M, MM, MMM or MMMM), and year (yy or yyyy), in any order, separated by dots. In the case of MMM or MMMM, the result is separated by spaces, in other cases by dots.",
+              "TYPES": {
+                "d": "day of the month without a leading zero (1-31)",
+                "dd": "day of the month with leading zero (01-31)",
+                "ddd": "short English name of the day of the week, e.g. Thu",
+                "dddd": "full English name of the day of the week, e.g. Thursday",
+                "M": "month without leading zero (1-12)",
+                "MM": "month with leading zero (01-12)",
+                "MMM": "short English name of the month, e.g. Feb",
+                "MMMM": "full English name of the month, e.g. February",
+                "yy": "the last two digits of the year, e.g. 26",
+                "yyyy": "full year, e.g. 2026"
+              }
+            },
+            "EXAMPLES": {
+              "EX1": "format_date('2026-02-05', 'dd.MM.yyyy')",
+              "RES1": "05.02.2026",
+              "EX2": "format_date('2026-02-05', 'dd.MMMM.yyyy')",
+              "RES2": "05 February 2026",
+              "EX3": "format_date('2026-02-05', 'ddd.MM.yy')",
+              "RES3": "Thu.02.26"
+            }
+          },
+          "_HOUR": {
+            "TITLE": "Function hour()",
+            "DESCRIPTION": "Returns the hour (0-23) from a date and time, or the total duration of an interval in hours. The result is a string containing a number and the English unit hour or hours, e.g. 13 hours. One day is 24 hours.",
+            "SYNTAX": "hour(date_time_or_interval)",
+            "ARGUMENTS": {
+              "A-KEY": "date_time_or_interval",
+              "A-DESCRIPTION": "a date and time in YYYY-MM-DD HH:MM:SS format (optionally with up to six fractional-second digits), a timedelta returned by age(), or a non-negative interval expressed as a number and an English unit: year, month, week, day, hour, minute or second, including plural forms. A date alone or a time alone is not supported. A year is 365.25 days, and a month is 1/12 of a year."
+            },
+            "EXAMPLES": {
+              "EX1": "hour('2026-10-30 13:05:09')",
+              "RES1": "13 hours",
+              "EX2": "hour('2.125 days')",
+              "RES2": "51 hours",
+              "EX3": "hour(age('2026-10-30 13:00:00', '2026-10-29 10:00:00'))",
+              "RES3": "27 hours"
+            }
+          },
+          "_MAKE_DATE": {
+            "TITLE": "Function make_date()",
+            "DESCRIPTION": "A function that creates a date from the year, month and day. Returns a string in the format YYYY-MM-DD. Incorrect dates, e.g. February 30, cause an error.",
+            "SYNTAX": "make_date(year, month, day)",
+            "ARGUMENTS": {
+              "A-KEY": "year",
+              "A-DESCRIPTION": "year written in four digits, in the range 0001-9999.",
+              "B-KEY": "month",
+              "B-DESCRIPTION": "month number from 1 to 12, written in one or two digits.",
+              "C-KEY": "day",
+              "C-DESCRIPTION": "day of the month written in one or two digits. Must exist in the selected month and year."
+            },
+            "EXAMPLES": {
+              "EX1": "make_date(2026, 10, 30)",
+              "RES1": "2026-10-30",
+              "EX2": "make_date(2026, 2, 5)",
+              "RES2": "2026-02-05",
+              "EX3": "make_date(2024, 2, 29)",
+              "RES3": "2024-02-29"
+            }
+          },
+          "_MAKE_DATETIME": {
+            "TITLE": "Function make_datetime()",
+            "DESCRIPTION": "A function that creates a date and time from six components. Returns a string in the format YYYY-MM-DD HH:MM:SS. All components are required and must produce a valid date and time.",
+            "SYNTAX": "make_datetime(year, month, day, hour, minute, second)",
+            "ARGUMENTS": {
+              "A-KEY": "year",
+              "A-DESCRIPTION": "year written in four digits, in the range 0001-9999.",
+              "B-KEY": "month",
+              "B-DESCRIPTION": "month number from 1 to 12.",
+              "C-KEY": "day",
+              "C-DESCRIPTION": "a day that exists in the given month and year.",
+              "D-KEY": "hour",
+              "D-DESCRIPTION": "an integer from 0 to 23.",
+              "E-KEY": "minute",
+              "E-DESCRIPTION": "an integer from 0 to 59.",
+              "F-KEY": "second",
+              "F-DESCRIPTION": "integer from 0 to 59, without fractional part. All components except the year can be written in one or two digits."
+            },
+            "EXAMPLES": {
+              "EX1": "make_datetime(2026, 10, 30, 13, 5, 9)",
+              "RES1": "2026-10-30 13:05:09",
+              "EX2": "make_datetime(2026, 2, 5, 0, 0, 0)",
+              "RES2": "2026-02-05 00:00:00",
+              "EX3": "make_datetime(2024, 2, 29, 23, 59, 59)",
+              "RES3": "2024-02-29 23:59:59"
+            }
+          },
+          "_MAKE_INTERVAL": {
+            "TITLE": "Function make_interval()",
+            "DESCRIPTION": "Creates a time interval from unit=value arguments. Returns a string containing the sum converted to the largest supplied unit; for values below 1, a smaller unit may be selected. A year is 365.25 days, and a month is 1/12 of a year. The unit name in the result is always plural, e.g. 1 days.",
+            "SYNTAX": "make_interval(unit=value, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "unit",
+              "A-DESCRIPTION": "at least one unit name: years, months, weeks, days, hours, minutes, or seconds. Arguments are separated by commas. When repeating a unit, the last value is taken into account.",
+              "B-KEY": "value",
+              "B-DESCRIPTION": "a non-negative, finite number assigned to a unit with the = sign. Decimal fractions written with a dot are allowed, e.g. days=2.5."
+            },
+            "EXAMPLES": {
+              "EX1": "make_interval(days=2, hours=3)",
+              "RES1": "2.125 days",
+              "EX2": "make_interval(hours=1, minutes=30)",
+              "RES2": "1.5 hours",
+              "EX3": "make_interval(hours=0.5)",
+              "RES3": "30 minutes"
+            }
+          },
+          "_MAKE_TIME": {
+            "TITLE": "Function make_time()",
+            "DESCRIPTION": "A function that creates time from hours, minutes and seconds. Returns a string in the format HH:MM:SS.sss, always with three millisecond digits. Further fractional second digits are truncated without rounding.",
+            "SYNTAX": "make_time(hour, minute, second)",
+            "ARGUMENTS": {
+              "A-KEY": "hour",
+              "A-DESCRIPTION": "an integer from 0 to 23, written in one or two digits.",
+              "B-KEY": "minute",
+              "B-DESCRIPTION": "an integer from 0 to 59, written in one or two digits.",
+              "C-KEY": "second",
+              "C-DESCRIPTION": "a number from 0 to a value less than 60. The integer part must have one or two digits; the optional fractional part is written after a dot. The lack of fractional part gives milliseconds 000."
+            },
+            "EXAMPLES": {
+              "EX1": "make_time(13, 5, 9)",
+              "RES1": "13:05:09.000",
+              "EX2": "make_time(0, 0, 0.5)",
+              "RES2": "00:00:00.500",
+              "EX3": "make_time(23, 59, 59.1239)",
+              "RES3": "23:59:59.123"
+            }
+          },
+          "_MINUTE": {
+            "TITLE": "Function minute()",
+            "DESCRIPTION": "A function that returns the minute (0-59) of the date and time, or the total length of the interval converted to minutes. The result is a string with a number and the English unit minute or minutes, e.g. 5 minutes.",
+            "SYNTAX": "minute(date_time_or_interval)",
+            "ARGUMENTS": {
+              "A-KEY": "date_time_or_interval",
+              "A-DESCRIPTION": "a date and time in YYYY-MM-DD HH:MM:SS format (optionally with up to six fractional-second digits), a timedelta returned by age(), or a non-negative interval expressed as a number and an English unit: year, month, week, day, hour, minute or second, including plural forms. A date alone or a time alone is not supported. A year is 365.25 days, and a month is 1/12 of a year."
+            },
+            "EXAMPLES": {
+              "EX1": "minute('2026-10-30 13:05:09')",
+              "RES1": "5 minutes",
+              "EX2": "minute('1.5 hours')",
+              "RES2": "90 minutes",
+              "EX3": "minute('30 seconds')",
+              "RES3": "0.5 minutes"
+            }
+          },
+          "_MONTH": {
+            "TITLE": "Function month()",
+            "DESCRIPTION": "Returns the month number (1-12) from a date, or the total duration of an interval in months. The result is a string containing a number and the English unit month or months, e.g. 10 months. A month is 1/12 of a 365.25-day year, rather than the length of a particular calendar month.",
+            "SYNTAX": "month(date_or_interval)",
+            "ARGUMENTS": {
+              "A-KEY": "date_or_interval",
+              "A-DESCRIPTION": "a date in YYYY-MM-DD or YYYY-MM-DD HH:MM:SS format (optionally with up to six fractional-second digits), a timedelta returned by age(), or a non-negative interval expressed as a number and an English unit: year, month, week, day, hour, minute or second, including plural forms."
+            },
+            "EXAMPLES": {
+              "EX1": "month('2026-10-30')",
+              "RES1": "10 months",
+              "EX2": "month('1 year')",
+              "RES2": "12 months",
+              "EX3": "month('1 month')",
+              "RES3": "1 month"
+            }
+          },
+          "_NOW": {
+            "TITLE": "Function now()",
+            "DESCRIPTION": "A function that returns the current server date and time as a string in the format YYYY-MM-DD HH:MM:SS, with six digits of the fractional part when microseconds are non-zero. It uses the local server time and does not add a time zone mark. Each call reads the time again.",
+            "SYNTAX": "now()",
+            "ARGUMENTS": {
+              "A-KEY": "none",
+              "A-DESCRIPTION": "the function takes no arguments."
+            },
+            "EXAMPLES": {
+              "EX1": "now()",
+              "RES1": "e.g. 2026-10-30 13:05:09.123456 (the result depends on the time of the call and the server time)"
+            }
+          },
+          "_SECOND": {
+            "TITLE": "Function second()",
+            "DESCRIPTION": "Returns the second (0-59) from a date and time, or the total duration of an interval in seconds. The result is a string containing a number and the English unit second or seconds, e.g. 9 seconds. Fractional seconds are ignored for date-and-time input and retained for intervals.",
+            "SYNTAX": "second(date_time_or_interval)",
+            "ARGUMENTS": {
+              "A-KEY": "date_time_or_interval",
+              "A-DESCRIPTION": "a date and time in YYYY-MM-DD HH:MM:SS format (optionally with up to six fractional-second digits), a timedelta returned by age(), or a non-negative interval expressed as a number and an English unit: year, month, week, day, hour, minute or second, including plural forms. A date alone or a time alone is not supported. A year is 365.25 days, and a month is 1/12 of a year."
+            },
+            "EXAMPLES": {
+              "EX1": "second('2026-10-30 13:05:09.123456')",
+              "RES1": "9 seconds",
+              "EX2": "second('1.5 minutes')",
+              "RES2": "90 seconds",
+              "EX3": "second('0.5 seconds')",
+              "RES3": "0.5 seconds"
+            }
+          },
+          "_TO_DATE": {
+            "TITLE": "Function to_date()",
+            "DESCRIPTION": "Reads a date and returns a string. Without a format argument, returns YYYY-MM-DD. The optional format specifies the output: numeric components are separated by hyphens, or by spaces when a month name is used. It does not specify the input format.",
+            "SYNTAX": "to_date(date, [format])",
+            "ARGUMENTS": {
+              "A-KEY": "date",
+              "A-DESCRIPTION": "a valid date in YYYY-MM-DD, DD-MM-YYYY, YYYY MMMM DD or DD MMMM YYYY format. The year must have four digits; the day and numeric month must have one or two. Month names must be full English names beginning with a capital letter, e.g. February.",
+              "B-KEY": "format",
+              "B-DESCRIPTION": "an optional output format with three components separated by periods. Available tokens: d and dd (day of the month), ddd and dddd (English weekday name), M and MM (month number), MMM and MMMM (English month name), yy and yyyy (year). For example, dd.MM.yyyy produces 05-02-2026. Without this argument, the result is in YYYY-MM-DD format."
+            },
+            "EXAMPLES": {
+              "EX1": "to_date('05-02-2026')",
+              "RES1": "2026-02-05",
+              "EX2": "to_date('5 February 2026', 'dd.MM.yyyy')",
+              "RES2": "05-02-2026",
+              "EX3": "to_date('2026-02-05', 'dd.MMMM.yyyy')",
+              "RES3": "05 February 2026"
+            }
+          },
+          "_TO_DATETIME": {
+            "TITLE": "Function to_datetime()",
+            "DESCRIPTION": "Reads a date and time and returns a datetime object without a time zone. Missing time defaults to midnight; omitted minutes or seconds default to zero. The optional format describes the input components. ISO input is recognized directly, even when a format is supplied.",
+            "SYNTAX": "to_datetime(date_time, [format])",
+            "ARGUMENTS": {
+              "A-KEY": "date_time",
+              "A-DESCRIPTION": "without a format: a date in YYYY-MM-DD, DD-MM-YYYY, YYYY MMMM DD or DD MMMM YYYY format, optionally followed by a space and a time in HH:mm or HH:mm:ss format. Full and abbreviated English month names are supported, regardless of case. ISO input may contain T between the date and time and up to six fractional-second digits. Other component layouts are supported when a format is supplied.",
+              "B-KEY": "format",
+              "B-DESCRIPTION": "optional input format. It must include a year (yy or yyyy), a month (M, MM, MMM or MMMM) and a day of the month (d or dd). It may also include a weekday (ddd or dddd), an hour (h, hh, H or HH), a minute (m or mm) and a second (s or ss). Separate components with spaces, periods, colons, slashes or hyphens; components must not repeat. Double numeric tokens require two digits. With yy, values 00-68 represent 2000-2068 and values 69-99 represent 1969-1999. Hours range from 0 to 23, including for h and hh; AM/PM is not supported. Any weekday provided must match the date."
+            },
+            "EXAMPLES": {
+              "EX1": "to_datetime('2026-10-30T13:05:09.123456')",
+              "RES1": "2026-10-30 13:05:09.123456",
+              "EX2": "to_datetime('30/10/2026 13:05', 'dd/MM/yyyy HH:mm')",
+              "RES2": "2026-10-30 13:05:00",
+              "EX3": "to_datetime('5 February 2026')",
+              "RES3": "2026-02-05 00:00:00"
+            }
+          },
+          "_TO_INTERVAL": {
+            "TITLE": "Function to_interval()",
+            "DESCRIPTION": "Reads a time interval from text containing number-unit pairs. Returns a string containing the sum converted to the largest supplied unit; for values below 1, a smaller unit may be selected. A year is 365.25 days, and a month is 1/12 of a year. The unit name in the result is always plural, e.g. 1 days.",
+            "SYNTAX": "to_interval(interval)",
+            "ARGUMENTS": {
+              "A-KEY": "interval",
+              "A-DESCRIPTION": "a string of characters with at least one pair number unit, e.g. 2 days 3 hours. Numbers must be non-negative and finite; may have the fractional part written with a dot. Units are required in plural: years, months, weeks, days, hours, minutes, or seconds. All elements are separated by single spaces, without commas. When repeating a unit, the last value is taken into account."
+            },
+            "EXAMPLES": {
+              "EX1": "to_interval('2 days 3 hours')",
+              "RES1": "2.125 days",
+              "EX2": "to_interval('1 hours 30 minutes')",
+              "RES2": "1.5 hours",
+              "EX3": "to_interval('0.5 hours')",
+              "RES3": "30 minutes"
+            }
+          },
+          "_TO_TIME": {
+            "TITLE": "Function to_time()",
+            "DESCRIPTION": "A function that reads the time according to the given input format and returns the time object. The format determines the meaning and order of the input components. The omitted component has a value of zero and the result is presented as HH:MM:SS.",
+            "SYNTAX": "to_time(time, format)",
+            "ARGUMENTS": {
+              "A-KEY": "time",
+              "A-DESCRIPTION": "two or three numeric components separated by colons. Each must have exactly two digits, e.g. 13:05 or 09:05:13. The hour must be in the range 0-23 and the minutes and seconds must be in the range 0-59. Fractions of a second are not supported.",
+              "B-KEY": "format",
+              "B-DESCRIPTION": "a required input format with the same number of components as the time. Supported tokens: HH or hh (24-hour clock), mm or MM (minute), and ss or SS (second), in any order, separated by colons. Components must not repeat, even with different letter case. For example, ss:mm:HH reads the second first, followed by the minute and hour."
+            },
+            "EXAMPLES": {
+              "EX1": "to_time('13:05', 'HH:mm')",
+              "RES1": "13:05:00",
+              "EX2": "to_time('09:05:13', 'ss:mm:HH')",
+              "RES2": "13:05:09",
+              "EX3": "to_time('05:09', 'mm:ss')",
+              "RES3": "00:05:09"
+            }
+          },
+          "_WEEK": {
+            "TITLE": "Function week()",
+            "DESCRIPTION": "Returns the ISO week number (1-53) for a date, or the total duration of an interval in weeks. The result is a string containing a number and the English unit week or weeks, e.g. 44 weeks. One week is seven days. Near the start or end of a calendar year, the ISO week may belong to a different year.",
+            "SYNTAX": "week(date_or_interval)",
+            "ARGUMENTS": {
+              "A-KEY": "date_or_interval",
+              "A-DESCRIPTION": "a date in YYYY-MM-DD or YYYY-MM-DD HH:MM:SS format (optionally with up to six fractional-second digits), a timedelta returned by age(), or a non-negative interval expressed as a number and an English unit: year, month, week, day, hour, minute or second, including plural forms. A year is 365.25 days, and a month is 1/12 of a year."
+            },
+            "EXAMPLES": {
+              "EX1": "week('2026-10-30')",
+              "RES1": "44 weeks",
+              "EX2": "week('2021-01-01')",
+              "RES2": "53 weeks",
+              "EX3": "week('14 days')",
+              "RES3": "2 weeks"
+            }
+          },
+          "_YEAR": {
+            "TITLE": "Function year()",
+            "DESCRIPTION": "Returns the year from a date, or the total duration of an interval in years. The result is a string containing a number and the English unit year or years, e.g. 2026 years. For interval conversions, a year is 365.25 days.",
+            "SYNTAX": "year(date_or_interval)",
+            "ARGUMENTS": {
+              "A-KEY": "date_or_interval",
+              "A-DESCRIPTION": "a date in YYYY-MM-DD or YYYY-MM-DD HH:MM:SS format (optionally with up to six fractional-second digits), a timedelta returned by age(), or a non-negative interval expressed as a number and an English unit: year, month, week, day, hour, minute or second, including plural forms. A month is 1/12 of a year."
+            },
+            "EXAMPLES": {
+              "EX1": "year('2026-10-30')",
+              "RES1": "2026 years",
+              "EX2": "year('12 months')",
+              "RES2": "1 year",
+              "EX3": "year('730.5 days')",
+              "RES3": "2 years"
+            }
+          }
+        },
+        "MATH": {
+          "INFO": "Mathematical functions",
+          "TITLE": "Math",
+          "_ABS": {
+            "TITLE": "Function abs()",
+            "DESCRIPTION": "A function that returns the absolute value of a number.",
+            "SYNTAX": "abs(value)",
+            "ARGUMENTS": {
+              "A-KEY": "value",
+              "A-DESCRIPTION": "the number whose absolute value is to be calculated."
+            },
+            "EXAMPLES": {
+              "EX1": "abs(-5)",
+              "RES1": "5",
+              "EX2": "abs(3.14)",
+              "RES2": "3.14",
+              "EX3": "abs(-2.718)",
+              "RES3": "2.718"
+            }
+          },
+          "_ACOS": {
+            "TITLE": "Function acos()",
+            "DESCRIPTION": "A function that returns the inverse cosine value in radians.",
+            "SYNTAX": "acos(value)",
+            "ARGUMENTS": {
+              "A-KEY": "value",
+              "A-DESCRIPTION": "the number for which the inverse cosine is to be calculated. The value must be in the range -1 to 1."
+            },
+            "EXAMPLES": {
+              "EX1": "acos(0)",
+              "RES1": "1.5708",
+              "EX2": "acos(-0.5)",
+              "RES2": "2.0944",
+              "EX3": "acos(1)",
+              "RES3": "0"
+            }
+          },
+          "_ACTG": {
+            "TITLE": "Function actg()",
+            "DESCRIPTION": "A function that returns the inverse cotangent value in radians, calculated as atan(1 / value). For negative values, returns a negative angle.",
+            "SYNTAX": "actg(value)",
+            "ARGUMENTS": {
+              "A-KEY": "value",
+              "A-DESCRIPTION": "the number for which the inverse cotangent is to be calculated. The value can be any real number other than zero."
+            },
+            "EXAMPLES": {
+              "EX1": "actg(1)",
+              "RES1": "0.7854",
+              "EX2": "actg(-1)",
+              "RES2": "-0.7854",
+              "EX3": "actg(2)",
+              "RES3": "0.4636"
+            }
+          },
+          "_ACTG2": {
+            "TITLE": "Function actg2()",
+            "DESCRIPTION": "A function that returns an angle in radians, calculated as atan2(1 / y, x), taking into account the signs of the arguments.",
+            "SYNTAX": "actg2(y, x)",
+            "ARGUMENTS": {
+              "A-KEY": "y",
+              "A-DESCRIPTION": "a number whose inverse is used as the first argument of the atan2() function. Must be a real number other than zero.",
+              "B-KEY": "x",
+              "B-DESCRIPTION": "a number used as the second argument of the atan2() function. It can be any real number."
+            },
+            "EXAMPLES": {
+              "EX1": "actg2(1, 1)",
+              "RES1": "0.7854",
+              "EX2": "actg2(1, -1)",
+              "RES2": "2.3562",
+              "EX3": "actg2(-1, 1)",
+              "RES3": "-0.7854"
+            }
+          },
+          "_ASIN": {
+            "TITLE": "Function asin()",
+            "DESCRIPTION": "A function that returns the inverse sine value in radians.",
+            "SYNTAX": "asin(value)",
+            "ARGUMENTS": {
+              "A-KEY": "value",
+              "A-DESCRIPTION": "the number for which the inverse sine is to be calculated. The value must be in the range -1 to 1."
+            },
+            "EXAMPLES": {
+              "EX1": "asin(0)",
+              "RES1": "0",
+              "EX2": "asin(-0.5)",
+              "RES2": "-0.5236",
+              "EX3": "asin(1)",
+              "RES3": "1.5708"
+            }
+          },
+          "_ATAN": {
+            "TITLE": "Function atan()",
+            "DESCRIPTION": "A function that returns the value of the inverse tangent in radians.",
+            "SYNTAX": "atan(value)",
+            "ARGUMENTS": {
+              "A-KEY": "value",
+              "A-DESCRIPTION": "the number for which the inverse tangent is to be calculated. The value can be any real number."
+            },
+            "EXAMPLES": {
+              "EX1": "atan(0)",
+              "RES1": "0",
+              "EX2": "atan(-0.5)",
+              "RES2": "-0.4636",
+              "EX3": "atan(1)",
+              "RES3": "0.7854"
+            }
+          },
+          "_ATAN2": {
+            "TITLE": "Function atan2()",
+            "DESCRIPTION": "A function that returns the inverse tangent in radians, given the sign of both arguments.",
+            "SYNTAX": "atan2(y, x)",
+            "ARGUMENTS": {
+              "A-KEY": "y",
+              "A-DESCRIPTION": "value y for calculating the inverse tangent. Real number.",
+              "B-KEY": "x",
+              "B-DESCRIPTION`": "value x for calculating the inverse tangent. Real number."
+            },
+            "EXAMPLES": {
+              "EX1": "atan2(0, -1)",
+              "RES1": "3.1416",
+              "EX2": "atan2(1, 0)",
+              "RES2": "1.5708",
+              "EX3": "atan2(1, 1)",
+              "RES3": "0.7854"
+            }
+          },
+          "_CEIL": {
+            "TITLE": "Function ceil()",
+            "DESCRIPTION": "A function that returns a value rounded up.",
+            "SYNTAX": "ceil(value)",
+            "ARGUMENTS": {
+              "A-KEY": "value",
+              "A-DESCRIPTION": "the number whose value is to be rounded up."
+            },
+            "EXAMPLES": {
+              "EX1": "ceil(16.2)",
+              "RES1": "17",
+              "EX2": "ceil(-9.2)",
+              "RES2": "-9",
+              "EX3": "ceil(0)",
+              "RES3": "0"
+            }
+          },
+          "_CLAMP": {
+            "TITLE": "Function clamp()",
+            "DESCRIPTION": "A function that returns a value limited to a specified range.",
+            "SYNTAX": "clamp(min, value, max)",
+            "ARGUMENTS": {
+              "A-KEY": "min",
+              "A-DESCRIPTION": "the minimum value to which the value should be limited. If the value is less, min is returned.",
+              "B-KEY": "value",
+              "B-DESCRIPTION": "value to be limited to a specific range.",
+              "C-KEY": "max",
+              "C-DESCRIPTION": "the maximum value to which the value should be limited. If the value is greater, max is returned."
+            },
+            "EXAMPLES": {
+              "EX1": "clamp(0, 5, 10)",
+              "RES1": "5",
+              "EX2": "clamp(0, -5, 10)",
+              "RES2": "0",
+              "EX3": "clamp(0, 15, 10)",
+              "RES3": "10"
+            }
+          },
+          "_COS": {
+            "TITLE": "Function cos()",
+            "DESCRIPTION": "A function that returns a cosine value.",
+            "SYNTAX": "cos(radians)",
+            "ARGUMENTS": {
+              "A-KEY": "radians",
+              "A-DESCRIPTION": "the value in radians for which the cosine is to be calculated. The value can be any real number."
+            },
+            "EXAMPLES": {
+              "EX1": "cos(0)",
+              "RES1": "1",
+              "EX2": "cos(-1)",
+              "RES2": "0.5403",
+              "EX3": "cos(1)",
+              "RES3": "0.5403"
+            }
+          },
+          "_CTG": {
+            "TITLE": "Function ctg()",
+            "DESCRIPTION": "A function that returns the cotangent value, calculated as the reciprocal of the tangent.",
+            "SYNTAX": "ctg(radians)",
+            "ARGUMENTS": {
+              "A-KEY": "radians",
+              "A-DESCRIPTION": "the angle value in radians for which the cotangent is to be calculated. The tangent of this angle must be non-zero."
+            },
+            "EXAMPLES": {
+              "EX1": "ctg(1)",
+              "RES1": "0.6421",
+              "EX2": "ctg(-1)",
+              "RES2": "-0.6421",
+              "EX3": "ctg(0.5)",
+              "RES3": "1.8305"
+            }
+          },
+          "_DEGREES": {
+            "TITLE": "Function degrees()",
+            "DESCRIPTION": "A function that converts an angle value from radians to degrees.",
+            "SYNTAX": "degrees(radians)",
+            "ARGUMENTS": {
+              "A-KEY": "radians",
+              "A-DESCRIPTION": "the angle value in radians to convert to degrees. The value can be any real number."
+            },
+            "EXAMPLES": {
+              "EX1": "degrees(-1)",
+              "RES1": "57.2958",
+              "EX2": "degrees(2)",
+              "RES2": "114.5916",
+              "EX3": "degrees(pi())",
+              "RES3": "180"
+            }
+          },
+          "_EXP": {
+            "TITLE": "Function exp()",
+            "DESCRIPTION": "Returns the exponential function of a number.",
+            "SYNTAX": "exp(value)",
+            "ARGUMENTS": {
+              "A-KEY": "value",
+              "A-DESCRIPTION": "the number for which the exponential function is to be evaluated. The value can be any real number."
+            },
+            "EXAMPLES": {
+              "EX1": "exp(0)",
+              "RES1": "1",
+              "EX2": "exp(1)",
+              "RES2": "2.7183",
+              "EX3": "exp(-1)",
+              "RES3": "0.3679"
+            }
+          },
+          "_FLOOR": {
+            "TITLE": "Function floor()",
+            "DESCRIPTION": "A function that returns a value rounded down.",
+            "SYNTAX": "floor(value)",
+            "ARGUMENTS": {
+              "A-KEY": "value",
+              "A-DESCRIPTION": "the number whose value is to be rounded down."
+            },
+            "EXAMPLES": {
+              "EX1": "floor(3.7)",
+              "RES1": "3",
+              "EX2": "floor(-3.7)",
+              "RES2": "-4",
+              "EX3": "floor(0)",
+              "RES3": "0"
+            }
+          },
+          "_LN": {
+            "TITLE": "Function ln()",
+            "DESCRIPTION": "A function that returns the natural logarithm of a number.",
+            "SYNTAX": "ln(value)",
+            "ARGUMENTS": {
+              "A-KEY": "value",
+              "A-DESCRIPTION": "the number for which the natural logarithm is to be calculated. The value must be greater than zero."
+            },
+            "EXAMPLES": {
+              "EX1": "ln(1)",
+              "RES1": "0",
+              "EX2": "ln(2.7183)",
+              "RES2": "1",
+              "EX3": "ln(10)",
+              "RES3": "2.3026"
+            }
+          },
+          "_LOG": {
+            "TITLE": "Function log()",
+            "DESCRIPTION": "A function that returns the logarithm of a number with a given base.",
+            "SYNTAX": "log(base, value)",
+            "ARGUMENTS": {
+              "A-KEY": "base",
+              "A-DESCRIPTION": "base of the logarithm. The value must be greater than zero and cannot be zero.",
+              "B-KEY": "value",
+              "B-DESCRIPTION": "the number for which the logarithm is to be calculated. The value must be greater than zero."
+            },
+            "EXAMPLES": {
+              "EX1": "log(2, 32)",
+              "RES1": "5",
+              "EX2": "log(10, 100)",
+              "RES2": "2",
+              "EX3": "log(2, 1)",
+              "RES3": "0"
+            }
+          },
+          "_LOG10": {
+            "TITLE": "Function log10()",
+            "DESCRIPTION": "A function that returns the decimal logarithm of a number.",
+            "SYNTAX": "log10(value)",
+            "ARGUMENTS": {
+              "A-KEY": "value",
+              "A-DESCRIPTION": "the number for which the decimal logarithm is to be calculated. The value must be greater than zero."
+            },
+            "EXAMPLES": {
+              "EX1": "log10(1)",
+              "RES1": "0",
+              "EX2": "log10(100)",
+              "RES2": "2",
+              "EX3": "log10(5)",
+              "RES3": "0.6989"
+            }
+          },
+          "_MAX": {
+            "TITLE": "Function max()",
+            "DESCRIPTION": "A function that returns the largest value of all entered values.",
+            "SYNTAX": "max(value1, value2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "value",
+              "A-DESCRIPTION": "consecutive numbers from which the largest value is to be selected. You can provide any number of arguments."
+            },
+            "EXAMPLES": {
+              "EX1": "max(3, 7, 2)",
+              "RES1": "7",
+              "EX2": "max(-5, -2, -8)",
+              "RES2": "-2",
+              "EX3": "max(1.5, 2.3, 0.9)",
+              "RES3": "2.3"
+            }
+          },
+          "_MIN": {
+            "TITLE": "Function min()",
+            "DESCRIPTION": "A function that returns the smallest value of all entered values.",
+            "SYNTAX": "min(value1, value2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "value",
+              "A-DESCRIPTION": "consecutive numbers from which the smallest value is to be selected. You can provide any number of arguments."
+            },
+            "EXAMPLES": {
+              "EX1": "min(3, 7, 2)",
+              "RES1": "2",
+              "EX2": "min(-5, -2, -8)",
+              "RES2": "-8",
+              "EX3": "min(1.5, 2.3, 0.9)",
+              "RES3": "0.9"
+            }
+          },
+          "_PI": {
+            "TITLE": "Function pi()",
+            "DESCRIPTION": "A function that returns the value of the number pi. It doesn't accept any arguments.",
+            "SYNTAX": "pi()",
+            "ARGUMENTS": {},
+            "EXAMPLES": {
+              "EX1": "pi()",
+              "RES1": "3.1416...",
+              "EX2": "cos(pi())",
+              "RES2": "-1",
+              "EX3": "sin(pi())",
+              "RES3": "0"
+            }
+          },
+          "_POW": {
+            "TITLE": "Function pow()",
+            "DESCRIPTION": "A function that returns the result of raising the base to a given power.",
+            "SYNTAX": "pow(base, exponent)",
+            "ARGUMENTS": {
+              "A-KEY": "base",
+              "A-DESCRIPTION": "the number to be raised to a power. For a negative base, the exponent must be an integer.",
+              "B-KEY": "exponent",
+              "B-DESCRIPTION": "a number specifying the power to which the base is to be raised. For a base equal to zero, the exponent cannot be negative."
+            },
+            "EXAMPLES": {
+              "EX1": "pow(2, 3)",
+              "RES1": "8",
+              "EX2": "pow(9, 0.5)",
+              "RES2": "3",
+              "EX3": "pow(2, -2)",
+              "RES3": "0.25"
+            }
+          },
+          "_RADIANS": {
+            "TITLE": "Function radians()",
+            "DESCRIPTION": "A function that converts an angle value from degrees to radians.",
+            "SYNTAX": "radians(degrees)",
+            "ARGUMENTS": {
+              "A-KEY": "degrees",
+              "A-DESCRIPTION": "the angle value in degrees to convert to radians. The value can be any real number."
+            },
+            "EXAMPLES": {
+              "EX1": "radians(180)",
+              "RES1": "3.1416",
+              "EX2": "radians(90)",
+              "RES2": "1.5708",
+              "EX3": "radians(45)",
+              "RES3": "0.7854"
+            }
+          },
+          "_RAND": {
+            "TITLE": "Function rand()",
+            "DESCRIPTION": "Returns a random integer between the supplied minimum and maximum. An optional seed produces repeatable results.",
+            "SYNTAX": "rand(min, max, [seed])",
+            "ARGUMENTS": {
+              "A-KEY": "min",
+              "A-DESCRIPTION": "the minimum value of the interval from which a random value is to be generated. Must be an integer.",
+              "B-KEY": "max",
+              "B-DESCRIPTION": "the maximum value of the interval from which a random value is to be generated. Must be an integer.",
+              "C-KEY": "seed",
+              "C-DESCRIPTION": "an optional parameter that allows you to get repeatable results every time the function is called with the same seed. Disabled by default."
+            },
+            "EXAMPLES": {
+              "EX1": "rand(1, 10)",
+              "RES1": "5",
+              "EX2": "rand(1, 100)",
+              "RES2": "42",
+              "EX3": "rand(1, 10, 42)",
+              "RES3": "3"
+            }
+          },
+          "_RANDF": {
+            "TITLE": "Function randf()",
+            "DESCRIPTION": "Returns a random floating-point number between the supplied minimum and maximum. An optional seed produces repeatable results.",
+            "SYNTAX": "randf(min, max, [seed])",
+            "ARGUMENTS": {
+              "A-KEY": "min",
+              "A-DESCRIPTION": "the minimum value of the interval from which a random value is to be generated.",
+              "B-KEY": "max",
+              "B-DESCRIPTION": "the maximum value of the interval from which a random value is to be generated.",
+              "C-KEY": "seed",
+              "C-DESCRIPTION": "an optional parameter that allows you to get repeatable results every time the function is called with the same seed. Disabled by default."
+            },
+            "EXAMPLES": {
+              "EX1": "randf(1.0, 10.0)",
+              "RES1": "5.5",
+              "EX2": "randf(1.0, 100.0)",
+              "RES2": "42.3",
+              "EX3": "randf(1.0, 10.0, 42)",
+              "RES3": "3.7"
+            }
+          },
+          "_ROOT": {
+            "TITLE": "Function root()",
+            "DESCRIPTION": "Returns the root of the specified degree of a number.",
+            "SYNTAX": "root(value, degree)",
+            "ARGUMENTS": {
+              "A-KEY": "value",
+              "A-DESCRIPTION": "the number whose root is to be calculated.",
+              "B-KEY": "degree",
+              "B-DESCRIPTION": "the degree of the root. It can be any nonzero real number."
+            },
+            "EXAMPLES": {
+              "EX1": "root(27, 3)",
+              "RES1": "3",
+              "EX2": "root(16, 2)",
+              "RES2": "4",
+              "EX3": "root(16, -2)",
+              "RES3": "0.25"
+            }
+          },
+          "_ROUND": {
+            "TITLE": "Function round()",
+            "DESCRIPTION": "A function that rounds a number to a given number of decimal places. If the second argument is missing, the number will be rounded to the nearest integer.",
+            "SYNTAX": "round(value, [places])",
+            "ARGUMENTS": {
+              "A-KEY": "value",
+              "A-DESCRIPTION": "the number to be rounded.",
+              "B-KEY": "places",
+              "B-DESCRIPTION": "an optional parameter specifying the number of decimal places to round the number to. Default is 0."
+            },
+            "EXAMPLES": {
+              "EX1": "round(3.14159)",
+              "RES1": "3",
+              "EX2": "round(3.14159, 2)",
+              "RES2": "3.14",
+              "EX3": "round(3.14159, 4)",
+              "RES3": "3.1416"
+            }
+          },
+          "_SCALE_EXPONENTIAL": {
+            "TITLE": "Function scale_exponential()",
+            "DESCRIPTION": "A function that converts a value from the input range to the output range according to an exponential curve. Values below the input range return output_min, and values above the range return output_max.",
+            "SYNTAX": "scale_exponential(value, input_min, input_max, output_min, output_max, base)",
+            "ARGUMENTS": {
+              "A-KEY": "value",
+              "A-DESCRIPTION": "the number to be converted to the output range.",
+              "B-KEY": "input_min",
+              "B-DESCRIPTION": "lower limit of the input range. Must be less than input_max.",
+              "C-KEY": "input_max",
+              "C-DESCRIPTION": "upper limit of the input range. Must be greater than input_min.",
+              "D-KEY": "output_min",
+              "D-DESCRIPTION": "output value corresponding to input_min. It is also returned for values less than input_min.",
+              "E-KEY": "output_max",
+              "E-DESCRIPTION": "output value corresponding to input_max. It is also returned for values greater than input_max.",
+              "F-KEY": "base",
+              "F-DESCRIPTION": "power base that determines the shape of the exponential curve. Must be greater than zero. For the value 1, the function works like scale_linear()."
+            },
+            "EXAMPLES": {
+              "EX1": "scale_exponential(5, 0, 10, 0, 100, 2)",
+              "RES1": "3.0303",
+              "EX2": "scale_exponential(5, 0, 10, 0, 100, 1)",
+              "RES2": "50",
+              "EX3": "scale_exponential(15, 0, 10, 0, 100, 2)",
+              "RES3": "100"
+            }
+          },
+          "_SCALE_LINEAR": {
+            "TITLE": "Function scale_linear()",
+            "DESCRIPTION": "A function that converts a value from an input range to an output range linearly, maintaining the proportion of the value's position in the range. Values below the input range return output_min, and values above the range return output_max.",
+            "SYNTAX": "scale_linear(value, input_min, input_max, output_min, output_max)",
+            "ARGUMENTS": {
+              "A-KEY": "value",
+              "A-DESCRIPTION": "the number to be converted to the output range.",
+              "B-KEY": "input_min",
+              "B-DESCRIPTION": "lower limit of the input range. Must be less than input_max.",
+              "C-KEY": "input_max",
+              "C-DESCRIPTION": "upper limit of the input range. Must be greater than input_min.",
+              "D-KEY": "output_min",
+              "D-DESCRIPTION": "output value corresponding to input_min. It is also returned for values less than input_min.",
+              "E-KEY": "output_max",
+              "E-DESCRIPTION": "output value corresponding to input_max. It is also returned for values greater than input_max."
+            },
+            "EXAMPLES": {
+              "EX1": "scale_linear(5, 0, 10, 0, 100)",
+              "RES1": "50",
+              "EX2": "scale_linear(-5, 0, 10, 0, 100)",
+              "RES2": "0",
+              "EX3": "scale_linear(15, 0, 10, 0, 100)",
+              "RES3": "100"
+            }
+          },
+          "_SCALE_LOGARITHMIC": {
+            "TITLE": "Function scale_logarithmic()",
+            "DESCRIPTION": "A function that converts a value from the input range to the output range logarithmically, based on natural logarithms. Values below the input range return output_min, and values above the range return output_max.",
+            "SYNTAX": "scale_logarithmic(value, input_min, input_max, output_min, output_max)",
+            "ARGUMENTS": {
+              "A-KEY": "value",
+              "A-DESCRIPTION": "the number to be converted to the output range. Values less than or equal to input_min return output_min without taking the logarithm.",
+              "B-KEY": "input_min",
+              "B-DESCRIPTION": "lower limit of the input range. Must be greater than zero and less than input_max to calculate logarithms.",
+              "C-KEY": "input_max",
+              "C-DESCRIPTION": "upper limit of the input range. Must be greater than input_min and greater than zero.",
+              "D-KEY": "output_min",
+              "D-DESCRIPTION": "output value corresponding to input_min. It is also returned for values less than input_min.",
+              "E-KEY": "output_max",
+              "E-DESCRIPTION": "output value corresponding to input_max. It is also returned for values greater than input_max."
+            },
+            "EXAMPLES": {
+              "EX1": "scale_logarithmic(5, 1, 10, 0, 100)",
+              "RES1": "69.8970",
+              "EX2": "scale_logarithmic(10, 1, 100, 0, 100)",
+              "RES2": "50",
+              "EX3": "scale_logarithmic(0, 1, 10, 0, 100)",
+              "RES3": "0"
+            }
+          },
+          "_SCALE_POLYNOMIAL": {
+            "TITLE": "Function scale_polynomial()",
+            "DESCRIPTION": "A function that converts a value from an input range to an output range by raising its relative position in the range to a given power. Values below the input range return output_min, and values above the range return output_max.",
+            "SYNTAX": "scale_polynomial(value, input_min, input_max, output_min, output_max, exponent)",
+            "ARGUMENTS": {
+              "A-KEY": "value",
+              "A-DESCRIPTION": "the number to be converted to the output range.",
+              "B-KEY": "input_min",
+              "B-DESCRIPTION": "lower limit of the input range. Must be less than input_max.",
+              "C-KEY": "input_max",
+              "C-DESCRIPTION": "upper limit of the input range. Must be greater than input_min.",
+              "D-KEY": "output_min",
+              "D-DESCRIPTION": "output value corresponding to input_min. It is also returned for values less than input_min.",
+              "E-KEY": "output_max",
+              "E-DESCRIPTION": "output value corresponding to input_max. It is also returned for values greater than input_max.",
+              "F-KEY": "exponent",
+              "F-DESCRIPTION": "power exponent determining the shape of the curve. Must be greater than zero. For the value 1, the function works like scale_linear()."
+            },
+            "EXAMPLES": {
+              "EX1": "scale_polynomial(5, 0, 10, 0, 100, 2)",
+              "RES1": "25",
+              "EX2": "scale_polynomial(5, 0, 10, 0, 100, 1)",
+              "RES2": "50",
+              "EX3": "scale_polynomial(-5, 0, 10, 0, 100, 2)",
+              "RES3": "0"
+            }
+          },
+          "_SIN": {
+            "TITLE": "Function sin()",
+            "DESCRIPTION": "A function that returns a sine value.",
+            "SYNTAX": "sin(angle)",
+            "ARGUMENTS": {
+              "A-KEY": "angle",
+              "A-DESCRIPTION": "angle in radians."
+            },
+            "EXAMPLES": {
+              "EX1": "sin(0)",
+              "RES1": "0",
+              "EX2": "sin(pi()/2)",
+              "RES2": "1",
+              "EX3": "sin(pi())",
+              "RES3": "0"
+            }
+          },
+          "_SQRT": {
+            "TITLE": "Function sqrt()",
+            "DESCRIPTION": "A function that returns the square root of a number.",
+            "SYNTAX": "sqrt(value)",
+            "ARGUMENTS": {
+              "A-KEY": "value",
+              "A-DESCRIPTION": "the number for which the square root is to be calculated. The value must be greater than or equal to zero."
+            },
+            "EXAMPLES": {
+              "EX1": "sqrt(4)",
+              "RES1": "2",
+              "EX2": "sqrt(9)",
+              "RES2": "3",
+              "EX3": "sqrt(0)",
+              "RES3": "0"
+            }
+          },
+          "_TAN": {
+            "TITLE": "Function tan()",
+            "DESCRIPTION": "A function that returns the tangent value.",
+            "SYNTAX": "tan(angle)",
+            "ARGUMENTS": {
+              "A-KEY": "angle",
+              "A-DESCRIPTION": "angle in radians."
+            },
+            "EXAMPLES": {
+              "EX1": "tan(0)",
+              "RES1": "0",
+              "EX2": "tan(pi()/4)",
+              "RES2": "1",
+              "EX3": "tan(pi()/2)",
+              "RES3": "Error: tangent does not exist for angle pi()/2."
+            }
+          }
+        },
+        "MAPS-OPERATORS": {
+          "INFO": "Dictionary functions",
+          "TITLE": "Dictionary operations",
+          "_FROM_JSON": {
+            "TITLE": "Function from_json()",
+            "DESCRIPTION": "A function that transforms a string of characters in the JSON format into a normal data structure.",
+            "SYNTAX": "from_json(json_string)",
+            "ARGUMENTS": {
+              "A-KEY": "json_string",
+              "A-DESCRIPTION": "A string in the format JSON."
+            },
+            "EXAMPLES": {
+              "EX1": "from_json('{\"key\": \"value\"}')",
+              "RES1": "{key: value}",
+              "EX2": "from_json('[1, 2, 3]')",
+              "RES2": "[1, 2, 3]",
+              "EX3": "from_json('{\"numbers\": [1, 2, 3]}')",
+              "RES3": "{numbers: [1, 2, 3]}"
+            }
+          },
+          "_MAP": {
+            "TITLE": "Function map()",
+            "DESCRIPTION": "A function that creates a dictionary from successively provided key-value pairs. You can specify any number of pairs of arguments.",
+            "SYNTAX": "map(key1, value1, key2, value2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "key",
+              "A-DESCRIPTION": "subsequent keys to be used in the dictionary. Each key must be unique.",
+              "B-KEY": "value",
+              "B-DESCRIPTION": "subsequent values to be assigned to the corresponding keys."
+            },
+            "EXAMPLES": {
+              "EX1": "map('a', 1, 'b', 2)",
+              "RES1": "{a: 1, b: 2}",
+              "EX2": "map('x', 'hello', 'y', 'world')",
+              "RES2": "{x: hello, y: world}",
+              "EX3": "map('key1', true, 'key2', false)",
+              "RES3": "{key1: true, key2: false}"
+            }
+          },
+          "_MAP_AKEYS": {
+            "TITLE": "Function map_akeys()",
+            "DESCRIPTION": "A function that returns all keys from the given dictionary as keys in an array",
+            "SYNTAX": "map_akeys(map)",
+            "ARGUMENTS": {
+              "A-KEY": "map",
+              "A-DESCRIPTION": "dictionary from which all keys are to be retrieved."
+            },
+            "EXAMPLES": {
+              "EX1": "map_akeys(map('a', 1, 'b', 2))",
+              "RES1": "[a, b]",
+              "EX2": "map_akeys(map('x', 'hello', 'y', 'world'))",
+              "RES2": "[x, y]",
+              "EX3": "map_akeys({'key1', true, 'key2', false})",
+              "RES3": "[key1, key2]"
+            }
+          },
+          "_MAP_AVALS": {
+            "TITLE": "Function map_avals()",
+            "DESCRIPTION": "A function that returns all values in the given dictionary as values in an array",
+            "SYNTAX": "map_avals(map)",
+            "ARGUMENTS": {
+              "A-KEY": "map",
+              "A-DESCRIPTION": "dictionary from which all values are to be retrieved."
+            },
+            "EXAMPLES": {
+              "EX1": "map_avals(map('a', 1, 'b', 2))",
+              "RES1": "[1, 2]",
+              "EX2": "map_avals(map('x', 'hello', 'y', 'world'))",
+              "RES2": "['hello', 'world']",
+              "EX3": "map_avals({'key1', true, 'key2', false})",
+              "RES3": "[true, false]"
+            }
+          },
+          "_MAP_CONCAT": {
+            "TITLE": "map_concat()",
+            "DESCRIPTION": "A function that combines two or more dictionaries of values into one. If the same keys appear in the dictionaries, the values from the last dictionary overwrite the previous ones.",
+            "SYNTAX": "map_concat(map1, map2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "map",
+              "A-DESCRIPTION": "subsequent dictionaries of values to be combined into one dictionary."
+            },
+            "EXAMPLES": {
+              "EX1": "map_concat(map('a', 1, 'b', 2), map('c', 3, 'd', 4))",
+              "RES1": "{a: 1, b: 2, c: 3, d: 4}",
+              "EX2": "map_concat(map('a', 1, 'b', 2), map('b', 3, 'c', 4))",
+              "RES2": "{a: 1, b: 3, c: 4}",
+              "EX3": "map_concat(map('x', 'hello'), map('y', 'world'), map('y', '!'))",
+              "RES3": "{x: 'hello', y: '!'}"
+            }
+          },
+          "_MAP_DELETE": {
+            "TITLE": "Function map_delete()",
+            "DESCRIPTION": "A function that returns a dictionary of values with the given key removed. If the key does not exist in the dictionary, the original dictionary is returned.",
+            "SYNTAX": "map_delete(map, key)",
+            "ARGUMENTS": {
+              "A-KEY": "map",
+              "A-DESCRIPTION": "dictionary from which the key is to be removed.",
+              "B-KEY": "key",
+              "B-DESCRIPTION": "the key to be removed from the dictionary."
+            },
+            "EXAMPLES": {
+              "EX1": "map_delete(map('a', 1, 'b', 2), 'a')",
+              "RES1": "{b: 2}",
+              "EX2": "map_delete(map('x', 'hello', 'y', 'world'), 'y')",
+              "RES2": "{x: 'hello'}",
+              "EX3": "map_delete({'key1', true, 'key2', false}, 'key3')",
+              "RES3": "{key1: true, key2: false}"
+            }
+          },
+          "_MAP_EXIST": {
+            "TITLE": "Function map_exist()",
+            "DESCRIPTION": "Returns True if the specified key exists in the map; otherwise returns False.",
+            "SYNTAX": "map_exist(map, key)",
+            "ARGUMENTS": {
+              "A-KEY": "map",
+              "A-DESCRIPTION": "dictionary in which the key is to be checked.",
+              "B-KEY": "key",
+              "B-DESCRIPTION": "the key to be checked."
+            },
+            "EXAMPLES": {
+              "EX1": "map_exist(map('a', 1, 'b', 2), 'a')",
+              "RES1": "True",
+              "EX2": "map_exist(map('x', 'hello', 'y', 'world'), 'z')",
+              "RES2": "False",
+              "EX3": "map_exist({'key1', true, 'key2', false}, 'key2')",
+              "RES3": "True"
+            }
+          },
+          "_MAP_GET": {
+            "TITLE": "Function map_get()",
+            "DESCRIPTION": "A function that returns a dictionary value for the given key. The key must exist in the dictionary, otherwise an error will be returned.",
+            "SYNTAX": "map_get(map, key)",
+            "ARGUMENTS": {
+              "A-KEY": "map",
+              "A-DESCRIPTION": "dictionary from which the value is to be retrieved.",
+              "B-KEY": "key",
+              "B-DESCRIPTION": "the key for which to retrieve the value."
+            },
+            "EXAMPLES": {
+              "EX1": "map_get(map('a', 1, 'b', 2), 'a')",
+              "RES1": "1",
+              "EX2": "map_get(map('x', 'hello', 'y', 'world'), 'y')",
+              "RES2": "'world'",
+              "EX3": "map_get({'key1': true, 'key2': false}, 'key2')",
+              "RES3": "false"
+            }
+          },
+          "_MAP_INSERT": {
+            "TITLE": "Function map_insert()",
+            "DESCRIPTION": "A function that returns a dictionary of values with the given key-value pair appended. If the key already exists in the dictionary, its value will be overwritten.",
+            "SYNTAX": "map_insert(map, key, value)",
+            "ARGUMENTS": {
+              "A-KEY": "map",
+              "A-DESCRIPTION": "dictionary to which the key-value pair is to be added.",
+              "B-KEY": "key",
+              "B-DESCRIPTION": "the key to add to the dictionary.",
+              "C-KEY": "value",
+              "C-DESCRIPTION": "value to assign to the provided key."
+            },
+            "EXAMPLES": {
+              "EX1": "map_insert(map('a', 1, 'b', 2), 'c', 3)",
+              "RES1": "{a: 1, b: 2, c: 3}",
+              "EX2": "map_insert(map('x', 'hello', 'y', 'world'), 'y', '!')",
+              "RES2": "{x: 'hello', y: '!'}",
+              "EX3": "map_insert({'key1': true, 'key2': false}, 'key3', null)",
+              "RES3": "{key1: true, key2: false, key3: null}"
+            }
+          },
+          "_MAP_PREFIX_KEYS": {
+            "TITLE": "Function map_prefix_keys()",
+            "DESCRIPTION": "A function that returns a dictionary with all keys prefixed with the given prefix.",
+            "SYNTAX": "map_prefix_keys(map, prefix)",
+            "ARGUMENTS": {
+              "A-KEY": "map",
+              "A-DESCRIPTION": "dictionary whose keys are to be prefixed.",
+              "B-KEY": "prefix",
+              "B-DESCRIPTION": "prefix to add to all keys in the dictionary."
+            },
+            "EXAMPLES": {
+              "EX1": "map_prefix_keys(map('a', 1, 'b', 2), 'prefix_')",
+              "RES1": "{prefix_a: 1, prefix_b: 2}",
+              "EX2": "map_prefix_keys(map('x', 'hello', 'y', 'world'), 'pre_')",
+              "RES2": "{pre_x: 'hello', pre_y: 'world'}",
+              "EX3": "map_prefix_keys({'key1': true, 'key2': false}, 'my_')",
+              "RES3": "{my_key1: true, my_key2: false}"
+            }
+          },
+          "_MAP_TO_HTML_DL": {
+            "TITLE": "Function map_to_html_dl()",
+            "DESCRIPTION": "A function that returns a string representing a list of HTML definitions based on the provided dictionary.",
+            "SYNTAX": "map_to_html_dl(map)",
+            "ARGUMENTS": {
+              "A-KEY": "map",
+              "A-DESCRIPTION": "dictionary from which to create the definition list HTML."
+            },
+            "EXAMPLES": {
+              "EX1": "map_to_html_dl(map('a', 1, 'b', 2))",
+              "RES1": "<dl><dt>a</dt><dd>1</dd><dt>b</dt><dd>2</dd></dl>",
+              "EX2": "map_to_html_dl(map('x', 'hello', 'y', 'world'))",
+              "RES2": "<dl><dt>x</dt><dd>hello</dd><dt>y</dt><dd>world</dd></dl>",
+              "EX3": "map_to_html_dl({'key1': true, 'key2': false})",
+              "RES3": "<dl><dt>key1</dt><dd>true</dd><dt>key2</dt><dd>false</dd></dl>"
+            }
+          },
+          "_MAP_TO_HTML_TABLE": {
+            "TITLE": "Function map_to_html_table()",
+            "DESCRIPTION": "A function that returns a string representing the HTML table based on the provided dictionary.",
+            "SYNTAX": "map_to_html_table(map)",
+            "ARGUMENTS": {
+              "A-KEY": "map",
+              "A-DESCRIPTION": "dictionary from which the HTML table is to be created."
+            },
+            "EXAMPLES": {
+              "EX1": "map_to_html_table(map('a', 1, 'b', 2))",
+              "RES1": "<table><tr><th>a</th><td>1</td></tr><tr><th>b</th><td>2</td></tr></table>",
+              "EX2": "map_to_html_table(map('x', 'hello', 'y', 'world'))",
+              "RES2": "<table><tr><th>x</th><td>hello</td></tr><tr><th>y</th><td>world</td></tr></table>",
+              "EX3": "map_to_html_table({'key1': true, 'key2': false})",
+              "RES3": "<table><tr><th>key1</th><td>true</td></tr><tr><th>key2</th><td>false</td></tr></table>"
+            }
+          },
+          "_TO_JSON": {
+            "TITLE": "Function to_json()",
+            "DESCRIPTION": "A function that returns a string representing data in the JSON format, based on a given dictionary of values, array, or other value.",
+            "SYNTAX": "to_json(data)",
+            "ARGUMENTS": {
+              "A-KEY": "data",
+              "A-DESCRIPTION": "a value dictionary, array, or other value to be converted to format JSON."
+            },
+            "EXAMPLES": {
+              "EX1": "to_json(map('a', 1, 'b', 2))",
+              "RES1": "{\"a\": 1, \"b\": 2}",
+              "EX2": "to_json([1, 2, 3])",
+              "RES2": "[1, 2, 3]",
+              "EX3": "to_json({'key1': true, 'key2': false})",
+              "RES3": "{\"key1\": true, \"key2\": false}"
+            }
+          },
+          "_URL_ENCODE": {
+            "TITLE": "Function url_encode()",
+            "DESCRIPTION": "A function that returns a string of characters encoded with special characters in the format URL.",
+            "SYNTAX": "url_encode(string)",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "a string of characters to be encoded in the format URL."
+            },
+            "EXAMPLES": {
+              "EX1": "url_encode('Hello World!')",
+              "RES1": "Hello%20World%21",
+              "EX2": "url_encode('a+b=c&d=e')",
+              "RES2": "a%2Bb%3Dc%26d%3De",
+              "EX3": "url_encode('https://example.com/?q=search')",
+              "RES3": "https%3A%2F%2Fexample.com%2F%3Fq%3Dsearch"
+            }
+          }
+        },
+        "STRING-OPERATORS": {
+          "INFO": "Text functions",
+          "TITLE": "String operations",
+          "_ASCII": {
+            "TITLE": "Function ascii()",
+            "DESCRIPTION": "Returns the ASCII value of the first character in the supplied string.",
+            "SYNTAX": "ascii(string)",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "the string whose first character’s ASCII value is to be returned."
+            },
+            "EXAMPLES": {
+              "EX1": "ascii('A')",
+              "RES1": "65",
+              "EX2": "ascii('Hello')",
+              "RES2": "72",
+              "EX3": "ascii('!')",
+              "RES3": "33"
+            }
+          },
+          "_CHAR": {
+            "TITLE": "Function char()",
+            "DESCRIPTION": "Returns the character corresponding to the supplied ASCII code.",
+            "SYNTAX": "char(code)",
+            "ARGUMENTS": {
+              "A-KEY": "code",
+              "A-DESCRIPTION": "the ASCII code for which the corresponding character is to be returned."
+            },
+            "EXAMPLES": {
+              "EX1": "char(65)",
+              "RES1": "A",
+              "EX2": "char(81)",
+              "RES2": "Q",
+              "EX3": "char(33)",
+              "RES3": "!"
+            }
+          },
+          "_CONCAT": {
+            "TITLE": "Function concat()",
+            "DESCRIPTION": "A function that combines several strings into one.",
+            "SYNTAX": "concat(string1, string2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "consecutive strings of characters to be combined into one. You can provide any number of arguments."
+            },
+            "EXAMPLES": {
+              "EX1": "concat('Hello', ' ', 'World')",
+              "RES1": "Hello World",
+              "EX2": "concat('A', 'B', 'C')",
+              "RES2": "ABC",
+              "EX3": "concat('foo  ', '  bar')",
+              "RES3": "foo    bar"
+            }
+          },
+          "_FORMAT": {
+            "TITLE": "Function format()",
+            "DESCRIPTION": "A function that formats a string of characters by replacing the tags %1, %2, %3, etc. with subsequent arguments. The numbering starts with 1. Tags without a corresponding argument remain unchanged.",
+            "SYNTAX": "format(string, argument1, argument2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "a string of characters containing places for arguments, marked as %1, %2, %3, etc. The same tag may appear multiple times. The string cannot contain a comma followed by a space because it is used to separate arguments.",
+              "B-KEY": "argument",
+              "B-DESCRIPTION": "subsequent values to be inserted in places marked with tags: the first argument replaces %1, the second replaces %2, etc. At least one value must be provided. Values cannot be empty text or contain a comma followed by a space."
+            },
+            "EXAMPLES": {
+              "EX1": "format('Witaj %1! Czas to %2.', 'Jan', '10:00')",
+              "RES1": "Witaj Jan! Czas to 10:00.",
+              "EX2": "format('Liczba: %1; Tekst: %2', 42, 'Hello')",
+              "RES2": "Liczba: 42; Tekst: Hello",
+              "EX3": "format('Dzień: %1; Miesiąc: %2; Rok: %3', 25, 12, 2024)",
+              "RES3": "Dzień: 25; Miesiąc: 12; Rok: 2024"
+            }
+          },
+          "_FORMAT_DATE": {
+            "TITLE": "Function format_date()",
+            "DESCRIPTION": "Formats a date value or string as a string in the specified format.",
+            "SYNTAX": "format_date(date, format)",
+            "ARGUMENTS": {
+              "A-KEY": "date",
+              "A-DESCRIPTION": "a date or string value in the format YYYY-MM-DD, e.g. 2026-02-05. The date must be correct and the month and day must be written in two digits.",
+              "B-KEY": "format",
+              "B-DESCRIPTION": "a string specifying the output format. It must contain exactly three components: day (d, dd, ddd or dddd), month (M, MM, MMM or MMMM), and year (yy or yyyy), in any order, separated by dots, e.g. dd.MM.yyyy. For the name of the month (MMM or MMMM), the result is separated by spaces, otherwise by dots.",
+              "TYPES": {
+                "d": "day of the month as a number without a leading zero (1-31), e.g. 5",
+                "dd": "day of the month as a two-digit number (01-31), e.g. 05",
+                "ddd": "abbreviated English name of the day of the week (Mon, Tue, Wed, Thu, Fri, Sat, Sun)",
+                "dddd": "full English name of the day of the week (Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday)",
+                "M": "month as a number without a leading zero (1-12), e.g. 2",
+                "MM": "month as a two-digit number (01-12), e.g. 02",
+                "MMM": "abbreviated English name of the month (Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec)",
+                "MMMM": "full English name of the month (January, February, March, April, May, June, July, August, September, October, November, December)",
+                "yy": "the last two digits of the year (00-99), e.g. 26 for the year 2026",
+                "yyyy": "year as a four-digit number, e.g. 2026"
+              }
+            },
+            "EXAMPLES": {
+              "EX1": "format_date('2026-02-05', 'dd.MM.yyyy')",
+              "RES1": "05.02.2026",
+              "EX2": "format_date('2026-02-05', 'dd.MMMM.yyyy')",
+              "RES2": "05 February 2026",
+              "EX3": "format_date('2026-02-05', 'ddd.MM.yy')",
+              "RES3": "Thu.02.26"
+            }
+          },
+          "_FORMAT_TIME": {
+            "TITLE": "Function format_time()",
+            "DESCRIPTION": "A function that formats the time according to the given format. It supports the 12-hour notation with the automatically added designation AM or PM and the 24-hour notation.",
+            "SYNTAX": "format_time(time, format)",
+            "ARGUMENTS": {
+              "A-KEY": "time",
+              "A-DESCRIPTION": "a string containing an hour, minute and second separated by colons, e.g. 13:05:09. Each component may have one or two digits. The hour must be in the range 0-23, and minutes and seconds in the range 0-59. All three components are required even when the output format contains only two.",
+              "B-KEY": "format",
+              "B-DESCRIPTION": "a string specifying the output format. Must contain two or three different time components: hour (h, hh, H, or HH), minute (m or mm), and second (s or ss), in any order, separated by colons. Using h or hh automatically adds a space and the designation AM or PM to the end of the result.",
+              "TYPES": {
+                "h": "hour in 12-hour notation without a leading zero (1-12), e.g. 1 for 13:00; adds AM or PM",
+                "hh": "hour in 12-hour notation with a leading zero (01-12), e.g. 01 for 13:00; adds AM or PM",
+                "H": "hour in 24-hour notation without a leading zero (0-23), e.g. 5",
+                "HH": "hour in 24-hour notation with a leading zero (00-23), e.g. 05",
+                "m": "minute without leading zero (0-59), e.g. 5",
+                "mm": "minute with leading zero (00-59), e.g. 05",
+                "s": "second without leading zero (0-59), e.g. 9",
+                "ss": "second with leading zero (00-59), e.g. 09"
+              }
+            },
+            "EXAMPLES": {
+              "EX1": "format_time('13:05:09', 'HH:mm:ss')",
+              "RES1": "13:05:09",
+              "EX2": "format_time('13:05:09', 'hh:mm:ss')",
+              "RES2": "01:05:09 PM",
+              "EX3": "format_time('00:00:00', 'h:mm')",
+              "RES3": "12:00 AM"
+            }
+          },
+          "_LEFT": {
+            "TITLE": "Function left()",
+            "DESCRIPTION": "A function that returns a specified number of characters from the beginning of the given string.",
+            "SYNTAX": "left(string, character_count)",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "the string from which to retrieve the characters from the beginning.",
+              "B-KEY": "character_count",
+              "B-DESCRIPTION": "the number of characters to retrieve from the beginning of the string. Must be a non-negative integer."
+            },
+            "EXAMPLES": {
+              "EX1": "left('Hello World', 5)",
+              "RES1": "Hello",
+              "EX2": "left('abcdef', 3)",
+              "RES2": "abc",
+              "EX3": "left('12345', 0)",
+              "RES3": ""
+            }
+          },
+          "_LENGTH": {
+            "TITLE": "Function length()",
+            "DESCRIPTION": "A function that returns the number of characters from a given string.",
+            "SYNTAX": "length(string)",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "a string whose length is to be calculated."
+            },
+            "EXAMPLES": {
+              "EX1": "length('Hello')",
+              "RES1": "5",
+              "EX2": "length('')",
+              "RES2": "0",
+              "EX3": "length('123456789')",
+              "RES3": "9"
+            }
+          },
+          "_LOWER": {
+            "TITLE": "Function lower()",
+            "DESCRIPTION": "A function that returns a string of characters in lowercase format.",
+            "SYNTAX": "lower(string)",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "the string of characters to be converted to lowercase."
+            },
+            "EXAMPLES": {
+              "EX1": "lower('HELLO')",
+              "RES1": "hello",
+              "EX2": "lower('World')",
+              "RES2": "world",
+              "EX3": "lower('123')",
+              "RES3": "123"
+            }
+          },
+          "_LPAD": {
+            "TITLE": "Function lpad()",
+            "DESCRIPTION": "A function that returns a string of characters padded to a specified string width with the specified characters. If the input string is longer than the specified width, it will be truncated from the left.",
+            "SYNTAX": "lpad(string, width, character)",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "the string to be padded.",
+              "B-KEY": "width",
+              "B-DESCRIPTION": "specified string width.",
+              "C-KEY": "character",
+              "C-DESCRIPTION": "the character used to pad the string."
+            },
+            "EXAMPLES": {
+              "EX1": "lpad('Hello', 10, ' ')",
+              "RES1": "     Hello",
+              "EX2": "lpad('World', 10, '0')",
+              "RES2": "00000World",
+              "EX3": "lpad('123', 5, '0')",
+              "RES3": "00123"
+            }
+          },
+          "_LTRIM": {
+            "TITLE": "Function ltrim()",
+            "DESCRIPTION": "Returns a string with leading whitespace removed. An optional character argument specifies which characters to remove from the left side of the string.",
+            "SYNTAX": "ltrim(string, [characters])",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "the string to be truncated.",
+              "B-KEY": "characters",
+              "B-DESCRIPTION": "characters to be removed from the left side of the string."
+            },
+            "EXAMPLES": {
+              "EX1": "ltrim('  Hello  ')",
+              "RES1": "Hello  ",
+              "EX2": "ltrim('yyzzzxxxxxxWorld  ', 'xyz')",
+              "RES2": "World  ",
+              "EX3": "ltrim('---Hello---', '-')",
+              "RES3": "Hello---"
+            }
+          },
+          "_REGEXP_MATCH": {
+            "TITLE": "Function regexp_match()",
+            "DESCRIPTION": "A function that returns the first match position of the given expression in the given string. If no match is found, returns 0.",
+            "SYNTAX": "regexp_match(string, expression)",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "the string in which to search for a match.",
+              "B-KEY": "expression",
+              "B-DESCRIPTION": "the expression to search for in the string. RegEx expressions are supported."
+            },
+            "EXAMPLES": {
+              "EX1": "regexp_match('Hello World', 'World')",
+              "RES1": "7",
+              "EX2": "regexp_match('Hello World', 'xyz')",
+              "RES2": "0",
+              "EX3": "regexp_match('abc123', '\\d+')",
+              "RES3": "4"
+            }
+          },
+          "_REGEXP_REPLACE": {
+            "TITLE": "Function regexp_replace()",
+            "DESCRIPTION": "A function that returns a string with replaced parts that match the given expression.",
+            "SYNTAX": "regexp_replace(string, expression, replacement)",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "the string of characters in which to replace.",
+              "B-KEY": "expression",
+              "B-DESCRIPTION": "the expression to search for in the string. RegEx expressions are supported.",
+              "C-KEY": "replacement",
+              "C-DESCRIPTION": "a string of characters to replace matching fragments."
+            },
+            "EXAMPLES": {
+              "EX1": "regexp_replace('Hello World', 'World', 'Universe')",
+              "RES1": "Hello Universe",
+              "EX2": "regexp_replace('abc123', '\\d+', 'X')",
+              "RES2": "abcXXX",
+              "EX3": "regexp_replace('foo bar baz', 'ba.', 'qux')",
+              "RES3": "foo qux qux"
+            }
+          },
+          "_REGEXP_SUBSTR": {
+            "TITLE": "Function regexp_substr()",
+            "DESCRIPTION": "A function that returns the part of a string that matches the given expression. If there are multiple matches, it returns the first one. If there is no match, it returns an empty string.",
+            "SYNTAX": "regexp_substr(string, expression)",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "the string from which to return the part.",
+              "B-KEY": "expression",
+              "B-DESCRIPTION": "the expression used to select part of the string. RegEx expressions preceded by a backslash (\\), as shown in the example, are supported."
+            },
+            "EXAMPLES": {
+              "EX1": "regexp_substr('Hello World', 'World')",
+              "RES1": "World",
+              "EX2": "regexp_substr('abc123', '\\d+')",
+              "RES2": "123",
+              "EX3": "regexp_substr('foo bar baz', 'ba.')",
+              "RES3": "bar"
+            }
+          },
+          "_REPLACE": {
+            "TITLE": "Function replace()",
+            "DESCRIPTION": "A function that returns a new string of characters with parts of the given string replaced.",
+            "SYNTAX": "replace(string, characters_to_replace, replacement)",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "the string of characters in which to replace.",
+              "B-KEY": "characters_to_replace",
+              "B-DESCRIPTION": "the string to be replaced.",
+              "C-KEY": "replacement",
+              "C-DESCRIPTION": "a string of characters to replace the given characters."
+            },
+            "EXAMPLES": {
+              "EX1": "replace('Hello World', 'World', 'Universe')",
+              "RES1": "Hello Universe",
+              "EX2": "replace('abc123', '123', 'XYZ')",
+              "RES2": "abcXYZ",
+              "EX3": "replace('foo bar baz', 'ba', 'qu')",
+              "RES3": "foo qur quz"
+            }
+          },
+          "_RIGHT": {
+            "TITLE": "Function right()",
+            "DESCRIPTION": "A function that returns a specified number of characters from the end of the given string.",
+            "SYNTAX": "right(string, character_count)",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "the string from which to return the part.",
+              "B-KEY": "character_count",
+              "B-DESCRIPTION": "The number of characters to return from the end of the string."
+            },
+            "EXAMPLES": {
+              "EX1": "right('Hello World', 5)",
+              "RES1": "World",
+              "EX2": "right('abcdef', 3)",
+              "RES2": "def",
+              "EX3": "right('123456789', 2)",
+              "RES3": "89"
+            }
+          },
+          "_RPAD": {
+            "TITLE": "Function rpad()",
+            "DESCRIPTION": "A function that returns a string of characters padded to a specified string width with the specified characters. If the input string is longer than the specified width, it will be truncated from the right.",
+            "SYNTAX": "rpad(string, width, character)",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "the string to be padded.",
+              "B-KEY": "width",
+              "B-DESCRIPTION": "the specified width to which the string is to be padded.",
+              "C-KEY": "character",
+              "C-DESCRIPTION": "the character used to pad the string."
+            },
+            "EXAMPLES": {
+              "EX1": "rpad('Hello', 10, ' ')",
+              "RES1": "Hello     ",
+              "EX2": "rpad('World', 10, '0')",
+              "RES2": "World00000",
+              "EX3": "rpad('123', 5, '0')",
+              "RES3": "12300"
+            }
+          },
+          "_RTRIM": {
+            "TITLE": "Function rtrim()",
+            "DESCRIPTION": "Returns a string with trailing whitespace removed. An optional character argument specifies which characters to remove from the right side of the string.",
+            "SYNTAX": "rtrim(string, [characters])",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "the string to be truncated.",
+              "B-KEY": "characters",
+              "B-DESCRIPTION": "an optional argument that specifies the characters to truncate from the right side of the string."
+            },
+            "EXAMPLES": {
+              "EX1": "rtrim('Hello World ')",
+              "RES1": "Hello World",
+              "EX2": "rtrim('12345', '5')",
+              "RES2": "1234",
+              "EX3": "rtrim('abcxyz', 'xyz')",
+              "RES3": "abc"
+            }
+          },
+          "_STRPOS": {
+            "TITLE": "Function strpos()",
+            "DESCRIPTION": "A function that returns the first position of the searched expression in the given string of characters. If no match is found, returns 0.",
+            "SYNTAX": "strpos(string, search)",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "the string of characters in which to search for the expression.",
+              "B-KEY": "search",
+              "B-DESCRIPTION": "the expression to search for in the string."
+            },
+            "EXAMPLES": {
+              "EX1": "strpos('Hello World', 'World')",
+              "RES1": "7",
+              "EX2": "strpos('Hello World', 'xyz')",
+              "RES2": "0",
+              "EX3": "strpos('a123b123c123', '123')",
+              "RES3": "1"
+            }
+          },
+          "_SUBSTR": {
+            "TITLE": "Function substr()",
+            "DESCRIPTION": "A function that returns a trimmed string of characters from the given string, starting at a specified position and optionally of a specified length.",
+            "SYNTAX": "substr(string, position, [length])",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "the string from which to retrieve the substring.",
+              "B-KEY": "position",
+              "B-DESCRIPTION": "the position from which the substring is to start.",
+              "C-KEY": "length",
+              "C-DESCRIPTION": "an optional argument that specifies the length of the substring. Requires an integer. If a negative number is specified, the end of the substring will be truncated this number of characters from the end of the string."
+            },
+            "EXAMPLES": {
+              "EX1": "substr('Hello World', 6)",
+              "RES1": "World",
+              "EX2": "substr('Hello World', 2, 5)",
+              "RES2": "llo",
+              "EX3": "substr('abcdef', 2, -2)",
+              "RES3": "bcd"
+            }
+          },
+          "_TITLE": {
+            "TITLE": "Function title()",
+            "DESCRIPTION": "A function that converts the first character of each word in a given string to uppercase and the remaining characters to lowercase.",
+            "SYNTAX": "title(string)",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "the string to be processed."
+            },
+            "EXAMPLES": {
+              "EX1": "title('hello world')",
+              "RES1": "Hello World",
+              "EX2": "title('javaScript is fun')",
+              "RES2": "Javascript Is Fun",
+              "EX3": "title('123abc DEF')",
+              "RES3": "123abc Def"
+            }
+          },
+          "_TO_STRING": {
+            "TITLE": "Function to_string()",
+            "DESCRIPTION": "A function that converts a given number to a string of characters.",
+            "SYNTAX": "to_string(number)",
+            "ARGUMENTS": {
+              "A-KEY": "number",
+              "A-DESCRIPTION": "the number to convert to a string."
+            },
+            "EXAMPLES": {
+              "EX1": "to_string(123)",
+              "RES1": "123",
+              "EX2": "to_string(45.67)",
+              "RES2": "45.67",
+              "EX3": "to_string(-89)",
+              "RES3": "-89"
+            }
+          },
+          "_TRIM": {
+            "TITLE": "Function trim()",
+            "DESCRIPTION": "A function that removes whitespace from the beginning and end of a given string.",
+            "SYNTAX": "trim(string)",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "the string from which to remove whitespace."
+            },
+            "EXAMPLES": {
+              "EX1": "trim('  Hello World  ')",
+              "RES1": "Hello World",
+              "EX2": "trim('   abc   ')",
+              "RES2": "abc",
+              "EX3": "trim('   123   ')",
+              "RES3": "123"
+            }
+          },
+          "_UPPER": {
+            "TITLE": "Function upper()",
+            "DESCRIPTION": "A function that returns a string of characters in uppercase format.",
+            "SYNTAX": "upper(string)",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "the string to be converted to uppercase."
+            },
+            "EXAMPLES": {
+              "EX1": "upper('hello world')",
+              "RES1": "HELLO WORLD",
+              "EX2": "upper('JavaScript')",
+              "RES2": "JAVASCRIPT",
+              "EX3": "upper('123abc')",
+              "RES3": "123ABC"
+            }
+          },
+          "_WORDWRAP": {
+            "TITLE": "Function wordwrap()",
+            "DESCRIPTION": "A function that returns a string wrapped to a specified width.",
+            "SYNTAX": "wordwrap(string, width)",
+            "ARGUMENTS": {
+              "A-KEY": "string",
+              "A-DESCRIPTION": "the string to wrap.",
+              "B-KEY": "width",
+              "B-DESCRIPTION": "the specified width to which the string is to wrap. Must be an integer greater than 0."
+            },
+            "EXAMPLES": {
+              "EX1": "wordwrap('To jest długi ciąg znaków, który ma zostać zawinięty.', 10)",
+              "RES1": "To jest\n długi ciąg\n znaków, który\n ma zostać\n zawinięty.",
+              "EX2": "wordwrap('Hello World', 5)",
+              "RES2": "Hello\nWorld",
+              "EX3": "wordwrap('1234567890', 3)",
+              "RES3": "123\n456\n789\n0"
+            }
+          }
+        }
+      },
       "ERRORS": {
         "UNMATCHED_PARENTHESIS": "Unmatched parentheses in expression: {{expression}}.",
         "UNKNOWN_FUNCTION": "Unknown function: {{function}}.",

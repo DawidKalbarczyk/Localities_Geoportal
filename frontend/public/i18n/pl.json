@@ -124,23 +124,425 @@
       },
       "TOOLTIPS": {
         "TITLE": "Podpowiedź",
+        "SYNTAX": "Składnia",
+        "ARGUMENTS": "Argumenty",
+        "EXAMPLES": "Przykłady",
         "FIELDS-AND-VALUES": {
           "INFO": "Pola i wartości atrybutów",
-          "TITLE": "Pola i wartości"
+          "TITLE": "Pola i wartości",
+          "DESC": {
+            "DESCRIPTION": "Kliknij, aby dodać całe pole do wyrażenia. Po stworzeniu pełnego wyrażenia, kliknij przycisk 'Oblicz', aby obliczyć wartości dla wybranego pola z użyciem wyrażenia."
+          }
         },
         "DATE-AND-TIME": {
           "INFO": "Funkcje daty i czasu",
-          "TITLE": "Data i czas"
+          "TITLE": "Data i czas",
+          "_AGE": {
+            "TITLE": "Funkcja age()",
+            "DESCRIPTION": "Funkcja obliczająca różnicę między późniejszą i wcześniejszą datą. Zwraca przedział czasu typu timedelta, który można przekazać np. do funkcji day(), hour() lub second(). Jeśli pierwsza data jest wcześniejsza od drugiej, zgłasza błąd.",
+            "SYNTAX": "age(data_końcowa, data_początkowa)",
+            "ARGUMENTS": {
+              "A-KEY": "data_końcowa",
+              "A-DESCRIPTION": "późniejsza data w formacie YYYY-MM-DD lub YYYY-MM-DD HH:MM:SS, opcjonalnie z ułamkiem sekundy od jednej do sześciu cyfr. Brak czasu oznacza północ.",
+              "B-KEY": "data_początkowa",
+              "B-DESCRIPTION": "wcześniejsza data w takim samym formacie jak data końcowa. Może być równa dacie końcowej; wówczas różnica wynosi zero."
+            },
+            "EXAMPLES": {
+              "EX1": "age('2026-10-30 13:00:00', '2026-10-29 10:00:00')",
+              "RES1": "1 day, 3:00:00",
+              "EX2": "age('2026-10-30', '2026-10-29')",
+              "RES2": "1 day, 0:00:00",
+              "EX3": "age('2026-10-30', '2026-10-30')",
+              "RES3": "0:00:00"
+            }
+          },
+          "_DATETIME_FROM_EPOCH": {
+            "TITLE": "Funkcja datetime_from_epoch()",
+            "DESCRIPTION": "Funkcja zamieniająca liczbę sekund od początku epoki Unix (1970-01-01 00:00:00 UTC) na ciąg znaków w formacie YYYY-MM-DD HH:MM:SS. Wynik jest podawany w lokalnej strefie czasowej serwera i nie zawiera oznaczenia strefy.",
+            "SYNTAX": "datetime_from_epoch(sekundy)",
+            "ARGUMENTS": {
+              "A-KEY": "sekundy",
+              "A-DESCRIPTION": "nieujemna liczba całkowita sekund od początku epoki Unix, np. 1700000000. Wartość musi mieścić się w zakresie dat obsługiwanym przez serwer."
+            },
+            "EXAMPLES": {
+              "EX1": "datetime_from_epoch(0)",
+              "RES1": "1970-01-01 00:00:00 (dla serwera w strefie UTC)",
+              "EX2": "datetime_from_epoch(1700000000)",
+              "RES2": "2023-11-14 22:13:20 (dla serwera w strefie UTC)",
+              "EX3": "datetime_from_epoch(86400)",
+              "RES3": "1970-01-02 00:00:00 (dla serwera w strefie UTC)"
+            }
+          },
+          "_DAY": {
+            "TITLE": "Funkcja day()",
+            "DESCRIPTION": "Funkcja zwracająca dzień miesiąca dla daty albo całkowitą długość przedziału czasu przeliczoną na dni. Wynikiem jest ciąg znaków z liczbą i angielską jednostką day lub days, np. 30 days. Doba odpowiada 24 godzinom.",
+            "SYNTAX": "day(data_lub_przedział)",
+            "ARGUMENTS": {
+              "A-KEY": "data_lub_przedział",
+              "A-DESCRIPTION": "data w formacie YYYY-MM-DD lub YYYY-MM-DD HH:MM:SS (opcjonalnie z ułamkiem sekundy do sześciu cyfr), wynik age() typu timedelta albo nieujemny przedział zapisany jako liczba i angielska jednostka: year, month, week, day, hour, minute lub second, również w liczbie mnogiej. Rok odpowiada 365,25 dnia, a miesiąc 1/12 roku."
+            },
+            "EXAMPLES": {
+              "EX1": "day('2026-10-30')",
+              "RES1": "30 days",
+              "EX2": "day('48 hours')",
+              "RES2": "2 days",
+              "EX3": "day('12 hours')",
+              "RES3": "0.5 days"
+            }
+          },
+          "_DAY_OF_WEEK": {
+            "TITLE": "Funkcja day_of_week()",
+            "DESCRIPTION": "Funkcja zwracająca numer dnia tygodnia jako liczbę całkowitą od 1 do 7: poniedziałek to 1, a niedziela to 7.",
+            "SYNTAX": "day_of_week(data)",
+            "ARGUMENTS": {
+              "A-KEY": "data",
+              "A-DESCRIPTION": "poprawna data w formacie YYYY-MM-DD, bez części czasowej. Miesiąc i dzień muszą być zapisane dwiema cyframi."
+            },
+            "EXAMPLES": {
+              "EX1": "day_of_week('2026-10-30')",
+              "RES1": "5",
+              "EX2": "day_of_week('2026-10-26')",
+              "RES2": "1",
+              "EX3": "day_of_week('2026-11-01')",
+              "RES3": "7"
+            }
+          },
+          "_EPOCH": {
+            "TITLE": "Funkcja epoch()",
+            "DESCRIPTION": "Funkcja zwracająca liczbę całkowitą sekund od początku epoki Unix (1970-01-01 00:00:00 UTC). Podana data i czas są interpretowane w lokalnej strefie czasowej serwera.",
+            "SYNTAX": "epoch(data_i_czas)",
+            "ARGUMENTS": {
+              "A-KEY": "data_i_czas",
+              "A-DESCRIPTION": "poprawna data i czas w formacie YYYY-MM-DD HH:MM:SS. Wymagane są sekundy; ułamki sekundy i oznaczenia strefy czasowej nie są obsługiwane."
+            },
+            "EXAMPLES": {
+              "EX1": "epoch('1970-01-01 00:00:00')",
+              "RES1": "0 (dla serwera w strefie UTC)",
+              "EX2": "epoch('2023-11-14 22:13:20')",
+              "RES2": "1700000000 (dla serwera w strefie UTC)",
+              "EX3": "epoch('1970-01-02 00:00:00')",
+              "RES3": "86400 (dla serwera w strefie UTC)"
+            }
+          },
+          "_FORMAT_DATE": {
+            "TITLE": "Funkcja format_date()",
+            "DESCRIPTION": "Funkcja formatująca datę do ciągu znaków według podanego formatu. Nazwy dni tygodnia i miesięcy są zwracane w języku angielskim.",
+            "SYNTAX": "format_date(data, format)",
+            "ARGUMENTS": {
+              "A-KEY": "data",
+              "A-DESCRIPTION": "poprawna data w formacie YYYY-MM-DD. Miesiąc i dzień muszą być zapisane dwiema cyframi.",
+              "B-KEY": "format",
+              "B-DESCRIPTION": "dokładnie trzy składniki: dzień (d, dd, ddd lub dddd), miesiąc (M, MM, MMM lub MMMM) i rok (yy lub yyyy), w dowolnej kolejności, oddzielone kropkami. Przy MMM lub MMMM wynik jest rozdzielany spacjami, w pozostałych przypadkach kropkami.",
+              "TYPES": {
+                "d": "dzień miesiąca bez zera wiodącego (1-31)",
+                "dd": "dzień miesiąca z zerem wiodącym (01-31)",
+                "ddd": "skrócona angielska nazwa dnia tygodnia, np. Thu",
+                "dddd": "pełna angielska nazwa dnia tygodnia, np. Thursday",
+                "M": "miesiąc bez zera wiodącego (1-12)",
+                "MM": "miesiąc z zerem wiodącym (01-12)",
+                "MMM": "skrócona angielska nazwa miesiąca, np. Feb",
+                "MMMM": "pełna angielska nazwa miesiąca, np. February",
+                "yy": "dwie ostatnie cyfry roku, np. 26",
+                "yyyy": "pełny rok, np. 2026"
+              }
+            },
+            "EXAMPLES": {
+              "EX1": "format_date('2026-02-05', 'dd.MM.yyyy')",
+              "RES1": "05.02.2026",
+              "EX2": "format_date('2026-02-05', 'dd.MMMM.yyyy')",
+              "RES2": "05 February 2026",
+              "EX3": "format_date('2026-02-05', 'ddd.MM.yy')",
+              "RES3": "Thu.02.26"
+            }
+          },
+          "_HOUR": {
+            "TITLE": "Funkcja hour()",
+            "DESCRIPTION": "Funkcja zwracająca godzinę (0-23) z daty i czasu albo całkowitą długość przedziału przeliczoną na godziny. Wynikiem jest ciąg znaków z liczbą i angielską jednostką hour lub hours, np. 13 hours. Doba odpowiada 24 godzinom.",
+            "SYNTAX": "hour(data_i_czas_lub_przedział)",
+            "ARGUMENTS": {
+              "A-KEY": "data_i_czas_lub_przedział",
+              "A-DESCRIPTION": "data i czas w formacie YYYY-MM-DD HH:MM:SS (opcjonalnie z ułamkiem sekundy do sześciu cyfr), wynik age() typu timedelta albo nieujemny przedział zapisany jako liczba i angielska jednostka: year, month, week, day, hour, minute lub second, również w liczbie mnogiej. Sama data i sam czas nie są obsługiwane. Rok odpowiada 365,25 dnia, a miesiąc 1/12 roku."
+            },
+            "EXAMPLES": {
+              "EX1": "hour('2026-10-30 13:05:09')",
+              "RES1": "13 hours",
+              "EX2": "hour('2.125 days')",
+              "RES2": "51 hours",
+              "EX3": "hour(age('2026-10-30 13:00:00', '2026-10-29 10:00:00'))",
+              "RES3": "27 hours"
+            }
+          },
+          "_MAKE_DATE": {
+            "TITLE": "Funkcja make_date()",
+            "DESCRIPTION": "Funkcja tworząca datę z roku, miesiąca i dnia. Zwraca ciąg znaków w formacie YYYY-MM-DD. Niepoprawne daty, np. 30 lutego, powodują błąd.",
+            "SYNTAX": "make_date(rok, miesiąc, dzień)",
+            "ARGUMENTS": {
+              "A-KEY": "rok",
+              "A-DESCRIPTION": "rok zapisany czterema cyframi, z zakresu 0001-9999.",
+              "B-KEY": "miesiąc",
+              "B-DESCRIPTION": "numer miesiąca od 1 do 12, zapisany jedną lub dwiema cyframi.",
+              "C-KEY": "dzień",
+              "C-DESCRIPTION": "dzień miesiąca zapisany jedną lub dwiema cyframi. Musi istnieć w wybranym miesiącu i roku."
+            },
+            "EXAMPLES": {
+              "EX1": "make_date(2026, 10, 30)",
+              "RES1": "2026-10-30",
+              "EX2": "make_date(2026, 2, 5)",
+              "RES2": "2026-02-05",
+              "EX3": "make_date(2024, 2, 29)",
+              "RES3": "2024-02-29"
+            }
+          },
+          "_MAKE_DATETIME": {
+            "TITLE": "Funkcja make_datetime()",
+            "DESCRIPTION": "Funkcja tworząca datę i czas z sześciu składników. Zwraca ciąg znaków w formacie YYYY-MM-DD HH:MM:SS. Wszystkie składniki są wymagane i muszą tworzyć poprawną datę oraz czas.",
+            "SYNTAX": "make_datetime(rok, miesiąc, dzień, godzina, minuta, sekunda)",
+            "ARGUMENTS": {
+              "A-KEY": "rok",
+              "A-DESCRIPTION": "rok zapisany czterema cyframi, z zakresu 0001-9999.",
+              "B-KEY": "miesiąc",
+              "B-DESCRIPTION": "numer miesiąca od 1 do 12.",
+              "C-KEY": "dzień",
+              "C-DESCRIPTION": "dzień istniejący w podanym miesiącu i roku.",
+              "D-KEY": "godzina",
+              "D-DESCRIPTION": "liczba całkowita od 0 do 23.",
+              "E-KEY": "minuta",
+              "E-DESCRIPTION": "liczba całkowita od 0 do 59.",
+              "F-KEY": "sekunda",
+              "F-DESCRIPTION": "liczba całkowita od 0 do 59, bez części ułamkowej. Wszystkie składniki poza rokiem mogą być zapisane jedną lub dwiema cyframi."
+            },
+            "EXAMPLES": {
+              "EX1": "make_datetime(2026, 10, 30, 13, 5, 9)",
+              "RES1": "2026-10-30 13:05:09",
+              "EX2": "make_datetime(2026, 2, 5, 0, 0, 0)",
+              "RES2": "2026-02-05 00:00:00",
+              "EX3": "make_datetime(2024, 2, 29, 23, 59, 59)",
+              "RES3": "2024-02-29 23:59:59"
+            }
+          },
+          "_MAKE_INTERVAL": {
+            "TITLE": "Funkcja make_interval()",
+            "DESCRIPTION": "Funkcja tworząca przedział czasu z argumentów jednostka=wartość. Zwraca ciąg znaków z sumą przeliczoną na największą podaną jednostkę; przy wartościach mniejszych od 1 może wybrać mniejszą jednostkę. Rok odpowiada 365,25 dnia, a miesiąc 1/12 roku. Nazwa jednostki w wyniku zawsze ma liczbę mnogą, np. 1 days.",
+            "SYNTAX": "make_interval(jednostka=wartość, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "jednostka",
+              "A-DESCRIPTION": "co najmniej jedna nazwa jednostki: years, months, weeks, days, hours, minutes lub seconds. Argumenty rozdziela się przecinkami. Przy powtórzeniu jednostki uwzględniana jest ostatnia wartość.",
+              "B-KEY": "wartość",
+              "B-DESCRIPTION": "nieujemna, skończona liczba przypisana do jednostki znakiem =. Dozwolone są ułamki dziesiętne zapisywane z kropką, np. days=2.5."
+            },
+            "EXAMPLES": {
+              "EX1": "make_interval(days=2, hours=3)",
+              "RES1": "2.125 days",
+              "EX2": "make_interval(hours=1, minutes=30)",
+              "RES2": "1.5 hours",
+              "EX3": "make_interval(hours=0.5)",
+              "RES3": "30 minutes"
+            }
+          },
+          "_MAKE_TIME": {
+            "TITLE": "Funkcja make_time()",
+            "DESCRIPTION": "Funkcja tworząca czas z godziny, minuty i sekundy. Zwraca ciąg znaków w formacie HH:MM:SS.sss, zawsze z trzema cyframi milisekund. Dalsze cyfry części ułamkowej sekundy są obcinane bez zaokrąglania.",
+            "SYNTAX": "make_time(godzina, minuta, sekunda)",
+            "ARGUMENTS": {
+              "A-KEY": "godzina",
+              "A-DESCRIPTION": "liczba całkowita od 0 do 23, zapisana jedną lub dwiema cyframi.",
+              "B-KEY": "minuta",
+              "B-DESCRIPTION": "liczba całkowita od 0 do 59, zapisana jedną lub dwiema cyframi.",
+              "C-KEY": "sekunda",
+              "C-DESCRIPTION": "liczba od 0 do wartości mniejszej niż 60. Część całkowita musi mieć jedną lub dwie cyfry; opcjonalną część ułamkową zapisuje się po kropce. Brak części ułamkowej daje milisekundy 000."
+            },
+            "EXAMPLES": {
+              "EX1": "make_time(13, 5, 9)",
+              "RES1": "13:05:09.000",
+              "EX2": "make_time(0, 0, 0.5)",
+              "RES2": "00:00:00.500",
+              "EX3": "make_time(23, 59, 59.1239)",
+              "RES3": "23:59:59.123"
+            }
+          },
+          "_MINUTE": {
+            "TITLE": "Funkcja minute()",
+            "DESCRIPTION": "Funkcja zwracająca minutę (0-59) z daty i czasu albo całkowitą długość przedziału przeliczoną na minuty. Wynikiem jest ciąg znaków z liczbą i angielską jednostką minute lub minutes, np. 5 minutes.",
+            "SYNTAX": "minute(data_i_czas_lub_przedział)",
+            "ARGUMENTS": {
+              "A-KEY": "data_i_czas_lub_przedział",
+              "A-DESCRIPTION": "data i czas w formacie YYYY-MM-DD HH:MM:SS (opcjonalnie z ułamkiem sekundy do sześciu cyfr), wynik age() typu timedelta albo nieujemny przedział zapisany jako liczba i angielska jednostka: year, month, week, day, hour, minute lub second, również w liczbie mnogiej. Sama data i sam czas nie są obsługiwane. Rok odpowiada 365,25 dnia, a miesiąc 1/12 roku."
+            },
+            "EXAMPLES": {
+              "EX1": "minute('2026-10-30 13:05:09')",
+              "RES1": "5 minutes",
+              "EX2": "minute('1.5 hours')",
+              "RES2": "90 minutes",
+              "EX3": "minute('30 seconds')",
+              "RES3": "0.5 minutes"
+            }
+          },
+          "_MONTH": {
+            "TITLE": "Funkcja month()",
+            "DESCRIPTION": "Funkcja zwracająca numer miesiąca (1-12) z daty albo całkowitą długość przedziału przeliczoną na miesiące. Wynikiem jest ciąg znaków z liczbą i angielską jednostką month lub months, np. 10 months. Miesiąc odpowiada 1/12 roku liczącego 365,25 dnia, a nie długości konkretnego miesiąca kalendarzowego.",
+            "SYNTAX": "month(data_lub_przedział)",
+            "ARGUMENTS": {
+              "A-KEY": "data_lub_przedział",
+              "A-DESCRIPTION": "data w formacie YYYY-MM-DD lub YYYY-MM-DD HH:MM:SS (opcjonalnie z ułamkiem sekundy do sześciu cyfr), wynik age() typu timedelta albo nieujemny przedział zapisany jako liczba i angielska jednostka: year, month, week, day, hour, minute lub second, również w liczbie mnogiej."
+            },
+            "EXAMPLES": {
+              "EX1": "month('2026-10-30')",
+              "RES1": "10 months",
+              "EX2": "month('1 year')",
+              "RES2": "12 months",
+              "EX3": "month('1 month')",
+              "RES3": "1 month"
+            }
+          },
+          "_NOW": {
+            "TITLE": "Funkcja now()",
+            "DESCRIPTION": "Funkcja zwracająca bieżącą datę i czas serwera jako ciąg znaków w formacie YYYY-MM-DD HH:MM:SS, z sześcioma cyframi części ułamkowej, gdy mikrosekundy są niezerowe. Korzysta z lokalnego czasu serwera i nie dodaje oznaczenia strefy czasowej. Każde wywołanie odczytuje czas ponownie.",
+            "SYNTAX": "now()",
+            "ARGUMENTS": {
+              "A-KEY": "brak",
+              "A-DESCRIPTION": "funkcja nie przyjmuje żadnych argumentów."
+            },
+            "EXAMPLES": {
+              "EX1": "now()",
+              "RES1": "np. 2026-10-30 13:05:09.123456 (wynik zależy od chwili wywołania i czasu serwera)"
+            }
+          },
+          "_SECOND": {
+            "TITLE": "Funkcja second()",
+            "DESCRIPTION": "Funkcja zwracająca sekundę (0-59) z daty i czasu albo całkowitą długość przedziału przeliczoną na sekundy. Wynikiem jest ciąg znaków z liczbą i angielską jednostką second lub seconds, np. 9 seconds. Przy dacie i czasie pomija ułamek sekundy; przy przedziale zachowuje część ułamkową.",
+            "SYNTAX": "second(data_i_czas_lub_przedział)",
+            "ARGUMENTS": {
+              "A-KEY": "data_i_czas_lub_przedział",
+              "A-DESCRIPTION": "data i czas w formacie YYYY-MM-DD HH:MM:SS (opcjonalnie z ułamkiem sekundy do sześciu cyfr), wynik age() typu timedelta albo nieujemny przedział zapisany jako liczba i angielska jednostka: year, month, week, day, hour, minute lub second, również w liczbie mnogiej. Sama data i sam czas nie są obsługiwane. Rok odpowiada 365,25 dnia, a miesiąc 1/12 roku."
+            },
+            "EXAMPLES": {
+              "EX1": "second('2026-10-30 13:05:09.123456')",
+              "RES1": "9 seconds",
+              "EX2": "second('1.5 minutes')",
+              "RES2": "90 seconds",
+              "EX3": "second('0.5 seconds')",
+              "RES3": "0.5 seconds"
+            }
+          },
+          "_TO_DATE": {
+            "TITLE": "Funkcja to_date()",
+            "DESCRIPTION": "Funkcja odczytująca datę i zwracająca ciąg znaków. Bez formatu zwraca YYYY-MM-DD. Opcjonalny format określa zapis wyniku: składniki liczbowe są oddzielane myślnikami, a przy nazwie miesiąca spacjami. Nie służy do określania formatu wejściowego.",
+            "SYNTAX": "to_date(data, [format])",
+            "ARGUMENTS": {
+              "A-KEY": "data",
+              "A-DESCRIPTION": "poprawna data w układzie YYYY-MM-DD, DD-MM-YYYY, YYYY MMMM DD lub DD MMMM YYYY. Rok musi mieć cztery cyfry, a dzień i liczbowy miesiąc jedną lub dwie. Nazwa miesiąca musi być pełną angielską nazwą z wielkiej litery, np. February.",
+              "B-KEY": "format",
+              "B-DESCRIPTION": "opcjonalny format wyjściowy z trzech składników oddzielonych kropkami. Dostępne znaczniki: d i dd (dzień miesiąca), ddd i dddd (angielska nazwa dnia tygodnia), M i MM (numer miesiąca), MMM i MMMM (angielska nazwa miesiąca), yy i yyyy (rok). Przykład dd.MM.yyyy daje wynik 05-02-2026. Bez tego argumentu wynik ma format YYYY-MM-DD."
+            },
+            "EXAMPLES": {
+              "EX1": "to_date('05-02-2026')",
+              "RES1": "2026-02-05",
+              "EX2": "to_date('5 February 2026', 'dd.MM.yyyy')",
+              "RES2": "05-02-2026",
+              "EX3": "to_date('2026-02-05', 'dd.MMMM.yyyy')",
+              "RES3": "05 February 2026"
+            }
+          },
+          "_TO_DATETIME": {
+            "TITLE": "Funkcja to_datetime()",
+            "DESCRIPTION": "Funkcja odczytująca datę i czas, zwracająca obiekt datetime bez strefy czasowej. Brak czasu oznacza północ, a pominięte minuty lub sekundy mają wartość zero. Opcjonalny format opisuje składniki wejścia; dla wejścia ISO backend rozpoznaje datę i czas bezpośrednio, również przy podanym formacie.",
+            "SYNTAX": "to_datetime(data_i_czas, [format])",
+            "ARGUMENTS": {
+              "A-KEY": "data_i_czas",
+              "A-DESCRIPTION": "bez formatu: data YYYY-MM-DD, DD-MM-YYYY, YYYY MMMM DD lub DD MMMM YYYY, opcjonalnie z czasem HH:mm lub HH:mm:ss po spacji. Obsługiwane są pełne i skrócone angielskie nazwy miesięcy bez rozróżniania wielkości liter. Zapis ISO może zawierać T między datą i czasem oraz do sześciu cyfr ułamka sekundy. Przy podaniu formatu możliwe są inne układy składników.",
+              "B-KEY": "format",
+              "B-DESCRIPTION": "opcjonalny format wejściowy. Musi zawierać rok (yy lub yyyy), miesiąc (M, MM, MMM lub MMMM) i dzień miesiąca (d lub dd). Może zawierać dzień tygodnia (ddd lub dddd), godzinę (h, hh, H lub HH), minutę (m lub mm) i sekundę (s lub ss). Składniki rozdziela się spacją, kropką, dwukropkiem, ukośnikiem lub myślnikiem; nie mogą się powtarzać. Podwójne znaczniki liczbowe wymagają dwóch cyfr. Lata yy od 00 do 68 oznaczają 2000-2068, a od 69 do 99 oznaczają 1969-1999. Godzina ma zakres 0-23 także dla h i hh; oznaczenia AM/PM nie są obsługiwane. Podany dzień tygodnia musi zgadzać się z datą."
+            },
+            "EXAMPLES": {
+              "EX1": "to_datetime('2026-10-30T13:05:09.123456')",
+              "RES1": "2026-10-30 13:05:09.123456",
+              "EX2": "to_datetime('30/10/2026 13:05', 'dd/MM/yyyy HH:mm')",
+              "RES2": "2026-10-30 13:05:00",
+              "EX3": "to_datetime('5 February 2026')",
+              "RES3": "2026-02-05 00:00:00"
+            }
+          },
+          "_TO_INTERVAL": {
+            "TITLE": "Funkcja to_interval()",
+            "DESCRIPTION": "Funkcja odczytująca przedział czasu z tekstu zawierającego pary liczba jednostka. Zwraca ciąg znaków z sumą przeliczoną na największą podaną jednostkę; przy wartościach mniejszych od 1 może wybrać mniejszą jednostkę. Rok odpowiada 365,25 dnia, a miesiąc 1/12 roku. Nazwa jednostki w wyniku zawsze ma liczbę mnogą, np. 1 days.",
+            "SYNTAX": "to_interval(przedział)",
+            "ARGUMENTS": {
+              "A-KEY": "przedział",
+              "A-DESCRIPTION": "ciąg znaków z co najmniej jedną parą liczba jednostka, np. 2 days 3 hours. Liczby muszą być nieujemne i skończone; mogą mieć część ułamkową zapisaną z kropką. Jednostki są wymagane w liczbie mnogiej: years, months, weeks, days, hours, minutes lub seconds. Wszystkie elementy rozdziela się pojedynczymi spacjami, bez przecinków. Przy powtórzeniu jednostki uwzględniana jest ostatnia wartość."
+            },
+            "EXAMPLES": {
+              "EX1": "to_interval('2 days 3 hours')",
+              "RES1": "2.125 days",
+              "EX2": "to_interval('1 hours 30 minutes')",
+              "RES2": "1.5 hours",
+              "EX3": "to_interval('0.5 hours')",
+              "RES3": "30 minutes"
+            }
+          },
+          "_TO_TIME": {
+            "TITLE": "Funkcja to_time()",
+            "DESCRIPTION": "Funkcja odczytująca czas zgodnie z podanym formatem wejściowym i zwracająca obiekt time. Format określa znaczenie oraz kolejność składników wejścia. Pominięty składnik ma wartość zero, a wynik jest prezentowany jako HH:MM:SS.",
+            "SYNTAX": "to_time(czas, format)",
+            "ARGUMENTS": {
+              "A-KEY": "czas",
+              "A-DESCRIPTION": "dwa lub trzy składniki liczbowe oddzielone dwukropkami. Każdy musi mieć dokładnie dwie cyfry, np. 13:05 lub 09:05:13. Godzina musi należeć do zakresu 0-23, a minuty i sekundy do zakresu 0-59. Ułamki sekundy nie są obsługiwane.",
+              "B-KEY": "format",
+              "B-DESCRIPTION": "wymagany format wejściowy z taką samą liczbą składników jak czas. Obsługiwane są HH lub hh (godzina w zapisie 24-godzinnym), mm lub MM (minuta) i ss lub SS (sekunda), w dowolnej kolejności, oddzielone dwukropkami. Składniki nie mogą się powtarzać, także przy różnej wielkości liter. Przykład ss:mm:HH odczytuje najpierw sekundę, potem minutę i godzinę."
+            },
+            "EXAMPLES": {
+              "EX1": "to_time('13:05', 'HH:mm')",
+              "RES1": "13:05:00",
+              "EX2": "to_time('09:05:13', 'ss:mm:HH')",
+              "RES2": "13:05:09",
+              "EX3": "to_time('05:09', 'mm:ss')",
+              "RES3": "00:05:09"
+            }
+          },
+          "_WEEK": {
+            "TITLE": "Funkcja week()",
+            "DESCRIPTION": "Funkcja zwracająca numer tygodnia ISO (1-53) dla daty albo całkowitą długość przedziału przeliczoną na tygodnie. Wynikiem jest ciąg znaków z liczbą i angielską jednostką week lub weeks, np. 44 weeks. Tydzień odpowiada siedmiu dobom. Numer tygodnia ISO na przełomie roku może należeć do innego roku niż data.",
+            "SYNTAX": "week(data_lub_przedział)",
+            "ARGUMENTS": {
+              "A-KEY": "data_lub_przedział",
+              "A-DESCRIPTION": "data w formacie YYYY-MM-DD lub YYYY-MM-DD HH:MM:SS (opcjonalnie z ułamkiem sekundy do sześciu cyfr), wynik age() typu timedelta albo nieujemny przedział zapisany jako liczba i angielska jednostka: year, month, week, day, hour, minute lub second, również w liczbie mnogiej. Rok odpowiada 365,25 dnia, a miesiąc 1/12 roku."
+            },
+            "EXAMPLES": {
+              "EX1": "week('2026-10-30')",
+              "RES1": "44 weeks",
+              "EX2": "week('2021-01-01')",
+              "RES2": "53 weeks",
+              "EX3": "week('14 days')",
+              "RES3": "2 weeks"
+            }
+          },
+          "_YEAR": {
+            "TITLE": "Funkcja year()",
+            "DESCRIPTION": "Funkcja zwracająca rok z daty albo całkowitą długość przedziału przeliczoną na lata. Wynikiem jest ciąg znaków z liczbą i angielską jednostką year lub years, np. 2026 years. Przy przeliczaniu przedziałów rok odpowiada 365,25 dnia.",
+            "SYNTAX": "year(data_lub_przedział)",
+            "ARGUMENTS": {
+              "A-KEY": "data_lub_przedział",
+              "A-DESCRIPTION": "data w formacie YYYY-MM-DD lub YYYY-MM-DD HH:MM:SS (opcjonalnie z ułamkiem sekundy do sześciu cyfr), wynik age() typu timedelta albo nieujemny przedział zapisany jako liczba i angielska jednostka: year, month, week, day, hour, minute lub second, również w liczbie mnogiej. Miesiąc odpowiada 1/12 roku."
+            },
+            "EXAMPLES": {
+              "EX1": "year('2026-10-30')",
+              "RES1": "2026 years",
+              "EX2": "year('12 months')",
+              "RES2": "1 year",
+              "EX3": "year('730.5 days')",
+              "RES3": "2 years"
+            }
+          }
         },
         "MATH": {
           "INFO": "Funkcje matematyczne",
-          "ABS": {
+          "TITLE": "Matematyka",
+          "_ABS": {
             "TITLE": "Funkcja abs()",
             "DESCRIPTION": "Funkcja zwracająca wartość bezwzględną liczby.",
             "SYNTAX": "abs(wartość)",
             "ARGUMENTS": {
               "A-KEY": "wartość",
-              "A-DESCRIPTION": "Liczba, której wartość bezwzględna ma zostać obliczona."
+              "A-DESCRIPTION": "liczba, której wartość bezwzględna ma zostać obliczona."
             },
             "EXAMPLES": {
               "EX1": "abs(-5)",
@@ -151,17 +553,1356 @@
               "RES3": "2.718"
             }
           },
-          "ACOS": {
-            "TITLE": ""
+          "_ACOS": {
+            "TITLE": "Funkcja acos()",
+            "DESCRIPTION": "Funkcja zwracająca wartość odwrotnego cosinusa w radianach.",
+            "SYNTAX": "acos(wartość)",
+            "ARGUMENTS": {
+              "A-KEY": "wartość",
+              "A-DESCRIPTION": "liczba, dla której ma zostać obliczony odwrotny cosinus. Wartość musi być w zakresie od -1 do 1."
+            },
+            "EXAMPLES": {
+              "EX1": "acos(0)",
+              "RES1": "1.5708",
+              "EX2": "acos(-0.5)",
+              "RES2": "2.0944",
+              "EX3": "acos(1)",
+              "RES3": "0"
+            }
+          },
+          "_ACTG": {
+            "TITLE": "Funkcja actg()",
+            "DESCRIPTION": "Funkcja zwracająca wartość odwrotnego cotangensa w radianach, obliczaną jako atan(1 / wartość). Dla wartości ujemnych zwraca kąt ujemny.",
+            "SYNTAX": "actg(wartość)",
+            "ARGUMENTS": {
+              "A-KEY": "wartość",
+              "A-DESCRIPTION": "liczba, dla której ma zostać obliczony odwrotny cotangens. Wartość może być dowolną liczbą rzeczywistą różną od zera."
+            },
+            "EXAMPLES": {
+              "EX1": "actg(1)",
+              "RES1": "0.7854",
+              "EX2": "actg(-1)",
+              "RES2": "-0.7854",
+              "EX3": "actg(2)",
+              "RES3": "0.4636"
+            }
+          },
+          "_ACTG2": {
+            "TITLE": "Funkcja actg2()",
+            "DESCRIPTION": "Funkcja zwracająca kąt w radianach, obliczany jako atan2(1 / y, x), z uwzględnieniem znaków argumentów.",
+            "SYNTAX": "actg2(y, x)",
+            "ARGUMENTS": {
+              "A-KEY": "y",
+              "A-DESCRIPTION": "liczba, której odwrotność jest używana jako pierwszy argument funkcji atan2(). Musi być liczbą rzeczywistą różną od zera.",
+              "B-KEY": "x",
+              "B-DESCRIPTION": "liczba używana jako drugi argument funkcji atan2(). Może być dowolną liczbą rzeczywistą."
+            },
+            "EXAMPLES": {
+              "EX1": "actg2(1, 1)",
+              "RES1": "0.7854",
+              "EX2": "actg2(1, -1)",
+              "RES2": "2.3562",
+              "EX3": "actg2(-1, 1)",
+              "RES3": "-0.7854"
+            }
+          },
+          "_ASIN": {
+            "TITLE": "Funkcja asin()",
+            "DESCRIPTION": "Funkcja zwracająca wartość odwrotnego sinusa w radianach.",
+            "SYNTAX": "asin(wartość)",
+            "ARGUMENTS": {
+              "A-KEY": "wartość",
+              "A-DESCRIPTION": "liczba, dla której ma zostać obliczony odwrotny sinus. Wartość musi być w zakresie od -1 do 1."
+            },
+            "EXAMPLES": {
+              "EX1": "asin(0)",
+              "RES1": "0",
+              "EX2": "asin(-0.5)",
+              "RES2": "-0.5236",
+              "EX3": "asin(1)",
+              "RES3": "1.5708"
+            }
+          },
+          "_ATAN": {
+            "TITLE": "Funkcja atan()",
+            "DESCRIPTION": "Funkcja zwracająca wartość odwrotnego tangensa w radianach.",
+            "SYNTAX": "atan(wartość)",
+            "ARGUMENTS": {
+              "A-KEY": "wartość",
+              "A-DESCRIPTION": "liczba, dla której ma zostać obliczony odwrotny tangens. Wartość może być dowolną liczbą rzeczywistą."
+            },
+            "EXAMPLES": {
+              "EX1": "atan(0)",
+              "RES1": "0",
+              "EX2": "atan(-0.5)",
+              "RES2": "-0.4636",
+              "EX3": "atan(1)",
+              "RES3": "0.7854"
+            }
+          },
+          "_ATAN2": {
+            "TITLE": "Funkcja atan2()",
+            "DESCRIPTION": "Funkcja zwracająca wartość odwrotnego tangensa w radianach, biorąc pod uwagę znak obu argumentów.",
+            "SYNTAX": "atan2(y, x)",
+            "ARGUMENTS": {
+              "A-KEY": "y",
+              "A-DESCRIPTION": "wartość y dla obliczenia odwrotnego tangensa. Liczba rzeczywista.",
+              "B-KEY": "x",
+              "B-DESCRIPTION`": "wartość x dla obliczenia odwrotnego tangensa. Liczba rzeczywista."
+            },
+            "EXAMPLES": {
+              "EX1": "atan2(0, -1)",
+              "RES1": "3.1416",
+              "EX2": "atan2(1, 0)",
+              "RES2": "1.5708",
+              "EX3": "atan2(1, 1)",
+              "RES3": "0.7854"
+            }
+          },
+          "_CEIL": {
+            "TITLE": "Funkcja ceil()",
+            "DESCRIPTION": "Funkcja zwracająca wartość zaokrągloną w górę.",
+            "SYNTAX": "ceil(wartość)",
+            "ARGUMENTS": {
+              "A-KEY": "wartość",
+              "A-DESCRIPTION": "liczba, której wartość ma zostać zaokrąglona w górę."
+            },
+            "EXAMPLES": {
+              "EX1": "ceil(16.2)",
+              "RES1": "17",
+              "EX2": "ceil(-9.2)",
+              "RES2": "-9",
+              "EX3": "ceil(0)",
+              "RES3": "0"
+            }
+          },
+          "_CLAMP": {
+            "TITLE": "Funkcja clamp()",
+            "DESCRIPTION": "Funkcja zwracająca wartość ograniczoną do określonego zakresu.",
+            "SYNTAX": "clamp(min, wartość, max)",
+            "ARGUMENTS": {
+              "A-KEY": "min",
+              "A-DESCRIPTION": "minimalna wartość, do której ma zostać ograniczona wartość. Jeżeli wartość jest mniejsza, zwracana jest wartość min.",
+              "B-KEY": "wartość",
+              "B-DESCRIPTION": "wartość, która ma zostać ograniczona do określonego zakresu.",
+              "C-KEY": "max",
+              "C-DESCRIPTION": "maksymalna wartość, do której ma zostać ograniczona wartość. Jeżeli wartość jest większa, zwracana jest wartość max."
+            },
+            "EXAMPLES": {
+              "EX1": "clamp(0, 5, 10)",
+              "RES1": "5",
+              "EX2": "clamp(0, -5, 10)",
+              "RES2": "0",
+              "EX3": "clamp(0, 15, 10)",
+              "RES3": "10"
+            }
+          },
+          "_COS": {
+            "TITLE": "Funkcja cos()",
+            "DESCRIPTION": "Funkcja zwracająca wartość cosinusa.",
+            "SYNTAX": "cos(radiany)",
+            "ARGUMENTS": {
+              "A-KEY": "radiany",
+              "A-DESCRIPTION": "wartość w radianach, dla której ma zostać obliczony cosinus. Wartość może być dowolną liczbą rzeczywistą."
+            },
+            "EXAMPLES": {
+              "EX1": "cos(0)",
+              "RES1": "1",
+              "EX2": "cos(-1)",
+              "RES2": "0.5403",
+              "EX3": "cos(1)",
+              "RES3": "0.5403"
+            }
+          },
+          "_CTG": {
+            "TITLE": "Funkcja ctg()",
+            "DESCRIPTION": "Funkcja zwracająca wartość cotangensa, obliczaną jako odwrotność tangensa.",
+            "SYNTAX": "ctg(radiany)",
+            "ARGUMENTS": {
+              "A-KEY": "radiany",
+              "A-DESCRIPTION": "wartość kąta w radianach, dla której ma zostać obliczony cotangens. Tangens tego kąta musi być różny od zera."
+            },
+            "EXAMPLES": {
+              "EX1": "ctg(1)",
+              "RES1": "0.6421",
+              "EX2": "ctg(-1)",
+              "RES2": "-0.6421",
+              "EX3": "ctg(0.5)",
+              "RES3": "1.8305"
+            }
+          },
+          "_DEGREES": {
+            "TITLE": "Funkcja degrees()",
+            "DESCRIPTION": "Funkcja konwertująca wartość kąta z radianów na stopnie.",
+            "SYNTAX": "degrees(radiany)",
+            "ARGUMENTS": {
+              "A-KEY": "radiany",
+              "A-DESCRIPTION": "wartość kąta w radianach, która ma zostać skonwertowana na stopnie. Wartość może być dowolną liczbą rzeczywistą."
+            },
+            "EXAMPLES": {
+              "EX1": "degrees(-1)",
+              "RES1": "57.2958",
+              "EX2": "degrees(2)",
+              "RES2": "114.5916",
+              "EX3": "degrees(pi())",
+              "RES3": "180"
+            }
+          },
+          "_EXP": {
+            "TITLE": "Funkcja exp()",
+            "DESCRIPTION": "Funkcja zwracająca wartość funkcji wykładniczej z liczby.",
+            "SYNTAX": "exp(wartość)",
+            "ARGUMENTS": {
+              "A-KEY": "wartość",
+              "A-DESCRIPTION": "liczba, dla której ma zostać obliczona funkcja wykładnicza. Wartość może być dowolną liczbą rzeczywistą."
+            },
+            "EXAMPLES": {
+              "EX1": "exp(0)",
+              "RES1": "1",
+              "EX2": "exp(1)",
+              "RES2": "2.7183",
+              "EX3": "exp(-1)",
+              "RES3": "0.3679"
+            }
+          },
+          "_FLOOR": {
+            "TITLE": "Funkcja floor()",
+            "DESCRIPTION": "Funkcja zwracająca wartość zaokrągloną w dół.",
+            "SYNTAX": "floor(wartość)",
+            "ARGUMENTS": {
+              "A-KEY": "wartość",
+              "A-DESCRIPTION": "liczba, której wartość ma zostać zaokrąglona w dół."
+            },
+            "EXAMPLES": {
+              "EX1": "floor(3.7)",
+              "RES1": "3",
+              "EX2": "floor(-3.7)",
+              "RES2": "-4",
+              "EX3": "floor(0)",
+              "RES3": "0"
+            }
+          },
+          "_LN": {
+            "TITLE": "Funkcja ln()",
+            "DESCRIPTION": "Funkcja zwracająca logarytm naturalny z liczby.",
+            "SYNTAX": "ln(wartość)",
+            "ARGUMENTS": {
+              "A-KEY": "wartość",
+              "A-DESCRIPTION": "liczba, dla której ma zostać obliczony logarytm naturalny. Wartość musi być większa od zera."
+            },
+            "EXAMPLES": {
+              "EX1": "ln(1)",
+              "RES1": "0",
+              "EX2": "ln(2.7183)",
+              "RES2": "1",
+              "EX3": "ln(10)",
+              "RES3": "2.3026"
+            }
+          },
+          "_LOG": {
+            "TITLE": "Funkcja log()",
+            "DESCRIPTION": "Funkcja zwracająca logarytm dla liczby o danej podstawie.",
+            "SYNTAX": "log(podstawa, wartość)",
+            "ARGUMENTS": {
+              "A-KEY": "podstawa",
+              "A-DESCRIPTION": "podstawa logarytmu. Wartość musi być większa od zera i nie może być zerem.",
+              "B-KEY": "wartość",
+              "B-DESCRIPTION": "liczba, dla której ma zostać obliczony logarytm. Wartość musi być większa od zera."
+            },
+            "EXAMPLES": {
+              "EX1": "log(2, 32)",
+              "RES1": "5",
+              "EX2": "log(10, 100)",
+              "RES2": "2",
+              "EX3": "log(2, 1)",
+              "RES3": "0"
+            }
+          },
+          "_LOG10": {
+            "TITLE": "Funkcja log10()",
+            "DESCRIPTION": "Funkcja zwracająca logarytm dziesiętny z liczby.",
+            "SYNTAX": "log10(wartość)",
+            "ARGUMENTS": {
+              "A-KEY": "wartość",
+              "A-DESCRIPTION": "liczba, dla której ma zostać obliczony logarytm dziesiętny. Wartość musi być większa od zera."
+            },
+            "EXAMPLES": {
+              "EX1": "log10(1)",
+              "RES1": "0",
+              "EX2": "log10(100)",
+              "RES2": "2",
+              "EX3": "log10(5)",
+              "RES3": "0.6989"
+            }
+          },
+          "_MAX": {
+            "TITLE": "Funkcja max()",
+            "DESCRIPTION": "Funkcja zwracająca największą wartość ze wszystkich wpisanych wartości.",
+            "SYNTAX": "max(wartość1, wartość2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "wartość",
+              "A-DESCRIPTION": "kolejne liczby, z których ma zostać wybrana największa wartość. Można podać dowolną liczbę argumentów."
+            },
+            "EXAMPLES": {
+              "EX1": "max(3, 7, 2)",
+              "RES1": "7",
+              "EX2": "max(-5, -2, -8)",
+              "RES2": "-2",
+              "EX3": "max(1.5, 2.3, 0.9)",
+              "RES3": "2.3"
+            }
+          },
+          "_MIN": {
+            "TITLE": "Funkcja min()",
+            "DESCRIPTION": "Funkcja zwracająca najmniejszą wartość ze wszystkich wpisanych wartości.",
+            "SYNTAX": "min(wartość1, wartość2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "wartość",
+              "A-DESCRIPTION": "kolejne liczby, z których ma zostać wybrana najmniejsza wartość. Można podać dowolną liczbę argumentów."
+            },
+            "EXAMPLES": {
+              "EX1": "min(3, 7, 2)",
+              "RES1": "2",
+              "EX2": "min(-5, -2, -8)",
+              "RES2": "-8",
+              "EX3": "min(1.5, 2.3, 0.9)",
+              "RES3": "0.9"
+            }
+          },
+          "_PI": {
+            "TITLE": "Funkcja pi()",
+            "DESCRIPTION": "Funkcja zwracająca wartość liczby pi. Nie przyjmuje żadnych argumentów.",
+            "SYNTAX": "pi()",
+            "ARGUMENTS": {},
+            "EXAMPLES": {
+              "EX1": "pi()",
+              "RES1": "3.1416...",
+              "EX2": "cos(pi())",
+              "RES2": "-1",
+              "EX3": "sin(pi())",
+              "RES3": "0"
+            }
+          },
+          "_POW": {
+            "TITLE": "Funkcja pow()",
+            "DESCRIPTION": "Funkcja zwracająca wynik podniesienia podstawy do podanej potęgi.",
+            "SYNTAX": "pow(podstawa, wykładnik)",
+            "ARGUMENTS": {
+              "A-KEY": "podstawa",
+              "A-DESCRIPTION": "liczba, która ma zostać podniesiona do potęgi. Dla podstawy ujemnej wykładnik musi być liczbą całkowitą.",
+              "B-KEY": "wykładnik",
+              "B-DESCRIPTION": "liczba określająca potęgę, do której ma zostać podniesiona podstawa. Dla podstawy równej zero wykładnik nie może być ujemny."
+            },
+            "EXAMPLES": {
+              "EX1": "pow(2, 3)",
+              "RES1": "8",
+              "EX2": "pow(9, 0.5)",
+              "RES2": "3",
+              "EX3": "pow(2, -2)",
+              "RES3": "0.25"
+            }
+          },
+          "_RADIANS": {
+            "TITLE": "Funkcja radians()",
+            "DESCRIPTION": "Funkcja konwertująca wartość kąta ze stopni na radiany.",
+            "SYNTAX": "radians(stopnie)",
+            "ARGUMENTS": {
+              "A-KEY": "stopnie",
+              "A-DESCRIPTION": "wartość kąta w stopniach, która ma zostać skonwertowana na radiany. Wartość może być dowolną liczbą rzeczywistą."
+            },
+            "EXAMPLES": {
+              "EX1": "radians(180)",
+              "RES1": "3.1416",
+              "EX2": "radians(90)",
+              "RES2": "1.5708",
+              "EX3": "radians(45)",
+              "RES3": "0.7854"
+            }
+          },
+          "_RAND": {
+            "TITLE": "Funkcja rand()",
+            "DESCRIPTION": "Funkcja zwracająca losową wartość całkowitą z podanego przedziału od minimum do maksimum. Można dodatkowo podać seed, aby otrzymać powtarzalne wyniki za każdym razem.",
+            "SYNTAX": "rand(min, max, [seed])",
+            "ARGUMENTS": {
+              "A-KEY": "min",
+              "A-DESCRIPTION": "minimalna wartość przedziału, z którego ma być wygenerowana losowa wartość. Musi być liczbą całkowitą.",
+              "B-KEY": "max",
+              "B-DESCRIPTION": "maksymalna wartość przedziału, z którego ma być wygenerowana losowa wartość. Musi być liczbą całkowitą.",
+              "C-KEY": "seed",
+              "C-DESCRIPTION": "opcjonalny parametr, który pozwala na otrzymanie powtarzalnych wyników za każdym razem, gdy funkcja jest wywoływana z tym samym seedem. Domyślnie wyłączona."
+            },
+            "EXAMPLES": {
+              "EX1": "rand(1, 10)",
+              "RES1": "5",
+              "EX2": "rand(1, 100)",
+              "RES2": "42",
+              "EX3": "rand(1, 10, 42)",
+              "RES3": "3"
+            }
+          },
+          "_RANDF": {
+            "TITLE": "Funkcja randf()",
+            "DESCRIPTION": "Funkcja zwracająca losową wartość zmiennoprzecinkową z podanego przedziału od minimum do maksimum. Można dodatkowo podać seed, aby otrzymać powtarzalne wyniki za każdym razem.",
+            "SYNTAX": "randf(min, max, [seed])",
+            "ARGUMENTS": {
+              "A-KEY": "min",
+              "A-DESCRIPTION": "minimalna wartość przedziału, z którego ma być wygenerowana losowa wartość.",
+              "B-KEY": "max",
+              "B-DESCRIPTION": "maksymalna wartość przedziału, z którego ma być wygenerowana losowa wartość.",
+              "C-KEY": "seed",
+              "C-DESCRIPTION": "opcjonalny parametr, który pozwala na otrzymanie powtarzalnych wyników za każdym razem, gdy funkcja jest wywoływana z tym samym seedem. Domyślnie wyłączona."
+            },
+            "EXAMPLES": {
+              "EX1": "randf(1.0, 10.0)",
+              "RES1": "5.5",
+              "EX2": "randf(1.0, 100.0)",
+              "RES2": "42.3",
+              "EX3": "randf(1.0, 10.0, 42)",
+              "RES3": "3.7"
+            }
+          },
+          "_ROOT": {
+            "TITLE": "Funkcja root()",
+            "DESCRIPTION": "Funkcja zwracająca pierwiastek podanego stopnia z liczby.",
+            "SYNTAX": "root(wartość, stopień)",
+            "ARGUMENTS": {
+              "A-KEY": "wartość",
+              "A-DESCRIPTION": "liczba, z której ma zostać obliczony pierwiastek.",
+              "B-KEY": "stopień",
+              "B-DESCRIPTION": "stopień pierwiastka. Może być dowolną liczbą rzeczywistą różną od zera."
+            },
+            "EXAMPLES": {
+              "EX1": "root(27, 3)",
+              "RES1": "3",
+              "EX2": "root(16, 2)",
+              "RES2": "4",
+              "EX3": "root(16, -2)",
+              "RES3": "0.25"
+            }
+          },
+          "_ROUND": {
+            "TITLE": "Funkcja round()",
+            "DESCRIPTION": "Funkcja zaokrąglająca liczbę do podanej liczby miejsc dziesiętnych. W przypadku braku drugiego argumentu, liczba zostanie zaokrąglona do najbliższej liczby całkowitej.",
+            "SYNTAX": "round(wartość, [miejsca])",
+            "ARGUMENTS": {
+              "A-KEY": "wartość",
+              "A-DESCRIPTION": "liczba, która ma zostać zaokrąglona.",
+              "B-KEY": "miejsca",
+              "B-DESCRIPTION": "opcjonalny parametr określający liczbę miejsc dziesiętnych, do których ma zostać zaokrąglona liczba. Domyślnie 0."
+            },
+            "EXAMPLES": {
+              "EX1": "round(3.14159)",
+              "RES1": "3",
+              "EX2": "round(3.14159, 2)",
+              "RES2": "3.14",
+              "EX3": "round(3.14159, 4)",
+              "RES3": "3.1416"
+            }
+          },
+          "_SCALE_EXPONENTIAL": {
+            "TITLE": "Funkcja scale_exponential()",
+            "DESCRIPTION": "Funkcja przeliczająca wartość z zakresu wejściowego na zakres wyjściowy według krzywej wykładniczej. Wartości poniżej zakresu wejściowego zwracają min_wyjścia, a powyżej zakresu zwracają max_wyjścia.",
+            "SYNTAX": "scale_exponential(wartość, min_wejścia, max_wejścia, min_wyjścia, max_wyjścia, podstawa)",
+            "ARGUMENTS": {
+              "A-KEY": "wartość",
+              "A-DESCRIPTION": "liczba, która ma zostać przeliczona na zakres wyjściowy.",
+              "B-KEY": "min_wejścia",
+              "B-DESCRIPTION": "dolna granica zakresu wejściowego. Musi być mniejsza od max_wejścia.",
+              "C-KEY": "max_wejścia",
+              "C-DESCRIPTION": "górna granica zakresu wejściowego. Musi być większa od min_wejścia.",
+              "D-KEY": "min_wyjścia",
+              "D-DESCRIPTION": "wartość wyjściowa odpowiadająca min_wejścia. Jest również zwracana dla wartości mniejszych od min_wejścia.",
+              "E-KEY": "max_wyjścia",
+              "E-DESCRIPTION": "wartość wyjściowa odpowiadająca max_wejścia. Jest również zwracana dla wartości większych od max_wejścia.",
+              "F-KEY": "podstawa",
+              "F-DESCRIPTION": "podstawa potęgi określająca kształt krzywej wykładniczej. Musi być większa od zera. Dla wartości 1 funkcja działa jak scale_linear()."
+            },
+            "EXAMPLES": {
+              "EX1": "scale_exponential(5, 0, 10, 0, 100, 2)",
+              "RES1": "3.0303",
+              "EX2": "scale_exponential(5, 0, 10, 0, 100, 1)",
+              "RES2": "50",
+              "EX3": "scale_exponential(15, 0, 10, 0, 100, 2)",
+              "RES3": "100"
+            }
+          },
+          "_SCALE_LINEAR": {
+            "TITLE": "Funkcja scale_linear()",
+            "DESCRIPTION": "Funkcja przeliczająca wartość z zakresu wejściowego na zakres wyjściowy w sposób liniowy, zachowując proporcję położenia wartości w zakresie. Wartości poniżej zakresu wejściowego zwracają min_wyjścia, a powyżej zakresu zwracają max_wyjścia.",
+            "SYNTAX": "scale_linear(wartość, min_wejścia, max_wejścia, min_wyjścia, max_wyjścia)",
+            "ARGUMENTS": {
+              "A-KEY": "wartość",
+              "A-DESCRIPTION": "liczba, która ma zostać przeliczona na zakres wyjściowy.",
+              "B-KEY": "min_wejścia",
+              "B-DESCRIPTION": "dolna granica zakresu wejściowego. Musi być mniejsza od max_wejścia.",
+              "C-KEY": "max_wejścia",
+              "C-DESCRIPTION": "górna granica zakresu wejściowego. Musi być większa od min_wejścia.",
+              "D-KEY": "min_wyjścia",
+              "D-DESCRIPTION": "wartość wyjściowa odpowiadająca min_wejścia. Jest również zwracana dla wartości mniejszych od min_wejścia.",
+              "E-KEY": "max_wyjścia",
+              "E-DESCRIPTION": "wartość wyjściowa odpowiadająca max_wejścia. Jest również zwracana dla wartości większych od max_wejścia."
+            },
+            "EXAMPLES": {
+              "EX1": "scale_linear(5, 0, 10, 0, 100)",
+              "RES1": "50",
+              "EX2": "scale_linear(-5, 0, 10, 0, 100)",
+              "RES2": "0",
+              "EX3": "scale_linear(15, 0, 10, 0, 100)",
+              "RES3": "100"
+            }
+          },
+          "_SCALE_LOGARITHMIC": {
+            "TITLE": "Funkcja scale_logarithmic()",
+            "DESCRIPTION": "Funkcja przeliczająca wartość z zakresu wejściowego na zakres wyjściowy w sposób logarytmiczny, na podstawie logarytmów naturalnych. Wartości poniżej zakresu wejściowego zwracają min_wyjścia, a powyżej zakresu zwracają max_wyjścia.",
+            "SYNTAX": "scale_logarithmic(wartość, min_wejścia, max_wejścia, min_wyjścia, max_wyjścia)",
+            "ARGUMENTS": {
+              "A-KEY": "wartość",
+              "A-DESCRIPTION": "liczba, która ma zostać przeliczona na zakres wyjściowy. Wartości mniejsze lub równe min_wejścia zwracają min_wyjścia bez obliczania logarytmu.",
+              "B-KEY": "min_wejścia",
+              "B-DESCRIPTION": "dolna granica zakresu wejściowego. Musi być większa od zera i mniejsza od max_wejścia, aby można było obliczyć logarytmy.",
+              "C-KEY": "max_wejścia",
+              "C-DESCRIPTION": "górna granica zakresu wejściowego. Musi być większa od min_wejścia i większa od zera.",
+              "D-KEY": "min_wyjścia",
+              "D-DESCRIPTION": "wartość wyjściowa odpowiadająca min_wejścia. Jest również zwracana dla wartości mniejszych od min_wejścia.",
+              "E-KEY": "max_wyjścia",
+              "E-DESCRIPTION": "wartość wyjściowa odpowiadająca max_wejścia. Jest również zwracana dla wartości większych od max_wejścia."
+            },
+            "EXAMPLES": {
+              "EX1": "scale_logarithmic(5, 1, 10, 0, 100)",
+              "RES1": "69.8970",
+              "EX2": "scale_logarithmic(10, 1, 100, 0, 100)",
+              "RES2": "50",
+              "EX3": "scale_logarithmic(0, 1, 10, 0, 100)",
+              "RES3": "0"
+            }
+          },
+          "_SCALE_POLYNOMIAL": {
+            "TITLE": "Funkcja scale_polynomial()",
+            "DESCRIPTION": "Funkcja przeliczająca wartość z zakresu wejściowego na zakres wyjściowy przez podniesienie jej względnego położenia w zakresie do podanej potęgi. Wartości poniżej zakresu wejściowego zwracają min_wyjścia, a powyżej zakresu zwracają max_wyjścia.",
+            "SYNTAX": "scale_polynomial(wartość, min_wejścia, max_wejścia, min_wyjścia, max_wyjścia, wykładnik)",
+            "ARGUMENTS": {
+              "A-KEY": "wartość",
+              "A-DESCRIPTION": "liczba, która ma zostać przeliczona na zakres wyjściowy.",
+              "B-KEY": "min_wejścia",
+              "B-DESCRIPTION": "dolna granica zakresu wejściowego. Musi być mniejsza od max_wejścia.",
+              "C-KEY": "max_wejścia",
+              "C-DESCRIPTION": "górna granica zakresu wejściowego. Musi być większa od min_wejścia.",
+              "D-KEY": "min_wyjścia",
+              "D-DESCRIPTION": "wartość wyjściowa odpowiadająca min_wejścia. Jest również zwracana dla wartości mniejszych od min_wejścia.",
+              "E-KEY": "max_wyjścia",
+              "E-DESCRIPTION": "wartość wyjściowa odpowiadająca max_wejścia. Jest również zwracana dla wartości większych od max_wejścia.",
+              "F-KEY": "wykładnik",
+              "F-DESCRIPTION": "wykładnik potęgi określający kształt krzywej. Musi być większy od zera. Dla wartości 1 funkcja działa jak scale_linear()."
+            },
+            "EXAMPLES": {
+              "EX1": "scale_polynomial(5, 0, 10, 0, 100, 2)",
+              "RES1": "25",
+              "EX2": "scale_polynomial(5, 0, 10, 0, 100, 1)",
+              "RES2": "50",
+              "EX3": "scale_polynomial(-5, 0, 10, 0, 100, 2)",
+              "RES3": "0"
+            }
+          },
+          "_SIN": {
+            "TITLE": "Funkcja sin()",
+            "DESCRIPTION": "Funkcja zwracająca wartość sinusa.",
+            "SYNTAX": "sin(kąt)",
+            "ARGUMENTS": {
+              "A-KEY": "kąt",
+              "A-DESCRIPTION": "kąt w radianach."
+            },
+            "EXAMPLES": {
+              "EX1": "sin(0)",
+              "RES1": "0",
+              "EX2": "sin(pi()/2)",
+              "RES2": "1",
+              "EX3": "sin(pi())",
+              "RES3": "0"
+            }
+          },
+          "_SQRT": {
+            "TITLE": "Funkcja sqrt()",
+            "DESCRIPTION": "Funkcja zwracająca pierwiastek kwadratowy z liczby.",
+            "SYNTAX": "sqrt(wartość)",
+            "ARGUMENTS": {
+              "A-KEY": "wartość",
+              "A-DESCRIPTION": "liczba, dla której ma zostać obliczony pierwiastek kwadratowy. Wartość musi być większa lub równa zero."
+            },
+            "EXAMPLES": {
+              "EX1": "sqrt(4)",
+              "RES1": "2",
+              "EX2": "sqrt(9)",
+              "RES2": "3",
+              "EX3": "sqrt(0)",
+              "RES3": "0"
+            }
+          },
+          "_TAN": {
+            "TITLE": "Funkcja tan()",
+            "DESCRIPTION": "Funkcja zwracająca wartość tangensa.",
+            "SYNTAX": "tan(kąt)",
+            "ARGUMENTS": {
+              "A-KEY": "kąt",
+              "A-DESCRIPTION": "kąt w radianach."
+            },
+            "EXAMPLES": {
+              "EX1": "tan(0)",
+              "RES1": "0",
+              "EX2": "tan(pi()/4)",
+              "RES2": "1",
+              "EX3": "tan(pi()/2)",
+              "RES3": "Błąd: tangens nie istnieje dla kąta pi()/2."
+            }
           }
         },
         "MAPS-OPERATORS": {
           "INFO": "Funkcje słownikowe",
-          "TITLE": "Operacje słownikowe"
+          "TITLE": "Operacje słownikowe",
+          "_FROM_JSON": {
+            "TITLE": "Funkcja from_json()",
+            "DESCRIPTION": "Funkcja przekształcająca ciąg znaków w formacie JSON na normalną strukturę danych.",
+            "SYNTAX": "from_json(ciąg_json)",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg_json",
+              "A-DESCRIPTION": "Ciąg znaków w formacie JSON."
+            },
+            "EXAMPLES": {
+              "EX1": "from_json('{\"key\": \"value\"}')",
+              "RES1": "{key: value}",
+              "EX2": "from_json('[1, 2, 3]')",
+              "RES2": "[1, 2, 3]",
+              "EX3": "from_json('{\"numbers\": [1, 2, 3]}')",
+              "RES3": "{numbers: [1, 2, 3]}"
+            }
+          },
+          "_MAP": {
+            "TITLE": "Funkcja map()",
+            "DESCRIPTION": "Funkcja tworząca słownik z kolejno podanych par klucz-wartość. Można podać dowolną liczbę par argumentów.",
+            "SYNTAX": "map(klucz1, wartość1, klucz2, wartość2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "klucz",
+              "A-DESCRIPTION": "kolejne klucze, które mają zostać użyte w słowniku. Każdy klucz musi być unikalny.",
+              "B-KEY": "wartość",
+              "B-DESCRIPTION": "kolejne wartości, które mają zostać przypisane do odpowiadających im kluczy."
+            },
+            "EXAMPLES": {
+              "EX1": "map('a', 1, 'b', 2)",
+              "RES1": "{a: 1, b: 2}",
+              "EX2": "map('x', 'hello', 'y', 'world')",
+              "RES2": "{x: hello, y: world}",
+              "EX3": "map('key1', true, 'key2', false)",
+              "RES3": "{key1: true, key2: false}"
+            }
+          },
+          "_MAP_AKEYS": {
+            "TITLE": "Funkcja map_akeys()",
+            "DESCRIPTION": "Funkcja zwracająca wszystkie klucze z podanej mapy jako klucze w tablicy",
+            "SYNTAX": "map_akeys(mapa)",
+            "ARGUMENTS": {
+              "A-KEY": "mapa",
+              "A-DESCRIPTION": "mapa, z której mają zostać pobrane wszystkie klucze."
+            },
+            "EXAMPLES": {
+              "EX1": "map_akeys(map('a', 1, 'b', 2))",
+              "RES1": "[a, b]",
+              "EX2": "map_akeys(map('x', 'hello', 'y', 'world'))",
+              "RES2": "[x, y]",
+              "EX3": "map_akeys({'key1', true, 'key2', false})",
+              "RES3": "[key1, key2]"
+            }
+          },
+          "_MAP_AVALS": {
+            "TITLE": "Funkcja map_avals()",
+            "DESCRIPTION": "Funkcja zwracająca wszystkie wartości z podanej mapy jako wartości w tablicy",
+            "SYNTAX": "map_avals(mapa)",
+            "ARGUMENTS": {
+              "A-KEY": "mapa",
+              "A-DESCRIPTION": "mapa, z której mają zostać pobrane wszystkie wartości."
+            },
+            "EXAMPLES": {
+              "EX1": "map_avals(map('a', 1, 'b', 2))",
+              "RES1": "[1, 2]",
+              "EX2": "map_avals(map('x', 'hello', 'y', 'world'))",
+              "RES2": "['hello', 'world']",
+              "EX3": "map_avals({'key1', true, 'key2', false})",
+              "RES3": "[true, false]"
+            }
+          },
+          "_MAP_CONCAT": {
+            "TITLE": "map_concat()",
+            "DESCRIPTION": "Funkcja łącząca dwie lub więcej map wartości w jedną. Jeżeli w mapach występują te same klucze, wartości z ostatniej mapy nadpisują wcześniejsze.",
+            "SYNTAX": "map_concat(mapa1, mapa2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "mapa",
+              "A-DESCRIPTION": "kolejne mapy wartości, które mają zostać połączone w jedną mapę."
+            },
+            "EXAMPLES": {
+              "EX1": "map_concat(map('a', 1, 'b', 2), map('c', 3, 'd', 4))",
+              "RES1": "{a: 1, b: 2, c: 3, d: 4}",
+              "EX2": "map_concat(map('a', 1, 'b', 2), map('b', 3, 'c', 4))",
+              "RES2": "{a: 1, b: 3, c: 4}",
+              "EX3": "map_concat(map('x', 'hello'), map('y', 'world'), map('y', '!'))",
+              "RES3": "{x: 'hello', y: '!'}"
+            }
+          },
+          "_MAP_DELETE": {
+            "TITLE": "Funkcja map_delete()",
+            "DESCRIPTION": "Funkcja zwracająca mapę wartości z usuniętym podanym kluczem. Jeżeli klucz nie istnieje w mapie, zwracana jest oryginalna mapa.",
+            "SYNTAX": "map_delete(mapa, klucz)",
+            "ARGUMENTS": {
+              "A-KEY": "mapa",
+              "A-DESCRIPTION": "mapa, z której ma zostać usunięty klucz.",
+              "B-KEY": "klucz",
+              "B-DESCRIPTION": "klucz, który ma zostać usunięty z mapy."
+            },
+            "EXAMPLES": {
+              "EX1": "map_delete(map('a', 1, 'b', 2), 'a')",
+              "RES1": "{b: 2}",
+              "EX2": "map_delete(map('x', 'hello', 'y', 'world'), 'y')",
+              "RES2": "{x: 'hello'}",
+              "EX3": "map_delete({'key1', true, 'key2', false}, 'key3')",
+              "RES3": "{key1: true, key2: false}"
+            }
+          },
+          "_MAP_EXIST": {
+            "TITLE": "Funkcja map_exist()",
+            "DESCRIPTION": "Funkcja zwracająca wartość True jeżeli podany klucz istnieje w podanej mapie wartości. Jeżeli nie występuje to zwracana jest wartość False",
+            "SYNTAX": "map_exist(mapa, klucz)",
+            "ARGUMENTS": {
+              "A-KEY": "mapa",
+              "A-DESCRIPTION": "mapa, w której ma zostać sprawdzony klucz.",
+              "B-KEY": "klucz",
+              "B-DESCRIPTION": "klucz, który ma zostać sprawdzony."
+            },
+            "EXAMPLES": {
+              "EX1": "map_exist(map('a', 1, 'b', 2), 'a')",
+              "RES1": "True",
+              "EX2": "map_exist(map('x', 'hello', 'y', 'world'), 'z')",
+              "RES2": "False",
+              "EX3": "map_exist({'key1', true, 'key2', false}, 'key2')",
+              "RES3": "True"
+            }
+          },
+          "_MAP_GET": {
+            "TITLE": "Funkcja map_get()",
+            "DESCRIPTION": "Funkcja zwracająca wartość mapy dla podanego klucza. Klucz musi istnieć w mapie, w przeciwnym razie zostanie zwrócony błąd.",
+            "SYNTAX": "map_get(mapa, klucz)",
+            "ARGUMENTS": {
+              "A-KEY": "mapa",
+              "A-DESCRIPTION": "mapa, z której ma zostać pobrana wartość.",
+              "B-KEY": "klucz",
+              "B-DESCRIPTION": "klucz, dla którego ma zostać pobrana wartość."
+            },
+            "EXAMPLES": {
+              "EX1": "map_get(map('a', 1, 'b', 2), 'a')",
+              "RES1": "1",
+              "EX2": "map_get(map('x', 'hello', 'y', 'world'), 'y')",
+              "RES2": "'world'",
+              "EX3": "map_get({'key1': true, 'key2': false}, 'key2')",
+              "RES3": "false"
+            }
+          },
+          "_MAP_INSERT": {
+            "TITLE": "Funkcja map_insert()",
+            "DESCRIPTION": "Funkcja zwracająca mapę wartości z dodaną podaną parą klucz-wartość. Jeżeli klucz już istnieje w mapie, jego wartość zostanie nadpisana.",
+            "SYNTAX": "map_insert(mapa, klucz, wartość)",
+            "ARGUMENTS": {
+              "A-KEY": "mapa",
+              "A-DESCRIPTION": "mapa, do której ma zostać dodana para klucz-wartość.",
+              "B-KEY": "klucz",
+              "B-DESCRIPTION": "klucz, który ma zostać dodany do mapy.",
+              "C-KEY": "wartość",
+              "C-DESCRIPTION": "wartość, która ma zostać przypisana do podanego klucza."
+            },
+            "EXAMPLES": {
+              "EX1": "map_insert(map('a', 1, 'b', 2), 'c', 3)",
+              "RES1": "{a: 1, b: 2, c: 3}",
+              "EX2": "map_insert(map('x', 'hello', 'y', 'world'), 'y', '!')",
+              "RES2": "{x: 'hello', y: '!'}",
+              "EX3": "map_insert({'key1': true, 'key2': false}, 'key3', null)",
+              "RES3": "{key1: true, key2: false, key3: null}"
+            }
+          },
+          "_MAP_PREFIX_KEYS": {
+            "TITLE": "Funkcja map_prefix_keys()",
+            "DESCRIPTION": "Funkcja zwracająca mapę, w której wszystkie klucze zostały poprzedzone podanym prefiksem.",
+            "SYNTAX": "map_prefix_keys(mapa, prefiks)",
+            "ARGUMENTS": {
+              "A-KEY": "mapa",
+              "A-DESCRIPTION": "mapa, której klucze mają zostać poprzedzone prefiksem.",
+              "B-KEY": "prefiks",
+              "B-DESCRIPTION": "prefiks, który ma zostać dodany do wszystkich kluczy w mapie."
+            },
+            "EXAMPLES": {
+              "EX1": "map_prefix_keys(map('a', 1, 'b', 2), 'prefix_')",
+              "RES1": "{prefix_a: 1, prefix_b: 2}",
+              "EX2": "map_prefix_keys(map('x', 'hello', 'y', 'world'), 'pre_')",
+              "RES2": "{pre_x: 'hello', pre_y: 'world'}",
+              "EX3": "map_prefix_keys({'key1': true, 'key2': false}, 'my_')",
+              "RES3": "{my_key1: true, my_key2: false}"
+            }
+          },
+          "_MAP_TO_HTML_DL": {
+            "TITLE": "Funkcja map_to_html_dl()",
+            "DESCRIPTION": "Funkcja zwracająca ciąg znaków reprezentujący listę definicji HTML na podstawie podanej mapy.",
+            "SYNTAX": "map_to_html_dl(mapa)",
+            "ARGUMENTS": {
+              "A-KEY": "mapa",
+              "A-DESCRIPTION": "mapa, na podstawie której ma zostać utworzona lista definicji HTML."
+            },
+            "EXAMPLES": {
+              "EX1": "map_to_html_dl(map('a', 1, 'b', 2))",
+              "RES1": "<dl><dt>a</dt><dd>1</dd><dt>b</dt><dd>2</dd></dl>",
+              "EX2": "map_to_html_dl(map('x', 'hello', 'y', 'world'))",
+              "RES2": "<dl><dt>x</dt><dd>hello</dd><dt>y</dt><dd>world</dd></dl>",
+              "EX3": "map_to_html_dl({'key1': true, 'key2': false})",
+              "RES3": "<dl><dt>key1</dt><dd>true</dd><dt>key2</dt><dd>false</dd></dl>"
+            }
+          },
+          "_MAP_TO_HTML_TABLE": {
+            "TITLE": "Funkcja map_to_html_table()",
+            "DESCRIPTION": "Funkcja zwracająca ciąg znaków reprezentujący tabelę HTML na podstawie podanej mapy.",
+            "SYNTAX": "map_to_html_table(mapa)",
+            "ARGUMENTS": {
+              "A-KEY": "mapa",
+              "A-DESCRIPTION": "mapa, na podstawie której ma zostać utworzona tabela HTML."
+            },
+            "EXAMPLES": {
+              "EX1": "map_to_html_table(map('a', 1, 'b', 2))",
+              "RES1": "<table><tr><th>a</th><td>1</td></tr><tr><th>b</th><td>2</td></tr></table>",
+              "EX2": "map_to_html_table(map('x', 'hello', 'y', 'world'))",
+              "RES2": "<table><tr><th>x</th><td>hello</td></tr><tr><th>y</th><td>world</td></tr></table>",
+              "EX3": "map_to_html_table({'key1': true, 'key2': false})",
+              "RES3": "<table><tr><th>key1</th><td>true</td></tr><tr><th>key2</th><td>false</td></tr></table>"
+            }
+          },
+          "_TO_JSON": {
+            "TITLE": "Funkcja to_json()",
+            "DESCRIPTION": "Funkcja zwracająca ciąg znaków reprezentujący dane w formacie JSON na podstawie podanej mapy wartości, tablicy lub innej wartości.",
+            "SYNTAX": "to_json(dane)",
+            "ARGUMENTS": {
+              "A-KEY": "dane",
+              "A-DESCRIPTION": "mapa wartości, tablica lub inna wartość, która ma zostać przekształcona na format JSON."
+            },
+            "EXAMPLES": {
+              "EX1": "to_json(map('a', 1, 'b', 2))",
+              "RES1": "{\"a\": 1, \"b\": 2}",
+              "EX2": "to_json([1, 2, 3])",
+              "RES2": "[1, 2, 3]",
+              "EX3": "to_json({'key1': true, 'key2': false})",
+              "RES3": "{\"key1\": true, \"key2\": false}"
+            }
+          },
+          "_URL_ENCODE": {
+            "TITLE": "Funkcja url_encode()",
+            "DESCRIPTION": "Funkcja zwracająca ciąg znaków z zakodowanymi znakami specjalnymi w formacie URL.",
+            "SYNTAX": "url_encode(ciąg)",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków, który ma zostać zakodowany w formacie URL."
+            },
+            "EXAMPLES": {
+              "EX1": "url_encode('Hello World!')",
+              "RES1": "Hello%20World%21",
+              "EX2": "url_encode('a+b=c&d=e')",
+              "RES2": "a%2Bb%3Dc%26d%3De",
+              "EX3": "url_encode('https://example.com/?q=search')",
+              "RES3": "https%3A%2F%2Fexample.com%2F%3Fq%3Dsearch"
+            }
+          }
         },
         "STRING-OPERATORS": {
           "INFO": "Funkcje tekstowe",
-          "TITLE": "Operacje tekstowe"
+          "TITLE": "Operacje tekstowe",
+          "_ASCII": {
+            "TITLE": "Funkcja ascii()",
+            "DESCRIPTION": "Funkcja zwracająca wartość ASCII pierwszego znaku w podanym ciągu znaków.",
+            "SYNTAX": "ascii(ciąg)",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków, z którego ma zostać pobrana wartość ASCII pierwszego znaku."
+            },
+            "EXAMPLES": {
+              "EX1": "ascii('A')",
+              "RES1": "65",
+              "EX2": "ascii('Hello')",
+              "RES2": "72",
+              "EX3": "ascii('!')",
+              "RES3": "33"
+            }
+          },
+          "_CHAR": {
+            "TITLE": "Funkcja char()",
+            "DESCRIPTION": "Funkcja zwracająca znak odpowiadający podanemu kodu ASCII.",
+            "SYNTAX": "char(kod)",
+            "ARGUMENTS": {
+              "A-KEY": "kod",
+              "A-DESCRIPTION": "kod ASCII, dla którego ma zostać zwrócony odpowiadający znak."
+            },
+            "EXAMPLES": {
+              "EX1": "char(65)",
+              "RES1": "A",
+              "EX2": "char(81)",
+              "RES2": "Q",
+              "EX3": "char(33)",
+              "RES3": "!"
+            }
+          },
+          "_CONCAT": {
+            "TITLE": "Funkcja concat()",
+            "DESCRIPTION": "Funkcja łącząca kilka ciągów znaków w jeden.",
+            "SYNTAX": "concat(ciąg1, ciąg2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "kolejne ciągi znaków, które mają zostać połączone w jeden. Można podać dowolną liczbę argumentów."
+            },
+            "EXAMPLES": {
+              "EX1": "concat('Hello', ' ', 'World')",
+              "RES1": "Hello World",
+              "EX2": "concat('A', 'B', 'C')",
+              "RES2": "ABC",
+              "EX3": "concat('foo  ', '  bar')",
+              "RES3": "foo    bar"
+            }
+          },
+          "_FORMAT": {
+            "TITLE": "Funkcja format()",
+            "DESCRIPTION": "Funkcja formatująca ciąg znaków przez zastępowanie znaczników %1, %2, %3 itd. kolejnymi argumentami. Numeracja zaczyna się od 1. Znaczniki bez odpowiadającego argumentu pozostają bez zmian.",
+            "SYNTAX": "format(ciąg, argument1, argument2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków zawierający miejsca na argumenty, oznaczone jako %1, %2, %3 itd. Ten sam znacznik może wystąpić wielokrotnie. Ciąg nie może zawierać przecinka ze spacją, ponieważ jest on używany do rozdzielania argumentów.",
+              "B-KEY": "argument",
+              "B-DESCRIPTION": "kolejne wartości, które mają zostać wstawione w miejsca oznaczone znacznikami: pierwszy argument zastępuje %1, drugi %2 itd. Należy podać co najmniej jedną wartość. Wartości nie mogą być pustym tekstem ani zawierać przecinka ze spacją."
+            },
+            "EXAMPLES": {
+              "EX1": "format('Witaj %1! Czas to %2.', 'Jan', '10:00')",
+              "RES1": "Witaj Jan! Czas to 10:00.",
+              "EX2": "format('Liczba: %1; Tekst: %2', 42, 'Hello')",
+              "RES2": "Liczba: 42; Tekst: Hello",
+              "EX3": "format('Dzień: %1; Miesiąc: %2; Rok: %3', 25, 12, 2024)",
+              "RES3": "Dzień: 25; Miesiąc: 12; Rok: 2024"
+            }
+          },
+          "_FORMAT_DATE": {
+            "TITLE": "Funkcja format_date()",
+            "DESCRIPTION": "Funkcja formatująca typ data lub ciąg znaków w określony ciąg znaków.",
+            "SYNTAX": "format_date(data, format)",
+            "ARGUMENTS": {
+              "A-KEY": "data",
+              "A-DESCRIPTION": "wartość typu data lub ciąg znaków w formacie YYYY-MM-DD, np. 2026-02-05. Data musi być poprawna, a miesiąc i dzień zapisane dwiema cyframi.",
+              "B-KEY": "format",
+              "B-DESCRIPTION": "ciąg znaków określający format wyjściowy. Musi zawierać dokładnie trzy składniki: dzień (d, dd, ddd lub dddd), miesiąc (M, MM, MMM lub MMMM) i rok (yy lub yyyy), w dowolnej kolejności, oddzielone kropkami, np. dd.MM.yyyy. Przy nazwie miesiąca (MMM lub MMMM) wynik jest rozdzielany spacjami, w pozostałych przypadkach kropkami.",
+              "TYPES": {
+                "d": "dzień miesiąca jako liczba bez zera wiodącego (1-31), np. 5",
+                "dd": "dzień miesiąca jako liczba dwucyfrowa (01-31), np. 05",
+                "ddd": "skrócona angielska nazwa dnia tygodnia (Mon, Tue, Wed, Thu, Fri, Sat, Sun)",
+                "dddd": "pełna angielska nazwa dnia tygodnia (Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday)",
+                "M": "miesiąc jako liczba bez zera wiodącego (1-12), np. 2",
+                "MM": "miesiąc jako liczba dwucyfrowa (01-12), np. 02",
+                "MMM": "skrócona angielska nazwa miesiąca (Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec)",
+                "MMMM": "pełna angielska nazwa miesiąca (January, February, March, April, May, June, July, August, September, October, November, December)",
+                "yy": "dwie ostatnie cyfry roku (00-99), np. 26 dla roku 2026",
+                "yyyy": "rok jako liczba czterocyfrowa, np. 2026"
+              }
+            },
+            "EXAMPLES": {
+              "EX1": "format_date('2026-02-05', 'dd.MM.yyyy')",
+              "RES1": "05.02.2026",
+              "EX2": "format_date('2026-02-05', 'dd.MMMM.yyyy')",
+              "RES2": "05 February 2026",
+              "EX3": "format_date('2026-02-05', 'ddd.MM.yy')",
+              "RES3": "Thu.02.26"
+            }
+          },
+          "_FORMAT_TIME": {
+            "TITLE": "Funkcja format_time()",
+            "DESCRIPTION": "Funkcja formatująca czas według podanego formatu. Obsługuje zapis 12-godzinny z automatycznie dodawanym oznaczeniem AM lub PM oraz zapis 24-godzinny.",
+            "SYNTAX": "format_time(czas, format)",
+            "ARGUMENTS": {
+              "A-KEY": "czas",
+              "A-DESCRIPTION": "ciąg znaków zawierający godzinę, minutę i sekundę oddzielone dwukropkami, np. 13:05:09. Każdy składnik może mieć jedną lub dwie cyfry. Godzina musi należeć do zakresu 0-23, a minuta i sekunda do zakresu 0-59. Wszystkie trzy składniki są wymagane również wtedy, gdy format wyjściowy zawiera tylko dwa.",
+              "B-KEY": "format",
+              "B-DESCRIPTION": "ciąg znaków określający format wyjściowy. Musi zawierać dwa lub trzy różne składniki czasu: godzinę (h, hh, H lub HH), minutę (m lub mm) i sekundę (s lub ss), w dowolnej kolejności, oddzielone dwukropkami. Użycie h lub hh automatycznie dodaje na końcu wyniku spację i oznaczenie AM lub PM.",
+              "TYPES": {
+                "h": "godzina w zapisie 12-godzinnym bez zera wiodącego (1-12), np. 1 dla godziny 13; dodaje oznaczenie AM lub PM",
+                "hh": "godzina w zapisie 12-godzinnym z zerem wiodącym (01-12), np. 01 dla godziny 13; dodaje oznaczenie AM lub PM",
+                "H": "godzina w zapisie 24-godzinnym bez zera wiodącego (0-23), np. 5",
+                "HH": "godzina w zapisie 24-godzinnym z zerem wiodącym (00-23), np. 05",
+                "m": "minuta bez zera wiodącego (0-59), np. 5",
+                "mm": "minuta z zerem wiodącym (00-59), np. 05",
+                "s": "sekunda bez zera wiodącego (0-59), np. 9",
+                "ss": "sekunda z zerem wiodącym (00-59), np. 09"
+              }
+            },
+            "EXAMPLES": {
+              "EX1": "format_time('13:05:09', 'HH:mm:ss')",
+              "RES1": "13:05:09",
+              "EX2": "format_time('13:05:09', 'hh:mm:ss')",
+              "RES2": "01:05:09 PM",
+              "EX3": "format_time('00:00:00', 'h:mm')",
+              "RES3": "12:00 AM"
+            }
+          },
+          "_LEFT": {
+            "TITLE": "Funkcja left()",
+            "DESCRIPTION": "Funkcja zwracająca określoną liczbę znaków od początku podanego ciągu znaków.",
+            "SYNTAX": "left(ciąg, liczba_znaków)",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków, z którego mają zostać pobrane znaki od początku.",
+              "B-KEY": "liczba_znaków",
+              "B-DESCRIPTION": "liczba znaków, które mają zostać pobrane od początku ciągu. Musi być liczbą całkowitą nieujemną."
+            },
+            "EXAMPLES": {
+              "EX1": "left('Hello World', 5)",
+              "RES1": "Hello",
+              "EX2": "left('abcdef', 3)",
+              "RES2": "abc",
+              "EX3": "left('12345', 0)",
+              "RES3": ""
+            }
+          },
+          "_LENGTH": {
+            "TITLE": "Funkcja length()", 
+            "DESCRIPTION": "Funkcja zwracająca liczbę znaków z podanego ciągu.",
+            "SYNTAX": "length(ciąg)",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków, którego długość ma zostać obliczona."
+            },
+            "EXAMPLES": {
+              "EX1": "length('Hello')",
+              "RES1": "5",
+              "EX2": "length('')",
+              "RES2": "0",
+              "EX3": "length('123456789')",
+              "RES3": "9"
+            }
+          },
+          "_LOWER": {
+            "TITLE": "Funkcja lower()",
+            "DESCRIPTION": "Funkcja zwracająca ciąg znaków w formacie małych liter.",
+            "SYNTAX": "lower(ciąg)",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków, który ma zostać przekonwertowany do małych liter."
+            },
+            "EXAMPLES": {
+              "EX1": "lower('HELLO')",
+              "RES1": "hello",
+              "EX2": "lower('World')",
+              "RES2": "world",
+              "EX3": "lower('123')",
+              "RES3": "123"
+            }
+          },
+          "_LPAD": {
+            "TITLE": "Funkcja lpad()",
+            "DESCRIPTION": "Funkcja zwracająca ciąg znaków dopełniony do określonej szerokości ciągu podanymi znakami. Jeżeli ciąg wejściowy jest dłuższy niż określona szerokość, zostanie on obcięty od lewej strony.",
+            "SYNTAX": "lpad(ciąg, szerokość, znak)",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków, który ma zostać dopełniony.",
+              "B-KEY": "szerokość",
+              "B-DESCRIPTION": "określona szerokość ciągu.",
+              "C-KEY": "znak",
+              "C-DESCRIPTION": "znak, który ma być użyty do dopełnienia ciągu."
+            },
+            "EXAMPLES": {
+              "EX1": "lpad('Hello', 10, ' ')",
+              "RES1": "     Hello",
+              "EX2": "lpad('World', 10, '0')",
+              "RES2": "00000World",
+              "EX3": "lpad('123', 5, '0')",
+              "RES3": "00123"
+            }
+          },
+          "_LTRIM": {
+            "TITLE": "Funkcja ltrim()",
+            "DESCRIPTION": "Funkcja zwracająca ciąg znaków obcięty o białe znaki. Możliwe jest podanie dodatkowego argumentu znaków w celu obcięcia ich z lewej strony ciągu.",
+            "SYNTAX": "ltrim(ciąg, [znaki])",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków, który ma zostać obcięty.",
+              "B-KEY": "znaki",
+              "B-DESCRIPTION": "znaki, które mają zostać usunięte z lewej strony ciągu."
+            },
+            "EXAMPLES": {
+              "EX1": "ltrim('  Hello  ')",
+              "RES1": "Hello  ",
+              "EX2": "ltrim('yyzzzxxxxxxWorld  ', 'xyz')",
+              "RES2": "World  ",
+              "EX3": "ltrim('---Hello---', '-')",
+              "RES3": "Hello---"
+            }
+          },
+          "_REGEXP_MATCH": {
+            "TITLE": "Funkcja regexp_match()",
+            "DESCRIPTION": "Funkcja zwracająca pierwszą pozycję dopasowania podanego wyrażenia w podanym ciągu. W przypadku nieznalezienia dopasowania zwraca 0.",
+            "SYNTAX": "regexp_match(ciąg, wyrażenie)",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków, w którym ma zostać wyszukane dopasowanie.",
+              "B-KEY": "wyrażenie",
+              "B-DESCRIPTION": "wyrażenie, które ma zostać wyszukane w ciągu. Możliwe jest użycie wyrażeń RegEx."
+            },
+            "EXAMPLES": {
+              "EX1": "regexp_match('Hello World', 'World')",
+              "RES1": "7",
+              "EX2": "regexp_match('Hello World', 'xyz')",
+              "RES2": "0",
+              "EX3": "regexp_match('abc123', '\\d+')",
+              "RES3": "4"
+            }
+          },
+          "_REGEXP_REPLACE": {
+            "TITLE": "Funkcja regexp_replace()",
+            "DESCRIPTION": "Funkcja zwracająca ciąg znaków z zastąpionymi fragmentami pasującymi do podanego wyrażenia.",
+            "SYNTAX": "regexp_replace(ciąg, wyrażenie, zamiana)",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków, w którym ma zostać wykonana zamiana.",
+              "B-KEY": "wyrażenie",
+              "B-DESCRIPTION": "wyrażenie, które ma zostać wyszukane w ciągu. Możliwe jest użycie wyrażeń RegEx.",
+              "C-KEY": "zamiana",
+              "C-DESCRIPTION": "ciąg znaków, który ma zastąpić pasujące fragmenty."
+            },
+            "EXAMPLES": {
+              "EX1": "regexp_replace('Hello World', 'World', 'Universe')",
+              "RES1": "Hello Universe",
+              "EX2": "regexp_replace('abc123', '\\d+', 'X')",
+              "RES2": "abcXXX",
+              "EX3": "regexp_replace('foo bar baz', 'ba.', 'qux')",
+              "RES3": "foo qux qux"
+            }
+          },
+          "_REGEXP_SUBSTR": {
+            "TITLE": "Funkcja regexp_substr()",
+            "DESCRIPTION": "Funkcja zwracająca część ciągu zgodną z podanym wyrażeniem. W przypadku wielu dopasowań zwraca pierwsze z nich. W przypadku braku dopasowania zwraca pusty ciąg.",
+            "SYNTAX": "regexp_substr(ciąg, wyrażenie)",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków, z którego ma zostać zwrócona część.",
+              "B-KEY": "wyrażenie",
+              "B-DESCRIPTION": "wyrażenie, zgodnie z którym ma zostać wybrana część ciągu. Możliwe jest użycie wyrażeń RegEx poprzedzonych znakiem \\ jak w przykładzie."
+            },
+            "EXAMPLES": {
+              "EX1": "regexp_substr('Hello World', 'World')",
+              "RES1": "World",
+              "EX2": "regexp_substr('abc123', '\\d+')",
+              "RES2": "123",
+              "EX3": "regexp_substr('foo bar baz', 'ba.')",
+              "RES3": "bar"
+            }
+          },
+          "_REPLACE": {
+            "TITLE": "Funkcja replace()",
+            "DESCRIPTION": "Funkcja zwracająca nowy ciąg znaków z zastąpionymi fragmentami podanego ciągu.",
+            "SYNTAX": "replace(ciąg, znaki_do_zamiany, zamiennik)",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków, w którym ma zostać wykonana zamiana.",
+              "B-KEY": "znaki_do_zamiany",
+              "B-DESCRIPTION": "ciąg znaków, który ma zostać zastąpiony.",
+              "C-KEY": "zamiennik",
+              "C-DESCRIPTION": "ciąg znaków, który ma zastąpić podane znaki."
+            },
+            "EXAMPLES": {
+              "EX1": "replace('Hello World', 'World', 'Universe')",
+              "RES1": "Hello Universe",
+              "EX2": "replace('abc123', '123', 'XYZ')",
+              "RES2": "abcXYZ",
+              "EX3": "replace('foo bar baz', 'ba', 'qu')",
+              "RES3": "foo qur quz"
+            }
+          },
+          "_RIGHT": {
+            "TITLE": "Funkcja right()",
+            "DESCRIPTION": "Funkcja zwracająca określoną liczbę znaków od końca podanego ciągu znaków.",
+            "SYNTAX": "right(ciąg, liczba_znaków)",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków, z którego ma zostać zwrócona część.",
+              "B-KEY": "liczba_znaków",
+              "B-DESCRIPTION": "liczba znaków, które mają zostać zwrócone od końca ciągu."
+            },
+            "EXAMPLES": {
+              "EX1": "right('Hello World', 5)",
+              "RES1": "World",
+              "EX2": "right('abcdef', 3)",
+              "RES2": "def",
+              "EX3": "right('123456789', 2)",
+              "RES3": "89"
+            }
+          },
+          "_RPAD": {
+            "TITLE": "Funkcja rpad()",
+            "DESCRIPTION": "Funkcja zwracająca ciąg znaków dopełniony do określonej szerokości ciągu podanymi znakami. Jeżeli ciąg wejściowy jest dłuższy niż określona szerokość, zostanie on obcięty od prawej strony.",
+            "SYNTAX": "rpad(ciąg, szerokość, znak)",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków, który ma zostać dopełniony.",
+              "B-KEY": "szerokość",
+              "B-DESCRIPTION": "określona szerokość, do której ma zostać dopełniony ciąg.",
+              "C-KEY": "znak",
+              "C-DESCRIPTION": "znak, który ma być użyty do dopełnienia ciągu."
+            },
+            "EXAMPLES": {
+              "EX1": "rpad('Hello', 10, ' ')",
+              "RES1": "Hello     ",
+              "EX2": "rpad('World', 10, '0')",
+              "RES2": "World00000",
+              "EX3": "rpad('123', 5, '0')",
+              "RES3": "12300"
+            }
+          },
+          "_RTRIM": {
+            "TITLE": "Funkcja rtrim()",
+            "DESCRIPTION": "Funkcja zwracająca ciąg znaków obcięty o białe znaki. Możliwe jest podanie dodatkowego argumentu znaków w celu obcięcia ich z prawej strony ciągu.",
+            "SYNTAX": "rtrim(ciąg, [znaki])",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków, który ma zostać obcięty.",
+              "B-KEY": "znaki",
+              "B-DESCRIPTION": "opcjonalny argument, który określa znaki do obcięcia z prawej strony ciągu."
+            },
+            "EXAMPLES": {
+              "EX1": "rtrim('Hello World ')",
+              "RES1": "Hello World",
+              "EX2": "rtrim('12345', '5')",
+              "RES2": "1234",
+              "EX3": "rtrim('abcxyz', 'xyz')",
+              "RES3": "abc"
+            }
+          },
+          "_STRPOS": {
+            "TITLE": "Funkcja strpos()",
+            "DESCRIPTION": "Funkcja zwracająca pierwszą pozycję szukanego wyrażenia w podanym ciągu znaków. W przypadku nieznalezienia dopasowania zwraca 0.",
+            "SYNTAX": "strpos(ciąg, szukany)",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków, w którym ma być wyszukiwane wyrażenie.",
+              "B-KEY": "szukany",
+              "B-DESCRIPTION": "wyrażenie, które ma być wyszukiwane w ciągu znaków."
+            },
+            "EXAMPLES": {
+              "EX1": "strpos('Hello World', 'World')",
+              "RES1": "7",
+              "EX2": "strpos('Hello World', 'xyz')",
+              "RES2": "0",
+              "EX3": "strpos('a123b123c123', '123')",
+              "RES3": "1"
+            }
+          },
+          "_SUBSTR": {
+            "TITLE": "Funkcja substr()",
+            "DESCRIPTION": "Funkcja zwracająca przycięty ciąg znaków z podanego ciągu, zaczynając od określonej pozycji i opcjonalnie o określonej długości.",
+            "SYNTAX": "substr(ciąg, pozycja, [długość])",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków, z którego ma być pobrany podciąg.",
+              "B-KEY": "pozycja",
+              "B-DESCRIPTION": "pozycja, od której ma być zaczynany podciąg.",
+              "C-KEY": "długość",
+              "C-DESCRIPTION": "opcjonalny argument, który określa długość podciągu. Wymaga podania liczby całkowitej. W przypadku podania liczby ujemnej, koniec podciągu będzie obcięty o tę liczbę znaków od końca ciągu."
+            },
+            "EXAMPLES": {
+              "EX1": "substr('Hello World', 6)",
+              "RES1": "World",
+              "EX2": "substr('Hello World', 2, 5)",
+              "RES2": "llo",
+              "EX3": "substr('abcdef', 2, -2)",
+              "RES3": "bcd"
+            }
+          },
+          "_TITLE": {
+            "TITLE": "Funkcja title()",
+            "DESCRIPTION": "Funkcja zamieniająca pierwszy znak każdego słowa w podanym ciągu na wielką literę, a pozostałe znaki na małe litery.",
+            "SYNTAX": "title(ciąg)",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków, który ma być przetworzony."
+            },
+            "EXAMPLES": {
+              "EX1": "title('hello world')",
+              "RES1": "Hello World",
+              "EX2": "title('javaScript is fun')",
+              "RES2": "Javascript Is Fun",
+              "EX3": "title('123abc DEF')",
+              "RES3": "123abc Def"
+            }
+          },
+          "_TO_STRING": {
+            "TITLE": "Funkcja to_string()",
+            "DESCRIPTION": "Funkcja konwertująca podaną liczbę na ciąg znaków.",
+            "SYNTAX": "to_string(liczba)",
+            "ARGUMENTS": {
+              "A-KEY": "liczba",
+              "A-DESCRIPTION": "liczba, która ma zostać skonwertowana na ciąg znaków."
+            },
+            "EXAMPLES": {
+              "EX1": "to_string(123)",
+              "RES1": "123",
+              "EX2": "to_string(45.67)",
+              "RES2": "45.67",
+              "EX3": "to_string(-89)",
+              "RES3": "-89"
+            }
+          },
+          "_TRIM": {
+            "TITLE": "Funkcja trim()",
+            "DESCRIPTION": "Funkcja usuwająca białe znaki z początku i końca podanego ciągu.",
+            "SYNTAX": "trim(ciąg)",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków, z którego mają być usunięte białe znaki."
+            },
+            "EXAMPLES": {
+              "EX1": "trim('  Hello World  ')",
+              "RES1": "Hello World",
+              "EX2": "trim('   abc   ')",
+              "RES2": "abc",
+              "EX3": "trim('   123   ')",
+              "RES3": "123"
+            }
+          },
+          "_UPPER": {
+            "TITLE": "Funkcja upper()",
+            "DESCRIPTION": "Funkcja zwracająca ciąg znaków w formacie dużych liter.",
+            "SYNTAX": "upper(ciąg)",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków, który ma zostać przekonwertowany na wielkie litery."
+            },
+            "EXAMPLES": {
+              "EX1": "upper('hello world')",
+              "RES1": "HELLO WORLD",
+              "EX2": "upper('JavaScript')",
+              "RES2": "JAVASCRIPT",
+              "EX3": "upper('123abc')",
+              "RES3": "123ABC"
+            }
+          },
+          "_WORDWRAP": {
+            "TITLE": "Funkcja wordwrap()",
+            "DESCRIPTION": "Funkcja zwracająca ciąg znaków zawinięty do określonej szerokości.",
+            "SYNTAX": "wordwrap(ciąg, szerokość)",
+            "ARGUMENTS": {
+              "A-KEY": "ciąg",
+              "A-DESCRIPTION": "ciąg znaków, który ma zostać zawinięty.",
+              "B-KEY": "szerokość",
+              "B-DESCRIPTION": "określona szerokość, do której ma zostać zawinięty ciąg. Musi być liczbą całkowitą większą od 0."
+            },
+            "EXAMPLES": {
+              "EX1": "wordwrap('To jest długi ciąg znaków, który ma zostać zawinięty.', 10)",
+              "RES1": "To jest\n długi ciąg\n znaków, który\n ma zostać\n zawinięty.",
+              "EX2": "wordwrap('Hello World', 5)",
+              "RES2": "Hello\nWorld",
+              "EX3": "wordwrap('1234567890', 3)",
+              "RES3": "123\n456\n789\n0"
+            }
+          }
         }
       },
       "ERRORS": {
