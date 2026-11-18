@@ -402,7 +402,11 @@
             },
             "EXAMPLES": {
               "EX1": "now()",
-              "RES1": "z.B. 2026-10-30 13:05:09.123456 (das Ergebnis hängt vom Zeitpunkt des Aufrufs und der Serverzeit ab)"
+              "RES1": "z.B. 2026-10-30 13:05:09.123456 (das Ergebnis hängt vom Zeitpunkt des Aufrufs und der Serverzeit ab)",
+              "EX2": "now()",
+              "RES2": "z.B. 2026-10-30 13:05:10 (das Ergebnis hängt vom Zeitpunkt des Aufrufs und der Serverzeit ab)",
+              "EX3": "now()",
+              "RES3": "z.B. 2026-10-31 00:00:00.000001 (das Ergebnis hängt vom Zeitpunkt des Aufrufs und der Serverzeit ab)"
             }
           },
           "_SECOND": {

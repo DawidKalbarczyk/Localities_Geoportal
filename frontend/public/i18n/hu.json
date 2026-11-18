@@ -402,7 +402,11 @@
             },
             "EXAMPLES": {
               "EX1": "now()",
-              "RES1": "pl. 2026-10-30 13:05:09.123456 (az eredmény a hívás idejétől és a szerveridőtől függ)"
+              "RES1": "pl. 2026-10-30 13:05:09.123456 (az eredmény a hívás idejétől és a szerveridőtől függ)",
+              "EX2": "now()",
+              "RES2": "pl. 2026-10-30 13:05:10 (az eredmény a hívás idejétől és a szerveridőtől függ)",
+              "EX3": "now()",
+              "RES3": "pl. 2026-10-31 00:00:00.000001 (az eredmény a hívás idejétől és a szerveridőtől függ)"
             }
           },
           "_SECOND": {

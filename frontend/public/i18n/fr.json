@@ -402,7 +402,11 @@
             },
             "EXAMPLES": {
               "EX1": "now()",
-              "RES1": "par ex. 2026-10-30 13:05:09.123456 (le résultat dépend de l'heure de l'appel et de l'heure du serveur)"
+              "RES1": "par ex. 2026-10-30 13:05:09.123456 (le résultat dépend de l'heure de l'appel et de l'heure du serveur)",
+              "EX2": "now()",
+              "RES2": "par ex. 2026-10-30 13:05:10 (le résultat dépend de l'heure de l'appel et de l'heure du serveur)",
+              "EX3": "now()",
+              "RES3": "par ex. 2026-10-31 00:00:00.000001 (le résultat dépend de l'heure de l'appel et de l'heure du serveur)"
             }
           },
           "_SECOND": {

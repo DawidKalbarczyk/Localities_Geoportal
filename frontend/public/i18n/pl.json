@@ -130,7 +130,7 @@
         "FIELDS-AND-VALUES": {
           "INFO": "Pola i wartości atrybutów",
           "TITLE": "Pola i wartości",
-          "DESC": {
+          "_DESC": {
             "DESCRIPTION": "Kliknij, aby dodać całe pole do wyrażenia. Po stworzeniu pełnego wyrażenia, kliknij przycisk 'Oblicz', aby obliczyć wartości dla wybranego pola z użyciem wyrażenia."
           }
         },
@@ -404,7 +404,11 @@
             },
             "EXAMPLES": {
               "EX1": "now()",
-              "RES1": "np. 2026-10-30 13:05:09.123456 (wynik zależy od chwili wywołania i czasu serwera)"
+              "RES1": "np. 2026-10-30 13:05:09.123456 (wynik zależy od chwili wywołania i czasu serwera)",
+              "EX2": "now()",
+              "RES2": "np. 2026-10-30 13:05:10 (wynik zależy od chwili wywołania i czasu serwera)",
+              "EX3": "now()",
+              "RES3": "np. 2026-10-31 00:00:00.000001 (wynik zależy od chwili wywołania i czasu serwera)"
             }
           },
           "_SECOND": {

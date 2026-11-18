@@ -402,7 +402,11 @@
             },
             "EXAMPLES": {
               "EX1": "now()",
-              "RES1": "napr. 2026-10-30 13:05:09.123456 (výsledok závisí od času hovoru a času servera)"
+              "RES1": "napr. 2026-10-30 13:05:09.123456 (výsledok závisí od času hovoru a času servera)",
+              "EX2": "now()",
+              "RES2": "napr. 2026-10-30 13:05:10 (výsledok závisí od času hovoru a času servera)",
+              "EX3": "now()",
+              "RES3": "napr. 2026-10-31 00:00:00.000001 (výsledok závisí od času hovoru a času servera)"
             }
           },
           "_SECOND": {
