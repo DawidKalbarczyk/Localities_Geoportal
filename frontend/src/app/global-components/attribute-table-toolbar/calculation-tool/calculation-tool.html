@@ -67,7 +67,10 @@
                         <summary>{{function.key | translate}}</summary>
                         <div>
                             @for (func of function.value; track func) {
-                                <button type="button" (click)="ToolbarService.insertFunctionIntoExpression(func, expressionInput)"
+                                <button type="button" (click)="toggleFunctionTooltip(function.key, func)"
+                                [class.function-pinned]="isFunctionPinned(function.key, func)"
+                                [attr.aria-pressed]="isFunctionPinned(function.key, func)"
+                                (dblclick)="ToolbarService.insertFunctionIntoExpression(func, expressionInput)"
                                 (mouseenter)="functionHoverEnter(function.key, func)"
                                 (mouseleave)="functionHoverLeave()">
                                     <span aria-hidden="true">&#8226;&#160;</span>
@@ -94,7 +97,111 @@
 
 @if (functionTooltip(); as tooltip) {
     <div class="function-tooltip" role="tooltip"
+        animate.enter="function-tooltip-enter" animate.leave="function-tooltip-leave"
         (mouseenter)="keepFunctionTooltipOpen()" (mouseleave)="functionHoverLeave()">
-        <p>{{ tooltip | translate }}</p>
+        @if (functionTooltipContent(); as content) {
+            <div class="tooltip-header">
+                <div class="tooltip-header-title">
+                    <img src="./images/icons/tooltip.png" alt="Tooltip title">
+                    <p>{{ content.info | translate }}</p>
+                </div>
+                <div class="tooltip-header-close-con">
+                    <button type="button" (click)="hideFunctionTooltip()"
+                        [attr.aria-label]="'POP-UP.INFO.CLOSE-BUTT' | translate">
+                        <img src="./images/icons/close.png" alt="">
+                    </button>
+                </div>
+                
+            </div>
+            <div class="tooltip-content">
+                <div class="tooltip-description">
+                    <div class="tooltip-basics">
+                        @if (content.kind === 'fields') {
+                            <div class="func-name-wrapper">
+                                <p class="func-name">{{content.field_name}}</p>
+                            </div>
+                            <div class="func-type-wrapper">
+                                <p class="func-type">{{content.title | translate}}</p>
+                            </div>
+                        } @else {
+                            <div class="func-name-wrapper">
+                                <p class="func-name">{{(content.func_title | translate).replace(/\(\)$/, '')}}</p>
+                            </div>
+                            <div class="func-type-wrapper">
+                                <p class="func-type">{{content.title | translate}}</p>
+                            </div>
+                        }
+                        
+                    </div>
+                    <p class="func-desc">{{content.func_desc | translate}}</p>
+                </div>
+                @if (content.kind === 'rest') {
+                    <div class="tooltip-content-minor">
+                        <div class="tooltip-content-title">
+                            <p>{{'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.TOOLTIPS.SYNTAX' | translate}}</p>
+                        </div>
+                        <div class="tooltip-content-code-wrapper tooltip-syntax-wrapper">
+                            <code class="tooltip-content-code">{{content.func_syntax | translate}}</code>
+                        </div>
+                    </div>
+                    <div class="tooltip-content-minor">
+                        <div class="tooltip-content-title">
+                            <p>{{'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.TOOLTIPS.ARGUMENTS' | translate}}</p>
+                        </div>
+                        <div class="tooltip-content-code-wrapper tooltip-arguments-all-wrapper">
+                            @let args = [
+                            [content.func_arg_a, content.func_desc_a],
+                            [content.func_arg_b, content.func_desc_b],
+                            [content.func_arg_c, content.func_desc_c],
+                            [content.func_arg_d, content.func_desc_d],
+                            [content.func_arg_e, content.func_desc_e],
+                            [content.func_arg_f, content.func_desc_f]];
+                            @for (arg of args; track $index) {
+                                @if (!(arg[0] | translate).startsWith('ATTRIBUTE-TOOLBAR')) {
+                                    <div class="tooltip-arguments-container">
+                                        <code class="tooltip-content-code"><strong>{{arg[0] | translate}}</strong></code>
+                                        <div class="tooltip-arg-desc-wrapper">
+                                            <p class="arg-desc">{{arg[1] | translate}}</p>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="tooltip-content-minor">
+                        <div class="tooltip-content-title">
+                            <p>{{'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.TOOLTIPS.EXAMPLES' | translate}}</p>
+                        </div>
+                        <div class="tooltip-content-code-wrapper tooltip-examples-all-wrapper">
+                            @let ex_res = [
+                            [content.func_ex_1, content.func_res_1], 
+                            [content.func_ex_2, content.func_res_2], 
+                            [content.func_ex_3, content.func_res_3]];
+                            @for (pair of ex_res; track $index) {
+                                <div class="tooltip-examples-container">
+                                    <code class="tooltip-content-code">{{pair[0] | translate }}</code>
+                                    <div class="tooltip-examples-wrapper">
+                                        <span class="p-span" aria-hidden="true">
+                                            <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" focusable="false">
+                                                <path d="M4 12h16m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                        </span>
+                                        <p class="examples">{{pair[1] | translate }}</p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+                <div class="tooltip-insert-butt">
+                    <button type="button" (click)="insertTooltipFunction(expressionInput)">{{'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.TOOLTIPS.INSERT-BUTTON' | translate}}</button>
+                </div>
+                
+            </div>
+        } @else {
+            <p class="tooltip-error">{{'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.TOOLTIPS.TOOLTIP-ERROR' | translate}}</p>
+        }
+        
+        
     </div>
 }

@@ -372,7 +372,8 @@
                         &:nth-child(4n) {
                             background-color: white;
 
-                            >div button:hover {
+                            >div button:hover,
+                            >div button.function-pinned {
                                 background-color: $background-color-light;
                             }
                         }
@@ -380,7 +381,8 @@
                         &:nth-child(4n + 3) {
                             background-color: $background-color-light;
 
-                            >div button:hover {
+                            >div button:hover,
+                            >div button.function-pinned {
                                 background-color: $secondary-color-light;
                             }
                         }
@@ -484,35 +486,357 @@
                     }
                 }
             }
-            
         }
-        
-
-        
     }
 }
 
 .function-tooltip {
+    border: 1px solid rgba(0,0,0,0.5);
     position: fixed;
-    top: 15vh;
-    bottom: 45vh;
-    left: 70%;
-    right: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    top: 20vh;
+    bottom: 20vh;
+    left: 29%;
+    right: 41.5%;
     z-index: 100000000;
     overflow-y: auto;
     box-sizing: border-box;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
+    border-radius: 1rem 0 0 1rem;
     background-color: orange;
     color: black;
     font-size: 0.75rem;
     line-height: 1.5;
     white-space: normal;
     overflow-wrap: anywhere;
-    animation: function-tooltip-in 0.3s ease;
+    background-color: $secondary-color-light;
+
+    &.function-tooltip-enter {
+        animation: function-tooltip-in 0.3s ease;
+    }
+
+    &.function-tooltip-leave {
+        animation: function-tooltip-out 0.3s ease both;
+        pointer-events: none;
+    }
+
+    > .tooltip-header,
+    > .tooltip-content {
+        flex-shrink: 0;
+        min-width: 0;
+    }
+
+    .tooltip-header {
+        background-color: $background-color-light;
+        padding: 0.5rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        .tooltip-header-title {
+            column-gap: 1rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+
+            > img {
+                width: 1.5rem;
+                height: 1.5rem;
+            }
+
+            > p {
+                text-align: center;
+                font-size: 1rem;
+                font-weight: bold;
+                
+            }
+        }
+        .tooltip-header-close-con {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+
+            > button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 1.5rem;
+                height: 1.5rem;
+                flex-shrink: 0;
+                padding: 0;
+                border: none;
+                cursor: pointer;
+                background-color: transparent;
+                border-radius: 50%;
+                transition: background-color 0.3s ease;
+                
+                &:hover {
+                    background-color: white;
+                }
+
+                > img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+        
+        
+    }
+    .tooltip-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1.5rem 1rem;
+
+        .tooltip-description {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 0.5rem;
+
+            .tooltip-basics {
+                display: flex;
+                flex-direction: row;
+                gap: 0;
+                align-items: center;
+                justify-content: flex-start;
+
+                .func-name-wrapper {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: flex-end;
+                    padding: 0 0.5rem 0 0;
+                    border-right: 1px solid rgba(0,0,0,0.5);
+
+                    .func-name {
+                        font-size: 1rem;
+                        font-weight: bold;
+                    }
+                }
+                
+                .func-type-wrapper {
+                    display: flex;
+                    justify-content: center;
+                    align-items: flex-start;
+                    padding: 0 0 0 0.5rem;
+
+                    .func-type {
+                        font-style: italic;
+                        font-size: 0.750rem;
+                        color: rgba(0,0,0,0.5);
+                    }
+                }
+                
+            }
+            .func-desc {
+                font-size: 0.750rem;
+                margin-bottom: 0.5rem;
+            }
+        }
+        .tooltip-content-minor {
+            border-radius: 0.5rem;
+
+            .tooltip-content-title {
+                background-color: $background-color-light;
+                padding: 0.25rem 0.5rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 0.5rem 0.5rem 0 0;
+
+                > p {
+                    font-size: 0.875rem;
+                    font-weight: bold;
+                }
+                
+            }
+            
+            .tooltip-content-code-wrapper .tooltip-content-code,
+            .tooltip-arguments-container .tooltip-content-code,
+            .tooltip-examples-container .tooltip-content-code {
+                font-family: monospace;
+                font-size: 0.750rem;
+                text-align: left;
+                white-space: pre-wrap;
+                word-break: normal;
+                overflow-wrap: anywhere;
+                box-sizing: border-box;
+                border-radius: 0.5rem;
+                border: 1px solid rgba(0,0,0,0.35);
+                padding: 0.25rem 0.5rem;
+                display: block;
+                justify-self: start;
+                align-self: center;
+                width: fit-content;
+                min-width: 0;
+                max-width: 100%;
+
+            }
+            .tooltip-content-code-wrapper {
+                padding: 0.5rem;
+                background-color: white;
+                border-radius: 0 0 0.5rem 0.5rem;
+
+                &.tooltip-syntax-wrapper > .tooltip-content-code {
+                    width: 100%;
+                }
+
+                &.tooltip-examples-all-wrapper {
+                    display: grid;
+                    grid-template-columns: fit-content(50%) minmax(0, 1fr);
+                    gap: 0.5rem;
+                }
+
+                &.tooltip-arguments-all-wrapper {
+                    display: grid;
+                    grid-template-columns: fit-content(40%) minmax(0, 1fr);
+                }
+
+                .tooltip-arguments-container {
+                    display: grid;
+                    grid-column: 1 / -1;
+                    grid-template-columns: subgrid;
+                    gap: 0;
+
+                    > .tooltip-content-code,
+                    > .tooltip-arg-desc-wrapper {
+                        box-sizing: border-box;
+                        border: 1px solid rgba(0,0,0,0.5);
+                        border-radius: 0;
+                    }
+
+                    .tooltip-content-code {
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                    }
+                    .tooltip-arg-desc-wrapper {
+                        min-width: 0;
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+                        padding: 0.25rem 0.5rem;
+                        border-left: 0;
+                        .arg-desc {
+                            font-size: 0.750rem;
+                            margin: 0;
+                        }   
+                    }
+
+                    &:not(:first-child) {
+                        > .tooltip-content-code,
+                        > .tooltip-arg-desc-wrapper {
+                            border-top: 0;
+                        }
+                    }
+
+                    &:first-child {
+                        > .tooltip-content-code {
+                            border-top-left-radius: 0.5rem;
+                        }
+                        > .tooltip-arg-desc-wrapper {
+                            border-top-right-radius: 0.5rem;
+                        }
+                    }
+
+                    &:last-child {
+                        > .tooltip-content-code {
+                            border-bottom-left-radius: 0.5rem;
+                        }
+                        > .tooltip-arg-desc-wrapper {
+                            border-bottom-right-radius: 0.5rem;
+                        }
+                    }
+                }
+                .tooltip-examples-container {
+                    gap: 0.5rem;
+                    display: grid;
+                    grid-column: 1 / -1;
+                    grid-template-columns: subgrid;
+                    min-width: 0;
+                    max-width: 100%;
+                    align-items: stretch;
+
+                    .tooltip-content-code {
+                        width: 100%;
+                        align-self: stretch;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                    }
+
+                    .tooltip-examples-wrapper {
+                        box-sizing: border-box;
+                        min-width: 0;
+                        max-width: 100%;
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+                        gap: 0.25rem;
+                        padding: 0.25rem 0.5rem;
+                        background-color: $secondary-color-light;
+                        border-radius: 0.5rem;
+
+                        &:nth-child(1) {
+                            border-radius: 0.5rem 0 0 0;
+                        }
+
+                        .p-span {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-shrink: 0;
+                            font-size: 1.125rem;
+                            line-height: 1;
+                        }
+
+                        .examples {
+                            min-width: 0;
+                            font-size: 0.750rem;
+                            line-height: 1.5;
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+        .tooltip-insert-butt {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 0.5rem;
+
+            > button {
+                font-size: 0.875rem;
+                padding: 0.75rem 2rem;
+                background-color: $buttons-color;
+                color: white;
+                cursor: pointer;
+                border: none;
+                border-radius: 0.5rem;
+                transition: filter 0.3s ease;
+
+                &:hover {
+                    filter: brightness(1.5);
+                }
+            }
+        }
+    }
 
     p {
         margin: 0;
+    }
+    .tooltip-error {
+        font-weight: bold;
+        font-size: 1.5rem;
     }
 }
 
@@ -523,6 +847,16 @@
 
     to {
         opacity: 1;
+    }
+}
+
+@keyframes function-tooltip-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
     }
 }
 

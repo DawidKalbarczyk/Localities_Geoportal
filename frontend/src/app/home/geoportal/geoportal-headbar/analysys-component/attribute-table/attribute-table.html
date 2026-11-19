@@ -17,7 +17,7 @@
             <div class="attribute-table-panel">
                 <div class="attribute-table-content">
                     <div #tableScroll class="attribute-table-scroll" cdkScrollable (scroll)="onTableScroll($event, table.length)">
-                        <table class="attribute-table">
+                        <table class="attribute-table" [class.attribute-table-dimmed]="calculationTool.functionTooltip() !== null">
                             <thead>
                                 <tr class="first-row">
                                     @if (table[0]; as firstRow) {
@@ -68,7 +68,7 @@
                         </table>
                     </div>
                     <app-filter-tool [shownTable]="shownTable()"></app-filter-tool>
-                    <app-calculation-tool [shownTable]="shownTable()"></app-calculation-tool>
+                    <app-calculation-tool #calculationTool [shownTable]="shownTable()"></app-calculation-tool>
                     
                 </div>
 
