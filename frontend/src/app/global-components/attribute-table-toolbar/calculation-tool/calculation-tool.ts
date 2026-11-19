@@ -44,12 +44,6 @@ export class CalculationTool implements OnDestroy {
       this.functionsModelCreate();
     });
     effect(() => {
-      const result = this.parserResult();
-      untracked(() => {
-        this.ToolbarService.setParserResult(result);
-      });
-    })
-    effect(() => {
       if (!this.ToolbarService.ToolbarTools['calculateFieldTool']()) {
         untracked(() => this.hideFunctionTooltip());
       }
@@ -87,6 +81,7 @@ export class CalculationTool implements OnDestroy {
         table: table, 
         tableKeys: await this.shownTableKeys() 
       }));
+      this.ToolbarService.setParserResult(result);
       this.parserResult.set(result);
       this.parserError.set('');
       this.calculationCompleted.emit();

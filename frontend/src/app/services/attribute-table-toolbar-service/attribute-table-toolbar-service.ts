@@ -274,8 +274,13 @@ export class AttributeTableToolbarService {
     });
 
     private shownTable = signal<Record<string, unknown>[]>([]);
+    private createdColumns = signal<string[]>([]);
+    public compareTableColumns = (a: { key: string }, b: { key: string }): number =>
+        this.createdColumns().indexOf(a.key) - this.createdColumns().indexOf(b.key);
+
     public async setShownTable(table: Promise<Record<string, unknown>[]>): Promise<void> {
         this.shownTable.set(await table);
+        this.createdColumns.set([]);
     }
     public shownTableFilterAttributes = computed(() => {
         const suggestedNames: Record<number, string[]> = {};
@@ -366,6 +371,9 @@ export class AttributeTableToolbarService {
             }
         }
 
+        if (this.calculationType() === 'new') {
+            this.createdColumns.update(columns => [...columns, columnName]);
+        }
         this.shownTable.set([...table]);
         this.newShownTable.update(rows => rows === null ? null : [...rows]);
     }
