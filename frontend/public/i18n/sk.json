@@ -120,6 +120,1795 @@
           "STRING-OPERATORS": "Textové operácie"
         }
       },
+      "TOOLTIPS": {
+        "TITLE": "Pomocník",
+        "SYNTAX": "Syntax",
+        "ARGUMENTS": "Argumenty",
+        "EXAMPLES": "Príklady",
+        "INSERT-BUTTON": "Vložiť funkciu",
+        "TOOLTIP-ERROR": "Niečo sa pokazilo",
+        "FIELDS-AND-VALUES": {
+          "INFO": "Polia a hodnoty atribútov",
+          "TITLE": "Polia a hodnoty",
+          "DESC": {
+            "DESCRIPTION": "Kliknutím pridáte do výrazu celé pole. Po vytvorení úplného výrazu kliknite na tlačidlo „Vypočítať“ a vypočítajte hodnoty pre vybrané pole pomocou výrazu."
+          }
+        },
+        "DATE-AND-TIME": {
+          "INFO": "Funkcie dátumu a času",
+          "TITLE": "Dátum a čas",
+          "_AGE": {
+            "TITLE": "Funkcia age()",
+            "DESCRIPTION": "Funkcia, ktorá vypočítava rozdiel medzi neskorším a skorším dátumom. Vráti časový interval typu timedelta, ktorý možno odovzdať funkciám ako day(), hour() alebo second(). Ak je prvý dátum skorší ako druhý, vyhodí chybu.",
+            "SYNTAX": "age(koncový_dátum, počiatočný_dátum)",
+            "ARGUMENTS": {
+              "A-KEY": "koncový_dátum",
+              "A-DESCRIPTION": "neskorší dátum vo formáte YYYY-MM-DD alebo YYYY-MM-DD HH:MM:SS, voliteľne so zlomkom sekundy od jednej do šiestich číslic. Žiadny čas znamená polnoc.",
+              "B-KEY": "počiatočný_dátum",
+              "B-DESCRIPTION": "skorší dátum v rovnakom formáte ako dátum ukončenia. Môže sa rovnať dátumu ukončenia; potom je rozdiel nula."
+            },
+            "EXAMPLES": {
+              "EX1": "age('2026-10-30 13:00:00', '2026-10-29 10:00:00')",
+              "RES1": "1 day, 3:00:00",
+              "EX2": "age('2026-10-30', '2026-10-29')",
+              "RES2": "1 day, 0:00:00",
+              "EX3": "age('2026-10-30', '2026-10-30')",
+              "RES3": "0:00:00"
+            }
+          },
+          "_DATETIME_FROM_EPOCH": {
+            "TITLE": "Funkcia datetime_from_epoch()",
+            "DESCRIPTION": "Funkcia, ktorá prevádza počet sekúnd od začiatku epochy Unix (1970-01-01 00:00:00 UTC) na reťazec znakov vo formáte YYYY-MM-DD HH:MM:SS. Výsledok je v miestnom časovom pásme servera a neobsahuje označenie zóny.",
+            "SYNTAX": "datetime_from_epoch(sekundy)",
+            "ARGUMENTS": {
+              "A-KEY": "sekundy",
+              "A-DESCRIPTION": "nezáporné celé číslo od začiatku epochy Unix, napr. 1700000000. Hodnota musí byť v rozsahu dátumov podporovanom serverom."
+            },
+            "EXAMPLES": {
+              "EX1": "datetime_from_epoch(0)",
+              "RES1": "1970-01-01 00:00:00 (pre server v zóne UTC)",
+              "EX2": "datetime_from_epoch(1700000000)",
+              "RES2": "2023-11-14 22:13:20 (pre server v zóne UTC)",
+              "EX3": "datetime_from_epoch(86400)",
+              "RES3": "1970-01-02 00:00:00 (pre server v zóne UTC)"
+            }
+          },
+          "_DAY": {
+            "TITLE": "Funkcia day()",
+            "DESCRIPTION": "Funkcia, ktorá vracia deň v mesiaci pre dátum alebo celkovú dĺžku časového intervalu prevedenú na dni. Výsledkom je reťazec s číslom a anglickou jednotkou day alebo days, napr. 30 days. Deň zodpovedá 24 hodinám.",
+            "SYNTAX": "day(dátum_alebo_interval)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum_alebo_interval",
+              "A-DESCRIPTION": "dátum vo formáte YYYY-MM-DD alebo YYYY-MM-DD HH:MM:SS (voliteľne so zlomkom sekundy až šesť číslic), výsledok age() typu timedelta alebo nezáporný interval napísaný ako číslo a anglická jednotka: year, month, week, day, hour, minute alebo second, aj v množnom čísle. Rok zodpovedá 365,25 dňom a mesiac 1/12 roka."
+            },
+            "EXAMPLES": {
+              "EX1": "day('2026-10-30')",
+              "RES1": "30 days",
+              "EX2": "day('48 hours')",
+              "RES2": "2 days",
+              "EX3": "day('12 hours')",
+              "RES3": "0.5 days"
+            }
+          },
+          "_DAY_OF_WEEK": {
+            "TITLE": "Funkcia day_of_week()",
+            "DESCRIPTION": "Funkcia, ktorá vracia deň v týždni ako celé číslo od 1 do 7: pondelok je 1 a nedeľa je 7.",
+            "SYNTAX": "day_of_week(dátum)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum",
+              "A-DESCRIPTION": "správny dátum vo formáte YYYY-MM-DD, bez časovej časti. Mesiac a deň musia byť napísané dvoma číslicami."
+            },
+            "EXAMPLES": {
+              "EX1": "day_of_week('2026-10-30')",
+              "RES1": "5",
+              "EX2": "day_of_week('2026-10-26')",
+              "RES2": "1",
+              "EX3": "day_of_week('2026-11-01')",
+              "RES3": "7"
+            }
+          },
+          "_EPOCH": {
+            "TITLE": "Funkcia epoch()",
+            "DESCRIPTION": "Funkcia, ktorá vracia celé číslo v sekundách od začiatku epochy Unix (1970-01-01 00:00:00 UTC). Poskytnutý dátum a čas sa interpretujú v miestnom časovom pásme servera.",
+            "SYNTAX": "epoch(dátum_a_čas)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum_a_čas",
+              "A-DESCRIPTION": "správny dátum a čas vo formáte YYYY-MM-DD HH:MM:SS. Vyžadujú sa sekundy; zlomky sekundy a označenie časového pásma nie sú podporované."
+            },
+            "EXAMPLES": {
+              "EX1": "epoch('1970-01-01 00:00:00')",
+              "RES1": "0 (pre server v zóne UTC)",
+              "EX2": "epoch('2023-11-14 22:13:20')",
+              "RES2": "1700000000 (pre server v zóne UTC)",
+              "EX3": "epoch('1970-01-02 00:00:00')",
+              "RES3": "86400 (pre server v zóne UTC)"
+            }
+          },
+          "_FORMAT_DATE": {
+            "TITLE": "Funkcia format_date()",
+            "DESCRIPTION": "Funkcia, ktorá formátuje dátum do reťazca znakov podľa daného formátu. Názvy dní v týždni a mesiacov sú vrátené v angličtine.",
+            "SYNTAX": "format_date(dátum, formát)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum",
+              "A-DESCRIPTION": "správny dátum vo formáte YYYY-MM-DD. Mesiac a deň musia byť napísané dvoma číslicami.",
+              "B-KEY": "formát",
+              "B-DESCRIPTION": "presne tri zložky: deň (d, dd, ddd alebo dddd), mesiac (M, MM, MMM alebo MMMM) a rok (yy alebo yyyy), v ľubovoľnom poradí, oddelené bodkami. Pre MMM alebo MMMM je výsledok oddelený medzerami, inak bodkami.",
+              "TYPES": {
+                "d": "deň v mesiaci bez úvodnej nuly (1-31)",
+                "dd": "deň v mesiaci s úvodnou nulou (01-31)",
+                "ddd": "krátky anglický názov dňa v týždni, napr. Thu",
+                "dddd": "celý anglický názov dňa v týždni, napr. Thursday",
+                "M": "mesiac bez úvodnej nuly (1-12)",
+                "MM": "mesiac s úvodnou nulou (01-12)",
+                "MMM": "krátky anglický názov mesiaca, napr. Feb",
+                "MMMM": "celý anglický názov mesiaca, napr. February",
+                "yy": "posledné dve číslice roka, napr. 26",
+                "yyyy": "celý rok, napr. 2026"
+              }
+            },
+            "EXAMPLES": {
+              "EX1": "format_date('2026-02-05', 'dd.MM.yyyy')",
+              "RES1": "05.02.2026",
+              "EX2": "format_date('2026-02-05', 'dd.MMMM.yyyy')",
+              "RES2": "05 February 2026",
+              "EX3": "format_date('2026-02-05', 'ddd.MM.yy')",
+              "RES3": "Thu.02.26"
+            }
+          },
+          "_HOUR": {
+            "TITLE": "Funkcia hour()",
+            "DESCRIPTION": "Funkcia, ktorá vracia čas (0-23) z dátumu a času alebo z celkovej dĺžky intervalu prevedenej na hodiny. Výsledkom je reťazec s číslom a anglickou jednotkou hour alebo hours, napr. 13 hours. Deň zodpovedá 24 hodinám.",
+            "SYNTAX": "hour(dátum_čas_alebo_interval)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum_čas_alebo_interval",
+              "A-DESCRIPTION": "dátum a čas vo formáte YYYY-MM-DD HH:MM:SS (voliteľne so zlomkom sekundy až šesť číslic), výsledok age() typu timedelta alebo nezáporný interval zapísaný ako číslo a anglická jednotka: year, month, week, day, hour, minute alebo second, aj v množnom čísle. Samotný dátum ani samotný čas nie sú podporované. Rok zodpovedá 365,25 dňom a mesiac 1/12 roka."
+            },
+            "EXAMPLES": {
+              "EX1": "hour('2026-10-30 13:05:09')",
+              "RES1": "13 hours",
+              "EX2": "hour('2.125 days')",
+              "RES2": "51 hours",
+              "EX3": "hour(age('2026-10-30 13:00:00', '2026-10-29 10:00:00'))",
+              "RES3": "27 hours"
+            }
+          },
+          "_MAKE_DATE": {
+            "TITLE": "Funkcia make_date()",
+            "DESCRIPTION": "Funkcia, ktorá vytvára dátum z roku, mesiaca a dňa. Vráti reťazec vo formáte YYYY-MM-DD. Nesprávne dátumy, napr. 30. februára spôsobiť chybu.",
+            "SYNTAX": "make_date(rok, mesiac, deň)",
+            "ARGUMENTS": {
+              "A-KEY": "rok",
+              "A-DESCRIPTION": "rok napísaný štyrmi číslicami, z rozsahu 0001-9999.",
+              "B-KEY": "mesiac",
+              "B-DESCRIPTION": "číslo mesiaca od 1 do 12, napísané jednou alebo dvoma číslicami.",
+              "C-KEY": "deň",
+              "C-DESCRIPTION": "deň v mesiaci napísaný jednou alebo dvoma číslicami. Musí existovať vo vybranom mesiaci a roku."
+            },
+            "EXAMPLES": {
+              "EX1": "make_date(2026, 10, 30)",
+              "RES1": "2026-10-30",
+              "EX2": "make_date(2026, 2, 5)",
+              "RES2": "2026-02-05",
+              "EX3": "make_date(2024, 2, 29)",
+              "RES3": "2024-02-29"
+            }
+          },
+          "_MAKE_DATETIME": {
+            "TITLE": "Funkcia make_datetime()",
+            "DESCRIPTION": "Funkcia, ktorá vytvára dátum a čas zo šiestich komponentov. Vráti reťazec vo formáte YYYY-MM-DD HH:MM:SS. Všetky komponenty sú povinné a musia obsahovať platný dátum a čas.",
+            "SYNTAX": "make_datetime(rok, mesiac, deň, hodina, minúta, sekunda)",
+            "ARGUMENTS": {
+              "A-KEY": "rok",
+              "A-DESCRIPTION": "rok napísaný štyrmi číslicami, z rozsahu 0001-9999.",
+              "B-KEY": "mesiac",
+              "B-DESCRIPTION": "číslo mesiaca od 1 do 12.",
+              "C-KEY": "deň",
+              "C-DESCRIPTION": "deň, ktorý existuje v danom mesiaci a roku.",
+              "D-KEY": "hodina",
+              "D-DESCRIPTION": "celé číslo od 0 do 23.",
+              "E-KEY": "minúta",
+              "E-DESCRIPTION": "celé číslo od 0 do 59.",
+              "F-KEY": "sekunda",
+              "F-DESCRIPTION": "celé číslo od 0 do 59, bez zlomkovej časti. Všetky zložky okrem roku môžu byť napísané jednou alebo dvoma číslicami."
+            },
+            "EXAMPLES": {
+              "EX1": "make_datetime(2026, 10, 30, 13, 5, 9)",
+              "RES1": "2026-10-30 13:05:09",
+              "EX2": "make_datetime(2026, 2, 5, 0, 0, 0)",
+              "RES2": "2026-02-05 00:00:00",
+              "EX3": "make_datetime(2024, 2, 29, 23, 59, 59)",
+              "RES3": "2024-02-29 23:59:59"
+            }
+          },
+          "_MAKE_INTERVAL": {
+            "TITLE": "Funkcia make_interval()",
+            "DESCRIPTION": "Funkcia, ktorá vytvára časový interval pomocou argumentov jednotka=hodnota. Vráti reťazec znakov so súčtom prevedeným na najväčšiu danú jednotku; pre hodnoty menšie ako 1 môže zvoliť menšiu jednotku. Rok zodpovedá 365,25 dňom a mesiac 1/12 roka. Názov jednotky vo výsledku je vždy množné číslo, napr. 1 days.",
+            "SYNTAX": "make_interval(jednotka=hodnota, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "jednotka",
+              "A-DESCRIPTION": "aspoň jeden názov entity: years, months, weeks, days, hours, minutes alebo seconds. Argumenty sú oddelené čiarkami. Pri opakovaní jednotky sa berie do úvahy posledná hodnota.",
+              "B-KEY": "hodnota",
+              "B-DESCRIPTION": "nezáporné, konečné číslo priradené jednotke so znamienkom =. Povolené sú desatinné zlomky písané bodkou, napr. days=2,5."
+            },
+            "EXAMPLES": {
+              "EX1": "make_interval(days=2, hours=3)",
+              "RES1": "2.125 days",
+              "EX2": "make_interval(hours=1, minutes=30)",
+              "RES2": "1.5 hours",
+              "EX3": "make_interval(hours=0.5)",
+              "RES3": "30 minutes"
+            }
+          },
+          "_MAKE_TIME": {
+            "TITLE": "Funkcia make_time()",
+            "DESCRIPTION": "Funkcia, ktorá vytvára čas z hodín, minút a sekúnd. Vráti reťazec vo formáte HH:MM:SS.sss, vždy s tromi milisekundovými číslicami. Ďalšie desatinné sekundové číslice sú skrátené bez zaokrúhľovania.",
+            "SYNTAX": "make_time(hodina, minúta, sekunda)",
+            "ARGUMENTS": {
+              "A-KEY": "hodina",
+              "A-DESCRIPTION": "celé číslo od 0 do 23 zapísané jednou alebo dvoma číslicami.",
+              "B-KEY": "minúta",
+              "B-DESCRIPTION": "celé číslo od 0 do 59 zapísané jednou alebo dvoma číslicami.",
+              "C-KEY": "sekunda",
+              "C-DESCRIPTION": "číslo od 0 do hodnoty menšej ako 60. Celá časť musí mať jedno alebo dve číslice; nepovinná zlomková časť sa píše za bodkou. Chýbajúca zlomková časť dáva milisekúnd 000."
+            },
+            "EXAMPLES": {
+              "EX1": "make_time(13, 5, 9)",
+              "RES1": "13:05:09.000",
+              "EX2": "make_time(0, 0, 0.5)",
+              "RES2": "00:00:00.500",
+              "EX3": "make_time(23, 59, 59.1239)",
+              "RES3": "23:59:59.123"
+            }
+          },
+          "_MINUTE": {
+            "TITLE": "Funkcia minute()",
+            "DESCRIPTION": "Funkcia, ktorá vracia minútu (0-59) dátumu a času alebo celkovú dĺžku intervalu prevedenú na minúty. Výsledkom je reťazec s číslom a anglickou jednotkou minute alebo minutes, napr. 5 minutes.",
+            "SYNTAX": "minute(dátum_čas_alebo_interval)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum_čas_alebo_interval",
+              "A-DESCRIPTION": "dátum a čas vo formáte YYYY-MM-DD HH:MM:SS (voliteľne so zlomkom sekundy až šesť číslic), výsledok age() typu timedelta alebo nezáporný interval zapísaný ako číslo a anglická jednotka: year, month, week, day, hour, minute alebo second, aj v množnom čísle. Samotný dátum ani samotný čas nie sú podporované. Rok zodpovedá 365,25 dňom a mesiac 1/12 roka."
+            },
+            "EXAMPLES": {
+              "EX1": "minute('2026-10-30 13:05:09')",
+              "RES1": "5 minutes",
+              "EX2": "minute('1.5 hours')",
+              "RES2": "90 minutes",
+              "EX3": "minute('30 seconds')",
+              "RES3": "0.5 minutes"
+            }
+          },
+          "_MONTH": {
+            "TITLE": "Funkcia month()",
+            "DESCRIPTION": "Vracia číslo mesiaca (1-12) z dátumu alebo celkovú dĺžku intervalu prevedenú na mesiace. Výsledkom je reťazec s číslom a anglickou jednotkou month alebo months, napr. 10 months. Mesiac zodpovedá 1/12 roka s dĺžkou 365,25 dňa, nie dĺžke konkrétneho kalendárneho mesiaca.",
+            "SYNTAX": "month(dátum_alebo_interval)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum_alebo_interval",
+              "A-DESCRIPTION": "dátum vo formáte YYYY-MM-DD alebo YYYY-MM-DD HH:MM:SS (voliteľne so zlomkom sekundy až šesť číslic), výsledok age() typu timedelta alebo nezáporný interval napísaný ako číslo a anglická jednotka: year, month, week, day, hour, minute alebo second, aj v množnom čísle."
+            },
+            "EXAMPLES": {
+              "EX1": "month('2026-10-30')",
+              "RES1": "10 months",
+              "EX2": "month('1 year')",
+              "RES2": "12 months",
+              "EX3": "month('1 month')",
+              "RES3": "1 month"
+            }
+          },
+          "_NOW": {
+            "TITLE": "Funkcia now()",
+            "DESCRIPTION": "Funkcia, ktorá vracia aktuálny dátum a čas servera ako reťazec vo formáte YYYY-MM-DD HH:MM:SS so šiestimi číslicami zlomkovej časti, keď sú mikrosekundy nenulové. Používa miestny čas servera a nepridáva značku časového pásma. Každý hovor znova zobrazí čas.",
+            "SYNTAX": "now()",
+            "ARGUMENTS": {
+              "A-KEY": "žiadne",
+              "A-DESCRIPTION": "funkcia neberie žiadne argumenty."
+            },
+            "EXAMPLES": {
+              "EX1": "now()",
+              "RES1": "napr. 2026-10-30 13:05:09.123456 (výsledok závisí od času hovoru a času servera)",
+              "EX2": "now()",
+              "RES2": "napr. 2026-10-30 13:05:10 (výsledok závisí od času hovoru a času servera)",
+              "EX3": "now()",
+              "RES3": "napr. 2026-10-31 00:00:00.000001 (výsledok závisí od času hovoru a času servera)"
+            }
+          },
+          "_SECOND": {
+            "TITLE": "Funkcia second()",
+            "DESCRIPTION": "Funkcia, ktorá vracia sekundu (0-59) dátumu a času alebo celkovú dĺžku intervalu prevedenú na sekundy. Výsledkom je reťazec s číslom a anglickou jednotkou second alebo seconds, napr. 9 seconds. Preskočte zlomok sekundy v dátume a čase; v intervale si zachováva zlomkovú časť.",
+            "SYNTAX": "second(dátum_čas_alebo_interval)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum_čas_alebo_interval",
+              "A-DESCRIPTION": "dátum a čas vo formáte YYYY-MM-DD HH:MM:SS (voliteľne so zlomkom sekundy až šesť číslic), výsledok age() typu timedelta alebo nezáporný interval zapísaný ako číslo a anglická jednotka: year, month, week, day, hour, minute alebo second, aj v množnom čísle. Samotný dátum ani samotný čas nie sú podporované. Rok zodpovedá 365,25 dňom a mesiac 1/12 roka."
+            },
+            "EXAMPLES": {
+              "EX1": "second('2026-10-30 13:05:09.123456')",
+              "RES1": "9 seconds",
+              "EX2": "second('1.5 minutes')",
+              "RES2": "90 seconds",
+              "EX3": "second('0.5 seconds')",
+              "RES3": "0.5 seconds"
+            }
+          },
+          "_TO_DATE": {
+            "TITLE": "Funkcia to_date()",
+            "DESCRIPTION": "Funkcia, ktorá číta dátum a vracia reťazec znakov. Bez formátu vráti YYYY-MM-DD. Voliteľný formát určuje výstupný formát: číselné zložky sú oddelené pomlčkami a názov mesiaca je oddelený medzerami. Nepoužíva sa na určenie vstupného formátu.",
+            "SYNTAX": "to_date(dátum, [formát])",
+            "ARGUMENTS": {
+              "A-KEY": "dátum",
+              "A-DESCRIPTION": "správny dátum v systéme YYYY-MM-DD, DD-MM-YYYY, YYYY MMMM DD alebo DD MMMM YYYY. Rok musí mať štyri číslice a deň a mesiac jednu alebo dve číslice. Názov mesiaca musí byť celý anglický názov s veľkým písmenom, napr. February.",
+              "B-KEY": "formát",
+              "B-DESCRIPTION": "voliteľný výstupný formát z troch komponentov oddelených bodkami. Dostupné značky: d a dd (deň v mesiaci), ddd a dddd (anglický názov dňa v týždni), M a MM (číslo mesiaca), MMM a MMMM (anglický názov mesiaca), yy a yyyy (rok). Príklad dd.MM.yyyy dáva výsledok 05-02-2026. Bez tohto argumentu je výsledok formátYYYY-MM-DD."
+            },
+            "EXAMPLES": {
+              "EX1": "to_date('05-02-2026')",
+              "RES1": "2026-02-05",
+              "EX2": "to_date('5 February 2026', 'dd.MM.yyyy')",
+              "RES2": "05-02-2026",
+              "EX3": "to_date('2026-02-05', 'dd.MMMM.yyyy')",
+              "RES3": "05 February 2026"
+            }
+          },
+          "_TO_DATETIME": {
+            "TITLE": "Funkcia to_datetime()",
+            "DESCRIPTION": "Funkcia, ktorá číta dátum a čas a vracia objekt datetime bez časového pásma. Chýbajúci čas znamená polnoc a zmeškané minúty alebo sekundy sú nula. Voliteľné formát popisuje vstupné komponenty; pre vstup ISO backend rozpozná dátum a čas priamo aj s daným formátom.",
+            "SYNTAX": "to_datetime(dátum_a_čas, [formát])",
+            "ARGUMENTS": {
+              "A-KEY": "dátum_a_čas",
+              "A-DESCRIPTION": "bez formátu: dátum YYYY-MM-DD, DD-MM-YYYY, YYYY MMMM DD alebo DD MMMM YYYY, voliteľne s časom HH:mm alebo HH:mm:ss po medzere. Podporované sú úplné a skrátené anglické názvy mesiacov bez ohľadu na veľkosť písmen. ISO môže obsahovať T medzi dátumom a časom a až šiestimi desatinnými sekundami. Pri špecifikácii formátu sú možné iné usporiadania komponentov.",
+              "B-KEY": "formát",
+              "B-DESCRIPTION": "voliteľný vstupný formát. Musí obsahovať rok (yy alebo yyyy), mesiac (M, MM, MMM alebo MMMM) a deň v mesiaci (d alebo dd). Môže obsahovať aj deň v týždni (ddd alebo dddd), hodinu (h, hh, H alebo HH), minútu (m alebo mm) a sekundu (s alebo ss). Zložky sa oddeľujú medzerou, bodkou, dvojbodkou, lomkou alebo spojovníkom a nesmú sa opakovať. Zdvojené číselné značky vyžadujú dve číslice. Pri yy hodnoty 00-68 označujú roky 2000-2068 a hodnoty 69-99 roky 1969-1999. Hodiny majú rozsah 0-23 aj pre h a hh; označenie AM/PM nie je podporované. Zadaný deň v týždni musí zodpovedať dátumu."
+            },
+            "EXAMPLES": {
+              "EX1": "to_datetime('2026-10-30T13:05:09.123456')",
+              "RES1": "2026-10-30 13:05:09.123456",
+              "EX2": "to_datetime('30/10/2026 13:05', 'dd/MM/yyyy HH:mm')",
+              "RES2": "2026-10-30 13:05:00",
+              "EX3": "to_datetime('5 February 2026')",
+              "RES3": "2026-02-05 00:00:00"
+            }
+          },
+          "_TO_INTERVAL": {
+            "TITLE": "Funkcia to_interval()",
+            "DESCRIPTION": "Funkcia, ktorá číta časový interval z textu obsahujúceho páry číselných jednotiek. Vráti reťazec znakov so súčtom prevedeným na najväčšiu danú jednotku; pre hodnoty menšie ako 1 môže zvoliť menšiu jednotku. Rok zodpovedá 365,25 dňom a mesiac 1/12 roka. Názov jednotky vo výsledku je vždy množné číslo, napr. 1 days.",
+            "SYNTAX": "to_interval(interval)",
+            "ARGUMENTS": {
+              "A-KEY": "interval",
+              "A-DESCRIPTION": "reťazec s aspoň jednou párovou číselnou jednotkou, napr. 2 days 3 hours. Čísla musia byť nezáporné a konečné; môže mať zlomkovú časť napísanú s bodkou. Jednotky sú povinné v množnom čísle: years, months, weeks, days, hours, minutes alebo seconds. Všetky prvky sú oddelené jednou medzerou, bez čiarok. Pri opakovaní jednotky sa berie do úvahy posledná hodnota."
+            },
+            "EXAMPLES": {
+              "EX1": "to_interval('2 days 3 hours')",
+              "RES1": "2.125 days",
+              "EX2": "to_interval('1 hours 30 minutes')",
+              "RES2": "1.5 hours",
+              "EX3": "to_interval('0.5 hours')",
+              "RES3": "30 minutes"
+            }
+          },
+          "_TO_TIME": {
+            "TITLE": "Funkcia to_time()",
+            "DESCRIPTION": "Funkcia, ktorá načíta čas podľa daného vstupného formátu a vráti objekt time. Formát určuje význam a poradie vstupných komponentov. Vynechaný komponent má hodnotu nula a výsledok je prezentovaný ako HH:MM:SS.",
+            "SYNTAX": "to_time(čas, formát)",
+            "ARGUMENTS": {
+              "A-KEY": "čas",
+              "A-DESCRIPTION": "dve alebo tri číselné zložky oddelené dvojbodkami. Každý musí mať práve dve číslice, napr. 13:05 alebo 09:05:13. Hodina musí byť v rozsahu 0-23 a minúty a sekundy musia byť v rozsahu 0-59. Zlomky sekundy nie sú podporované.",
+              "B-KEY": "formát",
+              "B-DESCRIPTION": "požadovaný vstupný formát s rovnakým počtom komponentov ako je čas. HH alebo hh (24-hodinový čas), mm alebo MM (minúta) a ss alebo SS (sekunda) sú podporované v akomkoľvek poradí, oddelené dvojbodkami. Komponenty sa nedajú opakovať ani s rôznymi veľkosťami písmen. Príklad ss:mm:HH číta najskôr sekundu, potom minútu a hodinu."
+            },
+            "EXAMPLES": {
+              "EX1": "to_time('13:05', 'HH:mm')",
+              "RES1": "13:05:00",
+              "EX2": "to_time('09:05:13', 'ss:mm:HH')",
+              "RES2": "13:05:09",
+              "EX3": "to_time('05:09', 'mm:ss')",
+              "RES3": "00:05:09"
+            }
+          },
+          "_WEEK": {
+            "TITLE": "Funkcia week()",
+            "DESCRIPTION": "Funkcia, ktorá vracia číslo týždňa ISO (1-53) pre dátum alebo celkovú dĺžku intervalu prevedenú na týždne. Výsledkom je reťazec s číslom a anglickou jednotkou week alebo weeks, napr. 44 weeks. Týždeň zodpovedá siedmim dňom. Číslo týždňa ISO na prelome rokov môže patriť do iného roka ako je dátum.",
+            "SYNTAX": "week(dátum_alebo_interval)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum_alebo_interval",
+              "A-DESCRIPTION": "dátum vo formáte YYYY-MM-DD alebo YYYY-MM-DD HH:MM:SS (voliteľne so zlomkom sekundy až šesť číslic), výsledok age() typu timedelta alebo nezáporný interval napísaný ako číslo a anglická jednotka: year, month, week, day, hour, minute alebo second, aj v množnom čísle. Rok zodpovedá 365,25 dňom a mesiac 1/12 roka."
+            },
+            "EXAMPLES": {
+              "EX1": "week('2026-10-30')",
+              "RES1": "44 weeks",
+              "EX2": "week('2021-01-01')",
+              "RES2": "53 weeks",
+              "EX3": "week('14 days')",
+              "RES3": "2 weeks"
+            }
+          },
+          "_YEAR": {
+            "TITLE": "Funkcia year()",
+            "DESCRIPTION": "Funkcia, ktorá vracia rok z dátumu alebo celkovú dĺžku intervalu prevedenú na roky. Výsledkom je reťazec s číslom a anglickou jednotkou year alebo years, napr. 2026 years. Pri prepočte intervalov rok zodpovedá 365,25 dňom.",
+            "SYNTAX": "year(dátum_alebo_interval)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum_alebo_interval",
+              "A-DESCRIPTION": "dátum vo formáte YYYY-MM-DD alebo YYYY-MM-DD HH:MM:SS (voliteľne so zlomkom sekundy až šesť číslic), výsledok age() typu timedelta alebo nezáporný interval napísaný ako číslo a anglická jednotka: year, month, week, day, hour, minute alebo second, aj v množnom čísle. Mesiac zodpovedá 1/12 roka."
+            },
+            "EXAMPLES": {
+              "EX1": "year('2026-10-30')",
+              "RES1": "2026 years",
+              "EX2": "year('12 months')",
+              "RES2": "1 year",
+              "EX3": "year('730.5 days')",
+              "RES3": "2 years"
+            }
+          }
+        },
+        "MATH": {
+          "INFO": "Matematické funkcie",
+          "TITLE": "Matematika",
+          "_ABS": {
+            "TITLE": "Funkcia abs()",
+            "DESCRIPTION": "Funkcia, ktorá vracia absolútnu hodnotu čísla.",
+            "SYNTAX": "abs(hodnota)",
+            "ARGUMENTS": {
+              "A-KEY": "hodnota",
+              "A-DESCRIPTION": "číslo, ktorého absolútna hodnota sa má vypočítať."
+            },
+            "EXAMPLES": {
+              "EX1": "abs(-5)",
+              "RES1": "5",
+              "EX2": "abs(3.14)",
+              "RES2": "3.14",
+              "EX3": "abs(-2.718)",
+              "RES3": "2.718"
+            }
+          },
+          "_ACOS": {
+            "TITLE": "Funkcia acos()",
+            "DESCRIPTION": "Funkcia, ktorá vracia inverznú kosínusovú hodnotu v radiánoch.",
+            "SYNTAX": "acos(hodnota)",
+            "ARGUMENTS": {
+              "A-KEY": "hodnota",
+              "A-DESCRIPTION": "číslo, pre ktoré sa má vypočítať inverzný kosínus. Hodnota musí byť v rozsahu -1 až 1."
+            },
+            "EXAMPLES": {
+              "EX1": "acos(0)",
+              "RES1": "1.5708",
+              "EX2": "acos(-0.5)",
+              "RES2": "2.0944",
+              "EX3": "acos(1)",
+              "RES3": "0"
+            }
+          },
+          "_ACTG": {
+            "TITLE": "Funkcia actg()",
+            "DESCRIPTION": "Funkcia, ktorá vracia inverznú hodnotu kotangens v radiánoch, vypočítanú ako atan(1 / hodnota). Pre záporné hodnoty vráti záporný uhol.",
+            "SYNTAX": "actg(hodnota)",
+            "ARGUMENTS": {
+              "A-KEY": "hodnota",
+              "A-DESCRIPTION": "číslo, pre ktoré sa má vypočítať inverzný kotangens. Hodnota môže byť akékoľvek reálne číslo iné ako nula."
+            },
+            "EXAMPLES": {
+              "EX1": "actg(1)",
+              "RES1": "0.7854",
+              "EX2": "actg(-1)",
+              "RES2": "-0.7854",
+              "EX3": "actg(2)",
+              "RES3": "0.4636"
+            }
+          },
+          "_ACTG2": {
+            "TITLE": "Funkcia actg2()",
+            "DESCRIPTION": "Funkcia, ktorá vracia uhol v radiánoch, vypočítaný ako atan2(1 / y, x), berúc do úvahy znamienka argumentov.",
+            "SYNTAX": "actg2(y, x)",
+            "ARGUMENTS": {
+              "A-KEY": "y",
+              "A-DESCRIPTION": "číslo, ktorého inverzná hodnota sa používa ako prvý argument funkcie atan2(). Musí to byť skutočné číslo iné ako nula.",
+              "B-KEY": "x",
+              "B-DESCRIPTION": "číslo používané ako druhý argument funkcie atan2(). Môže to byť akékoľvek reálne číslo."
+            },
+            "EXAMPLES": {
+              "EX1": "actg2(1, 1)",
+              "RES1": "0.7854",
+              "EX2": "actg2(1, -1)",
+              "RES2": "2.3562",
+              "EX3": "actg2(-1, 1)",
+              "RES3": "-0.7854"
+            }
+          },
+          "_ASIN": {
+            "TITLE": "Funkcia asin()",
+            "DESCRIPTION": "Funkcia, ktorá vracia inverznú sínusovú hodnotu v radiánoch.",
+            "SYNTAX": "asin(hodnota)",
+            "ARGUMENTS": {
+              "A-KEY": "hodnota",
+              "A-DESCRIPTION": "číslo, pre ktoré sa má vypočítať inverzný sínus. Hodnota musí byť v rozsahu -1 až 1."
+            },
+            "EXAMPLES": {
+              "EX1": "asin(0)",
+              "RES1": "0",
+              "EX2": "asin(-0.5)",
+              "RES2": "-0.5236",
+              "EX3": "asin(1)",
+              "RES3": "1.5708"
+            }
+          },
+          "_ATAN": {
+            "TITLE": "Funkcia atan()",
+            "DESCRIPTION": "Funkcia, ktorá vracia hodnotu inverznej tangens v radiánoch.",
+            "SYNTAX": "atan(hodnota)",
+            "ARGUMENTS": {
+              "A-KEY": "hodnota",
+              "A-DESCRIPTION": "číslo, pre ktoré sa má vypočítať inverzná tangens. Hodnota môže byť akékoľvek reálne číslo."
+            },
+            "EXAMPLES": {
+              "EX1": "atan(0)",
+              "RES1": "0",
+              "EX2": "atan(-0.5)",
+              "RES2": "-0.4636",
+              "EX3": "atan(1)",
+              "RES3": "0.7854"
+            }
+          },
+          "_ATAN2": {
+            "TITLE": "Funkcia atan2()",
+            "DESCRIPTION": "Funkcia, ktorá vracia inverzný tangens v radiánoch, pričom je dané znamienko oboch argumentov.",
+            "SYNTAX": "atan2(y, x)",
+            "ARGUMENTS": {
+              "A-KEY": "y",
+              "A-DESCRIPTION": "hodnota y pre výpočet inverznej tangenty. Skutočné číslo.",
+              "B-KEY": "x",
+              "B-DESCRIPTION`": "hodnota x pre výpočet inverznej tangenty. Skutočné číslo."
+            },
+            "EXAMPLES": {
+              "EX1": "atan2(0, -1)",
+              "RES1": "3.1416",
+              "EX2": "atan2(1, 0)",
+              "RES2": "1.5708",
+              "EX3": "atan2(1, 1)",
+              "RES3": "0.7854"
+            }
+          },
+          "_CEIL": {
+            "TITLE": "Funkcia ceil()",
+            "DESCRIPTION": "Funkcia, ktorá vracia hodnotu zaokrúhlenú nahor.",
+            "SYNTAX": "ceil(hodnota)",
+            "ARGUMENTS": {
+              "A-KEY": "hodnota",
+              "A-DESCRIPTION": "číslo, ktorého hodnota sa má zaokrúhliť nahor."
+            },
+            "EXAMPLES": {
+              "EX1": "ceil(16.2)",
+              "RES1": "17",
+              "EX2": "ceil(-9.2)",
+              "RES2": "-9",
+              "EX3": "ceil(0)",
+              "RES3": "0"
+            }
+          },
+          "_CLAMP": {
+            "TITLE": "Funkcia clamp()",
+            "DESCRIPTION": "Funkcia, ktorá vracia hodnotu obmedzenú na určený rozsah.",
+            "SYNTAX": "clamp(min, hodnota, max)",
+            "ARGUMENTS": {
+              "A-KEY": "min",
+              "A-DESCRIPTION": "minimálna hodnota, na ktorú by mala byť hodnota obmedzená. Ak je hodnota menšia, vráti sa min.",
+              "B-KEY": "hodnota",
+              "B-DESCRIPTION": "hodnotu obmedziť na konkrétny rozsah.",
+              "C-KEY": "max",
+              "C-DESCRIPTION": "maximálna hodnota, na ktorú by mala byť hodnota obmedzená. Ak je hodnota väčšia, vráti sa max."
+            },
+            "EXAMPLES": {
+              "EX1": "clamp(0, 5, 10)",
+              "RES1": "5",
+              "EX2": "clamp(0, -5, 10)",
+              "RES2": "0",
+              "EX3": "clamp(0, 15, 10)",
+              "RES3": "10"
+            }
+          },
+          "_COS": {
+            "TITLE": "Funkcia cos()",
+            "DESCRIPTION": "Funkcia, ktorá vracia kosínusovú hodnotu.",
+            "SYNTAX": "cos(radiány)",
+            "ARGUMENTS": {
+              "A-KEY": "radiány",
+              "A-DESCRIPTION": "hodnota v radiánoch, pre ktorú sa má vypočítať kosínus. Hodnota môže byť akékoľvek reálne číslo."
+            },
+            "EXAMPLES": {
+              "EX1": "cos(0)",
+              "RES1": "1",
+              "EX2": "cos(-1)",
+              "RES2": "0.5403",
+              "EX3": "cos(1)",
+              "RES3": "0.5403"
+            }
+          },
+          "_CTG": {
+            "TITLE": "Funkcia ctg()",
+            "DESCRIPTION": "Funkcia, ktorá vracia hodnotu kotangens vypočítanú ako prevrátenú hodnotu dotyčnice.",
+            "SYNTAX": "ctg(radiány)",
+            "ARGUMENTS": {
+              "A-KEY": "radiány",
+              "A-DESCRIPTION": "hodnota uhla v radiánoch, pre ktorú sa má vypočítať kotangens. Tangenta tohto uhla musí byť nenulová."
+            },
+            "EXAMPLES": {
+              "EX1": "ctg(1)",
+              "RES1": "0.6421",
+              "EX2": "ctg(-1)",
+              "RES2": "-0.6421",
+              "EX3": "ctg(0.5)",
+              "RES3": "1.8305"
+            }
+          },
+          "_DEGREES": {
+            "TITLE": "Funkcia degrees()",
+            "DESCRIPTION": "Funkcia, ktorá prevádza hodnotu uhla z radiánov na stupne.",
+            "SYNTAX": "degrees(radiány)",
+            "ARGUMENTS": {
+              "A-KEY": "radiány",
+              "A-DESCRIPTION": "hodnota uhla v radiánoch, ktorá sa má previesť na stupne. Hodnota môže byť akékoľvek reálne číslo."
+            },
+            "EXAMPLES": {
+              "EX1": "degrees(-1)",
+              "RES1": "57.2958",
+              "EX2": "degrees(2)",
+              "RES2": "114.5916",
+              "EX3": "degrees(pi())",
+              "RES3": "180"
+            }
+          },
+          "_EXP": {
+            "TITLE": "Funkcia exp()",
+            "DESCRIPTION": "Funkcia, ktorá vracia hodnotu exponenciálnej funkcie z čísla.",
+            "SYNTAX": "exp(hodnota)",
+            "ARGUMENTS": {
+              "A-KEY": "hodnota",
+              "A-DESCRIPTION": "číslo, pre ktoré sa má exponenciálna funkcia vyhodnotiť. Hodnota môže byť akékoľvek reálne číslo."
+            },
+            "EXAMPLES": {
+              "EX1": "exp(0)",
+              "RES1": "1",
+              "EX2": "exp(1)",
+              "RES2": "2.7183",
+              "EX3": "exp(-1)",
+              "RES3": "0.3679"
+            }
+          },
+          "_FLOOR": {
+            "TITLE": "Funkcia floor()",
+            "DESCRIPTION": "Funkcia, ktorá vracia hodnotu zaokrúhlenú nadol.",
+            "SYNTAX": "floor(hodnota)",
+            "ARGUMENTS": {
+              "A-KEY": "hodnota",
+              "A-DESCRIPTION": "číslo, ktorého hodnota sa má zaokrúhliť nadol."
+            },
+            "EXAMPLES": {
+              "EX1": "floor(3.7)",
+              "RES1": "3",
+              "EX2": "floor(-3.7)",
+              "RES2": "-4",
+              "EX3": "floor(0)",
+              "RES3": "0"
+            }
+          },
+          "_LN": {
+            "TITLE": "Funkcia ln()",
+            "DESCRIPTION": "Funkcia, ktorá vracia prirodzený logaritmus čísla.",
+            "SYNTAX": "ln(hodnota)",
+            "ARGUMENTS": {
+              "A-KEY": "hodnota",
+              "A-DESCRIPTION": "číslo, pre ktoré sa má vypočítať prirodzený logaritmus. Hodnota musí byť väčšia ako nula."
+            },
+            "EXAMPLES": {
+              "EX1": "ln(1)",
+              "RES1": "0",
+              "EX2": "ln(2.7183)",
+              "RES2": "1",
+              "EX3": "ln(10)",
+              "RES3": "2.3026"
+            }
+          },
+          "_LOG": {
+            "TITLE": "Funkcia log()",
+            "DESCRIPTION": "Funkcia, ktorá vracia logaritmus čísla s daným základom.",
+            "SYNTAX": "log(základ, hodnota)",
+            "ARGUMENTS": {
+              "A-KEY": "základ",
+              "A-DESCRIPTION": "základ logaritmu. Hodnota musí byť väčšia ako nula a nemôže byť nula.",
+              "B-KEY": "hodnota",
+              "B-DESCRIPTION": "číslo, pre ktoré sa má vypočítať logaritmus. Hodnota musí byť väčšia ako nula."
+            },
+            "EXAMPLES": {
+              "EX1": "log(2, 32)",
+              "RES1": "5",
+              "EX2": "log(10, 100)",
+              "RES2": "2",
+              "EX3": "log(2, 1)",
+              "RES3": "0"
+            }
+          },
+          "_LOG10": {
+            "TITLE": "Funkcia log10()",
+            "DESCRIPTION": "Funkcia, ktorá vracia desiatkový logaritmus čísla.",
+            "SYNTAX": "log10(hodnota)",
+            "ARGUMENTS": {
+              "A-KEY": "hodnota",
+              "A-DESCRIPTION": "číslo, pre ktoré sa má vypočítať desiatkový logaritmus. Hodnota musí byť väčšia ako nula."
+            },
+            "EXAMPLES": {
+              "EX1": "log10(1)",
+              "RES1": "0",
+              "EX2": "log10(100)",
+              "RES2": "2",
+              "EX3": "log10(5)",
+              "RES3": "0.6989"
+            }
+          },
+          "_MAX": {
+            "TITLE": "Funkcia max()",
+            "DESCRIPTION": "Funkcia, ktorá vracia najväčšiu hodnotu zo všetkých zadaných hodnôt.",
+            "SYNTAX": "max(hodnota1, hodnota2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "hodnota",
+              "A-DESCRIPTION": "po sebe idúce čísla, z ktorých sa má vybrať najväčšia hodnota. Môžete uviesť ľubovoľný počet argumentov."
+            },
+            "EXAMPLES": {
+              "EX1": "max(3, 7, 2)",
+              "RES1": "7",
+              "EX2": "max(-5, -2, -8)",
+              "RES2": "-2",
+              "EX3": "max(1.5, 2.3, 0.9)",
+              "RES3": "2.3"
+            }
+          },
+          "_MIN": {
+            "TITLE": "Funkcia min()",
+            "DESCRIPTION": "Funkcia, ktorá vracia najmenšiu hodnotu zo všetkých zadaných hodnôt.",
+            "SYNTAX": "min(hodnota1, hodnota2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "hodnota",
+              "A-DESCRIPTION": "po sebe idúce čísla, z ktorých sa má vybrať najmenšia hodnota. Môžete uviesť ľubovoľný počet argumentov."
+            },
+            "EXAMPLES": {
+              "EX1": "min(3, 7, 2)",
+              "RES1": "2",
+              "EX2": "min(-5, -2, -8)",
+              "RES2": "-8",
+              "EX3": "min(1.5, 2.3, 0.9)",
+              "RES3": "0.9"
+            }
+          },
+          "_PI": {
+            "TITLE": "Funkcia pi()",
+            "DESCRIPTION": "Funkcia, ktorá vracia hodnotu čísla pi. Neprijíma žiadne argumenty.",
+            "SYNTAX": "pi()",
+            "ARGUMENTS": {},
+            "EXAMPLES": {
+              "EX1": "pi()",
+              "RES1": "3.1416...",
+              "EX2": "cos(pi())",
+              "RES2": "-1",
+              "EX3": "sin(pi())",
+              "RES3": "0"
+            }
+          },
+          "_POW": {
+            "TITLE": "Funkcia pow()",
+            "DESCRIPTION": "Funkcia, ktorá vracia výsledok zvýšenia základu na danú mocninu.",
+            "SYNTAX": "pow(základ, exponent)",
+            "ARGUMENTS": {
+              "A-KEY": "základ",
+              "A-DESCRIPTION": "číslo, ktoré sa má zvýšiť na mocninu. Pre záporný základ musí byť exponent celé číslo.",
+              "B-KEY": "exponent",
+              "B-DESCRIPTION": "číslo určujúce výkon, na ktorý sa má základňa zdvihnúť. Pre základ rovný nule nemôže byť exponent záporný."
+            },
+            "EXAMPLES": {
+              "EX1": "pow(2, 3)",
+              "RES1": "8",
+              "EX2": "pow(9, 0.5)",
+              "RES2": "3",
+              "EX3": "pow(2, -2)",
+              "RES3": "0.25"
+            }
+          },
+          "_RADIANS": {
+            "TITLE": "Funkcia radians()",
+            "DESCRIPTION": "Funkcia, ktorá prevádza hodnotu uhla zo stupňov na radiány.",
+            "SYNTAX": "radians(stupne)",
+            "ARGUMENTS": {
+              "A-KEY": "stupne",
+              "A-DESCRIPTION": "hodnotu uhla v stupňoch previesť na radiány. Hodnota môže byť akékoľvek reálne číslo."
+            },
+            "EXAMPLES": {
+              "EX1": "radians(180)",
+              "RES1": "3.1416",
+              "EX2": "radians(90)",
+              "RES2": "1.5708",
+              "EX3": "radians(45)",
+              "RES3": "0.7854"
+            }
+          },
+          "_RAND": {
+            "TITLE": "Funkcia rand()",
+            "DESCRIPTION": "Funkcia, ktorá vracia náhodné celé číslo od minima po maximum. seed sa môže dodatočne podávať, aby sa vždy dosiahli opakovateľné výsledky.",
+            "SYNTAX": "rand(min, max, [seed])",
+            "ARGUMENTS": {
+              "A-KEY": "min",
+              "A-DESCRIPTION": "minimálna hodnota intervalu, z ktorého sa má vygenerovať náhodná hodnota. Musí to byť celé číslo.",
+              "B-KEY": "max",
+              "B-DESCRIPTION": "maximálna hodnota intervalu, z ktorého sa má vygenerovať náhodná hodnota. Musí to byť celé číslo.",
+              "C-KEY": "seed",
+              "C-DESCRIPTION": "voliteľný parameter, ktorý vám umožňuje získať opakovateľné výsledky zakaždým, keď je funkcia zavolaná s rovnakým zdrojom. Predvolene vypnuté."
+            },
+            "EXAMPLES": {
+              "EX1": "rand(1, 10)",
+              "RES1": "5",
+              "EX2": "rand(1, 100)",
+              "RES2": "42",
+              "EX3": "rand(1, 10, 42)",
+              "RES3": "3"
+            }
+          },
+          "_RANDF": {
+            "TITLE": "Funkcia randf()",
+            "DESCRIPTION": "Funkcia, ktorá vracia náhodnú hodnotu s pohyblivou rádovou čiarkou medzi daným rozsahom od minima po maximum. seed sa môže dodatočne podávať, aby sa vždy dosiahli opakovateľné výsledky.",
+            "SYNTAX": "randf(min, max, [seed])",
+            "ARGUMENTS": {
+              "A-KEY": "min",
+              "A-DESCRIPTION": "minimálna hodnota intervalu, z ktorého sa má vygenerovať náhodná hodnota.",
+              "B-KEY": "max",
+              "B-DESCRIPTION": "maximálna hodnota intervalu, z ktorého sa má vygenerovať náhodná hodnota.",
+              "C-KEY": "seed",
+              "C-DESCRIPTION": "voliteľný parameter, ktorý vám umožňuje získať opakovateľné výsledky zakaždým, keď je funkcia zavolaná s rovnakým zdrojom. Predvolene vypnuté."
+            },
+            "EXAMPLES": {
+              "EX1": "randf(1.0, 10.0)",
+              "RES1": "5.5",
+              "EX2": "randf(1.0, 100.0)",
+              "RES2": "42.3",
+              "EX3": "randf(1.0, 10.0, 42)",
+              "RES3": "3.7"
+            }
+          },
+          "_ROOT": {
+            "TITLE": "Funkcia root()",
+            "DESCRIPTION": "Funkcia vracajúca odmocninu zadaného stupňa z čísla.",
+            "SYNTAX": "root(hodnota, stupeň)",
+            "ARGUMENTS": {
+              "A-KEY": "hodnota",
+              "A-DESCRIPTION": "číslo, z ktorého sa má vypočítať odmocnina.",
+              "B-KEY": "stupeň",
+              "B-DESCRIPTION": "stupeň odmocniny. Môže byť ľubovoľné nenulové reálne číslo."
+            },
+            "EXAMPLES": {
+              "EX1": "root(27, 3)",
+              "RES1": "3",
+              "EX2": "root(16, 2)",
+              "RES2": "4",
+              "EX3": "root(16, -2)",
+              "RES3": "0.25"
+            }
+          },
+          "_ROUND": {
+            "TITLE": "Funkcia round()",
+            "DESCRIPTION": "Funkcia, ktorá zaokrúhľuje číslo na daný počet desatinných miest. Ak chýba druhý argument, číslo sa zaokrúhli na najbližšie celé číslo.",
+            "SYNTAX": "round(hodnota, [miesta])",
+            "ARGUMENTS": {
+              "A-KEY": "hodnota",
+              "A-DESCRIPTION": "číslo, ktoré sa má zaokrúhliť.",
+              "B-KEY": "miesta",
+              "B-DESCRIPTION": "voliteľný parameter určujúci počet desatinných miest, na ktoré sa má číslo zaokrúhliť. Predvolená hodnota 0."
+            },
+            "EXAMPLES": {
+              "EX1": "round(3.14159)",
+              "RES1": "3",
+              "EX2": "round(3.14159, 2)",
+              "RES2": "3.14",
+              "EX3": "round(3.14159, 4)",
+              "RES3": "3.1416"
+            }
+          },
+          "_SCALE_EXPONENTIAL": {
+            "TITLE": "Funkcia scale_exponential()",
+            "DESCRIPTION": "Funkcia, ktorá prevádza hodnotu zo vstupného rozsahu na výstupný rozsah podľa exponenciálnej krivky. Hodnoty pod rozsahom vstupu vrátia výstupné_minimum a hodnoty nad rozsahom vrátia výstupné_maximum.",
+            "SYNTAX": "scale_exponential(hodnota, vstupné_minimum, vstupné_maximum, výstupné_minimum, výstupné_maximum, základ)",
+            "ARGUMENTS": {
+              "A-KEY": "hodnota",
+              "A-DESCRIPTION": "číslo, ktoré sa má previesť na výstupný rozsah.",
+              "B-KEY": "vstupné_minimum",
+              "B-DESCRIPTION": "spodná hranica vstupného rozsahu. Musí byť menej ako vstupné_maximum.",
+              "C-KEY": "vstupné_maximum",
+              "C-DESCRIPTION": "horná hranica vstupného rozsahu. Musí byť väčšie ako vstupné_minimum.",
+              "D-KEY": "výstupné_minimum",
+              "D-DESCRIPTION": "výstupná hodnota zodpovedajúca vstupné_minimum. Vracia sa aj pre hodnoty menšie ako vstupné_minimum.",
+              "E-KEY": "výstupné_maximum",
+              "E-DESCRIPTION": "výstupná hodnota zodpovedajúca vstupné_maximum. Vráti sa aj pre hodnoty vyššie ako vstupné_maximum.",
+              "F-KEY": "základ",
+              "F-DESCRIPTION": "mocninovej základne, ktorá určuje tvar exponenciálnej krivky. Musí byť väčšie ako nula. Pre hodnotu 1 funguje funkcia ako scale_linear()."
+            },
+            "EXAMPLES": {
+              "EX1": "scale_exponential(5, 0, 10, 0, 100, 2)",
+              "RES1": "3.0303",
+              "EX2": "scale_exponential(5, 0, 10, 0, 100, 1)",
+              "RES2": "50",
+              "EX3": "scale_exponential(15, 0, 10, 0, 100, 2)",
+              "RES3": "100"
+            }
+          },
+          "_SCALE_LINEAR": {
+            "TITLE": "Funkcia scale_linear()",
+            "DESCRIPTION": "Funkcia, ktorá konvertuje hodnotu zo vstupného rozsahu na výstupný rozsah lineárne, pričom zachováva pomer polohy hodnoty v rozsahu. Hodnoty pod rozsahom vstupu vrátia výstupné_minimum a hodnoty nad rozsahom vrátia výstupné_maximum.",
+            "SYNTAX": "scale_linear(hodnota, vstupné_minimum, vstupné_maximum, výstupné_minimum, výstupné_maximum)",
+            "ARGUMENTS": {
+              "A-KEY": "hodnota",
+              "A-DESCRIPTION": "číslo, ktoré sa má previesť na výstupný rozsah.",
+              "B-KEY": "vstupné_minimum",
+              "B-DESCRIPTION": "spodná hranica vstupného rozsahu. Musí byť menej ako vstupné_maximum.",
+              "C-KEY": "vstupné_maximum",
+              "C-DESCRIPTION": "horná hranica vstupného rozsahu. Musí byť väčšie ako vstupné_minimum.",
+              "D-KEY": "výstupné_minimum",
+              "D-DESCRIPTION": "výstupná hodnota zodpovedajúca vstupné_minimum. Vracia sa aj pre hodnoty menšie ako vstupné_minimum.",
+              "E-KEY": "výstupné_maximum",
+              "E-DESCRIPTION": "výstupná hodnota zodpovedajúca vstupné_maximum. Vráti sa aj pre hodnoty vyššie ako vstupné_maximum."
+            },
+            "EXAMPLES": {
+              "EX1": "scale_linear(5, 0, 10, 0, 100)",
+              "RES1": "50",
+              "EX2": "scale_linear(-5, 0, 10, 0, 100)",
+              "RES2": "0",
+              "EX3": "scale_linear(15, 0, 10, 0, 100)",
+              "RES3": "100"
+            }
+          },
+          "_SCALE_LOGARITHMIC": {
+            "TITLE": "Funkcia scale_logarithmic()",
+            "DESCRIPTION": "Funkcia, ktorá konvertuje hodnotu zo vstupného rozsahu do výstupného rozsahu logaritmicky na základe prirodzených logaritmov. Hodnoty pod rozsahom vstupu vrátia výstupné_minimum a hodnoty nad rozsahom vrátia výstupné_maximum.",
+            "SYNTAX": "scale_logarithmic(hodnota, vstupné_minimum, vstupné_maximum, výstupné_minimum, výstupné_maximum)",
+            "ARGUMENTS": {
+              "A-KEY": "hodnota",
+              "A-DESCRIPTION": "číslo, ktoré sa má previesť na výstupný rozsah. Hodnoty menšie alebo rovné vstupné_minimum vrátia výstupné_minimum bez logaritmu.",
+              "B-KEY": "vstupné_minimum",
+              "B-DESCRIPTION": "spodná hranica vstupného rozsahu. Na výpočet logaritmov musí byť väčšia ako nula a menšia ako vstupné_maximum.",
+              "C-KEY": "vstupné_maximum",
+              "C-DESCRIPTION": "horná hranica vstupného rozsahu. Musí byť väčšie ako vstupné_minimum a väčšie ako nula.",
+              "D-KEY": "výstupné_minimum",
+              "D-DESCRIPTION": "výstupná hodnota zodpovedajúca vstupné_minimum. Vracia sa aj pre hodnoty menšie ako vstupné_minimum.",
+              "E-KEY": "výstupné_maximum",
+              "E-DESCRIPTION": "výstupná hodnota zodpovedajúca vstupné_maximum. Vráti sa aj pre hodnoty vyššie ako vstupné_maximum."
+            },
+            "EXAMPLES": {
+              "EX1": "scale_logarithmic(5, 1, 10, 0, 100)",
+              "RES1": "69.8970",
+              "EX2": "scale_logarithmic(10, 1, 100, 0, 100)",
+              "RES2": "50",
+              "EX3": "scale_logarithmic(0, 1, 10, 0, 100)",
+              "RES3": "0"
+            }
+          },
+          "_SCALE_POLYNOMIAL": {
+            "TITLE": "Funkcia scale_polynomial()",
+            "DESCRIPTION": "Funkcia, ktorá prevádza hodnotu zo vstupného rozsahu na výstupný rozsah zvýšením jej relatívnej polohy v rozsahu na daný výkon. Hodnoty pod rozsahom vstupu vrátia výstupné_minimum a hodnoty nad rozsahom vrátia výstupné_maximum.",
+            "SYNTAX": "scale_polynomial(hodnota, vstupné_minimum, vstupné_maximum, výstupné_minimum, výstupné_maximum, exponent)",
+            "ARGUMENTS": {
+              "A-KEY": "hodnota",
+              "A-DESCRIPTION": "číslo, ktoré sa má previesť na výstupný rozsah.",
+              "B-KEY": "vstupné_minimum",
+              "B-DESCRIPTION": "spodná hranica vstupného rozsahu. Musí byť menej ako vstupné_maximum.",
+              "C-KEY": "vstupné_maximum",
+              "C-DESCRIPTION": "horná hranica vstupného rozsahu. Musí byť väčšie ako vstupné_minimum.",
+              "D-KEY": "výstupné_minimum",
+              "D-DESCRIPTION": "výstupná hodnota zodpovedajúca vstupné_minimum. Vracia sa aj pre hodnoty menšie ako vstupné_minimum.",
+              "E-KEY": "výstupné_maximum",
+              "E-DESCRIPTION": "výstupná hodnota zodpovedajúca vstupné_maximum. Vráti sa aj pre hodnoty vyššie ako vstupné_maximum.",
+              "F-KEY": "exponent",
+              "F-DESCRIPTION": "mocninný exponent určujúci tvar krivky. Musí byť väčšie ako nula. Pre hodnotu 1 funguje funkcia ako scale_linear()."
+            },
+            "EXAMPLES": {
+              "EX1": "scale_polynomial(5, 0, 10, 0, 100, 2)",
+              "RES1": "25",
+              "EX2": "scale_polynomial(5, 0, 10, 0, 100, 1)",
+              "RES2": "50",
+              "EX3": "scale_polynomial(-5, 0, 10, 0, 100, 2)",
+              "RES3": "0"
+            }
+          },
+          "_SIN": {
+            "TITLE": "Funkcia sin()",
+            "DESCRIPTION": "Funkcia, ktorá vracia sínusovú hodnotu.",
+            "SYNTAX": "sin(uhol)",
+            "ARGUMENTS": {
+              "A-KEY": "uhol",
+              "A-DESCRIPTION": "uhol v radiánoch."
+            },
+            "EXAMPLES": {
+              "EX1": "sin(0)",
+              "RES1": "0",
+              "EX2": "sin(pi()/2)",
+              "RES2": "1",
+              "EX3": "sin(pi())",
+              "RES3": "0"
+            }
+          },
+          "_SQRT": {
+            "TITLE": "Funkcia sqrt()",
+            "DESCRIPTION": "Funkcia, ktorá vracia druhú odmocninu čísla.",
+            "SYNTAX": "sqrt(hodnota)",
+            "ARGUMENTS": {
+              "A-KEY": "hodnota",
+              "A-DESCRIPTION": "číslo, pre ktoré sa má vypočítať druhá odmocnina. Hodnota musí byť väčšia alebo rovná nule."
+            },
+            "EXAMPLES": {
+              "EX1": "sqrt(4)",
+              "RES1": "2",
+              "EX2": "sqrt(9)",
+              "RES2": "3",
+              "EX3": "sqrt(0)",
+              "RES3": "0"
+            }
+          },
+          "_TAN": {
+            "TITLE": "Funkcia tan()",
+            "DESCRIPTION": "Funkcia, ktorá vracia hodnotu dotyčnice.",
+            "SYNTAX": "tan(uhol)",
+            "ARGUMENTS": {
+              "A-KEY": "uhol",
+              "A-DESCRIPTION": "uhol v radiánoch."
+            },
+            "EXAMPLES": {
+              "EX1": "tan(0)",
+              "RES1": "0",
+              "EX2": "tan(pi()/4)",
+              "RES2": "1",
+              "EX3": "tan(pi()/2)",
+              "RES3": "Chyba: dotyčnica neexistuje pre uhol pi()/2."
+            }
+          }
+        },
+        "MAPS-OPERATORS": {
+          "INFO": "Funkcie slovníka",
+          "TITLE": "Operácie so slovníkmi",
+          "_FROM_JSON": {
+            "TITLE": "Funkcia from_json()",
+            "DESCRIPTION": "Funkcia, ktorá transformuje reťazec znakov vo formáte JSON na normálnu dátovú štruktúru.",
+            "SYNTAX": "from_json(reťazec_json)",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec_json",
+              "A-DESCRIPTION": "Reťazec vo formáte JSON."
+            },
+            "EXAMPLES": {
+              "EX1": "from_json('{\"key\": \"value\"}')",
+              "RES1": "{key: value}",
+              "EX2": "from_json('[1, 2, 3]')",
+              "RES2": "[1, 2, 3]",
+              "EX3": "from_json('{\"numbers\": [1, 2, 3]}')",
+              "RES3": "{numbers: [1, 2, 3]}"
+            }
+          },
+          "_MAP": {
+            "TITLE": "Funkcia map()",
+            "DESCRIPTION": "Funkcia, ktorá vytvára slovník z postupne poskytnutých párov kľúč – hodnota. Môžete zadať ľubovoľný počet párov argumentov.",
+            "SYNTAX": "map(kľúč1, hodnota1, kľúč2, hodnota2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "kľúč",
+              "A-DESCRIPTION": "nasledujúce klávesy, ktoré sa majú použiť v slovníku. Každý kľúč musí byť jedinečný.",
+              "B-KEY": "hodnota",
+              "B-DESCRIPTION": "následné hodnoty, ktoré sa majú priradiť príslušným kľúčom."
+            },
+            "EXAMPLES": {
+              "EX1": "map('a', 1, 'b', 2)",
+              "RES1": "{a: 1, b: 2}",
+              "EX2": "map('x', 'hello', 'y', 'world')",
+              "RES2": "{x: hello, y: world}",
+              "EX3": "map('key1', true, 'key2', false)",
+              "RES3": "{key1: true, key2: false}"
+            }
+          },
+          "_MAP_AKEYS": {
+            "TITLE": "Funkcia map_akeys()",
+            "DESCRIPTION": "Funkcia, ktorá vracia všetky kľúče z daného slovníka ako kľúče v poli",
+            "SYNTAX": "map_akeys(mapa)",
+            "ARGUMENTS": {
+              "A-KEY": "mapa",
+              "A-DESCRIPTION": "slovník, z ktorého sa majú získať všetky kľúče."
+            },
+            "EXAMPLES": {
+              "EX1": "map_akeys(map('a', 1, 'b', 2))",
+              "RES1": "[a, b]",
+              "EX2": "map_akeys(map('x', 'hello', 'y', 'world'))",
+              "RES2": "[x, y]",
+              "EX3": "map_akeys({'key1', true, 'key2', false})",
+              "RES3": "[key1, key2]"
+            }
+          },
+          "_MAP_AVALS": {
+            "TITLE": "Funkcia map_avals()",
+            "DESCRIPTION": "Funkcia, ktorá vracia všetky hodnoty v danom slovníku ako hodnoty v poli",
+            "SYNTAX": "map_avals(mapa)",
+            "ARGUMENTS": {
+              "A-KEY": "mapa",
+              "A-DESCRIPTION": "slovník, z ktorého sa majú načítať všetky hodnoty."
+            },
+            "EXAMPLES": {
+              "EX1": "map_avals(map('a', 1, 'b', 2))",
+              "RES1": "[1, 2]",
+              "EX2": "map_avals(map('x', 'hello', 'y', 'world'))",
+              "RES2": "['hello', 'world']",
+              "EX3": "map_avals({'key1', true, 'key2', false})",
+              "RES3": "[true, false]"
+            }
+          },
+          "_MAP_CONCAT": {
+            "TITLE": "map_concat()",
+            "DESCRIPTION": "Funkcia, ktorá spája dva alebo viac slovníkov hodnôt do jedného. Ak sa v slovníkoch objavia rovnaké kľúče, hodnoty z posledného slovníka prepíšu predchádzajúce.",
+            "SYNTAX": "map_concat(mapa1, mapa2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "mapa",
+              "A-DESCRIPTION": "následné slovníky hodnôt, ktoré sa majú spojiť do jedného slovníka."
+            },
+            "EXAMPLES": {
+              "EX1": "map_concat(map('a', 1, 'b', 2), map('c', 3, 'd', 4))",
+              "RES1": "{a: 1, b: 2, c: 3, d: 4}",
+              "EX2": "map_concat(map('a', 1, 'b', 2), map('b', 3, 'c', 4))",
+              "RES2": "{a: 1, b: 3, c: 4}",
+              "EX3": "map_concat(map('x', 'hello'), map('y', 'world'), map('y', '!'))",
+              "RES3": "{x: 'hello', y: '!'}"
+            }
+          },
+          "_MAP_DELETE": {
+            "TITLE": "Funkcia map_delete()",
+            "DESCRIPTION": "Funkcia, ktorá vracia slovník hodnôt s odstráneným daným kľúčom. Ak kľúč v slovníku neexistuje, vráti sa pôvodný slovník.",
+            "SYNTAX": "map_delete(mapa, kľúč)",
+            "ARGUMENTS": {
+              "A-KEY": "mapa",
+              "A-DESCRIPTION": "slovník, z ktorého sa má kľúč odstrániť.",
+              "B-KEY": "kľúč",
+              "B-DESCRIPTION": "kľúč, ktorý sa má odstrániť zo slovníka."
+            },
+            "EXAMPLES": {
+              "EX1": "map_delete(map('a', 1, 'b', 2), 'a')",
+              "RES1": "{b: 2}",
+              "EX2": "map_delete(map('x', 'hello', 'y', 'world'), 'y')",
+              "RES2": "{x: 'hello'}",
+              "EX3": "map_delete({'key1', true, 'key2', false}, 'key3')",
+              "RES3": "{key1: true, key2: false}"
+            }
+          },
+          "_MAP_EXIST": {
+            "TITLE": "Funkcia map_exist()",
+            "DESCRIPTION": "Vracia True, ak zadaný kľúč v slovníku existuje; inak vracia False.",
+            "SYNTAX": "map_exist(mapa, kľúč)",
+            "ARGUMENTS": {
+              "A-KEY": "mapa",
+              "A-DESCRIPTION": "slovník, v ktorom sa má kľúč skontrolovať.",
+              "B-KEY": "kľúč",
+              "B-DESCRIPTION": "kľúč, ktorý sa má skontrolovať."
+            },
+            "EXAMPLES": {
+              "EX1": "map_exist(map('a', 1, 'b', 2), 'a')",
+              "RES1": "True",
+              "EX2": "map_exist(map('x', 'hello', 'y', 'world'), 'z')",
+              "RES2": "False",
+              "EX3": "map_exist({'key1', true, 'key2', false}, 'key2')",
+              "RES3": "True"
+            }
+          },
+          "_MAP_GET": {
+            "TITLE": "Funkcia map_get()",
+            "DESCRIPTION": "Funkcia, ktorá vracia hodnotu zo slovníka pre daný kľúč. Kľúč musí existovať v slovníku, inak sa vráti chyba.",
+            "SYNTAX": "map_get(mapa, kľúč)",
+            "ARGUMENTS": {
+              "A-KEY": "mapa",
+              "A-DESCRIPTION": "slovník, z ktorého sa má hodnota získať.",
+              "B-KEY": "kľúč",
+              "B-DESCRIPTION": "kľúč, pre ktorý sa má hodnota získať."
+            },
+            "EXAMPLES": {
+              "EX1": "map_get(map('a', 1, 'b', 2), 'a')",
+              "RES1": "1",
+              "EX2": "map_get(map('x', 'hello', 'y', 'world'), 'y')",
+              "RES2": "'world'",
+              "EX3": "map_get({'key1': true, 'key2': false}, 'key2')",
+              "RES3": "false"
+            }
+          },
+          "_MAP_INSERT": {
+            "TITLE": "Funkcia map_insert()",
+            "DESCRIPTION": "Funkcia, ktorá vracia slovník hodnôt s daným pripojeným párom kľúč – hodnota. Ak kľúč už v slovníku existuje, jeho hodnota sa prepíše.",
+            "SYNTAX": "map_insert(mapa, kľúč, hodnota)",
+            "ARGUMENTS": {
+              "A-KEY": "mapa",
+              "A-DESCRIPTION": "slovník, do ktorého sa má pridať pár kľúč – hodnota.",
+              "B-KEY": "kľúč",
+              "B-DESCRIPTION": "kľúč na pridanie do slovníka.",
+              "C-KEY": "hodnota",
+              "C-DESCRIPTION": "hodnotu, ktorá sa má priradiť poskytnutému kľúču."
+            },
+            "EXAMPLES": {
+              "EX1": "map_insert(map('a', 1, 'b', 2), 'c', 3)",
+              "RES1": "{a: 1, b: 2, c: 3}",
+              "EX2": "map_insert(map('x', 'hello', 'y', 'world'), 'y', '!')",
+              "RES2": "{x: 'hello', y: '!'}",
+              "EX3": "map_insert({'key1': true, 'key2': false}, 'key3', null)",
+              "RES3": "{key1: true, key2: false, key3: null}"
+            }
+          },
+          "_MAP_PREFIX_KEYS": {
+            "TITLE": "Funkcia map_prefix_keys()",
+            "DESCRIPTION": "Funkcia, ktorá vracia slovník so všetkými kľúčmi s predponou danej predpony.",
+            "SYNTAX": "map_prefix_keys(mapa, prefix)",
+            "ARGUMENTS": {
+              "A-KEY": "mapa",
+              "A-DESCRIPTION": "slovník, ktorého kľúče majú mať predponu.",
+              "B-KEY": "prefix",
+              "B-DESCRIPTION": "predponu na pridanie ku všetkým kľúčom v slovníku."
+            },
+            "EXAMPLES": {
+              "EX1": "map_prefix_keys(map('a', 1, 'b', 2), 'prefix_')",
+              "RES1": "{prefix_a: 1, prefix_b: 2}",
+              "EX2": "map_prefix_keys(map('x', 'hello', 'y', 'world'), 'pre_')",
+              "RES2": "{pre_x: 'hello', pre_y: 'world'}",
+              "EX3": "map_prefix_keys({'key1': true, 'key2': false}, 'my_')",
+              "RES3": "{my_key1: true, my_key2: false}"
+            }
+          },
+          "_MAP_TO_HTML_DL": {
+            "TITLE": "Funkcia map_to_html_dl()",
+            "DESCRIPTION": "Funkcia, ktorá vracia reťazec predstavujúci zoznam definícií HTML na základe poskytnutého slovníka.",
+            "SYNTAX": "map_to_html_dl(mapa)",
+            "ARGUMENTS": {
+              "A-KEY": "mapa",
+              "A-DESCRIPTION": "slovník, z ktorého sa vytvorí zoznam definícií HTML."
+            },
+            "EXAMPLES": {
+              "EX1": "map_to_html_dl(map('a', 1, 'b', 2))",
+              "RES1": "<dl><dt>a</dt><dd>1</dd><dt>b</dt><dd>2</dd></dl>",
+              "EX2": "map_to_html_dl(map('x', 'hello', 'y', 'world'))",
+              "RES2": "<dl><dt>x</dt><dd>hello</dd><dt>y</dt><dd>world</dd></dl>",
+              "EX3": "map_to_html_dl({'key1': true, 'key2': false})",
+              "RES3": "<dl><dt>key1</dt><dd>true</dd><dt>key2</dt><dd>false</dd></dl>"
+            }
+          },
+          "_MAP_TO_HTML_TABLE": {
+            "TITLE": "Funkcia map_to_html_table()",
+            "DESCRIPTION": "Funkcia, ktorá vracia reťazec predstavujúci tabuľku HTML na základe poskytnutého slovníka.",
+            "SYNTAX": "map_to_html_table(mapa)",
+            "ARGUMENTS": {
+              "A-KEY": "mapa",
+              "A-DESCRIPTION": "slovník, z ktorého má byť vytvorená tabuľka HTML."
+            },
+            "EXAMPLES": {
+              "EX1": "map_to_html_table(map('a', 1, 'b', 2))",
+              "RES1": "<table><tr><th>a</th><td>1</td></tr><tr><th>b</th><td>2</td></tr></table>",
+              "EX2": "map_to_html_table(map('x', 'hello', 'y', 'world'))",
+              "RES2": "<table><tr><th>x</th><td>hello</td></tr><tr><th>y</th><td>world</td></tr></table>",
+              "EX3": "map_to_html_table({'key1': true, 'key2': false})",
+              "RES3": "<table><tr><th>key1</th><td>true</td></tr><tr><th>key2</th><td>false</td></tr></table>"
+            }
+          },
+          "_TO_JSON": {
+            "TITLE": "Funkcia to_json()",
+            "DESCRIPTION": "Funkcia, ktorá vracia reťazec predstavujúci údaje vo formáte JSON na základe daného slovníka hodnôt, poľa alebo inej hodnoty.",
+            "SYNTAX": "to_json(údaje)",
+            "ARGUMENTS": {
+              "A-KEY": "údaje",
+              "A-DESCRIPTION": "slovník hodnôt, pole alebo inú hodnotu, ktorá sa má previesť na formát JSON."
+            },
+            "EXAMPLES": {
+              "EX1": "to_json(map('a', 1, 'b', 2))",
+              "RES1": "{\"a\": 1, \"b\": 2}",
+              "EX2": "to_json([1, 2, 3])",
+              "RES2": "[1, 2, 3]",
+              "EX3": "to_json({'key1': true, 'key2': false})",
+              "RES3": "{\"key1\": true, \"key2\": false}"
+            }
+          },
+          "_URL_ENCODE": {
+            "TITLE": "Funkcia url_encode()",
+            "DESCRIPTION": "Funkcia, ktorá vracia reťazec znakov kódovaný špeciálnymi znakmi vo formáte URL.",
+            "SYNTAX": "url_encode(reťazec)",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "reťazec znakov, ktorý sa má zakódovať vo formáte URL."
+            },
+            "EXAMPLES": {
+              "EX1": "url_encode('Hello World!')",
+              "RES1": "Hello%20World%21",
+              "EX2": "url_encode('a+b=c&d=e')",
+              "RES2": "a%2Bb%3Dc%26d%3De",
+              "EX3": "url_encode('https://example.com/?q=search')",
+              "RES3": "https%3A%2F%2Fexample.com%2F%3Fq%3Dsearch"
+            }
+          }
+        },
+        "STRING-OPERATORS": {
+          "INFO": "Textové funkcie",
+          "TITLE": "Textové operácie",
+          "_ASCII": {
+            "TITLE": "Funkcia ascii()",
+            "DESCRIPTION": "Funkcia, ktorá vracia hodnotu ASCII prvého znaku v danom reťazci.",
+            "SYNTAX": "ascii(reťazec)",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "reťazec, z ktorého sa má načítať hodnota ASCII prvého znaku."
+            },
+            "EXAMPLES": {
+              "EX1": "ascii('A')",
+              "RES1": "65",
+              "EX2": "ascii('Hello')",
+              "RES2": "72",
+              "EX3": "ascii('!')",
+              "RES3": "33"
+            }
+          },
+          "_CHAR": {
+            "TITLE": "Funkcia char()",
+            "DESCRIPTION": "Funkcia, ktorá vracia znak zodpovedajúci danému kódu ASCII.",
+            "SYNTAX": "char(kód)",
+            "ARGUMENTS": {
+              "A-KEY": "kód",
+              "A-DESCRIPTION": "kód ASCII, pre ktorý sa má vrátiť príslušný znak."
+            },
+            "EXAMPLES": {
+              "EX1": "char(65)",
+              "RES1": "A",
+              "EX2": "char(81)",
+              "RES2": "Q",
+              "EX3": "char(33)",
+              "RES3": "!"
+            }
+          },
+          "_CONCAT": {
+            "TITLE": "Funkcia concat()",
+            "DESCRIPTION": "Funkcia, ktorá spája niekoľko reťazcov do jedného.",
+            "SYNTAX": "concat(reťazec1, reťazec2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "po sebe idúce reťazce znakov, ktoré sa majú spojiť do jedného. Môžete uviesť ľubovoľný počet argumentov."
+            },
+            "EXAMPLES": {
+              "EX1": "concat('Hello', ' ', 'World')",
+              "RES1": "Hello World",
+              "EX2": "concat('A', 'B', 'C')",
+              "RES2": "ABC",
+              "EX3": "concat('foo  ', '  bar')",
+              "RES3": "foo    bar"
+            }
+          },
+          "_FORMAT": {
+            "TITLE": "Funkcia format()",
+            "DESCRIPTION": "Funkcia, ktorá formátuje reťazec znakov nahradením značiek %1, %2, %3 atď. nasledujúcimi argumentmi. Číslovanie začína na 1. Tagy bez zodpovedajúceho argumentu zostanú nezmenené.",
+            "SYNTAX": "format(reťazec, argument1, argument2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "reťazec znakov obsahujúci miesta pre argumenty, označený ako %1, %2, %3 atď. Rovnaký tag sa môže objaviť viackrát. Reťazec nemôže obsahovať čiarku, za ktorou nasleduje medzera, pretože sa používa na oddelenie argumentov.",
+              "B-KEY": "argument",
+              "B-DESCRIPTION": "následné hodnoty, ktoré sa majú vložiť na miesta označené značkami: prvý argument nahrádza %1, druhý nahrádza %2 atď. Musí byť zadaná aspoň jedna hodnota. Hodnoty nesmú byť prázdnym textom ani obsahovať čiarku, za ktorou nasleduje medzera."
+            },
+            "EXAMPLES": {
+              "EX1": "format('Witaj %1! Czas to %2.', 'Jan', '10:00')",
+              "RES1": "Witaj Jan! Czas to 10:00.",
+              "EX2": "format('Liczba: %1; Tekst: %2', 42, 'Hello')",
+              "RES2": "Liczba: 42; Tekst: Hello",
+              "EX3": "format('Dzień: %1; Miesiąc: %2; Rok: %3', 25, 12, 2024)",
+              "RES3": "Dzień: 25; Miesiąc: 12; Rok: 2024"
+            }
+          },
+          "_FORMAT_DATE": {
+            "TITLE": "Funkcia format_date()",
+            "DESCRIPTION": "Funkcia, ktorá formátuje typ údajov alebo reťazec znakov na zadaný reťazec znakov.",
+            "SYNTAX": "format_date(dátum, formát)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum",
+              "A-DESCRIPTION": "dátum alebo hodnotu reťazca vo formáte YYYY-MM-DD, napr. 2026-02-05. Dátum musí byť správny a mesiac a deň musia byť napísané dvoma číslicami.",
+              "B-KEY": "formát",
+              "B-DESCRIPTION": "reťazec určujúci výstupný formát. Musí obsahovať práve tri zložky: deň (d, dd, ddd alebo dddd), mesiac (M, MM, MMM alebo MMMM) a rok (yy alebo yyyy) v ľubovoľnom poradí oddelené bodkami, napr. dd.MM.yyyy. Pre názov mesiaca (MMM alebo MMMM) je výsledok oddelený medzerami, inak bodkami.",
+              "TYPES": {
+                "d": "deň v mesiaci ako číslo bez úvodnej nuly (1-31), napr. 5",
+                "dd": "deň v mesiaci ako dvojciferné číslo (01-31), napr. 05",
+                "ddd": "skrátený anglický názov dňa v týždni (Mon, Tue, Wed, Thu, Fri, Sat, Sun)",
+                "dddd": "celý anglický názov dňa v týždni (Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday)",
+                "M": "mesiac ako číslo bez úvodnej nuly (1-12), napr. 2",
+                "MM": "mesiac ako dvojciferné číslo (01-12), napr. 02",
+                "MMM": "skrátený anglický názov mesiaca (Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec)",
+                "MMMM": "celý anglický názov mesiaca (January, February, March, April, May, June, July, August, September, October, November, December)",
+                "yy": "posledné dve číslice roku (00-99), napr. 26 na rok 2026",
+                "yyyy": "rok ako štvorciferné číslo, napr. 2026"
+              }
+            },
+            "EXAMPLES": {
+              "EX1": "format_date('2026-02-05', 'dd.MM.yyyy')",
+              "RES1": "05.02.2026",
+              "EX2": "format_date('2026-02-05', 'dd.MMMM.yyyy')",
+              "RES2": "05 February 2026",
+              "EX3": "format_date('2026-02-05', 'ddd.MM.yy')",
+              "RES3": "Thu.02.26"
+            }
+          },
+          "_FORMAT_TIME": {
+            "TITLE": "Funkcia format_time()",
+            "DESCRIPTION": "Funkcia, ktorá formátuje čas podľa daného formátu. Podporuje 12-hodinový záznam s automaticky pridaným označením AM alebo PM a 24-hodinový záznam.",
+            "SYNTAX": "format_time(čas, formát)",
+            "ARGUMENTS": {
+              "A-KEY": "čas",
+              "A-DESCRIPTION": "reťazec obsahujúci hodinu, minútu a sekundu oddelené dvojbodkami, napr. 13:05:09. Každá zložka môže mať jednu alebo dve číslice. Hodina musí byť v rozsahu 0-23 a minúta a sekunda musia byť v rozsahu 0-59. Všetky tri komponenty sú potrebné aj vtedy, keď výstupný formát obsahuje iba dva.",
+              "B-KEY": "formát",
+              "B-DESCRIPTION": "reťazec určujúci výstupný formát. Musí obsahovať dve alebo tri rôzne časové zložky: hodinu (h, hh, H alebo HH), minútu (m alebo mm) a sekundu (s alebo ss), v ľubovoľnom poradí, oddelené dvojbodkami. Použitie h alebo hh automaticky pridá na koniec výsledku medzeru a označenie AM alebo PM.",
+              "TYPES": {
+                "h": "hodina v 12-hodinovom zápise bez úvodnej nuly (1-12), napr. 1 o 13:00; pridáva označenie AM alebo PM",
+                "hh": "čas v 12-hodinovom zápise s úvodnou nulou (01-12), napr. 01 o 13:00; pridáva označenie AM alebo PM",
+                "H": "hodina v 24-hodinovom zápise bez úvodnej nuly (0-23), napr. 5",
+                "HH": "hodina v 24-hodinovom zápise s úvodnou nulou (00-23), napr. 05",
+                "m": "minúta bez úvodnej nuly (0-59), napr. 5",
+                "mm": "minúta s úvodnou nulou (00-59), napr. 05",
+                "s": "sekunda bez úvodnej nuly (0-59), napr. 9",
+                "ss": "druhý s úvodnou nulou (00-59), napr. 09"
+              }
+            },
+            "EXAMPLES": {
+              "EX1": "format_time('13:05:09', 'HH:mm:ss')",
+              "RES1": "13:05:09",
+              "EX2": "format_time('13:05:09', 'hh:mm:ss')",
+              "RES2": "01:05:09 PM",
+              "EX3": "format_time('00:00:00', 'h:mm')",
+              "RES3": "12:00 AM"
+            }
+          },
+          "_LEFT": {
+            "TITLE": "Funkcia left()",
+            "DESCRIPTION": "Funkcia, ktorá vracia zadaný počet znakov od začiatku daného reťazca.",
+            "SYNTAX": "left(reťazec, počet_znakov)",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "reťazec, z ktorého sa majú načítať znaky od začiatku.",
+              "B-KEY": "počet_znakov",
+              "B-DESCRIPTION": "počet znakov, ktoré sa majú načítať od začiatku reťazca. Musí to byť nezáporné celé číslo."
+            },
+            "EXAMPLES": {
+              "EX1": "left('Hello World', 5)",
+              "RES1": "Hello",
+              "EX2": "left('abcdef', 3)",
+              "RES2": "abc",
+              "EX3": "left('12345', 0)",
+              "RES3": ""
+            }
+          },
+          "_LENGTH": {
+            "TITLE": "Funkcia length()",
+            "DESCRIPTION": "Funkcia, ktorá vracia počet znakov z daného reťazca.",
+            "SYNTAX": "length(reťazec)",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "reťazec, ktorého dĺžka sa má vypočítať."
+            },
+            "EXAMPLES": {
+              "EX1": "length('Hello')",
+              "RES1": "5",
+              "EX2": "length('')",
+              "RES2": "0",
+              "EX3": "length('123456789')",
+              "RES3": "9"
+            }
+          },
+          "_LOWER": {
+            "TITLE": "Funkcia lower()",
+            "DESCRIPTION": "Funkcia, ktorá vracia reťazec znakov vo formáte malých písmen.",
+            "SYNTAX": "lower(reťazec)",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "reťazec znakov, ktoré sa majú previesť na malé písmená."
+            },
+            "EXAMPLES": {
+              "EX1": "lower('HELLO')",
+              "RES1": "hello",
+              "EX2": "lower('World')",
+              "RES2": "world",
+              "EX3": "lower('123')",
+              "RES3": "123"
+            }
+          },
+          "_LPAD": {
+            "TITLE": "Funkcia lpad()",
+            "DESCRIPTION": "Funkcia, ktorá vracia reťazec znakov doplnený na zadanú šírku reťazca zadanými znakmi. Ak je vstupný reťazec dlhší ako špecifikovaná šírka, bude skrátený zľava.",
+            "SYNTAX": "lpad(reťazec, šírka, znak)",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "povrázok, ktorý sa má podložiť.",
+              "B-KEY": "šírka",
+              "B-DESCRIPTION": "špecifikovaná šírka reťazca.",
+              "C-KEY": "znak",
+              "C-DESCRIPTION": "znak, ktorý sa má použiť na dokončenie reťazca."
+            },
+            "EXAMPLES": {
+              "EX1": "lpad('Hello', 10, ' ')",
+              "RES1": "     Hello",
+              "EX2": "lpad('World', 10, '0')",
+              "RES2": "00000World",
+              "EX3": "lpad('123', 5, '0')",
+              "RES3": "00123"
+            }
+          },
+          "_LTRIM": {
+            "TITLE": "Funkcia ltrim()",
+            "DESCRIPTION": "Funkcia, ktorá vracia reťazec znakov skrátený o medzery. Je možné poskytnúť dodatočný znakový argument na ich skrátenie na ľavej strane reťazca.",
+            "SYNTAX": "ltrim(reťazec, [znaky])",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "reťazec, ktorý sa má skrátiť.",
+              "B-KEY": "znaky",
+              "B-DESCRIPTION": "znaky, ktoré sa majú odstrániť z ľavej strany reťazca."
+            },
+            "EXAMPLES": {
+              "EX1": "ltrim('  Hello  ')",
+              "RES1": "Hello  ",
+              "EX2": "ltrim('yyzzzxxxxxxWorld  ', 'xyz')",
+              "RES2": "World  ",
+              "EX3": "ltrim('---Hello---', '-')",
+              "RES3": "Hello---"
+            }
+          },
+          "_REGEXP_MATCH": {
+            "TITLE": "Funkcia regexp_match()",
+            "DESCRIPTION": "Funkcia, ktorá vráti prvú zhodnú pozíciu daného výrazu v danom reťazci. Ak sa nenájde žiadna zhoda, vráti 0.",
+            "SYNTAX": "regexp_match(reťazec, výraz)",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "reťazec, v ktorom sa má hľadať zhoda.",
+              "B-KEY": "výraz",
+              "B-DESCRIPTION": "výraz, ktorý sa má v reťazci vyhľadať. Je možné použiť výrazy RegEx."
+            },
+            "EXAMPLES": {
+              "EX1": "regexp_match('Hello World', 'World')",
+              "RES1": "7",
+              "EX2": "regexp_match('Hello World', 'xyz')",
+              "RES2": "0",
+              "EX3": "regexp_match('abc123', '\\d+')",
+              "RES3": "4"
+            }
+          },
+          "_REGEXP_REPLACE": {
+            "TITLE": "Funkcia regexp_replace()",
+            "DESCRIPTION": "Funkcia, ktorá vracia reťazec s nahradenými časťami, ktoré zodpovedajú danému výrazu.",
+            "SYNTAX": "regexp_replace(reťazec, výraz, náhrada)",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "reťazec znakov, ktorý sa má nahradiť.",
+              "B-KEY": "výraz",
+              "B-DESCRIPTION": "výraz, ktorý sa má v reťazci vyhľadať. Je možné použiť výrazy RegEx.",
+              "C-KEY": "náhrada",
+              "C-DESCRIPTION": "reťazec znakov na nahradenie zodpovedajúcich fragmentov."
+            },
+            "EXAMPLES": {
+              "EX1": "regexp_replace('Hello World', 'World', 'Universe')",
+              "RES1": "Hello Universe",
+              "EX2": "regexp_replace('abc123', '\\d+', 'X')",
+              "RES2": "abcXXX",
+              "EX3": "regexp_replace('foo bar baz', 'ba.', 'qux')",
+              "RES3": "foo qux qux"
+            }
+          },
+          "_REGEXP_SUBSTR": {
+            "TITLE": "Funkcia regexp_substr()",
+            "DESCRIPTION": "Funkcia, ktorá vracia časť reťazca, ktorá sa zhoduje s daným výrazom. Ak existuje viacero zhôd, vráti prvú. Ak nenájde zhodu, vráti prázdny reťazec.",
+            "SYNTAX": "regexp_substr(reťazec, výraz)",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "reťazec, z ktorého sa má časť vrátiť.",
+              "B-KEY": "výraz",
+              "B-DESCRIPTION": "výraz, ktorým sa vyberie časť reťazca. Je možné použiť výrazy RegEx, ktorým predchádza \\ ako v príklade."
+            },
+            "EXAMPLES": {
+              "EX1": "regexp_substr('Hello World', 'World')",
+              "RES1": "World",
+              "EX2": "regexp_substr('abc123', '\\d+')",
+              "RES2": "123",
+              "EX3": "regexp_substr('foo bar baz', 'ba.')",
+              "RES3": "bar"
+            }
+          },
+          "_REPLACE": {
+            "TITLE": "Funkcia replace()",
+            "DESCRIPTION": "Funkcia, ktorá vracia nový reťazec znakov s nahradenými časťami daného reťazca.",
+            "SYNTAX": "replace(reťazec, nahrádzané_znaky, náhrada)",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "reťazec znakov, ktorý sa má nahradiť.",
+              "B-KEY": "nahrádzané_znaky",
+              "B-DESCRIPTION": "reťazec, ktorý sa má nahradiť.",
+              "C-KEY": "náhrada",
+              "C-DESCRIPTION": "reťazec znakov, ktorý má nahradiť dané znaky."
+            },
+            "EXAMPLES": {
+              "EX1": "replace('Hello World', 'World', 'Universe')",
+              "RES1": "Hello Universe",
+              "EX2": "replace('abc123', '123', 'XYZ')",
+              "RES2": "abcXYZ",
+              "EX3": "replace('foo bar baz', 'ba', 'qu')",
+              "RES3": "foo qur quz"
+            }
+          },
+          "_RIGHT": {
+            "TITLE": "Funkcia right()",
+            "DESCRIPTION": "Funkcia, ktorá vracia zadaný počet znakov od konca daného reťazca.",
+            "SYNTAX": "right(reťazec, počet_znakov)",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "reťazec, z ktorého sa má časť vrátiť.",
+              "B-KEY": "počet_znakov",
+              "B-DESCRIPTION": "Počet znakov, ktoré sa majú vrátiť z konca reťazca."
+            },
+            "EXAMPLES": {
+              "EX1": "right('Hello World', 5)",
+              "RES1": "World",
+              "EX2": "right('abcdef', 3)",
+              "RES2": "def",
+              "EX3": "right('123456789', 2)",
+              "RES3": "89"
+            }
+          },
+          "_RPAD": {
+            "TITLE": "Funkcia rpad()",
+            "DESCRIPTION": "Funkcia, ktorá vracia reťazec znakov doplnený na zadanú šírku reťazca zadanými znakmi. Ak je vstupný reťazec dlhší ako špecifikovaná šírka, bude skrátený sprava.",
+            "SYNTAX": "rpad(reťazec, šírka, znak)",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "povrázok, ktorý sa má podložiť.",
+              "B-KEY": "šírka",
+              "B-DESCRIPTION": "špecifikovaná šírka, na ktorú má byť struna vypchatá.",
+              "C-KEY": "znak",
+              "C-DESCRIPTION": "znak, ktorý sa má použiť na dokončenie reťazca."
+            },
+            "EXAMPLES": {
+              "EX1": "rpad('Hello', 10, ' ')",
+              "RES1": "Hello     ",
+              "EX2": "rpad('World', 10, '0')",
+              "RES2": "World00000",
+              "EX3": "rpad('123', 5, '0')",
+              "RES3": "12300"
+            }
+          },
+          "_RTRIM": {
+            "TITLE": "Funkcia rtrim()",
+            "DESCRIPTION": "Funkcia, ktorá vracia reťazec znakov skrátený o medzery. Je možné poskytnúť dodatočný znakový argument na ich skrátenie napravo od reťazca.",
+            "SYNTAX": "rtrim(reťazec, [znaky])",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "reťazec, ktorý sa má skrátiť.",
+              "B-KEY": "znaky",
+              "B-DESCRIPTION": "voliteľný argument, ktorý určuje znaky, ktoré sa majú skrátiť z pravej strany reťazca."
+            },
+            "EXAMPLES": {
+              "EX1": "rtrim('Hello World ')",
+              "RES1": "Hello World",
+              "EX2": "rtrim('12345', '5')",
+              "RES2": "1234",
+              "EX3": "rtrim('abcxyz', 'xyz')",
+              "RES3": "abc"
+            }
+          },
+          "_STRPOS": {
+            "TITLE": "Funkcia strpos()",
+            "DESCRIPTION": "Funkcia, ktorá vráti prvú pozíciu hľadaného výrazu v danom reťazci znakov. Ak sa nenájde žiadna zhoda, vráti 0.",
+            "SYNTAX": "strpos(reťazec, hľadaný_text)",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "reťazec znakov, v ktorom sa má výraz hľadať.",
+              "B-KEY": "hľadaný_text",
+              "B-DESCRIPTION": "výraz, ktorý sa má v reťazci vyhľadať."
+            },
+            "EXAMPLES": {
+              "EX1": "strpos('Hello World', 'World')",
+              "RES1": "7",
+              "EX2": "strpos('Hello World', 'xyz')",
+              "RES2": "0",
+              "EX3": "strpos('a123b123c123', '123')",
+              "RES3": "1"
+            }
+          },
+          "_SUBSTR": {
+            "TITLE": "Funkcia substr()",
+            "DESCRIPTION": "Funkcia, ktorá vracia orezaný reťazec znakov z daného reťazca, začínajúci na zadanej pozícii a voliteľne so zadanou dĺžkou.",
+            "SYNTAX": "substr(reťazec, pozícia, [dĺžka])",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "reťazec, z ktorého sa má načítať podreťazec.",
+              "B-KEY": "pozícia",
+              "B-DESCRIPTION": "pozíciu, z ktorej má podreťazec začínať.",
+              "C-KEY": "dĺžka",
+              "C-DESCRIPTION": "voliteľný argument, ktorý určuje dĺžku podreťazca. Vyžaduje sa celé číslo. Ak je zadané záporné číslo, koniec podreťazca bude skrátený o tento počet znakov z konca reťazca."
+            },
+            "EXAMPLES": {
+              "EX1": "substr('Hello World', 6)",
+              "RES1": "World",
+              "EX2": "substr('Hello World', 2, 5)",
+              "RES2": "llo",
+              "EX3": "substr('abcdef', 2, -2)",
+              "RES3": "bcd"
+            }
+          },
+          "_TITLE": {
+            "TITLE": "Funkcia title()",
+            "DESCRIPTION": "Funkcia, ktorá konvertuje prvý znak každého slova v danom reťazci na veľké a zvyšné znaky na malé.",
+            "SYNTAX": "title(reťazec)",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "reťazec, ktorý sa má spracovať."
+            },
+            "EXAMPLES": {
+              "EX1": "title('hello world')",
+              "RES1": "Hello World",
+              "EX2": "title('javaScript is fun')",
+              "RES2": "Javascript Is Fun",
+              "EX3": "title('123abc DEF')",
+              "RES3": "123abc Def"
+            }
+          },
+          "_TO_STRING": {
+            "TITLE": "Funkcia to_string()",
+            "DESCRIPTION": "Funkcia, ktorá konvertuje dané číslo na reťazec znakov.",
+            "SYNTAX": "to_string(číslo)",
+            "ARGUMENTS": {
+              "A-KEY": "číslo",
+              "A-DESCRIPTION": "číslo, ktoré sa má previesť na reťazec."
+            },
+            "EXAMPLES": {
+              "EX1": "to_string(123)",
+              "RES1": "123",
+              "EX2": "to_string(45.67)",
+              "RES2": "45.67",
+              "EX3": "to_string(-89)",
+              "RES3": "-89"
+            }
+          },
+          "_TRIM": {
+            "TITLE": "Funkcia trim()",
+            "DESCRIPTION": "Funkcia, ktorá odstraňuje medzery zo začiatku a konca daného reťazca.",
+            "SYNTAX": "trim(reťazec)",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "reťazec, z ktorého sa odstránia medzery."
+            },
+            "EXAMPLES": {
+              "EX1": "trim('  Hello World  ')",
+              "RES1": "Hello World",
+              "EX2": "trim('   abc   ')",
+              "RES2": "abc",
+              "EX3": "trim('   123   ')",
+              "RES3": "123"
+            }
+          },
+          "_UPPER": {
+            "TITLE": "Funkcia upper()",
+            "DESCRIPTION": "Funkcia, ktorá vracia reťazec znakov vo formáte veľkých písmen.",
+            "SYNTAX": "upper(reťazec)",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "reťazec, ktorý sa má previesť na veľké písmená."
+            },
+            "EXAMPLES": {
+              "EX1": "upper('hello world')",
+              "RES1": "HELLO WORLD",
+              "EX2": "upper('JavaScript')",
+              "RES2": "JAVASCRIPT",
+              "EX3": "upper('123abc')",
+              "RES3": "123ABC"
+            }
+          },
+          "_WORDWRAP": {
+            "TITLE": "Funkcia wordwrap()",
+            "DESCRIPTION": "Funkcia, ktorá vracia reťazec zabalený do zadanej šírky.",
+            "SYNTAX": "wordwrap(reťazec, šírka)",
+            "ARGUMENTS": {
+              "A-KEY": "reťazec",
+              "A-DESCRIPTION": "šnúrka na zabalenie.",
+              "B-KEY": "šírka",
+              "B-DESCRIPTION": "zadanú šírku, do ktorej sa má šnúrka omotať. Musí byť celé číslo väčšie ako 0."
+            },
+            "EXAMPLES": {
+              "EX1": "wordwrap('To jest długi ciąg znaków, który ma zostać zawinięty.', 10)",
+              "RES1": "To jest\n długi ciąg\n znaków, który\n ma zostać\n zawinięty.",
+              "EX2": "wordwrap('Hello World', 5)",
+              "RES2": "Hello\nWorld",
+              "EX3": "wordwrap('1234567890', 3)",
+              "RES3": "123\n456\n789\n0"
+            }
+          }
+        }
+      },
       "ERRORS": {
         "UNMATCHED_PARENTHESIS": "Nespárované zátvorky vo výraze: {{expression}}.",
         "UNKNOWN_FUNCTION": "Neznáma funkcia: {{function}}.",
@@ -209,9 +1998,9 @@
         "SUBSTR_INTEGER_POSITIONS": "Počiatočná pozícia a dĺžka vo funkcii substr musia byť celé čísla.",
         "TO_STRING_ARGUMENTS": "Funkcia to_string vyžaduje práve jednu hodnotu na prevod na text.",
         "TO_STRING_NUMERIC_VALUE": "Funkcia to_string vyžaduje platnú číselnú hodnotu.",
-        "WORLDWRAP_ARGUMENTS": "Funkcia worldwrap vyžaduje práve dva argumenty: text a šírku.",
-        "WORLDWRAP_POSITIVE_WIDTH": "Šírka vo funkcii worldwrap musí byť kladné celé číslo.",
-        "WORLDWRAP_INTEGER_WIDTH": "Šírka vo funkcii worldwrap musí byť celé číslo.",
+        "WORDWRAP_ARGUMENTS": "Funkcia wordwrap vyžaduje práve dva argumenty: text a šírku.",
+        "WORDWRAP_POSITIVE_WIDTH": "Šírka vo funkcii wordwrap musí byť kladné celé číslo.",
+        "WORDWRAP_INTEGER_WIDTH": "Šírka vo funkcii wordwrap musí byť celé číslo.",
         "PI_ARGUMENTS": "Funkcia pi neprijíma žiadne argumenty.",
         "RANDOM_MIN_ARGUMENTS": "Funkcia {{function}} vyžaduje aspoň dva argumenty: minimálnu a maximálnu hodnotu.",
         "RANDOM_MAX_ARGUMENTS": "Funkcia {{function}} prijíma najviac tri argumenty: minimum, maximum a voliteľne počiatočnú hodnotu generátora náhodných čísel.",

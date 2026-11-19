@@ -310,6 +310,7 @@ export class AttributeTableToolbarService {
     public userExpression = signal<string>('');
     public existingFieldName = signal<string | null>(null);
     public calculationType = signal<string>('new');
+    public readonly calculateFieldResetVersion = signal(0);
     
     public resetCalculateFieldTool(): void {
         this.newFieldName.set('');
@@ -317,6 +318,7 @@ export class AttributeTableToolbarService {
         this.existingFieldName.set(null);
         this.calculationType.set('new');
         this.userSelectedText.set('');
+        this.calculateFieldResetVersion.update(version => version + 1);
     }
     
     private parserResult = signal<Record<string, unknown> | null>(null);

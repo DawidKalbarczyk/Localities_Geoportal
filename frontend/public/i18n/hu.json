@@ -120,6 +120,1795 @@
           "STRING-OPERATORS": "Szövegműveletek"
         }
       },
+      "TOOLTIPS": {
+        "TITLE": "Súgó",
+        "SYNTAX": "Szintaxis",
+        "ARGUMENTS": "Argumentumok",
+        "EXAMPLES": "Példák",
+        "INSERT-BUTTON": "Függvény beszúrása",
+        "TOOLTIP-ERROR": "Valami hiba történt",
+        "FIELDS-AND-VALUES": {
+          "INFO": "Attribútummezők és értékek",
+          "TITLE": "Mezők és értékek",
+          "DESC": {
+            "DESCRIPTION": "Kattintson a teljes mező hozzáadásához a kifejezéshez. Miután létrehozta a teljes kifejezést, kattintson a „Számítás” gombra a kiválasztott mező értékeinek kiszámításához a kifejezés segítségével."
+          }
+        },
+        "DATE-AND-TIME": {
+          "INFO": "Dátum és idő funkciók",
+          "TITLE": "Dátum és idő",
+          "_AGE": {
+            "TITLE": "age() Függvény",
+            "DESCRIPTION": "Egy függvény, amely kiszámítja a különbséget egy későbbi és egy korábbi dátum között. timedelta típusú időintervallumot ad vissza, amely átadható olyan funkcióknak, mint a day(), hour() vagy second(). Ha az első dátum korábbi, mint a második, akkor hibát jelez.",
+            "SYNTAX": "age(záró_dátum, kezdő_dátum)",
+            "ARGUMENTS": {
+              "A-KEY": "záró_dátum",
+              "A-DESCRIPTION": "későbbi dátum YYYY-MM-DD vagy YYYY-MM-DD HH:MM:SS formátumban, opcionálisan egy másodperctől hat számjegyig terjedő másodperc töredékével. Az idő hiánya éjfélt jelent.",
+              "B-KEY": "kezdő_dátum",
+              "B-DESCRIPTION": "korábbi dátum a befejezési dátummal megegyező formátumban. Egyenlő lehet a befejezési dátummal; akkor a különbség nulla."
+            },
+            "EXAMPLES": {
+              "EX1": "age('2026-10-30 13:00:00', '2026-10-29 10:00:00')",
+              "RES1": "1 day, 3:00:00",
+              "EX2": "age('2026-10-30', '2026-10-29')",
+              "RES2": "1 day, 0:00:00",
+              "EX3": "age('2026-10-30', '2026-10-30')",
+              "RES3": "0:00:00"
+            }
+          },
+          "_DATETIME_FROM_EPOCH": {
+            "TITLE": "datetime_from_epoch() Függvény",
+            "DESCRIPTION": "Funkció, amely a Unix (1970-01-01 00:00:00 UTC) korszak kezdete óta eltelt másodperceket YYYY-MM-DD HH:MM:SS formátumú karakterláncokká alakítja. Az eredmény a szerver helyi időzónájában található, és nem tartalmaz zónajelölőt.",
+            "SYNTAX": "datetime_from_epoch(másodpercek)",
+            "ARGUMENTS": {
+              "A-KEY": "másodpercek",
+              "A-DESCRIPTION": "egy nem negatív egész másodperc a Unix korszak kezdete óta, pl. 1700000000. Az értéknek a kiszolgáló által támogatott dátumtartományon belül kell lennie."
+            },
+            "EXAMPLES": {
+              "EX1": "datetime_from_epoch(0)",
+              "RES1": "1970-01-01 00:00:00 (a UTC zónában lévő szerverhez)",
+              "EX2": "datetime_from_epoch(1700000000)",
+              "RES2": "2023-11-14 22:13:20 (a UTC zónában lévő szerverhez)",
+              "EX3": "datetime_from_epoch(86400)",
+              "RES3": "1970-01-02 00:00:00 (a UTC zónában lévő szerverhez)"
+            }
+          },
+          "_DAY": {
+            "TITLE": "day() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely a hónap napját adja vissza egy dátumhoz vagy egy időintervallum napokra konvertált teljes hosszát. Az eredmény egy karakterlánc egy számmal és az angol day vagy days egységgel, pl. 30 days. Egy nap 24 órának felel meg.",
+            "SYNTAX": "day(dátum_vagy_időtartam)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum_vagy_időtartam",
+              "A-DESCRIPTION": "dátum YYYY-MM-DD vagy YYYY-MM-DD HH:MM:SS formátumban (opcionálisan egy másodperc törtrészével legfeljebb hat számjegyig), egy timedelta típusú eredmény age() vagy egy nemnegatív intervallum számként írva és az angol egység: year, month, week, day, hour, minute vagy second, szintén többes számban. Egy év 365,25 napnak, egy hónap az év 1/12-ének felel meg."
+            },
+            "EXAMPLES": {
+              "EX1": "day('2026-10-30')",
+              "RES1": "30 days",
+              "EX2": "day('48 hours')",
+              "RES2": "2 days",
+              "EX3": "day('12 hours')",
+              "RES3": "0.5 days"
+            }
+          },
+          "_DAY_OF_WEEK": {
+            "TITLE": "day_of_week() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely a hét napját 1 és 7 közötti egész számként adja vissza: a hétfő 1, a vasárnap pedig 7.",
+            "SYNTAX": "day_of_week(dátum)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum",
+              "A-DESCRIPTION": "helyes dátum YYYY-MM-DD formátumban, az idő rész nélkül. A hónapot és a napot két számjeggyel kell írni."
+            },
+            "EXAMPLES": {
+              "EX1": "day_of_week('2026-10-30')",
+              "RES1": "5",
+              "EX2": "day_of_week('2026-10-26')",
+              "RES2": "1",
+              "EX3": "day_of_week('2026-11-01')",
+              "RES3": "7"
+            }
+          },
+          "_EPOCH": {
+            "TITLE": "epoch() Függvény",
+            "DESCRIPTION": "Függvény, amely egész számú másodpercet ad vissza a Unix (1970-01-01 00:00:00 UTC) korszak kezdete óta. A megadott dátum és idő a szerver helyi időzónájában értelmezett.",
+            "SYNTAX": "epoch(dátum_és_idő)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum_és_idő",
+              "A-DESCRIPTION": "helyes dátum és idő YYYY-MM-DD HH:MM:SS formátumban. Másodpercek szükségesek; a másodperc töredékei és az időzóna-jelölések nem támogatottak."
+            },
+            "EXAMPLES": {
+              "EX1": "epoch('1970-01-01 00:00:00')",
+              "RES1": "0 (a UTC zónában lévő szerverhez)",
+              "EX2": "epoch('2023-11-14 22:13:20')",
+              "RES2": "1700000000 (a UTC zónában lévő szerverhez)",
+              "EX3": "epoch('1970-01-02 00:00:00')",
+              "RES3": "86400 (a UTC zónában lévő szerverhez)"
+            }
+          },
+          "_FORMAT_DATE": {
+            "TITLE": "format_date() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy dátumot karaktersorozattá formáz adott formátumnak megfelelően. A hét napjainak és hónapjainak neve angolul jelenik meg.",
+            "SYNTAX": "format_date(dátum, formátum)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum",
+              "A-DESCRIPTION": "helyes dátum YYYY-MM-DD formátumban. A hónapot és a napot két számjeggyel kell írni.",
+              "B-KEY": "formátum",
+              "B-DESCRIPTION": "pontosan három összetevő: (d, dd, ddd vagy dddd) nap, (M, MM, MMM vagy MMMM) hónap és (yy vagy yyyy) év, tetszőleges sorrendben, pontokkal elválasztva. A MMM vagy MMMM esetében az eredményt szóközök választják el, egyébként pontok.",
+              "TYPES": {
+                "d": "a hónap napja kezdő nulla nélkül (1-31)",
+                "dd": "a hónap napja kezdő nullával (01-31)",
+                "ddd": "a hét napjának rövid angol neve, pl. Thu",
+                "dddd": "a hét napjának teljes angol neve, pl. Thursday",
+                "M": "hónap kezdő nulla nélkül (1-12)",
+                "MM": "hónap kezdő nullával (01-12)",
+                "MMM": "a hónap rövid angol neve, pl. Feb",
+                "MMMM": "a hónap teljes angol neve, pl. February",
+                "yy": "az év utolsó két számjegye, pl. 26",
+                "yyyy": "teljes év, pl. 2026"
+              }
+            },
+            "EXAMPLES": {
+              "EX1": "format_date('2026-02-05', 'dd.MM.yyyy')",
+              "RES1": "05.02.2026",
+              "EX2": "format_date('2026-02-05', 'dd.MMMM.yyyy')",
+              "RES2": "05 February 2026",
+              "EX3": "format_date('2026-02-05', 'ddd.MM.yy')",
+              "RES3": "Thu.02.26"
+            }
+          },
+          "_HOUR": {
+            "TITLE": "hour() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely az időt (0-23) adja vissza a dátumból és az időből, vagy az intervallum teljes hosszát órára konvertálva. Az eredmény egy karakterlánc egy számmal és az angol hour vagy hours egységgel, pl. 13 hours. Egy nap 24 órának felel meg.",
+            "SYNTAX": "hour(dátum_idő_vagy_időtartam)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum_idő_vagy_időtartam",
+              "A-DESCRIPTION": "dátum és idő YYYY-MM-DD HH:MM:SS formátumban (opcionálisan egy másodperc törtrészével legfeljebb hat számjegyig), a timedelta típusú eredmény age() vagy egy nem negatív intervallum számként írva és az angol egység: year, month, week, day, hour, minute vagy second, szintén többes számban. Az önálló dátum és az önálló idő nem támogatott. Egy év 365,25 napnak, egy hónap az év 1/12-ének felel meg."
+            },
+            "EXAMPLES": {
+              "EX1": "hour('2026-10-30 13:05:09')",
+              "RES1": "13 hours",
+              "EX2": "hour('2.125 days')",
+              "RES2": "51 hours",
+              "EX3": "hour(age('2026-10-30 13:00:00', '2026-10-29 10:00:00'))",
+              "RES3": "27 hours"
+            }
+          },
+          "_MAKE_DATE": {
+            "TITLE": "make_date() Függvény",
+            "DESCRIPTION": "Egy függvény, amely dátumot hoz létre az évből, hónapból és napból. YYYY-MM-DD formátumú karakterláncot ad vissza. Hibás dátumok, pl. február 30., hibát okoz.",
+            "SYNTAX": "make_date(év, hónap, nap)",
+            "ARGUMENTS": {
+              "A-KEY": "év",
+              "A-DESCRIPTION": "évszám négy számjeggyel, a 0001-9999 tartományból.",
+              "B-KEY": "hónap",
+              "B-DESCRIPTION": "hónap száma 1-től 12-ig, egy vagy két számjeggyel írva.",
+              "C-KEY": "nap",
+              "C-DESCRIPTION": "a hónap egy vagy két számjeggyel írt napja. A kiválasztott hónapban és évben léteznie kell."
+            },
+            "EXAMPLES": {
+              "EX1": "make_date(2026, 10, 30)",
+              "RES1": "2026-10-30",
+              "EX2": "make_date(2026, 2, 5)",
+              "RES2": "2026-02-05",
+              "EX3": "make_date(2024, 2, 29)",
+              "RES3": "2024-02-29"
+            }
+          },
+          "_MAKE_DATETIME": {
+            "TITLE": "make_datetime() Függvény",
+            "DESCRIPTION": "Egy függvény, amely hat összetevőből hoz létre dátumot és időt. YYYY-MM-DD HH:MM:SS formátumú karakterláncot ad vissza. Minden összetevő kötelező, és érvényes dátumot és időt kell feltüntetni.",
+            "SYNTAX": "make_datetime(év, hónap, nap, óra, perc, másodperc)",
+            "ARGUMENTS": {
+              "A-KEY": "év",
+              "A-DESCRIPTION": "évszám négy számjeggyel, a 0001-9999 tartományból.",
+              "B-KEY": "hónap",
+              "B-DESCRIPTION": "hónap száma 1-től 12-ig.",
+              "C-KEY": "nap",
+              "C-DESCRIPTION": "egy nap, amely az adott hónapban és évben létezik.",
+              "D-KEY": "óra",
+              "D-DESCRIPTION": "egy egész szám 0 és 23 között.",
+              "E-KEY": "perc",
+              "E-DESCRIPTION": "egy egész szám 0 és 59 között.",
+              "F-KEY": "másodperc",
+              "F-DESCRIPTION": "egész szám 0 és 59 között, tört rész nélkül. Az évszám kivételével minden összetevő egy vagy két számjeggyel írható."
+            },
+            "EXAMPLES": {
+              "EX1": "make_datetime(2026, 10, 30, 13, 5, 9)",
+              "RES1": "2026-10-30 13:05:09",
+              "EX2": "make_datetime(2026, 2, 5, 0, 0, 0)",
+              "RES2": "2026-02-05 00:00:00",
+              "EX3": "make_datetime(2024, 2, 29, 23, 59, 59)",
+              "RES3": "2024-02-29 23:59:59"
+            }
+          },
+          "_MAKE_INTERVAL": {
+            "TITLE": "make_interval() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely az egység=érték argumentumokkal időintervallumot hoz létre. Egy karakterláncot ad vissza, az összeget a legnagyobb megadott egységre konvertálva; 1-nél kisebb értékeknél kisebb mértékegységet is választhat. Egy év 365,25 napnak, egy hónap az év 1/12-ének felel meg. Az eredményben szereplő egységnév mindig többes szám, pl. 1 days.",
+            "SYNTAX": "make_interval(egység=érték, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "egység",
+              "A-DESCRIPTION": "legalább egy entitás neve: years, months, weeks, days, hours, minutes vagy seconds. Az érveket vessző választja el. Egy egység ismétlésekor a rendszer az utolsó értéket veszi figyelembe.",
+              "B-KEY": "érték",
+              "B-DESCRIPTION": "= előjelű egységhez rendelt nem negatív, véges szám. A ponttal írt tizedes törtek megengedettek, pl. days=2,5."
+            },
+            "EXAMPLES": {
+              "EX1": "make_interval(days=2, hours=3)",
+              "RES1": "2.125 days",
+              "EX2": "make_interval(hours=1, minutes=30)",
+              "RES2": "1.5 hours",
+              "EX3": "make_interval(hours=0.5)",
+              "RES3": "30 minutes"
+            }
+          },
+          "_MAKE_TIME": {
+            "TITLE": "make_time() Függvény",
+            "DESCRIPTION": "Egy funkció, amely órákból, percekből és másodpercekből hoz létre időt. HH:MM:SS.sss formátumú karakterláncot ad vissza, mindig három ezredmásodperces számjegyből áll. A további törtmásodperc-számjegyeket a rendszer kerekítés nélkül csonkolja.",
+            "SYNTAX": "make_time(óra, perc, másodperc)",
+            "ARGUMENTS": {
+              "A-KEY": "óra",
+              "A-DESCRIPTION": "0 és 23 közötti egész szám, egy vagy két számjeggyel írva.",
+              "B-KEY": "perc",
+              "B-DESCRIPTION": "0 és 59 közötti egész szám, egy vagy két számjeggyel írva.",
+              "C-KEY": "másodperc",
+              "C-DESCRIPTION": "egy szám 0-tól 60-nál kisebb értékig. Az egész számnak egy vagy két számjegyből kell állnia; az opcionális tört részt egy pont után írjuk. A tört rész hiánya 000 ezredmásodpercet ad."
+            },
+            "EXAMPLES": {
+              "EX1": "make_time(13, 5, 9)",
+              "RES1": "13:05:09.000",
+              "EX2": "make_time(0, 0, 0.5)",
+              "RES2": "00:00:00.500",
+              "EX3": "make_time(23, 59, 59.1239)",
+              "RES3": "23:59:59.123"
+            }
+          },
+          "_MINUTE": {
+            "TITLE": "minute() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely visszaadja a dátum és az idő percét (0-59), vagy az intervallum teljes hosszát percekre konvertálva. Az eredmény egy karakterlánc egy számmal és az angol minute vagy minutes egységgel, pl. 5 minutes.",
+            "SYNTAX": "minute(dátum_idő_vagy_időtartam)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum_idő_vagy_időtartam",
+              "A-DESCRIPTION": "dátum és idő YYYY-MM-DD HH:MM:SS formátumban (opcionálisan egy másodperc törtrészével legfeljebb hat számjegyig), a timedelta típusú eredmény age() vagy egy nem negatív intervallum számként írva és az angol egység: year, month, week, day, hour, minute vagy second, szintén többes számban. Az önálló dátum és az önálló idő nem támogatott. Egy év 365,25 napnak, egy hónap az év 1/12-ének felel meg."
+            },
+            "EXAMPLES": {
+              "EX1": "minute('2026-10-30 13:05:09')",
+              "RES1": "5 minutes",
+              "EX2": "minute('1.5 hours')",
+              "RES2": "90 minutes",
+              "EX3": "minute('30 seconds')",
+              "RES3": "0.5 minutes"
+            }
+          },
+          "_MONTH": {
+            "TITLE": "month() Függvény",
+            "DESCRIPTION": "Egy dátum hónapszámát (1-12), vagy egy időtartam teljes hosszát adja vissza hónapokra átszámítva. Az eredmény egy számot és a month vagy months angol egységet tartalmazó karakterlánc, például 10 months. Egy hónap egy 365,25 napos év 1/12 része, nem egy adott naptári hónap hossza.",
+            "SYNTAX": "month(dátum_vagy_időtartam)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum_vagy_időtartam",
+              "A-DESCRIPTION": "dátum YYYY-MM-DD vagy YYYY-MM-DD HH:MM:SS formátumban (opcionálisan egy másodperc törtrészével legfeljebb hat számjegyig), egy timedelta típusú eredmény age() vagy egy nemnegatív intervallum számként írva és az angol egység: year, month, week, day, hour, minute vagy second, szintén többes számban."
+            },
+            "EXAMPLES": {
+              "EX1": "month('2026-10-30')",
+              "RES1": "10 months",
+              "EX2": "month('1 year')",
+              "RES2": "12 months",
+              "EX3": "month('1 month')",
+              "RES3": "1 month"
+            }
+          },
+          "_NOW": {
+            "TITLE": "now() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely az aktuális szerver dátumát és idejét karakterláncként adja vissza YYYY-MM-DD HH:MM:SS formátumban, a törtrész hat számjegyével, ha a mikroszekundum nem nulla. A helyi szerveridőt használja, és nem ad hozzá időzónajelzést. Minden hívás újra leolvassa az időt.",
+            "SYNTAX": "now()",
+            "ARGUMENTS": {
+              "A-KEY": "nincs",
+              "A-DESCRIPTION": "a függvény nem vesz fel argumentumokat."
+            },
+            "EXAMPLES": {
+              "EX1": "now()",
+              "RES1": "pl. 2026-10-30 13:05:09.123456 (az eredmény a hívás idejétől és a szerveridőtől függ)",
+              "EX2": "now()",
+              "RES2": "pl. 2026-10-30 13:05:10 (az eredmény a hívás idejétől és a szerveridőtől függ)",
+              "EX3": "now()",
+              "RES3": "pl. 2026-10-31 00:00:00.000001 (az eredmény a hívás idejétől és a szerveridőtől függ)"
+            }
+          },
+          "_SECOND": {
+            "TITLE": "second() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely visszaadja a dátum és az idő másodpercét (0-59), vagy az intervallum másodpercekre konvertált teljes hosszát. Az eredmény egy karakterlánc egy számmal és az angol second vagy seconds egységgel, pl. 9 seconds. Kihagy egy másodperc töredékét a dátumban és az időben; intervallumban megtartja a tört részt.",
+            "SYNTAX": "second(dátum_idő_vagy_időtartam)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum_idő_vagy_időtartam",
+              "A-DESCRIPTION": "dátum és idő YYYY-MM-DD HH:MM:SS formátumban (opcionálisan egy másodperc törtrészével legfeljebb hat számjegyig), a timedelta típusú eredmény age() vagy egy nem negatív intervallum számként írva és az angol egység: year, month, week, day, hour, minute vagy second, szintén többes számban. Az önálló dátum és az önálló idő nem támogatott. Egy év 365,25 napnak, egy hónap az év 1/12-ének felel meg."
+            },
+            "EXAMPLES": {
+              "EX1": "second('2026-10-30 13:05:09.123456')",
+              "RES1": "9 seconds",
+              "EX2": "second('1.5 minutes')",
+              "RES2": "90 seconds",
+              "EX3": "second('0.5 seconds')",
+              "RES3": "0.5 seconds"
+            }
+          },
+          "_TO_DATE": {
+            "TITLE": "to_date() Függvény",
+            "DESCRIPTION": "Egy függvény, amely beolvas egy dátumot és egy karakterláncot ad vissza. Formátum nélkül visszaadja a YYYY-MM-DD-t. Az opcionális formátum meghatározza a kimeneti formátumot: a numerikus összetevőket kötőjelek választják el, a hónap nevét pedig szóközzel. Nem a beviteli formátum megadására szolgál.",
+            "SYNTAX": "to_date(dátum, [formátum])",
+            "ARGUMENTS": {
+              "A-KEY": "dátum",
+              "A-DESCRIPTION": "helyes dátum a YYYY-MM-DD, DD-MM-YYYY, YYYY MMMM DD vagy DD MMMM YYYY rendszerben. Az évnek négy számjegyből, a napnak és a hónapnak egy vagy két számjegyből kell állnia. A hónap nevének teljes angol névnek kell lennie nagybetűvel, pl. February.",
+              "B-KEY": "formátum",
+              "B-DESCRIPTION": "opcionális formátum kimenet három, pontokkal elválasztott komponensből. Elérhető címkék: d és dd (a hónap napja), ddd és dddd (a hét napjának angol neve), M és MM (hónapszám), MMM és MMMM (a hónap angol neve), yy és yyyy (év). A dd.MM.yyyy példa a 2026. 02. 05. eredményt adja. Ezen argumentum nélkül az eredmény formátumYYYY-MM-DD."
+            },
+            "EXAMPLES": {
+              "EX1": "to_date('05-02-2026')",
+              "RES1": "2026-02-05",
+              "EX2": "to_date('5 February 2026', 'dd.MM.yyyy')",
+              "RES2": "05-02-2026",
+              "EX3": "to_date('2026-02-05', 'dd.MMMM.yyyy')",
+              "RES3": "05 February 2026"
+            }
+          },
+          "_TO_DATETIME": {
+            "TITLE": "to_datetime() Függvény",
+            "DESCRIPTION": "Egy függvény, amely beolvassa a dátumot és az időt, és egy datetime objektumot ad vissza időzóna nélkül. A hiányzó idő éjfélt jelent, a kimaradt percek vagy másodpercek pedig nullát. Az opcionális formátum leírja a bemeneti összetevőket; ISO bemenet esetén a háttér közvetlenül felismeri a dátumot és az időt, szintén az adott formátumban.",
+            "SYNTAX": "to_datetime(dátum_és_idő, [formátum])",
+            "ARGUMENTS": {
+              "A-KEY": "dátum_és_idő",
+              "A-DESCRIPTION": "nincs formátum: dátum YYYY-MM-DD, DD-MM-YYYY, YYYY MMMM DD vagy DD MMMM YYYY, opcionálisan idő HH:mm vagy HH:mm:ss szóköz után. A teljes és a rövidített angol hónapnevek, amelyek nem tesznek különbséget a kis- és nagybetűk között, támogatottak. A ISO tartalmazhat T-et a dátum és az idő között, és legfeljebb hat törtmásodperc-számjegyet. A formátum megadásakor más komponenselrendezések is lehetségesek.",
+              "B-KEY": "formátum",
+              "B-DESCRIPTION": "opcionális bemeneti formátum. Kötelező elemei az év (yy vagy yyyy), a hónap (M, MM, MMM vagy MMMM) és a hónap napja (d vagy dd). Tartalmazhatja a hét napját (ddd vagy dddd), az órát (h, hh, H vagy HH), a percet (m vagy mm) és a másodpercet (s vagy ss) is. Az elemeket szóköz, pont, kettőspont, perjel vagy kötőjel választja el, és nem ismétlődhetnek. A dupla számformátum-jelek két számjegyet igényelnek. A yy esetén a 00-68 értékek 2000-2068-at, a 69-99 értékek 1969-1999-et jelentenek. Az óra h és hh esetén is 0-23 közötti; az AM/PM jelölés nem támogatott. A megadott hétköznapnak egyeznie kell a dátummal."
+            },
+            "EXAMPLES": {
+              "EX1": "to_datetime('2026-10-30T13:05:09.123456')",
+              "RES1": "2026-10-30 13:05:09.123456",
+              "EX2": "to_datetime('30/10/2026 13:05', 'dd/MM/yyyy HH:mm')",
+              "RES2": "2026-10-30 13:05:00",
+              "EX3": "to_datetime('5 February 2026')",
+              "RES3": "2026-02-05 00:00:00"
+            }
+          },
+          "_TO_INTERVAL": {
+            "TITLE": "to_interval() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely számegységpárokat tartalmazó szövegből kiolvas egy időintervallumot. Egy karakterláncot ad vissza, az összeget a legnagyobb megadott egységre konvertálva; 1-nél kisebb értékeknél kisebb mértékegységet is választhat. Egy év 365,25 napnak, egy hónap az év 1/12-ének felel meg. Az eredményben szereplő egységnév mindig többes szám, pl. 1 days.",
+            "SYNTAX": "to_interval(időtartam)",
+            "ARGUMENTS": {
+              "A-KEY": "időtartam",
+              "A-DESCRIPTION": "legalább egy pár számegységet tartalmazó karakterlánc, pl. 2 days 3 hours. A számoknak nem negatívnak és végesnek kell lenniük; lehet, hogy a tört részt ponttal írjuk. Az egységeket többes számban kell megadni: years, months, weeks, days, hours, minutes vagy seconds. Minden elem szóközzel van elválasztva, vessző nélkül. Egy egység ismétlésekor a rendszer az utolsó értéket veszi figyelembe."
+            },
+            "EXAMPLES": {
+              "EX1": "to_interval('2 days 3 hours')",
+              "RES1": "2.125 days",
+              "EX2": "to_interval('1 hours 30 minutes')",
+              "RES2": "1.5 hours",
+              "EX3": "to_interval('0.5 hours')",
+              "RES3": "30 minutes"
+            }
+          },
+          "_TO_TIME": {
+            "TITLE": "to_time() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely a megadott bemeneti formátumnak megfelelően beolvassa az időt, és visszaadja a time objektumot. A formátum határozza meg a bemeneti komponensek jelentését és sorrendjét. A kihagyott komponens értéke nulla, és az eredmény HH:MM:SS formában jelenik meg.",
+            "SYNTAX": "to_time(idő, formátum)",
+            "ARGUMENTS": {
+              "A-KEY": "idő",
+              "A-DESCRIPTION": "két vagy három numerikus komponens kettősponttal elválasztva. Mindegyiknek pontosan két számjegyűnek kell lennie, pl. 13:05 vagy 09:05:13. Az óra 0-23, a percek és másodpercek 0-59 tartományban kell, hogy legyenek. A másodperc töredékei nem támogatottak.",
+              "B-KEY": "formátum",
+              "B-DESCRIPTION": "szükséges bemeneti formátum az idővel azonos számú komponenssel. A HH vagy hh (24 órás idő), a mm vagy MM (perc) és a ss vagy SS (másodperc) támogatott, tetszőleges sorrendben, kettősponttal elválasztva. A komponensek nem ismételhetők meg, még különböző betűméretekkel sem. Példa: ss:mm:HH először a másodpercet, majd a percet és órát olvassa."
+            },
+            "EXAMPLES": {
+              "EX1": "to_time('13:05', 'HH:mm')",
+              "RES1": "13:05:00",
+              "EX2": "to_time('09:05:13', 'ss:mm:HH')",
+              "RES2": "13:05:09",
+              "EX3": "to_time('05:09', 'mm:ss')",
+              "RES3": "00:05:09"
+            }
+          },
+          "_WEEK": {
+            "TITLE": "week() Függvény",
+            "DESCRIPTION": "Egy függvény, amely a hét számát ISO (1-53) adja vissza egy dátumhoz vagy az intervallum teljes hosszát hetekre konvertálva. Az eredmény egy karakterlánc egy számmal és az angol week vagy weeks egységgel, pl. 44 weeks. Egy hét hét napnak felel meg. A ISO hétszám az évfordulón a dátumtól eltérő évhez tartozhat.",
+            "SYNTAX": "week(dátum_vagy_időtartam)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum_vagy_időtartam",
+              "A-DESCRIPTION": "dátum YYYY-MM-DD vagy YYYY-MM-DD HH:MM:SS formátumban (opcionálisan egy másodperc törtrészével legfeljebb hat számjegyig), egy timedelta típusú eredmény age() vagy egy nemnegatív intervallum számként írva és az angol egység: year, month, week, day, hour, minute vagy second, szintén többes számban. Egy év 365,25 napnak, egy hónap az év 1/12-ének felel meg."
+            },
+            "EXAMPLES": {
+              "EX1": "week('2026-10-30')",
+              "RES1": "44 weeks",
+              "EX2": "week('2021-01-01')",
+              "RES2": "53 weeks",
+              "EX3": "week('14 days')",
+              "RES3": "2 weeks"
+            }
+          },
+          "_YEAR": {
+            "TITLE": "year() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely visszaadja az évet egy dátumból vagy egy intervallum teljes hosszát évekre konvertálva. Az eredmény egy karakterlánc egy számmal és az angol year vagy years egységgel, pl. 2026 years. Az intervallumok konvertálásakor egy év 365,25 napnak felel meg.",
+            "SYNTAX": "year(dátum_vagy_időtartam)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum_vagy_időtartam",
+              "A-DESCRIPTION": "dátum YYYY-MM-DD vagy YYYY-MM-DD HH:MM:SS formátumban (opcionálisan egy másodperc törtrészével legfeljebb hat számjegyig), egy timedelta típusú eredmény age() vagy egy nemnegatív intervallum számként írva és az angol egység: year, month, week, day, hour, minute vagy second, szintén többes számban. Egy hónap az év 1/12-ének felel meg."
+            },
+            "EXAMPLES": {
+              "EX1": "year('2026-10-30')",
+              "RES1": "2026 years",
+              "EX2": "year('12 months')",
+              "RES2": "1 year",
+              "EX3": "year('730.5 days')",
+              "RES3": "2 years"
+            }
+          }
+        },
+        "MATH": {
+          "INFO": "Matematikai függvények",
+          "TITLE": "Matematika",
+          "_ABS": {
+            "TITLE": "abs() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy szám abszolút értékét adja vissza.",
+            "SYNTAX": "abs(érték)",
+            "ARGUMENTS": {
+              "A-KEY": "érték",
+              "A-DESCRIPTION": "az a szám, amelynek abszolút értékét ki kell számítani."
+            },
+            "EXAMPLES": {
+              "EX1": "abs(-5)",
+              "RES1": "5",
+              "EX2": "abs(3.14)",
+              "RES2": "3.14",
+              "EX3": "abs(-2.718)",
+              "RES3": "2.718"
+            }
+          },
+          "_ACOS": {
+            "TITLE": "acos() Függvény",
+            "DESCRIPTION": "Egy függvény, amely az inverz koszinuszértéket adja vissza radiánban.",
+            "SYNTAX": "acos(érték)",
+            "ARGUMENTS": {
+              "A-KEY": "érték",
+              "A-DESCRIPTION": "az a szám, amelyre a fordított koszinuszot ki kell számítani. Az értéknek -1 és 1 között kell lennie."
+            },
+            "EXAMPLES": {
+              "EX1": "acos(0)",
+              "RES1": "1.5708",
+              "EX2": "acos(-0.5)",
+              "RES2": "2.0944",
+              "EX3": "acos(1)",
+              "RES3": "0"
+            }
+          },
+          "_ACTG": {
+            "TITLE": "actg() Függvény",
+            "DESCRIPTION": "Függvény, amely visszaadja az inverz kotangens értéket radiánban, a következőképpen számítva: atan(1 / érték). Negatív értékek esetén negatív szöget ad vissza.",
+            "SYNTAX": "actg(érték)",
+            "ARGUMENTS": {
+              "A-KEY": "érték",
+              "A-DESCRIPTION": "az a szám, amelyre az inverz kotangenst ki kell számítani. Az érték nullától eltérő bármely valós szám lehet."
+            },
+            "EXAMPLES": {
+              "EX1": "actg(1)",
+              "RES1": "0.7854",
+              "EX2": "actg(-1)",
+              "RES2": "-0.7854",
+              "EX3": "actg(2)",
+              "RES3": "0.4636"
+            }
+          },
+          "_ACTG2": {
+            "TITLE": "actg2() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy szöget ad vissza radiánban, atan2(1 / y, x)-ként számítva, figyelembe véve az argumentumok előjeleit.",
+            "SYNTAX": "actg2(y, x)",
+            "ARGUMENTS": {
+              "A-KEY": "y",
+              "A-DESCRIPTION": "olyan szám, amelynek inverze a atan2() függvény első argumentumaként szerepel. Nullától eltérő valós számnak kell lennie.",
+              "B-KEY": "x",
+              "B-DESCRIPTION": "a atan2() függvény második argumentumaként használt szám. Bármilyen valós szám lehet."
+            },
+            "EXAMPLES": {
+              "EX1": "actg2(1, 1)",
+              "RES1": "0.7854",
+              "EX2": "actg2(1, -1)",
+              "RES2": "2.3562",
+              "EX3": "actg2(-1, 1)",
+              "RES3": "-0.7854"
+            }
+          },
+          "_ASIN": {
+            "TITLE": "asin() Függvény",
+            "DESCRIPTION": "Egy függvény, amely az inverz szinuszértéket adja vissza radiánban.",
+            "SYNTAX": "asin(érték)",
+            "ARGUMENTS": {
+              "A-KEY": "érték",
+              "A-DESCRIPTION": "az a szám, amelyre az inverz szinust ki kell számítani. Az értéknek -1 és 1 között kell lennie."
+            },
+            "EXAMPLES": {
+              "EX1": "asin(0)",
+              "RES1": "0",
+              "EX2": "asin(-0.5)",
+              "RES2": "-0.5236",
+              "EX3": "asin(1)",
+              "RES3": "1.5708"
+            }
+          },
+          "_ATAN": {
+            "TITLE": "atan() Függvény",
+            "DESCRIPTION": "Egy függvény, amely visszaadja az inverz érintő értékét radiánban.",
+            "SYNTAX": "atan(érték)",
+            "ARGUMENTS": {
+              "A-KEY": "érték",
+              "A-DESCRIPTION": "az a szám, amelyre az inverz érintőt ki kell számítani. Az érték bármilyen valós szám lehet."
+            },
+            "EXAMPLES": {
+              "EX1": "atan(0)",
+              "RES1": "0",
+              "EX2": "atan(-0.5)",
+              "RES2": "-0.4636",
+              "EX3": "atan(1)",
+              "RES3": "0.7854"
+            }
+          },
+          "_ATAN2": {
+            "TITLE": "atan2() Függvény",
+            "DESCRIPTION": "Egy függvény, amely visszaadja az inverz érintőt radiánban, mindkét argumentum előjelével.",
+            "SYNTAX": "atan2(y, x)",
+            "ARGUMENTS": {
+              "A-KEY": "y",
+              "A-DESCRIPTION": "érték y az inverz érintő kiszámításához. Valós szám.",
+              "B-KEY": "x",
+              "B-DESCRIPTION`": "érték x az inverz érintő kiszámításához. Valós szám."
+            },
+            "EXAMPLES": {
+              "EX1": "atan2(0, -1)",
+              "RES1": "3.1416",
+              "EX2": "atan2(1, 0)",
+              "RES2": "1.5708",
+              "EX3": "atan2(1, 1)",
+              "RES3": "0.7854"
+            }
+          },
+          "_CEIL": {
+            "TITLE": "ceil() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely felfelé kerekített értéket ad vissza.",
+            "SYNTAX": "ceil(érték)",
+            "ARGUMENTS": {
+              "A-KEY": "érték",
+              "A-DESCRIPTION": "az a szám, amelynek értékét felfelé kell kerekíteni."
+            },
+            "EXAMPLES": {
+              "EX1": "ceil(16.2)",
+              "RES1": "17",
+              "EX2": "ceil(-9.2)",
+              "RES2": "-9",
+              "EX3": "ceil(0)",
+              "RES3": "0"
+            }
+          },
+          "_CLAMP": {
+            "TITLE": "clamp() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy meghatározott tartományra korlátozott értéket ad vissza.",
+            "SYNTAX": "clamp(min, érték, max)",
+            "ARGUMENTS": {
+              "A-KEY": "min",
+              "A-DESCRIPTION": "az a minimális érték, amelyre az értéket korlátozni kell. Ha az érték kisebb, akkor a rendszer min-t ad vissza.",
+              "B-KEY": "érték",
+              "B-DESCRIPTION": "értékét egy adott tartományra kell korlátozni.",
+              "C-KEY": "max",
+              "C-DESCRIPTION": "az a maximális érték, amelyre az értéket korlátozni kell. Ha az érték nagyobb, akkor a rendszer max-t ad vissza."
+            },
+            "EXAMPLES": {
+              "EX1": "clamp(0, 5, 10)",
+              "RES1": "5",
+              "EX2": "clamp(0, -5, 10)",
+              "RES2": "0",
+              "EX3": "clamp(0, 15, 10)",
+              "RES3": "10"
+            }
+          },
+          "_COS": {
+            "TITLE": "cos() Függvény",
+            "DESCRIPTION": "Egy függvény, amely koszinuszértéket ad vissza.",
+            "SYNTAX": "cos(radián)",
+            "ARGUMENTS": {
+              "A-KEY": "radián",
+              "A-DESCRIPTION": "az az érték radiánban, amelyre a koszinuszot ki kell számítani. Az érték bármilyen valós szám lehet."
+            },
+            "EXAMPLES": {
+              "EX1": "cos(0)",
+              "RES1": "1",
+              "EX2": "cos(-1)",
+              "RES2": "0.5403",
+              "EX3": "cos(1)",
+              "RES3": "0.5403"
+            }
+          },
+          "_CTG": {
+            "TITLE": "ctg() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely a kotangens értékét adja vissza, az érintő reciprokaként számítva.",
+            "SYNTAX": "ctg(radián)",
+            "ARGUMENTS": {
+              "A-KEY": "radián",
+              "A-DESCRIPTION": "az a szögérték radiánban, amelyre a kotangenst ki kell számítani. Ennek a szögnek az érintőjének nullától eltérőnek kell lennie."
+            },
+            "EXAMPLES": {
+              "EX1": "ctg(1)",
+              "RES1": "0.6421",
+              "EX2": "ctg(-1)",
+              "RES2": "-0.6421",
+              "EX3": "ctg(0.5)",
+              "RES3": "1.8305"
+            }
+          },
+          "_DEGREES": {
+            "TITLE": "degrees() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy szögértéket radiánról fokra konvertál.",
+            "SYNTAX": "degrees(radián)",
+            "ARGUMENTS": {
+              "A-KEY": "radián",
+              "A-DESCRIPTION": "a radiánban megadott szögértéket fokokra konvertálni. Az érték bármilyen valós szám lehet."
+            },
+            "EXAMPLES": {
+              "EX1": "degrees(-1)",
+              "RES1": "57.2958",
+              "EX2": "degrees(2)",
+              "RES2": "114.5916",
+              "EX3": "degrees(pi())",
+              "RES3": "180"
+            }
+          },
+          "_EXP": {
+            "TITLE": "exp() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy számból egy exponenciális függvény értékét adja vissza.",
+            "SYNTAX": "exp(érték)",
+            "ARGUMENTS": {
+              "A-KEY": "érték",
+              "A-DESCRIPTION": "az a szám, amelyre az exponenciális függvényt ki kell értékelni. Az érték bármilyen valós szám lehet."
+            },
+            "EXAMPLES": {
+              "EX1": "exp(0)",
+              "RES1": "1",
+              "EX2": "exp(1)",
+              "RES2": "2.7183",
+              "EX3": "exp(-1)",
+              "RES3": "0.3679"
+            }
+          },
+          "_FLOOR": {
+            "TITLE": "floor() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely lefelé kerekített értéket ad vissza.",
+            "SYNTAX": "floor(érték)",
+            "ARGUMENTS": {
+              "A-KEY": "érték",
+              "A-DESCRIPTION": "az a szám, amelynek értékét lefelé kell kerekíteni."
+            },
+            "EXAMPLES": {
+              "EX1": "floor(3.7)",
+              "RES1": "3",
+              "EX2": "floor(-3.7)",
+              "RES2": "-4",
+              "EX3": "floor(0)",
+              "RES3": "0"
+            }
+          },
+          "_LN": {
+            "TITLE": "ln() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy szám természetes logaritmusát adja vissza.",
+            "SYNTAX": "ln(érték)",
+            "ARGUMENTS": {
+              "A-KEY": "érték",
+              "A-DESCRIPTION": "az a szám, amelyre a természetes logaritmust ki kell számítani. Az értéknek nagyobbnak kell lennie nullánál."
+            },
+            "EXAMPLES": {
+              "EX1": "ln(1)",
+              "RES1": "0",
+              "EX2": "ln(2.7183)",
+              "RES2": "1",
+              "EX3": "ln(10)",
+              "RES3": "2.3026"
+            }
+          },
+          "_LOG": {
+            "TITLE": "log() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy adott bázisú szám logaritmusát adja vissza.",
+            "SYNTAX": "log(alap, érték)",
+            "ARGUMENTS": {
+              "A-KEY": "alap",
+              "A-DESCRIPTION": "a logaritmus alapja. Az értéknek nagyobbnak kell lennie nullánál, és nem lehet nulla.",
+              "B-KEY": "érték",
+              "B-DESCRIPTION": "az a szám, amelyre a logaritmust ki kell számítani. Az értéknek nagyobbnak kell lennie nullánál."
+            },
+            "EXAMPLES": {
+              "EX1": "log(2, 32)",
+              "RES1": "5",
+              "EX2": "log(10, 100)",
+              "RES2": "2",
+              "EX3": "log(2, 1)",
+              "RES3": "0"
+            }
+          },
+          "_LOG10": {
+            "TITLE": "log10() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy szám decimális logaritmusát adja vissza.",
+            "SYNTAX": "log10(érték)",
+            "ARGUMENTS": {
+              "A-KEY": "érték",
+              "A-DESCRIPTION": "az a szám, amelyre a decimális logaritmust ki kell számítani. Az értéknek nagyobbnak kell lennie nullánál."
+            },
+            "EXAMPLES": {
+              "EX1": "log10(1)",
+              "RES1": "0",
+              "EX2": "log10(100)",
+              "RES2": "2",
+              "EX3": "log10(5)",
+              "RES3": "0.6989"
+            }
+          },
+          "_MAX": {
+            "TITLE": "max() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely az összes beírt érték közül a legnagyobb értéket adja vissza.",
+            "SYNTAX": "max(érték1, érték2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "érték",
+              "A-DESCRIPTION": "egymást követő számok, amelyek közül a legnagyobb értéket kell kiválasztani. Bármennyi érvet megadhat."
+            },
+            "EXAMPLES": {
+              "EX1": "max(3, 7, 2)",
+              "RES1": "7",
+              "EX2": "max(-5, -2, -8)",
+              "RES2": "-2",
+              "EX3": "max(1.5, 2.3, 0.9)",
+              "RES3": "2.3"
+            }
+          },
+          "_MIN": {
+            "TITLE": "min() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely az összes megadott érték közül a legkisebb értéket adja vissza.",
+            "SYNTAX": "min(érték1, érték2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "érték",
+              "A-DESCRIPTION": "egymást követő számok, amelyek közül a legkisebb értéket kell kiválasztani. Bármennyi érvet megadhat."
+            },
+            "EXAMPLES": {
+              "EX1": "min(3, 7, 2)",
+              "RES1": "2",
+              "EX2": "min(-5, -2, -8)",
+              "RES2": "-8",
+              "EX3": "min(1.5, 2.3, 0.9)",
+              "RES3": "0.9"
+            }
+          },
+          "_PI": {
+            "TITLE": "pi() Függvény",
+            "DESCRIPTION": "Egy függvény, amely a pi szám értékét adja vissza. Nem fogad el semmilyen érvet.",
+            "SYNTAX": "pi()",
+            "ARGUMENTS": {},
+            "EXAMPLES": {
+              "EX1": "pi()",
+              "RES1": "3.1416...",
+              "EX2": "cos(pi())",
+              "RES2": "-1",
+              "EX3": "sin(pi())",
+              "RES3": "0"
+            }
+          },
+          "_POW": {
+            "TITLE": "pow() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely az alap adott hatványra való emelésének eredményét adja vissza.",
+            "SYNTAX": "pow(alap, kitevő)",
+            "ARGUMENTS": {
+              "A-KEY": "alap",
+              "A-DESCRIPTION": "a hatványra emelendő szám. Negatív bázis esetén a kitevőnek egész számnak kell lennie.",
+              "B-KEY": "kitevő",
+              "B-DESCRIPTION": "egy szám, amely azt a teljesítményt adja meg, amelyre a bázist fel kell emelni. Nullával egyenlő bázis esetén a kitevő nem lehet negatív."
+            },
+            "EXAMPLES": {
+              "EX1": "pow(2, 3)",
+              "RES1": "8",
+              "EX2": "pow(9, 0.5)",
+              "RES2": "3",
+              "EX3": "pow(2, -2)",
+              "RES3": "0.25"
+            }
+          },
+          "_RADIANS": {
+            "TITLE": "radians() Függvény",
+            "DESCRIPTION": "Egy függvény, amely egy szögértéket fokokról radiánra konvertál.",
+            "SYNTAX": "radians(fokok)",
+            "ARGUMENTS": {
+              "A-KEY": "fokok",
+              "A-DESCRIPTION": "a szögérték fokban radiánra konvertálva. Az érték bármilyen valós szám lehet."
+            },
+            "EXAMPLES": {
+              "EX1": "radians(180)",
+              "RES1": "3.1416",
+              "EX2": "radians(90)",
+              "RES2": "1.5708",
+              "EX3": "radians(45)",
+              "RES3": "0.7854"
+            }
+          },
+          "_RAND": {
+            "TITLE": "rand() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy véletlenszerű egész számot ad vissza a minimumtól a maximumig. A seed kiegészítésként is beadható, hogy minden alkalommal megismételhető eredményeket érjen el.",
+            "SYNTAX": "rand(min, max, [seed])",
+            "ARGUMENTS": {
+              "A-KEY": "min",
+              "A-DESCRIPTION": "annak az intervallumnak a minimális értéke, amelyből véletlenszerű értéket kell generálni. Egész számnak kell lennie.",
+              "B-KEY": "max",
+              "B-DESCRIPTION": "annak az intervallumnak a maximális értéke, amelyből véletlenszerű értéket kell generálni. Egész számnak kell lennie.",
+              "C-KEY": "seed",
+              "C-DESCRIPTION": "egy opcionális paraméter, amely lehetővé teszi, hogy megismételhető eredményeket kapjon minden alkalommal, amikor a függvényt ugyanazzal a maggal hívják meg. Alapértelmezés szerint letiltva."
+            },
+            "EXAMPLES": {
+              "EX1": "rand(1, 10)",
+              "RES1": "5",
+              "EX2": "rand(1, 100)",
+              "RES2": "42",
+              "EX3": "rand(1, 10, 42)",
+              "RES3": "3"
+            }
+          },
+          "_RANDF": {
+            "TITLE": "randf() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy véletlenszerű lebegőpontos értéket ad vissza egy adott minimumtól maximumig terjedő tartomány között. A seed kiegészítésként is beadható, hogy minden alkalommal megismételhető eredményeket érjen el.",
+            "SYNTAX": "randf(min, max, [seed])",
+            "ARGUMENTS": {
+              "A-KEY": "min",
+              "A-DESCRIPTION": "annak az intervallumnak a minimális értéke, amelyből véletlenszerű értéket kell generálni.",
+              "B-KEY": "max",
+              "B-DESCRIPTION": "annak az intervallumnak a maximális értéke, amelyből véletlenszerű értéket kell generálni.",
+              "C-KEY": "seed",
+              "C-DESCRIPTION": "egy opcionális paraméter, amely lehetővé teszi, hogy megismételhető eredményeket kapjon minden alkalommal, amikor a függvényt ugyanazzal a maggal hívják meg. Alapértelmezés szerint letiltva."
+            },
+            "EXAMPLES": {
+              "EX1": "randf(1.0, 10.0)",
+              "RES1": "5.5",
+              "EX2": "randf(1.0, 100.0)",
+              "RES2": "42.3",
+              "EX3": "randf(1.0, 10.0, 42)",
+              "RES3": "3.7"
+            }
+          },
+          "_ROOT": {
+            "TITLE": "root() Függvény",
+            "DESCRIPTION": "A szám megadott fokú gyökét adja vissza.",
+            "SYNTAX": "root(érték, fok)",
+            "ARGUMENTS": {
+              "A-KEY": "érték",
+              "A-DESCRIPTION": "a szám, amelyből gyököt kell vonni.",
+              "B-KEY": "fok",
+              "B-DESCRIPTION": "a gyök foka. Bármely nullától különböző valós szám lehet."
+            },
+            "EXAMPLES": {
+              "EX1": "root(27, 3)",
+              "RES1": "3",
+              "EX2": "root(16, 2)",
+              "RES2": "4",
+              "EX3": "root(16, -2)",
+              "RES3": "0.25"
+            }
+          },
+          "_ROUND": {
+            "TITLE": "round() Függvény",
+            "DESCRIPTION": "Egy számot adott számú tizedesjegyre kerekítő függvény. Ha a második argumentum hiányzik, a szám a legközelebbi egész számra kerekítésre kerül.",
+            "SYNTAX": "round(érték, [tizedesjegyek])",
+            "ARGUMENTS": {
+              "A-KEY": "érték",
+              "A-DESCRIPTION": "a kerekítendő szám.",
+              "B-KEY": "tizedesjegyek",
+              "B-DESCRIPTION": "egy opcionális paraméter, amely megadja, hogy hány tizedesjegyre kell kerekíteni a számot. Alapértelmezett 0."
+            },
+            "EXAMPLES": {
+              "EX1": "round(3.14159)",
+              "RES1": "3",
+              "EX2": "round(3.14159, 2)",
+              "RES2": "3.14",
+              "EX3": "round(3.14159, 4)",
+              "RES3": "3.1416"
+            }
+          },
+          "_SCALE_EXPONENTIAL": {
+            "TITLE": "scale_exponential() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy értéket a bemeneti tartományból a kimeneti tartományba konvertál egy exponenciális görbe szerint. A bemeneti tartomány alatti értékek kimeneti_minimum, a tartomány feletti értékek pedig kimeneti_maximum.",
+            "SYNTAX": "scale_exponential(érték, bemeneti_minimum, bemeneti_maximum, kimeneti_minimum, kimeneti_maximum, alap)",
+            "ARGUMENTS": {
+              "A-KEY": "érték",
+              "A-DESCRIPTION": "a kimeneti tartományba konvertálandó szám.",
+              "B-KEY": "bemeneti_minimum",
+              "B-DESCRIPTION": "a bemeneti tartomány alsó határa. Kisebbnek kell lennie, mint bemeneti_maximum.",
+              "C-KEY": "bemeneti_maximum",
+              "C-DESCRIPTION": "a bemeneti tartomány felső határa. Nagyobbnak kell lennie, mint bemeneti_minimum.",
+              "D-KEY": "kimeneti_minimum",
+              "D-DESCRIPTION": "bemeneti_minimum-nak megfelelő kimeneti érték. A bemeneti_minimum-nál kisebb értékekre is visszaküldik.",
+              "E-KEY": "kimeneti_maximum",
+              "E-DESCRIPTION": "bemeneti_maximum-nak megfelelő kimeneti érték. A bemeneti_maximum-nál nagyobb értékek esetén is visszaküldik.",
+              "F-KEY": "alap",
+              "F-DESCRIPTION": "hatványbázis, amely meghatározza az exponenciális görbe alakját. Nagyobbnak kell lennie nullánál. Az 1-es érték esetén a függvény úgy működik, mint a scale_linear()."
+            },
+            "EXAMPLES": {
+              "EX1": "scale_exponential(5, 0, 10, 0, 100, 2)",
+              "RES1": "3.0303",
+              "EX2": "scale_exponential(5, 0, 10, 0, 100, 1)",
+              "RES2": "50",
+              "EX3": "scale_exponential(15, 0, 10, 0, 100, 2)",
+              "RES3": "100"
+            }
+          },
+          "_SCALE_LINEAR": {
+            "TITLE": "scale_linear() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy értéket lineárisan konvertál egy bemeneti tartományból kimeneti tartományba, megtartva az érték pozíciójának arányát a tartományban. A bemeneti tartomány alatti értékek kimeneti_minimum, a tartomány feletti értékek pedig kimeneti_maximum.",
+            "SYNTAX": "scale_linear(érték, bemeneti_minimum, bemeneti_maximum, kimeneti_minimum, kimeneti_maximum)",
+            "ARGUMENTS": {
+              "A-KEY": "érték",
+              "A-DESCRIPTION": "a kimeneti tartományba konvertálandó szám.",
+              "B-KEY": "bemeneti_minimum",
+              "B-DESCRIPTION": "a bemeneti tartomány alsó határa. Kisebbnek kell lennie, mint bemeneti_maximum.",
+              "C-KEY": "bemeneti_maximum",
+              "C-DESCRIPTION": "a bemeneti tartomány felső határa. Nagyobbnak kell lennie, mint bemeneti_minimum.",
+              "D-KEY": "kimeneti_minimum",
+              "D-DESCRIPTION": "bemeneti_minimum-nak megfelelő kimeneti érték. A bemeneti_minimum-nál kisebb értékekre is visszaküldik.",
+              "E-KEY": "kimeneti_maximum",
+              "E-DESCRIPTION": "bemeneti_maximum-nak megfelelő kimeneti érték. A bemeneti_maximum-nál nagyobb értékek esetén is visszaküldik."
+            },
+            "EXAMPLES": {
+              "EX1": "scale_linear(5, 0, 10, 0, 100)",
+              "RES1": "50",
+              "EX2": "scale_linear(-5, 0, 10, 0, 100)",
+              "RES2": "0",
+              "EX3": "scale_linear(15, 0, 10, 0, 100)",
+              "RES3": "100"
+            }
+          },
+          "_SCALE_LOGARITHMIC": {
+            "TITLE": "scale_logarithmic() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely a bemeneti tartományból a kimeneti tartományba konvertál egy értéket logaritmikusan, természetes logaritmusok alapján. A bemeneti tartomány alatti értékek kimeneti_minimum, a tartomány feletti értékek pedig kimeneti_maximum.",
+            "SYNTAX": "scale_logarithmic(érték, bemeneti_minimum, bemeneti_maximum, kimeneti_minimum, kimeneti_maximum)",
+            "ARGUMENTS": {
+              "A-KEY": "érték",
+              "A-DESCRIPTION": "a kimeneti tartományba konvertálandó szám. A bemeneti_minimum-nál kisebb vagy egyenlő értékek a kimeneti_minimum-t adják vissza logaritmus nélkül.",
+              "B-KEY": "bemeneti_minimum",
+              "B-DESCRIPTION": "a bemeneti tartomány alsó határa. A logaritmus kiszámításához nullánál nagyobbnak és bemeneti_maximum-nál kisebbnek kell lennie.",
+              "C-KEY": "bemeneti_maximum",
+              "C-DESCRIPTION": "a bemeneti tartomány felső határa. Nagyobbnak kell lennie, mint bemeneti_minimum, és nagyobbnak kell lennie nullánál.",
+              "D-KEY": "kimeneti_minimum",
+              "D-DESCRIPTION": "bemeneti_minimum-nak megfelelő kimeneti érték. A bemeneti_minimum-nál kisebb értékekre is visszaküldik.",
+              "E-KEY": "kimeneti_maximum",
+              "E-DESCRIPTION": "bemeneti_maximum-nak megfelelő kimeneti érték. A bemeneti_maximum-nál nagyobb értékek esetén is visszaküldik."
+            },
+            "EXAMPLES": {
+              "EX1": "scale_logarithmic(5, 1, 10, 0, 100)",
+              "RES1": "69.8970",
+              "EX2": "scale_logarithmic(10, 1, 100, 0, 100)",
+              "RES2": "50",
+              "EX3": "scale_logarithmic(0, 1, 10, 0, 100)",
+              "RES3": "0"
+            }
+          },
+          "_SCALE_POLYNOMIAL": {
+            "TITLE": "scale_polynomial() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy értéket egy bemeneti tartományból kimeneti tartományba konvertál úgy, hogy a tartományban lévő relatív pozícióját egy adott teljesítményre emeli. A bemeneti tartomány alatti értékek kimeneti_minimum, a tartomány feletti értékek pedig kimeneti_maximum.",
+            "SYNTAX": "scale_polynomial(érték, bemeneti_minimum, bemeneti_maximum, kimeneti_minimum, kimeneti_maximum, kitevő)",
+            "ARGUMENTS": {
+              "A-KEY": "érték",
+              "A-DESCRIPTION": "a kimeneti tartományba konvertálandó szám.",
+              "B-KEY": "bemeneti_minimum",
+              "B-DESCRIPTION": "a bemeneti tartomány alsó határa. Kisebbnek kell lennie, mint bemeneti_maximum.",
+              "C-KEY": "bemeneti_maximum",
+              "C-DESCRIPTION": "a bemeneti tartomány felső határa. Nagyobbnak kell lennie, mint bemeneti_minimum.",
+              "D-KEY": "kimeneti_minimum",
+              "D-DESCRIPTION": "bemeneti_minimum-nak megfelelő kimeneti érték. A bemeneti_minimum-nál kisebb értékekre is visszaküldik.",
+              "E-KEY": "kimeneti_maximum",
+              "E-DESCRIPTION": "bemeneti_maximum-nak megfelelő kimeneti érték. A bemeneti_maximum-nál nagyobb értékek esetén is visszaküldik.",
+              "F-KEY": "kitevő",
+              "F-DESCRIPTION": "a görbe alakját meghatározó hatványkitevő. Nagyobbnak kell lennie nullánál. Az 1-es érték esetén a függvény úgy működik, mint a scale_linear()."
+            },
+            "EXAMPLES": {
+              "EX1": "scale_polynomial(5, 0, 10, 0, 100, 2)",
+              "RES1": "25",
+              "EX2": "scale_polynomial(5, 0, 10, 0, 100, 1)",
+              "RES2": "50",
+              "EX3": "scale_polynomial(-5, 0, 10, 0, 100, 2)",
+              "RES3": "0"
+            }
+          },
+          "_SIN": {
+            "TITLE": "sin() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely szinuszértéket ad vissza.",
+            "SYNTAX": "sin(szög)",
+            "ARGUMENTS": {
+              "A-KEY": "szög",
+              "A-DESCRIPTION": "szög radiánban."
+            },
+            "EXAMPLES": {
+              "EX1": "sin(0)",
+              "RES1": "0",
+              "EX2": "sin(pi()/2)",
+              "RES2": "1",
+              "EX3": "sin(pi())",
+              "RES3": "0"
+            }
+          },
+          "_SQRT": {
+            "TITLE": "sqrt() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy szám négyzetgyökét adja vissza.",
+            "SYNTAX": "sqrt(érték)",
+            "ARGUMENTS": {
+              "A-KEY": "érték",
+              "A-DESCRIPTION": "az a szám, amelyre a négyzetgyököt ki kell számítani. Az értéknek nullánál nagyobbnak vagy egyenlőnek kell lennie."
+            },
+            "EXAMPLES": {
+              "EX1": "sqrt(4)",
+              "RES1": "2",
+              "EX2": "sqrt(9)",
+              "RES2": "3",
+              "EX3": "sqrt(0)",
+              "RES3": "0"
+            }
+          },
+          "_TAN": {
+            "TITLE": "tan() Függvény",
+            "DESCRIPTION": "Egy függvény, amely az érintő értéket adja vissza.",
+            "SYNTAX": "tan(szög)",
+            "ARGUMENTS": {
+              "A-KEY": "szög",
+              "A-DESCRIPTION": "szög radiánban."
+            },
+            "EXAMPLES": {
+              "EX1": "tan(0)",
+              "RES1": "0",
+              "EX2": "tan(pi()/4)",
+              "RES2": "1",
+              "EX3": "tan(pi()/2)",
+              "RES3": "Hiba: érintő nem létezik a pi()/2 szögnél."
+            }
+          }
+        },
+        "MAPS-OPERATORS": {
+          "INFO": "Szótári funkciók",
+          "TITLE": "Szótárműveletek",
+          "_FROM_JSON": {
+            "TITLE": "from_json() Függvény",
+            "DESCRIPTION": "Funkció, amely a JSON formátumú karaktersorozatot normál adatstruktúrává alakítja.",
+            "SYNTAX": "from_json(json_karakterlánc)",
+            "ARGUMENTS": {
+              "A-KEY": "json_karakterlánc",
+              "A-DESCRIPTION": "JSON formátumú karakterlánc."
+            },
+            "EXAMPLES": {
+              "EX1": "from_json('{\"key\": \"value\"}')",
+              "RES1": "{key: value}",
+              "EX2": "from_json('[1, 2, 3]')",
+              "RES2": "[1, 2, 3]",
+              "EX3": "from_json('{\"numbers\": [1, 2, 3]}')",
+              "RES3": "{numbers: [1, 2, 3]}"
+            }
+          },
+          "_MAP": {
+            "TITLE": "map() Függvény",
+            "DESCRIPTION": "Egy függvény, amely szótárt hoz létre egymás után megadott kulcs-érték párokból. Tetszőleges számú argumentumpárt megadhat.",
+            "SYNTAX": "map(kulcs1, érték1, kulcs2, érték2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "kulcs",
+              "A-DESCRIPTION": "a szótárban használandó későbbi kulcsok. Minden kulcsnak egyedinek kell lennie.",
+              "B-KEY": "érték",
+              "B-DESCRIPTION": "a következő értékeket kell hozzárendelni a megfelelő kulcsokhoz."
+            },
+            "EXAMPLES": {
+              "EX1": "map('a', 1, 'b', 2)",
+              "RES1": "{a: 1, b: 2}",
+              "EX2": "map('x', 'hello', 'y', 'world')",
+              "RES2": "{x: hello, y: world}",
+              "EX3": "map('key1', true, 'key2', false)",
+              "RES3": "{key1: true, key2: false}"
+            }
+          },
+          "_MAP_AKEYS": {
+            "TITLE": "map_akeys() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely az adott szótár összes kulcsát egy tömb kulcsaként adja vissza",
+            "SYNTAX": "map_akeys(szótár)",
+            "ARGUMENTS": {
+              "A-KEY": "szótár",
+              "A-DESCRIPTION": "szótár, amelyből az összes kulcsot le kell kérni."
+            },
+            "EXAMPLES": {
+              "EX1": "map_akeys(map('a', 1, 'b', 2))",
+              "RES1": "[a, b]",
+              "EX2": "map_akeys(map('x', 'hello', 'y', 'world'))",
+              "RES2": "[x, y]",
+              "EX3": "map_akeys({'key1', true, 'key2', false})",
+              "RES3": "[key1, key2]"
+            }
+          },
+          "_MAP_AVALS": {
+            "TITLE": "map_avals() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely az adott szótárban található összes értéket egy tömbben lévő értékként adja vissza",
+            "SYNTAX": "map_avals(szótár)",
+            "ARGUMENTS": {
+              "A-KEY": "szótár",
+              "A-DESCRIPTION": "szótár, amelyből az összes értéket le kell kérni."
+            },
+            "EXAMPLES": {
+              "EX1": "map_avals(map('a', 1, 'b', 2))",
+              "RES1": "[1, 2]",
+              "EX2": "map_avals(map('x', 'hello', 'y', 'world'))",
+              "RES2": "['hello', 'world']",
+              "EX3": "map_avals({'key1', true, 'key2', false})",
+              "RES3": "[true, false]"
+            }
+          },
+          "_MAP_CONCAT": {
+            "TITLE": "map_concat()",
+            "DESCRIPTION": "Olyan függvény, amely két vagy több értékszótárt egyesít egybe. Ha ugyanazok a kulcsok jelennek meg a szótárakban, az utolsó szótár értékei felülírják az előzőeket.",
+            "SYNTAX": "map_concat(szótár1, szótár2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "szótár",
+              "A-DESCRIPTION": "későbbi értékszótárak, amelyeket egy szótárba kell összevonni."
+            },
+            "EXAMPLES": {
+              "EX1": "map_concat(map('a', 1, 'b', 2), map('c', 3, 'd', 4))",
+              "RES1": "{a: 1, b: 2, c: 3, d: 4}",
+              "EX2": "map_concat(map('a', 1, 'b', 2), map('b', 3, 'c', 4))",
+              "RES2": "{a: 1, b: 3, c: 4}",
+              "EX3": "map_concat(map('x', 'hello'), map('y', 'world'), map('y', '!'))",
+              "RES3": "{x: 'hello', y: '!'}"
+            }
+          },
+          "_MAP_DELETE": {
+            "TITLE": "map_delete() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely az adott kulcs eltávolításával visszaadja az értékek szótárát. Ha a kulcs nem létezik a szótárban, akkor az eredeti szótár kerül visszaadásra.",
+            "SYNTAX": "map_delete(szótár, kulcs)",
+            "ARGUMENTS": {
+              "A-KEY": "szótár",
+              "A-DESCRIPTION": "szótár, amelyből a kulcsot el kell távolítani.",
+              "B-KEY": "kulcs",
+              "B-DESCRIPTION": "a szótárból eltávolítandó kulcs."
+            },
+            "EXAMPLES": {
+              "EX1": "map_delete(map('a', 1, 'b', 2), 'a')",
+              "RES1": "{b: 2}",
+              "EX2": "map_delete(map('x', 'hello', 'y', 'world'), 'y')",
+              "RES2": "{x: 'hello'}",
+              "EX3": "map_delete({'key1', true, 'key2', false}, 'key3')",
+              "RES3": "{key1: true, key2: false}"
+            }
+          },
+          "_MAP_EXIST": {
+            "TITLE": "map_exist() Függvény",
+            "DESCRIPTION": "True értéket ad vissza, ha a megadott kulcs létezik a szótárban; egyébként False értéket ad vissza.",
+            "SYNTAX": "map_exist(szótár, kulcs)",
+            "ARGUMENTS": {
+              "A-KEY": "szótár",
+              "A-DESCRIPTION": "szótár, amelyben a kulcsot ellenőrizni kell.",
+              "B-KEY": "kulcs",
+              "B-DESCRIPTION": "az ellenőrizendő kulcsot."
+            },
+            "EXAMPLES": {
+              "EX1": "map_exist(map('a', 1, 'b', 2), 'a')",
+              "RES1": "True",
+              "EX2": "map_exist(map('x', 'hello', 'y', 'world'), 'z')",
+              "RES2": "False",
+              "EX3": "map_exist({'key1', true, 'key2', false}, 'key2')",
+              "RES3": "True"
+            }
+          },
+          "_MAP_GET": {
+            "TITLE": "map_get() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy szótári értéket ad vissza az adott kulcshoz. A kulcsnak léteznie kell a szótárban, különben hibaüzenet jelenik meg.",
+            "SYNTAX": "map_get(szótár, kulcs)",
+            "ARGUMENTS": {
+              "A-KEY": "szótár",
+              "A-DESCRIPTION": "szótár, amelyből az értéket le kell kérni.",
+              "B-KEY": "kulcs",
+              "B-DESCRIPTION": "a kulcs, amelyhez az értéket le kell kérni."
+            },
+            "EXAMPLES": {
+              "EX1": "map_get(map('a', 1, 'b', 2), 'a')",
+              "RES1": "1",
+              "EX2": "map_get(map('x', 'hello', 'y', 'world'), 'y')",
+              "RES2": "'world'",
+              "EX3": "map_get({'key1': true, 'key2': false}, 'key2')",
+              "RES3": "false"
+            }
+          },
+          "_MAP_INSERT": {
+            "TITLE": "map_insert() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely visszaadja az értékek szótárát a hozzáfűzött kulcs-érték párral. Ha a kulcs már létezik a szótárban, akkor az értéke felül lesz írva.",
+            "SYNTAX": "map_insert(szótár, kulcs, érték)",
+            "ARGUMENTS": {
+              "A-KEY": "szótár",
+              "A-DESCRIPTION": "szótár, amelyhez hozzá kell adni a kulcs-érték párt.",
+              "B-KEY": "kulcs",
+              "B-DESCRIPTION": "a kulcsot a szótárhoz.",
+              "C-KEY": "érték",
+              "C-DESCRIPTION": "a megadott kulcshoz rendelhető érték."
+            },
+            "EXAMPLES": {
+              "EX1": "map_insert(map('a', 1, 'b', 2), 'c', 3)",
+              "RES1": "{a: 1, b: 2, c: 3}",
+              "EX2": "map_insert(map('x', 'hello', 'y', 'world'), 'y', '!')",
+              "RES2": "{x: 'hello', y: '!'}",
+              "EX3": "map_insert({'key1': true, 'key2': false}, 'key3', null)",
+              "RES3": "{key1: true, key2: false, key3: null}"
+            }
+          },
+          "_MAP_PREFIX_KEYS": {
+            "TITLE": "map_prefix_keys() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy szótárt ad vissza, amelyben az összes kulcs az adott előtaggal van ellátva.",
+            "SYNTAX": "map_prefix_keys(szótár, előtag)",
+            "ARGUMENTS": {
+              "A-KEY": "szótár",
+              "A-DESCRIPTION": "szótár, amelynek kulcsait előtagként kell rögzíteni.",
+              "B-KEY": "előtag",
+              "B-DESCRIPTION": "előtag a szótár összes kulcsához."
+            },
+            "EXAMPLES": {
+              "EX1": "map_prefix_keys(map('a', 1, 'b', 2), 'prefix_')",
+              "RES1": "{prefix_a: 1, prefix_b: 2}",
+              "EX2": "map_prefix_keys(map('x', 'hello', 'y', 'world'), 'pre_')",
+              "RES2": "{pre_x: 'hello', pre_y: 'world'}",
+              "EX3": "map_prefix_keys({'key1': true, 'key2': false}, 'my_')",
+              "RES3": "{my_key1: true, my_key2: false}"
+            }
+          },
+          "_MAP_TO_HTML_DL": {
+            "TITLE": "map_to_html_dl() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely a megadott szótáron alapuló HTML definíciók listáját reprezentáló karakterláncot ad vissza.",
+            "SYNTAX": "map_to_html_dl(szótár)",
+            "ARGUMENTS": {
+              "A-KEY": "szótár",
+              "A-DESCRIPTION": "szótár, amelyből létrehozhatja a HTML definíciós listát."
+            },
+            "EXAMPLES": {
+              "EX1": "map_to_html_dl(map('a', 1, 'b', 2))",
+              "RES1": "<dl><dt>a</dt><dd>1</dd><dt>b</dt><dd>2</dd></dl>",
+              "EX2": "map_to_html_dl(map('x', 'hello', 'y', 'world'))",
+              "RES2": "<dl><dt>x</dt><dd>hello</dd><dt>y</dt><dd>world</dd></dl>",
+              "EX3": "map_to_html_dl({'key1': true, 'key2': false})",
+              "RES3": "<dl><dt>key1</dt><dd>true</dd><dt>key2</dt><dd>false</dd></dl>"
+            }
+          },
+          "_MAP_TO_HTML_TABLE": {
+            "TITLE": "map_to_html_table() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely a HTML táblát reprezentáló karakterláncot ad vissza a megadott szótár alapján.",
+            "SYNTAX": "map_to_html_table(szótár)",
+            "ARGUMENTS": {
+              "A-KEY": "szótár",
+              "A-DESCRIPTION": "szótár, amelyből a HTML táblázatot létre kell hozni."
+            },
+            "EXAMPLES": {
+              "EX1": "map_to_html_table(map('a', 1, 'b', 2))",
+              "RES1": "<table><tr><th>a</th><td>1</td></tr><tr><th>b</th><td>2</td></tr></table>",
+              "EX2": "map_to_html_table(map('x', 'hello', 'y', 'world'))",
+              "RES2": "<table><tr><th>x</th><td>hello</td></tr><tr><th>y</th><td>world</td></tr></table>",
+              "EX3": "map_to_html_table({'key1': true, 'key2': false})",
+              "RES3": "<table><tr><th>key1</th><td>true</td></tr><tr><th>key2</th><td>false</td></tr></table>"
+            }
+          },
+          "_TO_JSON": {
+            "TITLE": "to_json() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy adott értékszótár, tömb vagy más érték alapján JSON formátumú adatokat reprezentáló karakterláncot ad vissza.",
+            "SYNTAX": "to_json(adatok)",
+            "ARGUMENTS": {
+              "A-KEY": "adatok",
+              "A-DESCRIPTION": "értékszótár, tömb vagy más érték, amelyet formátum JSON-ra konvertál."
+            },
+            "EXAMPLES": {
+              "EX1": "to_json(map('a', 1, 'b', 2))",
+              "RES1": "{\"a\": 1, \"b\": 2}",
+              "EX2": "to_json([1, 2, 3])",
+              "RES2": "[1, 2, 3]",
+              "EX3": "to_json({'key1': true, 'key2': false})",
+              "RES3": "{\"key1\": true, \"key2\": false}"
+            }
+          },
+          "_URL_ENCODE": {
+            "TITLE": "url_encode() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely speciális karakterekkel kódolt karaktersorozatot ad vissza URL formátumban.",
+            "SYNTAX": "url_encode(karakterlánc)",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "a URL formátumban kódolandó karaktersorozat."
+            },
+            "EXAMPLES": {
+              "EX1": "url_encode('Hello World!')",
+              "RES1": "Hello%20World%21",
+              "EX2": "url_encode('a+b=c&d=e')",
+              "RES2": "a%2Bb%3Dc%26d%3De",
+              "EX3": "url_encode('https://example.com/?q=search')",
+              "RES3": "https%3A%2F%2Fexample.com%2F%3Fq%3Dsearch"
+            }
+          }
+        },
+        "STRING-OPERATORS": {
+          "INFO": "Szöveges függvények",
+          "TITLE": "Szövegműveletek",
+          "_ASCII": {
+            "TITLE": "ascii() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely az adott karakterlánc első karakterének ASCII értékét adja vissza.",
+            "SYNTAX": "ascii(karakterlánc)",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "az a karakterlánc, amelyből az első karakter ASCII értéke lekérhető."
+            },
+            "EXAMPLES": {
+              "EX1": "ascii('A')",
+              "RES1": "65",
+              "EX2": "ascii('Hello')",
+              "RES2": "72",
+              "EX3": "ascii('!')",
+              "RES3": "33"
+            }
+          },
+          "_CHAR": {
+            "TITLE": "char() Függvény",
+            "DESCRIPTION": "Egy függvény, amely a megadott ASCII kódnak megfelelő karaktert adja vissza.",
+            "SYNTAX": "char(kód)",
+            "ARGUMENTS": {
+              "A-KEY": "kód",
+              "A-DESCRIPTION": "kód ASCII, amelyhez a megfelelő karaktert vissza kell adni."
+            },
+            "EXAMPLES": {
+              "EX1": "char(65)",
+              "RES1": "A",
+              "EX2": "char(81)",
+              "RES2": "Q",
+              "EX3": "char(33)",
+              "RES3": "!"
+            }
+          },
+          "_CONCAT": {
+            "TITLE": "concat() Függvény",
+            "DESCRIPTION": "Egy függvény, amely több karakterláncot egyesít egybe.",
+            "SYNTAX": "concat(karakterlánc1, karakterlánc2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "egymást követő karakterláncok, amelyeket egybe kell kombinálni. Bármennyi érvet megadhat."
+            },
+            "EXAMPLES": {
+              "EX1": "concat('Hello', ' ', 'World')",
+              "RES1": "Hello World",
+              "EX2": "concat('A', 'B', 'C')",
+              "RES2": "ABC",
+              "EX3": "concat('foo  ', '  bar')",
+              "RES3": "foo    bar"
+            }
+          },
+          "_FORMAT": {
+            "TITLE": "format() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely karaktersorozatot formáz a %1, %2, %3 stb. címkék későbbi argumentumokkal való helyettesítésével. A számozás 1-től kezdődik. A megfelelő argumentum nélküli címkék változatlanok maradnak.",
+            "SYNTAX": "format(karakterlánc, argumentum1, argumentum2, ...)",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "az argumentumok helyeit tartalmazó karaktersorozat, amelyek jelölése %1, %2, %3 stb. Ugyanaz a címke többször is megjelenhet. A karakterlánc nem tartalmazhat vesszőt és szóközt, mert az argumentumok elválasztására szolgál.",
+              "B-KEY": "argumentum",
+              "B-DESCRIPTION": "A következő értékeket a címkékkel jelölt helyekre kell beilleszteni: az első argumentum a %1-t, a második a %2-t stb. helyettesíti. Legalább egy értéket meg kell adni. Az értékek nem lehetnek üres szövegek, és nem tartalmazhatnak vesszőt és szóközt."
+            },
+            "EXAMPLES": {
+              "EX1": "format('Witaj %1! Czas to %2.', 'Jan', '10:00')",
+              "RES1": "Witaj Jan! Czas to 10:00.",
+              "EX2": "format('Liczba: %1; Tekst: %2', 42, 'Hello')",
+              "RES2": "Liczba: 42; Tekst: Hello",
+              "EX3": "format('Dzień: %1; Miesiąc: %2; Rok: %3', 25, 12, 2024)",
+              "RES3": "Dzień: 25; Miesiąc: 12; Rok: 2024"
+            }
+          },
+          "_FORMAT_DATE": {
+            "TITLE": "format_date() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy adattípust vagy karakterláncot meghatározott karaktersorozattá formáz.",
+            "SYNTAX": "format_date(dátum, formátum)",
+            "ARGUMENTS": {
+              "A-KEY": "dátum",
+              "A-DESCRIPTION": "dátum vagy karakterlánc érték YYYY-MM-DD formátumban, pl. 2026-02-05. A dátumnak helyesnek kell lennie, a hónapot és a napot pedig két számjeggyel kell írni.",
+              "B-KEY": "formátum",
+              "B-DESCRIPTION": "a formátum kimenetet meghatározó karakterlánc. Pontosan három összetevőt kell tartalmaznia: (d, dd, ddd vagy dddd) nap, (M, MM, MMM vagy MMMM) hónap és (yy vagy yyyy) év, tetszőleges sorrendben, pontokkal elválasztva, pl. dd.MM.yyyy. A (MMM vagy MMMM) hónapnévnél az eredményt szóközök választják el, egyébként pontok.",
+              "TYPES": {
+                "d": "a hónap napja bevezető nulla nélküli számként (1-31), pl. 5",
+                "dd": "a hónap napja kétjegyű számként (01-31), pl. 05",
+                "ddd": "a hét napjának rövidített angol neve (Mon, Tue, Wed, Thu, Fri, Sat, Sun)",
+                "dddd": "a hét napjának teljes angol neve (Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday)",
+                "M": "hónap kezdő nulla nélküli számként (1-12), pl. 2",
+                "MM": "hónap kétjegyű számként (01-12), pl. 02",
+                "MMM": "a hónap rövidített angol neve (Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec)",
+                "MMMM": "a hónap teljes angol neve (January, February, March, April, May, June, July, August, September, October, November, December)",
+                "yy": "az év utolsó két számjegye (00-99), pl. 26 2026-ra",
+                "yyyy": "évszám négyjegyű számként, pl. 2026"
+              }
+            },
+            "EXAMPLES": {
+              "EX1": "format_date('2026-02-05', 'dd.MM.yyyy')",
+              "RES1": "05.02.2026",
+              "EX2": "format_date('2026-02-05', 'dd.MMMM.yyyy')",
+              "RES2": "05 February 2026",
+              "EX3": "format_date('2026-02-05', 'ddd.MM.yy')",
+              "RES3": "Thu.02.26"
+            }
+          },
+          "_FORMAT_TIME": {
+            "TITLE": "format_time() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely az időt az adott formátumnak megfelelően formázza. Támogatja a 12 órás felvételt az automatikusan hozzáadott AM vagy PM jelöléssel és a 24 órás felvételt.",
+            "SYNTAX": "format_time(idő, formátum)",
+            "ARGUMENTS": {
+              "A-KEY": "idő",
+              "A-DESCRIPTION": "az órát, percet és másodpercet kettősponttal elválasztva tartalmazó karakterlánc, pl. 13:05:09. Minden összetevő egy vagy két számjegyű lehet. Az óra 0-23, a perc és másodperc pedig 0-59 tartományban kell, hogy legyen. Mindhárom összetevőre akkor is szükség van, ha a kimeneti formátum csak kettőt tartalmaz.",
+              "B-KEY": "formátum",
+              "B-DESCRIPTION": "a kimeneti formátumot meghatározó karakterlánc. Két vagy három különböző időösszetevőt kell tartalmaznia: órát (h, hh, H vagy HH), percet (m vagy mm) és másodpercet (s vagy ss), tetszőleges sorrendben, kettősponttal elválasztva. A h vagy hh használata automatikusan szóközt és AM vagy PM jelölést ad az eredmény végéhez.",
+              "TYPES": {
+                "h": "óra 12 órás jelölésben vezető nulla nélkül (1-12), pl. 1 órától 1 óráig; hozzáadja a AM vagy PM jelölést",
+                "hh": "idő 12 órás jelöléssel, kezdő nullával (01-12), pl. 01-én 13 óráig; hozzáadja a AM vagy PM jelölést",
+                "H": "óra 24 órás jelöléssel vezető nulla nélkül (0-23), pl. 5",
+                "HH": "óra 24 órás jelöléssel kezdő nullával (00-23), pl. 05",
+                "m": "perc kezdő nulla nélkül (0-59), pl. 5",
+                "mm": "perc kezdő nullával (00-59), pl. 05",
+                "s": "másodperc kezdő nulla nélkül (0-59), pl. 9",
+                "ss": "másodperc kezdő nullával (00-59), pl. 09"
+              }
+            },
+            "EXAMPLES": {
+              "EX1": "format_time('13:05:09', 'HH:mm:ss')",
+              "RES1": "13:05:09",
+              "EX2": "format_time('13:05:09', 'hh:mm:ss')",
+              "RES2": "01:05:09 PM",
+              "EX3": "format_time('00:00:00', 'h:mm')",
+              "RES3": "12:00 AM"
+            }
+          },
+          "_LEFT": {
+            "TITLE": "left() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely meghatározott számú karaktert ad vissza az adott karakterlánc elejétől.",
+            "SYNTAX": "left(karakterlánc, karakterszám)",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "a karakterlánc, amelyből a karaktereket az elejétől lekérheti.",
+              "B-KEY": "karakterszám",
+              "B-DESCRIPTION": "a karakterlánc elejétől visszakeresendő karakterek száma. Nem negatív egész számnak kell lennie."
+            },
+            "EXAMPLES": {
+              "EX1": "left('Hello World', 5)",
+              "RES1": "Hello",
+              "EX2": "left('abcdef', 3)",
+              "RES2": "abc",
+              "EX3": "left('12345', 0)",
+              "RES3": ""
+            }
+          },
+          "_LENGTH": {
+            "TITLE": "length() Függvény",
+            "DESCRIPTION": "Egy függvény, amely egy adott karakterlánc karaktereinek számát adja vissza.",
+            "SYNTAX": "length(karakterlánc)",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "egy karakterlánc, amelynek hosszát ki kell számítani."
+            },
+            "EXAMPLES": {
+              "EX1": "length('Hello')",
+              "RES1": "5",
+              "EX2": "length('')",
+              "RES2": "0",
+              "EX3": "length('123456789')",
+              "RES3": "9"
+            }
+          },
+          "_LOWER": {
+            "TITLE": "lower() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy karaktersorozatot ad vissza kisbetűs formátumban.",
+            "SYNTAX": "lower(karakterlánc)",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "a kisbetűssé alakítandó karaktersorozat."
+            },
+            "EXAMPLES": {
+              "EX1": "lower('HELLO')",
+              "RES1": "hello",
+              "EX2": "lower('World')",
+              "RES2": "world",
+              "EX3": "lower('123')",
+              "RES3": "123"
+            }
+          },
+          "_LPAD": {
+            "TITLE": "lpad() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy megadott karakterlánc-szélességre kitöltött karaktersorozatot ad vissza a megadott karakterekkel. Ha a bemeneti karakterlánc hosszabb, mint a megadott szélesség, akkor a rendszer balról csonkolja.",
+            "SYNTAX": "lpad(karakterlánc, szélesség, karakter)",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "a párnázandó húr.",
+              "B-KEY": "szélesség",
+              "B-DESCRIPTION": "megadott karakterláncszélesség.",
+              "C-KEY": "karakter",
+              "C-DESCRIPTION": "a karakterlánc befejezéséhez használandó karakter."
+            },
+            "EXAMPLES": {
+              "EX1": "lpad('Hello', 10, ' ')",
+              "RES1": "     Hello",
+              "EX2": "lpad('World', 10, '0')",
+              "RES2": "00000World",
+              "EX3": "lpad('123', 5, '0')",
+              "RES3": "00123"
+            }
+          },
+          "_LTRIM": {
+            "TITLE": "ltrim() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely szóközzel csonkolt karaktersorozatot ad vissza. A karakterlánc bal oldalán további karakterargumentumot is megadhat, amely levágja őket.",
+            "SYNTAX": "ltrim(karakterlánc, [karakterek])",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "a csonkolandó karakterlánc.",
+              "B-KEY": "karakterek",
+              "B-DESCRIPTION": "karakterek, amelyeket el kell távolítani a karakterlánc bal oldaláról."
+            },
+            "EXAMPLES": {
+              "EX1": "ltrim('  Hello  ')",
+              "RES1": "Hello  ",
+              "EX2": "ltrim('yyzzzxxxxxxWorld  ', 'xyz')",
+              "RES2": "World  ",
+              "EX3": "ltrim('---Hello---', '-')",
+              "RES3": "Hello---"
+            }
+          },
+          "_REGEXP_MATCH": {
+            "TITLE": "regexp_match() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely az adott kifejezés első illeszkedési pozícióját adja vissza az adott karakterláncban. 0-t ad vissza, ha nem található egyezés.",
+            "SYNTAX": "regexp_match(karakterlánc, kifejezés)",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "a karakterlánc, amelyben egyezést kell keresni.",
+              "B-KEY": "kifejezés",
+              "B-DESCRIPTION": "a karakterláncban keresendő kifejezés. Lehetőség van a RegEx kifejezések használatára."
+            },
+            "EXAMPLES": {
+              "EX1": "regexp_match('Hello World', 'World')",
+              "RES1": "7",
+              "EX2": "regexp_match('Hello World', 'xyz')",
+              "RES2": "0",
+              "EX3": "regexp_match('abc123', '\\d+')",
+              "RES3": "4"
+            }
+          },
+          "_REGEXP_REPLACE": {
+            "TITLE": "regexp_replace() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy karakterláncot ad vissza az adott kifejezésnek megfelelő lecserélt részekkel.",
+            "SYNTAX": "regexp_replace(karakterlánc, kifejezés, csere)",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "a helyettesítendő karaktersorozat.",
+              "B-KEY": "kifejezés",
+              "B-DESCRIPTION": "a karakterláncban keresendő kifejezés. Lehetőség van a RegEx kifejezések használatára.",
+              "C-KEY": "csere",
+              "C-DESCRIPTION": "karaktersorozat az egyező töredékek helyettesítésére."
+            },
+            "EXAMPLES": {
+              "EX1": "regexp_replace('Hello World', 'World', 'Universe')",
+              "RES1": "Hello Universe",
+              "EX2": "regexp_replace('abc123', '\\d+', 'X')",
+              "RES2": "abcXXX",
+              "EX3": "regexp_replace('foo bar baz', 'ba.', 'qux')",
+              "RES3": "foo qux qux"
+            }
+          },
+          "_REGEXP_SUBSTR": {
+            "TITLE": "regexp_substr() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely visszaadja a karakterláncnak azt a részét, amely megfelel az adott kifejezésnek. Ha több egyezés van, akkor az elsőt adja vissza. Ha nincs egyezés, akkor üres karakterláncot ad vissza.",
+            "SYNTAX": "regexp_substr(karakterlánc, kifejezés)",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "a karakterlánc, amelyből vissza kell adni az alkatrészt.",
+              "B-KEY": "kifejezés",
+              "B-DESCRIPTION": "a kifejezés, amellyel a karakterlánc egy részét ki kell választani. Lehetőség van a RegEx kifejezések használatára, amelyeket a \\ előz meg, mint a példában."
+            },
+            "EXAMPLES": {
+              "EX1": "regexp_substr('Hello World', 'World')",
+              "RES1": "World",
+              "EX2": "regexp_substr('abc123', '\\d+')",
+              "RES2": "123",
+              "EX3": "regexp_substr('foo bar baz', 'ba.')",
+              "RES3": "bar"
+            }
+          },
+          "_REPLACE": {
+            "TITLE": "replace() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy új karakterláncot ad vissza az adott karakterlánc egyes részeivel.",
+            "SYNTAX": "replace(karakterlánc, cserélendő_karakterek, helyettesítő)",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "a helyettesítendő karaktersorozat.",
+              "B-KEY": "cserélendő_karakterek",
+              "B-DESCRIPTION": "a cserélendő karakterláncot.",
+              "C-KEY": "helyettesítő",
+              "C-DESCRIPTION": "a megadott karaktereket helyettesítő karaktersorozat."
+            },
+            "EXAMPLES": {
+              "EX1": "replace('Hello World', 'World', 'Universe')",
+              "RES1": "Hello Universe",
+              "EX2": "replace('abc123', '123', 'XYZ')",
+              "RES2": "abcXYZ",
+              "EX3": "replace('foo bar baz', 'ba', 'qu')",
+              "RES3": "foo qur quz"
+            }
+          },
+          "_RIGHT": {
+            "TITLE": "right() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely meghatározott számú karaktert ad vissza az adott karakterlánc végéről.",
+            "SYNTAX": "right(karakterlánc, karakterszám)",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "a karakterlánc, amelyből vissza kell adni az alkatrészt.",
+              "B-KEY": "karakterszám",
+              "B-DESCRIPTION": "A karakterlánc végéről visszaadandó karakterek száma."
+            },
+            "EXAMPLES": {
+              "EX1": "right('Hello World', 5)",
+              "RES1": "World",
+              "EX2": "right('abcdef', 3)",
+              "RES2": "def",
+              "EX3": "right('123456789', 2)",
+              "RES3": "89"
+            }
+          },
+          "_RPAD": {
+            "TITLE": "rpad() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy megadott karakterlánc-szélességre kitöltött karaktersorozatot ad vissza a megadott karakterekkel. Ha a bemeneti karakterlánc hosszabb, mint a megadott szélesség, akkor a rendszer jobbról csonkolja.",
+            "SYNTAX": "rpad(karakterlánc, szélesség, karakter)",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "a párnázandó húr.",
+              "B-KEY": "szélesség",
+              "B-DESCRIPTION": "a megadott szélesség, amelyre a húrt ki kell tölteni.",
+              "C-KEY": "karakter",
+              "C-DESCRIPTION": "a karakterlánc befejezéséhez használandó karakter."
+            },
+            "EXAMPLES": {
+              "EX1": "rpad('Hello', 10, ' ')",
+              "RES1": "Hello     ",
+              "EX2": "rpad('World', 10, '0')",
+              "RES2": "World00000",
+              "EX3": "rpad('123', 5, '0')",
+              "RES3": "12300"
+            }
+          },
+          "_RTRIM": {
+            "TITLE": "rtrim() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely szóközzel csonkolt karaktersorozatot ad vissza. Lehetőség van egy további karakter argumentum megadására, amelyek a karakterlánctól jobbra csonkolják őket.",
+            "SYNTAX": "rtrim(karakterlánc, [karakterek])",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "a csonkolandó karakterlánc.",
+              "B-KEY": "karakterek",
+              "B-DESCRIPTION": "egy opcionális argumentum, amely megadja a karakterlánc jobb oldaláról levágandó karaktereket."
+            },
+            "EXAMPLES": {
+              "EX1": "rtrim('Hello World ')",
+              "RES1": "Hello World",
+              "EX2": "rtrim('12345', '5')",
+              "RES2": "1234",
+              "EX3": "rtrim('abcxyz', 'xyz')",
+              "RES3": "abc"
+            }
+          },
+          "_STRPOS": {
+            "TITLE": "strpos() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely a keresett kifejezés első pozícióját adja vissza az adott karakterláncban. 0-t ad vissza, ha nem található egyezés.",
+            "SYNTAX": "strpos(karakterlánc, keresett_szöveg)",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "a karakterlánc, amelyben a kifejezést keresni kell.",
+              "B-KEY": "keresett_szöveg",
+              "B-DESCRIPTION": "a karakterláncban keresendő kifejezés."
+            },
+            "EXAMPLES": {
+              "EX1": "strpos('Hello World', 'World')",
+              "RES1": "7",
+              "EX2": "strpos('Hello World', 'xyz')",
+              "RES2": "0",
+              "EX3": "strpos('a123b123c123', '123')",
+              "RES3": "1"
+            }
+          },
+          "_SUBSTR": {
+            "TITLE": "substr() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy levágott karakterláncot ad vissza az adott karakterláncból, egy megadott pozíciótól kezdve és opcionálisan meghatározott hosszúsággal.",
+            "SYNTAX": "substr(karakterlánc, pozíció, [hossz])",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "a karakterlánc, amelyből az alkarakterláncot le kell kérni.",
+              "B-KEY": "pozíció",
+              "B-DESCRIPTION": "az a pozíció, ahonnan az alkarakterláncnak el kell indulnia.",
+              "C-KEY": "hossz",
+              "C-DESCRIPTION": "egy opcionális argumentum, amely megadja az alkarakterlánc hosszát. Egész szám szükséges. Ha negatív számot adunk meg, akkor a részkarakterlánc vége ennyi karakterrel lesz csonkolva a karakterlánc végétől számítva."
+            },
+            "EXAMPLES": {
+              "EX1": "substr('Hello World', 6)",
+              "RES1": "World",
+              "EX2": "substr('Hello World', 2, 5)",
+              "RES2": "llo",
+              "EX3": "substr('abcdef', 2, -2)",
+              "RES3": "bcd"
+            }
+          },
+          "_TITLE": {
+            "TITLE": "title() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy adott karakterláncban minden szó első karakterét nagybetűvé, a többi karaktert pedig kisbetűvé alakítja.",
+            "SYNTAX": "title(karakterlánc)",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "a feldolgozandó karakterlánc."
+            },
+            "EXAMPLES": {
+              "EX1": "title('hello world')",
+              "RES1": "Hello World",
+              "EX2": "title('javaScript is fun')",
+              "RES2": "Javascript Is Fun",
+              "EX3": "title('123abc DEF')",
+              "RES3": "123abc Def"
+            }
+          },
+          "_TO_STRING": {
+            "TITLE": "to_string() Függvény",
+            "DESCRIPTION": "Egy adott számot karaktersorozattá alakító függvény.",
+            "SYNTAX": "to_string(szám)",
+            "ARGUMENTS": {
+              "A-KEY": "szám",
+              "A-DESCRIPTION": "a karakterláncra konvertálandó szám."
+            },
+            "EXAMPLES": {
+              "EX1": "to_string(123)",
+              "RES1": "123",
+              "EX2": "to_string(45.67)",
+              "RES2": "45.67",
+              "EX3": "to_string(-89)",
+              "RES3": "-89"
+            }
+          },
+          "_TRIM": {
+            "TITLE": "trim() Függvény",
+            "DESCRIPTION": "Egy függvény, amely eltávolítja a szóközt egy adott karakterlánc elejéről és végéről.",
+            "SYNTAX": "trim(karakterlánc)",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "a karakterlánc, amelyből a szóközt el kell távolítani."
+            },
+            "EXAMPLES": {
+              "EX1": "trim('  Hello World  ')",
+              "RES1": "Hello World",
+              "EX2": "trim('   abc   ')",
+              "RES2": "abc",
+              "EX3": "trim('   123   ')",
+              "RES3": "123"
+            }
+          },
+          "_UPPER": {
+            "TITLE": "upper() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy karaktersorozatot ad vissza nagybetűs formátumban.",
+            "SYNTAX": "upper(karakterlánc)",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "a nagybetűssé alakítandó karakterlánc."
+            },
+            "EXAMPLES": {
+              "EX1": "upper('hello world')",
+              "RES1": "HELLO WORLD",
+              "EX2": "upper('JavaScript')",
+              "RES2": "JAVASCRIPT",
+              "EX3": "upper('123abc')",
+              "RES3": "123ABC"
+            }
+          },
+          "_WORDWRAP": {
+            "TITLE": "wordwrap() Függvény",
+            "DESCRIPTION": "Olyan függvény, amely egy megadott szélességű karakterláncot ad vissza.",
+            "SYNTAX": "wordwrap(karakterlánc, szélesség)",
+            "ARGUMENTS": {
+              "A-KEY": "karakterlánc",
+              "A-DESCRIPTION": "a zsinórt tekercselni.",
+              "B-KEY": "szélesség",
+              "B-DESCRIPTION": "a megadott szélesség, amelyre a karakterláncot tekercselni kell. 0-nál nagyobb egész számnak kell lennie."
+            },
+            "EXAMPLES": {
+              "EX1": "wordwrap('To jest długi ciąg znaków, który ma zostać zawinięty.', 10)",
+              "RES1": "To jest\n długi ciąg\n znaków, który\n ma zostać\n zawinięty.",
+              "EX2": "wordwrap('Hello World', 5)",
+              "RES2": "Hello\nWorld",
+              "EX3": "wordwrap('1234567890', 3)",
+              "RES3": "123\n456\n789\n0"
+            }
+          }
+        }
+      },
       "ERRORS": {
         "UNMATCHED_PARENTHESIS": "Pár nélküli zárójelek a kifejezésben: {{expression}}.",
         "UNKNOWN_FUNCTION": "Ismeretlen függvény: {{function}}.",
@@ -209,9 +1998,9 @@
         "SUBSTR_INTEGER_POSITIONS": "A kezdőpozíció és a hossz a substr függvényben csak egész szám lehet.",
         "TO_STRING_ARGUMENTS": "A to_string függvényhez pontosan egy szöveggé alakítandó érték szükséges.",
         "TO_STRING_NUMERIC_VALUE": "A to_string függvényhez érvényes számérték szükséges.",
-        "WORLDWRAP_ARGUMENTS": "A worldwrap függvényhez pontosan két argumentum szükséges: szöveg és szélesség.",
-        "WORLDWRAP_POSITIVE_WIDTH": "A szélesség a worldwrap függvényben csak pozitív egész szám lehet.",
-        "WORLDWRAP_INTEGER_WIDTH": "A szélesség a worldwrap függvényben csak egész szám lehet.",
+        "WORDWRAP_ARGUMENTS": "A wordwrap függvényhez pontosan két argumentum szükséges: szöveg és szélesség.",
+        "WORDWRAP_POSITIVE_WIDTH": "A szélesség a wordwrap függvényben csak pozitív egész szám lehet.",
+        "WORDWRAP_INTEGER_WIDTH": "A szélesség a wordwrap függvényben csak egész szám lehet.",
         "PI_ARGUMENTS": "A pi függvény nem fogad argumentumokat.",
         "RANDOM_MIN_ARGUMENTS": "A(z) {{function}} függvényhez legalább két argumentum szükséges: a legkisebb és a legnagyobb érték.",
         "RANDOM_MAX_ARGUMENTS": "A(z) {{function}} függvény legfeljebb három argumentumot fogad: minimumot, maximumot és opcionálisan véletlenmagot.",

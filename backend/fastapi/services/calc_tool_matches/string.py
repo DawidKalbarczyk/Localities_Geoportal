@@ -470,29 +470,29 @@ def string_match(func):
                     )
                 return str(args[0]).upper()
             return _upper
-        case "worldwrap":
-            def _worldwrap(arg):
+        case "wordwrap":
+            def _wordwrap(arg):
                 ipt = arg.split(", ")
                 if len(ipt) != 2:
                     raise CalculationError(
-                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.WORLDWRAP_ARGUMENTS",
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.WORDWRAP_ARGUMENTS",
                         params={},
-                        message="worldwrap function requires exactly two arguments: the string and the width",
+                        message="wordwrap function requires exactly two arguments: the string and the width",
                     )
                 argument, max_char = ipt
                 try:
                     max_char = int(max_char)
                     if max_char <= 0:
                         raise CalculationError(
-                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.WORLDWRAP_POSITIVE_WIDTH",
+                            code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.WORDWRAP_POSITIVE_WIDTH",
                             params={},
-                            message="worldwrap function requires a positive integer for width",
+                            message="wordwrap function requires a positive integer for width",
                         )
                 except ValueError:
                     raise CalculationError(
-                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.WORLDWRAP_INTEGER_WIDTH",
+                        code="ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.ERRORS.WORDWRAP_INTEGER_WIDTH",
                         params={},
-                        message="worldwrap function requires a valid integer for width",
+                        message="wordwrap function requires a valid integer for width",
                     )
                 lines = []
                 word_len = len(argument)
@@ -502,6 +502,6 @@ def string_match(func):
                 if remaining_chars:
                     lines.append(argument[iterates * max_char:])
                 return "\n".join(lines)
-            return _worldwrap
+            return _wordwrap
         case _:
             return None

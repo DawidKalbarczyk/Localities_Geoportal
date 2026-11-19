@@ -7,7 +7,7 @@
 
     display: block;
     position: fixed;
-    max-height: 40vh;
+    max-height: 55vh;
     bottom: $basic-padding-bottom;
     right: 0;
     left: 25%;
@@ -147,6 +147,12 @@
         border-collapse: separate;
         border-spacing: 0;
         table-layout: auto;
+        transition: filter 0.2s ease;
+
+        &.attribute-table-dimmed {
+            filter: brightness(0.5);
+            pointer-events: none;
+        }
 
         .first-row-cell {
             cursor: pointer;
