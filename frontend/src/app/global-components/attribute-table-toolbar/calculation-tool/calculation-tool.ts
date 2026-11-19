@@ -64,6 +64,7 @@ export class CalculationTool implements OnDestroy {
   public parserError = signal<string>('');
 
   public async submitExpression(): Promise<void> {
+    this.hideFunctionTooltip();
     let checked_keys = []
     for (const key of await this.shownTableKeys()) {
       if (this.expression().includes(key)) {
