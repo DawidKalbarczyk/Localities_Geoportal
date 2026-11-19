@@ -62,6 +62,12 @@ export class AttributeTable {
     this.rowStartIndex.set(Math.max(0, Math.min(start, totalRows - this.batchSize)));
   }
 
+  public scrollToTableEnd(container: HTMLElement): void {
+    afterNextRender(() => {
+      container.scrollTo({ left: container.scrollWidth, behavior: 'smooth' });
+    }, { injector: this.injector });
+  }
+
   public columnCount(row: Record<string, unknown> | undefined): number {
     return row ? Object.keys(row).filter(key => key !== 'wkb_geometry').length : 1;
   }
