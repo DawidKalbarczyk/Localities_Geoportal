@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input, OnDestroy, signal, untracked } from '@angular/core';
+import { Component, computed, effect, inject, input, OnDestroy, output, signal, untracked } from '@angular/core';
 import { AttributeTableToolbarService } from '../../../services/attribute-table-toolbar-service/attribute-table-toolbar-service';
 import { FormsModule, NgModel } from '@angular/forms';
 import { AsyncPipe, KeyValuePipe } from '@angular/common';
@@ -18,6 +18,7 @@ type FunctionTooltipSelection = { category: string; func: string };
 })
 export class CalculationTool implements OnDestroy {
   public shownTable = input<Promise<Record<string, unknown>[]>>(Promise.resolve([]));
+  public calculationCompleted = output<void>();
   public ToolbarService = inject(AttributeTableToolbarService);
   public expression = this.ToolbarService.userExpression;
   public expressionScrollTop = signal(0);
@@ -88,6 +89,7 @@ export class CalculationTool implements OnDestroy {
       }));
       this.parserResult.set(result);
       this.parserError.set('');
+      this.calculationCompleted.emit();
     } catch (error: unknown) {
       const detail = error instanceof HttpErrorResponse 
         ? error.error?.detail

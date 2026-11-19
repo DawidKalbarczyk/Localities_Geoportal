@@ -68,7 +68,8 @@
                         </table>
                     </div>
                     <app-filter-tool [shownTable]="shownTable()"></app-filter-tool>
-                    <app-calculation-tool #calculationTool [shownTable]="shownTable()"></app-calculation-tool>
+                    <app-calculation-tool #calculationTool [shownTable]="shownTable()"
+                        (calculationCompleted)="scrollToTableEnd(tableScroll)"></app-calculation-tool>
                     
                 </div>
 
