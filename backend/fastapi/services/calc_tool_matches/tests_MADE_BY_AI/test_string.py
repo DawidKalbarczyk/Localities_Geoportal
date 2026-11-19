@@ -188,8 +188,8 @@ def test_to_string():
         assert function(argument) == str(value), argument
 
 
-def test_worldwrap():
-    function = string_match("worldwrap")
+def test_wordwrap():
+    function = string_match("wordwrap")
     for i in range(10_000):
         text = f"Zażółć gęślą🙂{i}" * (1 + i % 5)
         width = 1 + i % 31
@@ -261,10 +261,10 @@ def test_worldwrap():
         ("substr", ("a, 0, 1, 2",), ValueError),
         ("to_string", ("a",), ValueError),
         ("to_string", ("1, 2",), ValueError),
-        ("worldwrap", ("a",), ValueError),
-        ("worldwrap", ("a, 0",), ValueError),
-        ("worldwrap", ("a, -1",), ValueError),
-        ("worldwrap", ("a, x",), ValueError),
+        ("wordwrap", ("a",), ValueError),
+        ("wordwrap", ("a, 0",), ValueError),
+        ("wordwrap", ("a, -1",), ValueError),
+        ("wordwrap", ("a, x",), ValueError),
     ],
 )
 def test_invalid_arguments(name, args, error):
@@ -311,7 +311,7 @@ def test_format_number_invalid_options(options):
         ("lpad", (", 0, _",), ""),
         ("rpad", (", 0, _",), ""),
         ("substr", ("abc, -2, 1",), "b"),
-        ("worldwrap", (", 1",), ""),
+        ("wordwrap", (", 1",), ""),
         ("substr", (", 0",), ""),
         ("substr", (", -1, 2",), ""),
         ("char", (65.9,), "A"),
@@ -333,6 +333,6 @@ def test_boundaries(name, args, expected):
     assert result == expected
 
 
-@pytest.mark.parametrize("name", ["", "unknown", "wordwrap", None])
+@pytest.mark.parametrize("name", ["", "unknown", "worldwrap", None])
 def test_unknown_function(name):
     assert string_match(name) is None
