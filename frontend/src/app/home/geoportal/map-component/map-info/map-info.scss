@@ -1,0 +1,57 @@
+@use '../../../../../variables' as *;
+
+:host {
+    position: fixed;
+    bottom: $basic-padding-bottom;
+    right: 0;
+    z-index: 1000000;
+    pointer-events: none;
+
+    &.host-shifted {
+        bottom: calc($basic-padding-bottom + 55vh);
+    }
+    &.host-transformed {
+        bottom: $basic-padding-bottom;
+        right: 34%;
+    }
+
+    .main-con {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        background-color: $secondary-color-light;
+
+        .mouse-coordinates {
+            padding: 0.4rem 1rem 0.4rem 0.5rem;
+            gap: 0.5rem;
+        }
+        .epsg {
+            padding: 0.4rem 1rem;
+        }
+        .map-scale {
+            padding: 0.4rem 0.5rem 0.4rem 1rem;
+        }
+        div {
+            border-right: 1px solid rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 0.25rem;
+            &:last-child {
+                border-right: none;
+            }
+            
+            img {
+                width: 1rem;
+                height: 1rem;
+            }
+            p {
+                font-size: 0.75rem;
+            }
+        }
+    }
+
+}

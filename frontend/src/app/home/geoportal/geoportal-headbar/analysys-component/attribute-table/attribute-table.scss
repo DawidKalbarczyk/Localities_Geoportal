@@ -30,6 +30,21 @@
         left: 66% !important;
     }
 
+    &.main-con-has-data {
+        height: 55vh;
+        min-height: 0;
+        box-sizing: border-box;
+
+        .attribute-table-panel {
+            height: 100%;
+            max-height: 100%;
+        }
+
+        .attribute-table-content {
+            flex: 1;
+        }
+    }
+
     .empty-table {
         display: flex;
         justify-content: center;

@@ -86,6 +86,7 @@ export class CalculationTool implements OnDestroy {
       this.ToolbarService.setParserResult(result);
       this.parserResult.set(result);
       this.parserError.set('');
+      this.ToolbarService.showCalculationNotification();
       this.calculationCompleted.emit();
     } catch (error: unknown) {
       const detail = error instanceof HttpErrorResponse 

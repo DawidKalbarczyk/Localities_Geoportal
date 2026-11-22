@@ -41,11 +41,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            opacity: 0;
-            transition: opacity 0.5s ease;
+            &.filter-notification-enter {
+                animation: filter-notification-in 0.5s ease;
+            }
 
-            &.applied-filters-pop-up-on {
-                opacity: 1;
+            &.filter-notification-leave {
+                animation: filter-notification-out 0.5s ease both;
             }
 
             > p {
@@ -394,6 +395,16 @@
             animation: filter-tool-slide-in 0.3s ease-out both;
         }
     }
+}
+
+@keyframes filter-notification-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes filter-notification-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }
 
 @keyframes filter-tool-slide-in {

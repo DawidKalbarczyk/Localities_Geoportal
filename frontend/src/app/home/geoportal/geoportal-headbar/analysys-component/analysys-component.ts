@@ -650,7 +650,7 @@ export class AnalysysComponent {
     }
         /* ============================SHOWN ATTRIBUTE TABLE==================================== */
 
-    public showAttributeTable = signal<boolean>(false);
+    public showAttributeTable = this.AMService.showAttributeTable;
     public shownTable = computed(async () => {
       if (this.attributeSelectedLayer() === 'Attribute Selection') {
         return (this.rows());

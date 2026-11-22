@@ -1,4 +1,7 @@
 {
+  "MAP-INFO": {
+    "SCALE": "Kartenmaßstab"
+  },
   "HOME": {
     "SELECTION1": "Ortsgeoportal",
     "SELECTION2": "Verlauf der Benutzeraktivitäten",
@@ -86,6 +89,7 @@
       "OFF": "Schalten Sie die Datensatzsuche aus"
     },
     "FILTER": {
+      "FILTERS-RESET": "Filter zurückgesetzt",
       "FILTERS-APPLIED": "Filter wurden angewendet",
       "NAME": "Filtern",
       "ON": "Datensätze filtern",
@@ -118,6 +122,8 @@
       }
     },
     "CALCULATE-FIELD": {
+      "FIELDS-RESET": "Felder zurückgesetzt",
+      "CALCULATION-COMPLETED": "Feld berechnet",
       "HEADER": {
         "TITLE": "Feldrechner",
         "BUTT-NEW": "Neues Feld erstellen",

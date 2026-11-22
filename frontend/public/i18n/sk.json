@@ -1,4 +1,7 @@
 {
+  "MAP-INFO": {
+    "SCALE": "Mierka mapy"
+  },
   "HOME": {
     "SELECTION1": "Geoportál lokality",
     "SELECTION2": "História aktivity používateľa",
@@ -86,6 +89,7 @@
       "OFF": "Vypnite vyhľadávanie záznamov"
     },
     "FILTER": {
+      "FILTERS-RESET": "Filtre boli obnovené",
       "FILTERS-APPLIED": "Boli použité filtre",
       "NAME": "Filter",
       "ON": "Filtrovať záznamy",
@@ -118,6 +122,8 @@
       }
     },
     "CALCULATE-FIELD": {
+      "FIELDS-RESET": "Polia boli obnovené",
+      "CALCULATION-COMPLETED": "Pole bolo vypočítané",
       "HEADER": {
         "TITLE": "Kalkulačka polí",
         "BUTT-NEW": "Vytvoriť nové pole",

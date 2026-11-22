@@ -1,4 +1,7 @@
 {
+  "MAP-INFO": {
+    "SCALE": "Térkép méretaránya"
+  },
   "HOME": {
     "SELECTION1": "Helyi geoportál",
     "SELECTION2": "Felhasználói tevékenység előzményei",
@@ -86,6 +89,7 @@
       "OFF": "Kapcsolja ki a rekordkeresést"
     },
     "FILTER": {
+      "FILTERS-RESET": "Szűrők visszaállítva",
       "FILTERS-APPLIED": "Szűrők kerültek alkalmazásra",
       "NAME": "Szűrő",
       "ON": "Rekordok szűrése",
@@ -118,6 +122,8 @@
       }
     },
     "CALCULATE-FIELD": {
+      "FIELDS-RESET": "Mezők visszaállítva",
+      "CALCULATION-COMPLETED": "Mező kiszámítva",
       "HEADER": {
         "TITLE": "Mezőkalkulátor",
         "BUTT-NEW": "Új mező létrehozása",

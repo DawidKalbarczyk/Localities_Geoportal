@@ -1,4 +1,7 @@
 {
+  "MAP-INFO": {
+    "SCALE": "Escala del mapa"
+  },
   "HOME": {
     "SELECTION1": "Geoportal de localidad",
     "SELECTION2": "Historial de actividad del usuario",
@@ -86,6 +89,7 @@
       "OFF": "Desactivar la búsqueda de registros"
     },
     "FILTER": {
+      "FILTERS-RESET": "Filtros restablecidos",
       "FILTERS-APPLIED": "Se han aplicado filtros.",
       "NAME": "Filtrar",
       "ON": "Filtrar registros",
@@ -118,6 +122,8 @@
       }
     },
     "CALCULATE-FIELD": {
+      "FIELDS-RESET": "Campos restablecidos",
+      "CALCULATION-COMPLETED": "Campo calculado",
       "HEADER": {
         "TITLE": "Calculadora de campos",
         "BUTT-NEW": "Crear campo nuevo",

@@ -1,7 +1,8 @@
 <div class="filter-tool-container" [class.filter-tool-container-on]="ToolbarService.ToolbarTools['filterTool']()">
-    @if (ToolbarService.appliedFiltersPopUp()) {
-        <div class="applied-filters-pop-up" [class.applied-filters-pop-up-on]="ToolbarService.hideAppliedFiltersPopUp()">
-            <p>{{'ATTRIBUTE-TOOLBAR.FILTER.FILTERS-APPLIED' | translate}}</p>
+    @if (ToolbarService.filterNotification(); as message) {
+        <div class="applied-filters-pop-up" role="status"
+            animate.enter="filter-notification-enter" animate.leave="filter-notification-leave">
+            <p>{{message | translate}}</p>
         </div>
     }
     

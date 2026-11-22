@@ -1,4 +1,7 @@
 {
+  "MAP-INFO": {
+    "SCALE": "Skala mapy"
+  },
   "HOME": {
     "SELECTION1": "Geoportal miejscowości",
     "SELECTION2": "Historia działań użytkownika",
@@ -86,6 +89,7 @@
       "OFF": "Wyłącz wyszukiwarkę rekordów"
     },
     "FILTER": {
+      "FILTERS-RESET": "Zresetowano filtry",
       "FILTERS-APPLIED": "Zastosowano filtry",
       "NAME": "Filtruj",
       "ON": "Filtracja rekordów",
@@ -120,6 +124,8 @@
       }
     },
     "CALCULATE-FIELD": {
+      "FIELDS-RESET": "Zresetowano pola",
+      "CALCULATION-COMPLETED": "Obliczono pole",
       "HEADER": {
         "TITLE": "Kalkulator pól",
         "BUTT-NEW": "Stwórz nowe pole",
