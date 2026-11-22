@@ -274,12 +274,15 @@ export class AttributeTableToolbarService {
     });
 
     private shownTable = signal<Record<string, unknown>[]>([]);
+    private initialTable: Record<string, unknown>[] = [];
     private createdColumns = signal<string[]>([]);
     public compareTableColumns = (a: { key: string }, b: { key: string }): number =>
         this.createdColumns().indexOf(a.key) - this.createdColumns().indexOf(b.key);
 
     public async setShownTable(table: Promise<Record<string, unknown>[]>): Promise<void> {
-        this.shownTable.set(await table);
+        const rows = await table;
+        this.initialTable = structuredClone(rows);
+        this.shownTable.set(rows);
         this.createdColumns.set([]);
     }
     public shownTableFilterAttributes = computed(() => {
@@ -330,6 +333,23 @@ export class AttributeTableToolbarService {
     public shownTableForCalculateField = computed<Record<string, unknown>[]>(() =>
         structuredClone(this.newShownTable() ?? this.shownTable())
     );
+
+    public resetCalcToolButt(): void {
+        const table = this.shownTable();
+        // Preserve row references shared with the filter and calculation tools.
+        table.forEach((row, index) => {
+            for (const key of Object.keys(row)) {
+                delete row[key];
+            }
+            Object.assign(row, structuredClone(this.initialTable[index]));
+        });
+        this.shownTable.set([...table]);
+        this.newShownTable.set(null);
+        this.createdColumns.set([]);
+        this.parserResult.set(null);
+        this.resetCalculateFieldTool();
+    }
+
     private shownTableKeys = computed(() => {
         const table = this.shownTableForCalculateField();
         if (table.length === 0) return [];
@@ -421,4 +441,9 @@ export class AttributeTableToolbarService {
     //     * tutaj zrobić dosłownie dowolność w obliczeniach
     //     * dodać takie jakby select jak w QGIS czyli np Date: {age, day}, Fields: {Kolumna 1, Kolumna 2}
     //      Zrobić przekierowanie na pandas????????
+
+////////////////////////////////////////////////
+  // RESET FIELD TOOL
+/////////////////////////////////////////////////
+    
 }

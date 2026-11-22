@@ -2032,6 +2032,10 @@
       "NAME": "Feld berechnen",
       "ON": "Berechnen Sie ein Feld basierend auf Attributen",
       "OFF": "Schalten Sie das Feldberechnungstool aus"
+    },
+    "RESET-FIELD": {
+      "NAME": "Felder zurücksetzen",
+      "ON": "Felder auf Standardwerte zurücksetzen"
     }
   },
   "GEOPORTAL": {

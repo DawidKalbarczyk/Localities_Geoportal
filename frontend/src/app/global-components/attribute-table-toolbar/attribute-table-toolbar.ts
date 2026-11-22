@@ -110,4 +110,9 @@ export class AttributeTableToolbar implements OnDestroy {
   // CALCULATE FIELD TOOL
   public isCalculateFieldToolActive = this.ToolbarTools['calculateFieldTool'];
 
+  // RESET CALCULATE FIELD TOOL
+  public resetCalcToolButt(): void {
+    this.ToolbarService.resetCalcToolButt();
+  }
+
 }

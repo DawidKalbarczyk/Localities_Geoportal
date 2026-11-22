@@ -2034,6 +2034,10 @@
       "NAME": "Oblicz pole",
       "ON": "Oblicz pole na podstawie atrybutów",
       "OFF": "Wyłącz narzędzie obliczania pól"
+    },
+    "RESET-FIELD": {
+      "NAME": "Resetuj pola",
+      "ON": "Resetuj pola do wartości domyślnych"
     }
   },
   "GEOPORTAL": {
