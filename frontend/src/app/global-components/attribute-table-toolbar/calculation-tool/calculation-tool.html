@@ -1,4 +1,10 @@
 <div class="calculation-tool" [class.calculation-tool-on]="ToolbarService.ToolbarTools['calculateFieldTool']()">
+    @if (ToolbarService.calculationNotification(); as message) {
+        <div class="calculation-success-pop-up" role="status"
+            animate.enter="calculation-success-enter" animate.leave="calculation-success-leave">
+            <p>{{message | translate}}</p>
+        </div>
+    }
     <div class="calculation-tool-header">
         <div class="calculation-tool-title">
             <p>{{'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.HEADER.TITLE' | translate}}</p>

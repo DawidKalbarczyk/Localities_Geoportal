@@ -1,4 +1,7 @@
 {
+  "MAP-INFO": {
+    "SCALE": "Map scale"
+  },
   "HOME": {
     "SELECTION1": "Locality geoportal",
     "SELECTION2": "User activity history",
@@ -86,6 +89,7 @@
       "OFF": "Turn off record search"
     },
     "FILTER": {
+      "FILTERS-RESET": "Filters reset",
       "FILTERS-APPLIED": "Filters has been applied",
       "NAME": "Filter",
       "ON": "Filter records",
@@ -120,6 +124,8 @@
       }
     },
     "CALCULATE-FIELD": {
+      "FIELDS-RESET": "Fields reset",
+      "CALCULATION-COMPLETED": "Field calculated",
       "HEADER": {
         "TITLE": "Field calculator",
         "BUTT-NEW": "Create new field",

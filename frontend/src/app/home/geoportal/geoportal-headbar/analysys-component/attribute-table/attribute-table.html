@@ -1,4 +1,6 @@
-<div class="main-con" [class.main-con-transform]="ToolbarService.locateRowStyleOn()" [style.--table-row-height.px]="rowHeight">
+<div class="main-con" [class.main-con-transform]="ToolbarService.locateRowStyleOn()"
+    [class.main-con-has-data]="!isShownTableEmpty() && ToolbarService.shownTableForCalculateField().length > 0"
+    [style.--table-row-height.px]="rowHeight">
     @if (isShownTableEmpty()) {
         <div class="attribute-table-panel">
             <div class="empty-table" role="status">

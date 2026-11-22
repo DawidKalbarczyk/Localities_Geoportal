@@ -1,4 +1,7 @@
 {
+  "MAP-INFO": {
+    "SCALE": "Échelle de la carte"
+  },
   "HOME": {
     "SELECTION1": "Géoportail de localité",
     "SELECTION2": "Historique de l'activité des utilisateurs",
@@ -86,6 +89,7 @@
       "OFF": "Désactiver la recherche d'enregistrements"
     },
     "FILTER": {
+      "FILTERS-RESET": "Filtres réinitialisés",
       "FILTERS-APPLIED": "Les filtres ont été appliqués",
       "NAME": "Filtre",
       "ON": "Filtrer les enregistrements",
@@ -118,6 +122,8 @@
       }
     },
     "CALCULATE-FIELD": {
+      "FIELDS-RESET": "Champs réinitialisés",
+      "CALCULATION-COMPLETED": "Champ calculé",
       "HEADER": {
         "TITLE": "Calculatrice de champs",
         "BUTT-NEW": "Créer un nouveau champ",

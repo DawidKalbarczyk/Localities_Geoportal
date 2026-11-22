@@ -183,4 +183,6 @@ export class AMService {
                 console.error('Unknown component for resolution display');
         }
     }
+
+    public showAttributeTable = signal<boolean>(false);
 }

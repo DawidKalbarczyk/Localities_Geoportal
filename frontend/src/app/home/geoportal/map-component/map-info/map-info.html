@@ -1,0 +1,16 @@
+<div class="main-con">
+    <div class="mouse-coordinates"> <!-- Mouse coordinates MOUSE Xpx Ypx : WORLD Xm Ym-->
+        <img src="./images/icons/cursor.png" draggable="false" alt="Mouse Coordinates">
+        <p class="mouse-coordinates-text">
+            {{mousePosition().x}}px {{mousePosition().y}}px &nbsp;&nbsp;|&nbsp;&nbsp;
+            Y: {{mouseCoordinates2180()?.easting || 'ErrorX'}}m X: {{mouseCoordinates2180()?.northing || 'ErrorY'}}m
+        </p>
+        <img src="./images/icons/world.png" draggable="false" alt="World Coordinates">
+    </div>
+    <div class="epsg">
+        <p>EPSG: 2180</p>
+    </div>
+    <div class="map-scale">
+        <p>{{'MAP-INFO.SCALE' | translate}}: {{scale()}}</p>
+    </div>
+</div>

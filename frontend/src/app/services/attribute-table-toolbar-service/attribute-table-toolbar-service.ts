@@ -1,4 +1,4 @@
-import { afterNextRender, computed, inject, Injector, Service, signal, type WritableSignal} from '@angular/core';
+import { afterNextRender, computed, inject, Injector, Service, signal, type OnDestroy, type WritableSignal} from '@angular/core';
 import { Map } from 'ol';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
@@ -23,8 +23,36 @@ export type Filters = {
 }
 
 @Service()
-export class AttributeTableToolbarService {
+export class AttributeTableToolbarService implements OnDestroy {
     private readonly injector = inject(Injector);
+    public filterNotification = signal<string | null>(null);
+    public calculationNotification = signal<string | null>(null);
+    private readonly notificationTimeouts: Partial<Record<'filter' | 'calculation', ReturnType<typeof setTimeout>>> = {};
+
+    public showFilterNotification(message = 'ATTRIBUTE-TOOLBAR.FILTER.FILTERS-APPLIED'): void {
+        this.showToolNotification('filter', message);
+    }
+
+    public showCalculationNotification(message = 'ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.CALCULATION-COMPLETED'): void {
+        this.showToolNotification('calculation', message);
+    }
+
+    private showToolNotification(tool: 'filter' | 'calculation', message: string): void {
+        const notification = tool === 'filter' ? this.filterNotification : this.calculationNotification;
+        clearTimeout(this.notificationTimeouts[tool]);
+        notification.set(message);
+        this.notificationTimeouts[tool] = setTimeout(() => {
+            notification.set(null);
+            delete this.notificationTimeouts[tool];
+        }, 1500);
+    }
+
+    public ngOnDestroy(): void {
+        for (const timeout of Object.values(this.notificationTimeouts)) {
+            clearTimeout(timeout);
+        }
+    }
+
     private resetVersion = 0;
     public ToolbarTools: ToolbarTool = {
         selectionTool: signal<boolean>(false),
@@ -190,6 +218,7 @@ export class AttributeTableToolbarService {
             }
         });
         this.filterType.set('and');
+        this.showFilterNotification('ATTRIBUTE-TOOLBAR.FILTER.FILTERS-RESET');
     }
     public newShownTable = signal<Record<string, unknown>[] | null>(null);
     public applyFilters(table: Promise<Record<string, unknown>[]>): void {
@@ -246,24 +275,8 @@ export class AttributeTableToolbarService {
             }));
         });
         console.log('Applied filters:', this.filters());
-        this.appliedFiltersPopUp.set(true);
-        this.hideAppliedFiltersPopUp.set(false);
-
-        requestAnimationFrame(() => {
-            this.hideAppliedFiltersPopUp.set(true);
-        });
-
-        setTimeout(() => {
-            this.hideAppliedFiltersPopUp.set(false);
-
-            setTimeout(() => {
-                this.appliedFiltersPopUp.set(false);
-            }, 500);
-        }, 1500);
+        this.showFilterNotification();
     }
-
-    public appliedFiltersPopUp = signal<boolean>(false);
-    public hideAppliedFiltersPopUp = signal<boolean>(false);
 
     private filterAttributes = computed(() => {
         let filterAttributeList = [];
@@ -348,6 +361,7 @@ export class AttributeTableToolbarService {
         this.createdColumns.set([]);
         this.parserResult.set(null);
         this.resetCalculateFieldTool();
+        this.showCalculationNotification('ATTRIBUTE-TOOLBAR.CALCULATE-FIELD.FIELDS-RESET');
     }
 
     private shownTableKeys = computed(() => {

@@ -1,2 +1,3 @@
 <div id="map" [class.selection-active]="objectSelection.selectedSelectOptionLayer() ? true : false"></div>
 <app-info-component></app-info-component>
+<app-map-info [mouseCoordinates]="mouseCoordinates()" [mapView]="mapView()"></app-map-info>

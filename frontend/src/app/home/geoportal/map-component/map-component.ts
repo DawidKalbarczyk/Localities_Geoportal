@@ -1,15 +1,17 @@
 import { AfterViewInit, Component, effect, inject, signal} from '@angular/core';
+import {MapInfo } from './map-info/map-info';
 import Map from 'ol/Map';
 import OSM from 'ol/source/OSM';
 import TileLayer from 'ol/layer/Tile';
 import View from 'ol/View';
-import { fromLonLat, get } from 'ol/proj';
+import { fromLonLat, get, toLonLat } from 'ol/proj';
 import VectorImageLayer from 'ol/layer/VectorImage';
 import VectorSource from 'ol/source/Vector';
 import GeoJSON from 'ol/format/GeoJSON';
 import { Style, Text, Fill, Stroke, Circle as CircleStyle } from 'ol/style';
 import Feature, { FeatureLike } from 'ol/Feature';
 import TileWMS from 'ol/source/TileWMS';
+
 import { LayerVisibility, LayerKey } from '../../../services/layer-visibility/layer-visibility';
 import { InfoToggle } from '../../../services/info-toggle/info-toggle';
 import { InfoComponent } from '../geoportal-headbar/info-component/info-component';
@@ -24,7 +26,7 @@ import { AttributeTableToolbarService } from '../../../services/attribute-table-
 
 @Component({
   selector: 'app-map-component',
-  imports: [InfoComponent],
+  imports: [InfoComponent, MapInfo],
   templateUrl: './map-component.html',
   styleUrl: './map-component.scss',
 })
@@ -97,6 +99,11 @@ export class MapComponent implements AfterViewInit {
     })
   }
 
+  public mouseCoordinates = signal<{
+    longitude: number;
+    latitude: number;
+  } | null>(null);
+  public mapView = signal<View | null>(null);
 
   public objectSelection = inject(ObjSelection);
   ngAfterViewInit(): void {
@@ -133,11 +140,23 @@ export class MapComponent implements AfterViewInit {
         zoom: 7,
       }),
     });
+    this.mapView.set(this.map.getView());
     this.zoomToObject.setMap(this.map);
     this.AMService.getMap(this.map);
     this.ToolbarService.getMapComponent(this.map);
     this.objectSelection.getMapLayers(this.map.getLayers());
     
+    this.map.on('pointermove', (event) => {
+      const [longitude, latitude] = toLonLat(
+        event.coordinate,
+        this.map.getView().getProjection()
+      );
+      this.mouseCoordinates.set({ longitude, latitude });
+    });
+    this.map.on('change:view', () => {
+      this.mapView.set(this.map.getView());
+    });
+
     this.map.on('singleclick', (event) => {
       this.objectSelection.isSelectionPicked.set(true);
       if (this.infoToggleService.isInfoClicked()) {
