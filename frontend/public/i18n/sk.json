@@ -49,7 +49,7 @@
     "FILTER": {
       "TITLE": "Nástroj filtrovania",
       "CONTENT": {
-        "CON1": "<strong>Krok 1.</strong> Vyberte spôsob filtrovania.<br>Možnosť „Všetky“ znamená, že musia byť splnené všetky podmienky.<br>Možnosť „Akékoľvek“ znamená, že stačí splniť jednu z podmienok.",
+        "CON1": "<strong>Krok 1.</strong> Vyberte spôsob filtrovania. Možnosť „<strong>Všetky</strong>“ znamená, že musia byť splnené všetky podmienky. Možnosť „<strong>Akékoľvek</strong>“ znamená, že stačí splniť jednu z podmienok.",
         "CON2": "<strong>Krok 2.</strong> Vyberte atribút, operátor a zadajte hodnotu na porovnanie.",
         "CON3": "Filtrovanie môžete spresniť pridaním viacerých podmienok. Kliknutím na tlačidlo „Pridať nový filter“ pridáte ďalšiu podmienku."
       },

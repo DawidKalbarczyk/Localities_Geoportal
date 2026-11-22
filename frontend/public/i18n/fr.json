@@ -49,7 +49,7 @@
     "FILTER": {
       "TITLE": "Outil de filtrage",
       "CONTENT": {
-        "CON1": "<strong>Étape 1.</strong> Sélectionnez le type de filtrage.<br>« Tous » signifie que toutes les conditions doivent être remplies.<br>« N'importe lequel » signifie qu’il suffit de remplir une des conditions.",
+        "CON1": "<strong>Étape 1.</strong> Sélectionnez le type de filtrage. « <strong>Tous</strong> » signifie que toutes les conditions doivent être remplies. « <strong>N'importe lequel</strong> » signifie qu’il suffit de remplir une des conditions.",
         "CON2": "<strong>Étape 2.</strong> Sélectionnez un attribut et un opérateur, puis saisissez une valeur de comparaison.",
         "CON3": "Vous pouvez ajouter plusieurs conditions pour affiner le filtrage. Cliquez sur « Ajouter un nouveau filtre » pour ajouter une condition supplémentaire."
       },
