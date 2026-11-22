@@ -440,7 +440,7 @@
 
             button {
                 flex: 0 0 auto;
-                padding: 0.5rem 1rem;
+                padding: 0.5rem 2rem;
                 border: none;
                 transition: filter 0.3s ease;
                 font-size: 0.875rem;
@@ -456,6 +456,7 @@
                     padding: 0;
                     box-sizing: border-box;
                     background-color: white;
+                    border: 1px solid rgba(0,0,0,0.35);
                     border-radius: 50%;
                     display: flex;
                     justify-content: center;

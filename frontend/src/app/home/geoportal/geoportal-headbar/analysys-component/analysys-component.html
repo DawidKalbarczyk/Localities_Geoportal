@@ -52,7 +52,7 @@
                                         (mouseenter)="handleMouseEnter(attribute?.name)">{{attribute?.name}}</option>
                                     }
                                 </select>
-                                <button class="help-butt" (click)="showStaticHelp()" [disabled]="!isHelpButtonEnabled()" 
+                                <button class="help-butt" (click)="showAttributeHelp()" [disabled]="!isHelpButtonEnabled()" 
                                 [class.help-butt-deactivated]="!isHelpButtonEnabled()">
                                     <img src="/images/icons/question.png" alt="Help" draggable="false"/>
                                 </button>

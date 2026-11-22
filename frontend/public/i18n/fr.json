@@ -46,13 +46,32 @@
       "TITLE": "Informations sur les attributs de couche",
       "CLOSE-BUTT": "Fermer"
     },
+    "FILTER": {
+      "TITLE": "Outil de filtrage",
+      "CONTENT": {
+        "CON1": "<strong>Étape 1.</strong> Sélectionnez le type de filtrage.<br>« Tous » signifie que toutes les conditions doivent être remplies.<br>« N'importe lequel » signifie qu’il suffit de remplir une des conditions.",
+        "CON2": "<strong>Étape 2.</strong> Sélectionnez un attribut et un opérateur, puis saisissez une valeur de comparaison.",
+        "CON3": "Vous pouvez ajouter plusieurs conditions pour affiner le filtrage. Cliquez sur « Ajouter un nouveau filtre » pour ajouter une condition supplémentaire."
+      },
+      "INFO": "Informations sur les attributs de couche"
+    },
     "EMPTY-TABLE": {
       "TITLE1": "Votre requête a renvoyé une couche avec une table attributaire vide.",
       "TITLE2": "Essayez une autre requête.",
       "CLOSE-BUTT": "Fermer"
     },
+    "CALC-TOOL": {
+      "TITLE": "Calculatrice de champs",
+      "CONTENT": {
+        "CON1": "<strong>Étape 1.</strong> Saisissez le nom d’un nouveau champ ou sélectionnez un champ existant dont vous souhaitez calculer les valeurs.",
+        "CON2": "<strong>Étape 2.</strong> Saisissez une expression pour calculer les valeurs du champ sélectionné. La liste des fonctions à droite vous aidera.",
+        "CON3": "La plupart des fonctions nécessitent des arguments, qui sont décrits dans les infobulles. Survolez une fonction à droite ou cliquez dessus pour afficher sa description, sa syntaxe, ses arguments et des exemples.",
+        "CON4": "Un simple clic sur une fonction ouvre son infobulle, tandis qu’un double-clic insère la fonction dans l’expression."
+      }
+    },
     "YES": "Oui",
-    "NO": "Non"
+    "NO": "Non",
+    "CLOSE": "Fermer"
   },
   "ATTRIBUTE-TOOLBAR": {
     "SELECT": {

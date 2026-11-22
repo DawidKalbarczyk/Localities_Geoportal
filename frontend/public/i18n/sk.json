@@ -46,13 +46,32 @@
       "TITLE": "Informácie o atribútoch vrstvy",
       "CLOSE-BUTT": "Zavrieť"
     },
+    "FILTER": {
+      "TITLE": "Nástroj filtrovania",
+      "CONTENT": {
+        "CON1": "<strong>Krok 1.</strong> Vyberte spôsob filtrovania.<br>Možnosť „Všetky“ znamená, že musia byť splnené všetky podmienky.<br>Možnosť „Akékoľvek“ znamená, že stačí splniť jednu z podmienok.",
+        "CON2": "<strong>Krok 2.</strong> Vyberte atribút, operátor a zadajte hodnotu na porovnanie.",
+        "CON3": "Filtrovanie môžete spresniť pridaním viacerých podmienok. Kliknutím na tlačidlo „Pridať nový filter“ pridáte ďalšiu podmienku."
+      },
+      "INFO": "Informácie o atribútoch vrstvy"
+    },
     "EMPTY-TABLE": {
       "TITLE1": "Váš dopyt vrátil vrstvu s prázdnou tabuľkou atribútov.",
       "TITLE2": "Skúste iný dotaz.",
       "CLOSE-BUTT": "Zavrieť"
     },
+    "CALC-TOOL": {
+      "TITLE": "Kalkulačka polí",
+      "CONTENT": {
+        "CON1": "<strong>Krok 1.</strong> Zadajte názov nového poľa alebo vyberte existujúce pole na výpočet hodnôt.",
+        "CON2": "<strong>Krok 2.</strong> Zadajte výraz na výpočet hodnôt vybraného poľa. Pomôže vám zoznam funkcií vpravo.",
+        "CON3": "Väčšina funkcií vyžaduje argumenty, ktoré sú opísané v pomocných informáciách. Prejdite kurzorom na funkciu vpravo alebo na ňu kliknite a zobrazí sa jej popis, syntax, argumenty a príklady.",
+        "CON4": "Jedným kliknutím na funkciu otvoríte okno s pomocnými informáciami, dvojitým kliknutím vložíte funkciu do výrazu."
+      }
+    },
     "YES": "áno",
-    "NO": "Nie"
+    "NO": "Nie",
+    "CLOSE": "Zavrieť"
   },
   "ATTRIBUTE-TOOLBAR": {
     "SELECT": {
