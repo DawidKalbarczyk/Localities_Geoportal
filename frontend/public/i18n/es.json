@@ -2032,6 +2032,10 @@
       "NAME": "Calcular campo",
       "ON": "Calcular un campo basado en atributos",
       "OFF": "Apague la herramienta de cálculo de campo"
+    },
+    "RESET-FIELD": {
+      "NAME": "Restablecer campos",
+      "ON": "Restablecer los campos a sus valores predeterminados"
     }
   },
   "GEOPORTAL": {

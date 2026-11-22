@@ -2032,6 +2032,10 @@
       "NAME": "Számítsa ki a mezőt",
       "ON": "Számítson ki egy mezőt attribútumok alapján",
       "OFF": "Kapcsolja ki a terepi számítási eszközt"
+    },
+    "RESET-FIELD": {
+      "NAME": "Mezők visszaállítása",
+      "ON": "Mezők visszaállítása az alapértelmezett értékekre"
     }
   },
   "GEOPORTAL": {

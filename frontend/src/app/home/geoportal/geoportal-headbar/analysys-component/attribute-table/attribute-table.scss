@@ -24,6 +24,7 @@
     color: $buttons-color;
     min-height: 15rem;
     transition: left 1s ease;
+    border: 1px solid rgba(0,0,0,0.5);
 
     &.main-con-transform {
         left: 66% !important;
@@ -110,8 +111,8 @@
         align-items: center;
         box-sizing: border-box;
         flex-wrap: nowrap;
-        overflow-x: auto;
         overflow-y: hidden;
+        overflow-x: hidden;
         gap: 0.5rem;
         flex-shrink: 0;
         padding: 0.65rem 1rem;

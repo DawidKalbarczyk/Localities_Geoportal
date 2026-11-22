@@ -2032,6 +2032,10 @@
       "NAME": "Vypočítat pole",
       "ON": "Vypočítejte pole na základě atributů",
       "OFF": "Vypněte nástroj pro výpočet pole"
+    },
+    "RESET-FIELD": {
+      "NAME": "Resetovat pole",
+      "ON": "Obnovit výchozí hodnoty polí"
     }
   },
   "GEOPORTAL": {

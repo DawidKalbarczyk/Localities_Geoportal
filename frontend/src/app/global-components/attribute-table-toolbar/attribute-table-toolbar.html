@@ -30,10 +30,19 @@
         <img src="./images/icons/reset.png" draggable="false" alt="Reset Filter">
         <p>{{'ATTRIBUTE-TOOLBAR.RESET.NAME' | translate}}</p>
     </button>
-    <button class="calculate-field" [class.calculate-field-active]="isCalculateFieldToolActive()" (click)="toggleTool('calculateFieldTool')"
+    <button class="calculate-field" [class.calculate-field-active]="isCalculateFieldToolActive() && ToolbarService.locateRowStyleOn() === false" 
+    (click)="toggleTool('calculateFieldTool')"
+    [disabled]="ToolbarService.locateRowStyleOn() === true"   
     [matTooltip]="ToolbarMatTooltip().calculateFieldTool | translate">
         <img src="./images/icons/calculator.png" draggable="false" alt="Calculate Field">
         <p>{{'ATTRIBUTE-TOOLBAR.CALCULATE.NAME' | translate}}</p>
+    </button>
+    <button class="reset-calculate-field" (click)="resetCalcToolButt()"
+    [disabled]="ToolbarService.locateRowStyleOn() === true"
+    [matTooltip]="'ATTRIBUTE-TOOLBAR.RESET-FIELD.ON' | translate">
+        <img src="./images/icons/sync.png" draggable="false" alt="Reset Calculate Field">
+        <p>{{'ATTRIBUTE-TOOLBAR.RESET-FIELD.NAME' | translate}}</p>
+
     </button>
 </div>
 

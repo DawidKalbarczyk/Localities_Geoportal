@@ -2034,6 +2034,10 @@
       "NAME": "Calculate field",
       "ON": "Calculate a field based on attributes",
       "OFF": "Turn off the field calculation tool"
+    },
+    "RESET-FIELD": {
+      "NAME": "Reset fields",
+      "ON": "Reset fields to their default values"
     }
   },
   "GEOPORTAL": {
