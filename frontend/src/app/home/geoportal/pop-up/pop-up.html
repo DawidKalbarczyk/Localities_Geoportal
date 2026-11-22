@@ -76,8 +76,6 @@
             </p>
             <div class="pop-up-static-help">
                 <div class="help-content">
-                    <!-- TODO: Add if statement to check if attribute IS IN the layer-->
-                    <!-- TODO: Make ? button disabled before selecting layer-->
                     @for (item of popUpService.attributeDescriptions() | keyvalue: null ; track item.key) {
                         @for (check of responseData()?.featureType?.attributes?.attribute; track check.name) {
                             @if (check.name === item.key) {
@@ -98,6 +96,47 @@
             </p>
             <div class="pop-up-butt-con">
                 <button class="pop-up-yes-butt" (click)="popUpService.closeEmptyTablePopUp()">{{'POP-UP.EMPTY-TABLE.CLOSE-BUTT' | translate}}</button>
+            </div>
+            
+        </div>
+    } @else if (typeOfPopUp() === 'calculate-tool') {
+        <div class="pop-up-content">
+            <p class="pop-up-title">
+                {{'POP-UP.CALC-TOOL.TITLE' | translate}}
+            </p>
+            <div class="pop-up-desc">
+                <p [innerHTML]="'POP-UP.CALC-TOOL.CONTENT.CON1' | translate"></p>
+                <p [innerHTML]="'POP-UP.CALC-TOOL.CONTENT.CON2' | translate">{{'POP-UP.CALC-TOOL.CONTENT.CON2' | translate}}</p>
+                <p>{{'POP-UP.CALC-TOOL.CONTENT.CON3' | translate}}</p>
+                <p>{{'POP-UP.CALC-TOOL.CONTENT.CON4' | translate}}</p>
+            </div>
+            <div class="pop-up-butt-con">
+                <button class="pop-up-yes-butt" (click)="popUpService.typeOfPopUp.set('')">
+                {{'POP-UP.CLOSE' | translate }}</button>
+            </div>
+        </div>
+    } @else if (typeOfPopUp() === 'filter') {
+        <div class="pop-up-content">
+            <p class="pop-up-title">
+                {{'POP-UP.FILTER.TITLE' | translate}}
+            </p>
+            <div class="pop-up-desc pop-up-desc-filter">
+                <p [innerHTML]="'POP-UP.FILTER.CONTENT.CON1' | translate"></p>
+                <p [innerHTML]="'POP-UP.FILTER.CONTENT.CON2' | translate"></p>
+                <p>{{'POP-UP.FILTER.CONTENT.CON3' | translate}}</p>
+            </div>
+            <p class="pop-up-title">{{'POP-UP.FILTER.INFO' | translate}}</p>
+            <div class="pop-up-static-help">
+                <div class="help-content">
+                    @for (item of popUpService.attributeDescriptions() | keyvalue: null ; track item.key) {
+                        @for (check of responseData()?.featureType?.attributes?.attribute; track check.name) {
+                            @if (check.name === item.key) {
+                                <p><span>&#9900; {{item.key}}:</span> {{'GEOPORTAL.ANALYSIS-CONTENT.ATTRIBUTE-CONTENT.ATTRIBUTE-DESCRIPTIONS.' + item.key | translate}}</p>
+                            }
+                        }
+                    }
+                </div>
+                <button (click)="resetPopUp(false)">{{'POP-UP.CLOSE' | translate}}</button>
             </div>
             
         </div>

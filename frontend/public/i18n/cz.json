@@ -46,13 +46,32 @@
       "TITLE": "Informace o atributu vrstvy",
       "CLOSE-BUTT": "Zavřít"
     },
+    "FILTER": {
+      "TITLE": "Nástroj filtrování",
+      "CONTENT": {
+        "CON1": "<strong>Krok 1.</strong> Vyberte způsob filtrování.<br>Volba „všechny“ znamená, že musí být splněny všechny podmínky.<br>Volba „Jakékoliv“ znamená, že stačí splnit jednu z podmínek.",
+        "CON2": "<strong>Krok 2.</strong> Vyberte atribut, operátor a zadejte hodnotu pro porovnání.",
+        "CON3": "Filtrování můžete upřesnit přidáním více podmínek. Kliknutím na tlačítko „Přidat nový filtr“ přidáte další podmínku."
+      },
+      "INFO": "Informace o atributu vrstvy"
+    },
     "EMPTY-TABLE": {
       "TITLE1": "Váš dotaz vrátil vrstvu s prázdnou tabulkou atributů.",
       "TITLE2": "Zkuste jiný dotaz.",
       "CLOSE-BUTT": "Zavřít"
     },
+    "CALC-TOOL": {
+      "TITLE": "Kalkulátor polí",
+      "CONTENT": {
+        "CON1": "<strong>Krok 1.</strong> Zadejte název nového pole nebo vyberte existující pole pro výpočet hodnot.",
+        "CON2": "<strong>Krok 2.</strong> Zadejte výraz pro výpočet hodnot vybraného pole. Pomůže vám seznam funkcí vpravo.",
+        "CON3": "Většina funkcí vyžaduje argumenty, které jsou popsány v nápovědě. Najeďte na funkci vpravo nebo na ni klikněte a zobrazí se její popis, syntaxe, argumenty a příklady.",
+        "CON4": "Jedním kliknutím na funkci otevřete okno s nápovědou, dvojitým kliknutím vložíte funkci do výrazu."
+      }
+    },
     "YES": "Ano",
-    "NO": "Ne"
+    "NO": "Ne",
+    "CLOSE": "Zavřít"
   },
   "ATTRIBUTE-TOOLBAR": {
     "SELECT": {

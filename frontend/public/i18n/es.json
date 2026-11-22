@@ -46,13 +46,32 @@
       "TITLE": "Información de atributos de capa",
       "CLOSE-BUTT": "Cerca"
     },
+    "FILTER": {
+      "TITLE": "Herramienta de filtrado",
+      "CONTENT": {
+        "CON1": "<strong>Paso 1.</strong> Seleccione el tipo de filtrado.<br>«Todo» significa que deben cumplirse todas las condiciones.<br>«Cualquier» significa que basta con cumplir una de las condiciones.",
+        "CON2": "<strong>Paso 2.</strong> Seleccione un atributo y un operador e introduzca un valor para la comparación.",
+        "CON3": "Puede añadir varias condiciones para afinar el filtrado. Haga clic en «Agregar nuevo filtro» para añadir otra condición."
+      },
+      "INFO": "Información de atributos de capa"
+    },
     "EMPTY-TABLE": {
       "TITLE1": "Su consulta devolvió una capa con una tabla de atributos vacía.",
       "TITLE2": "Pruebe una consulta diferente.",
       "CLOSE-BUTT": "Cerca"
     },
+    "CALC-TOOL": {
+      "TITLE": "Calculadora de campos",
+      "CONTENT": {
+        "CON1": "<strong>Paso 1.</strong> Introduzca un nombre para un campo nuevo o seleccione un campo existente para calcular sus valores.",
+        "CON2": "<strong>Paso 2.</strong> Introduzca una expresión para calcular los valores del campo seleccionado. La lista de funciones de la derecha le ayudará.",
+        "CON3": "La mayoría de las funciones requieren argumentos, que se describen en la información de ayuda. Pase el cursor sobre una función de la derecha o haga clic en ella para ver su descripción, sintaxis, argumentos y ejemplos.",
+        "CON4": "Haga clic una vez en una función para abrir su ventana de ayuda, o haga doble clic para insertarla en la expresión."
+      }
+    },
     "YES": "Sí",
-    "NO": "No"
+    "NO": "No",
+    "CLOSE": "Cerrar"
   },
   "ATTRIBUTE-TOOLBAR": {
     "SELECT": {

@@ -580,7 +580,7 @@ export class AnalysysComponent {
     /* =============================================================================
                           6. HELP STATIC HANDLER
  ============================================================================= */
-    public showStaticHelp(): void {
+    public showAttributeHelp(): void {
       this.popUpService.typeOfPopUp.set('info');
       this.popUpService.getDescriptionsJSON();
     }

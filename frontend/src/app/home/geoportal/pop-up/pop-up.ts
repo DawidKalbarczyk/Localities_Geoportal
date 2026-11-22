@@ -71,7 +71,8 @@ export class PopUp {
 
   constructor() {
     effect(() => {
-      if (this.popUpService.typeOfPopUp() === 'info') {
+      const type = this.popUpService.typeOfPopUp();
+      if (type === 'info' || type === 'filter') {
         this.getLayerColumns();
       }
     })

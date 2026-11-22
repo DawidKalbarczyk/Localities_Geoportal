@@ -46,13 +46,32 @@
       "TITLE": "Réteg attribútum információ",
       "CLOSE-BUTT": "Közeli"
     },
+    "FILTER": {
+      "TITLE": "Szűrőeszköz",
+      "CONTENT": {
+        "CON1": "<strong>1. lépés.</strong> Válassza ki a szűrés típusát.<br>A „Minden” azt jelenti, hogy minden feltételnek teljesülnie kell.<br>A „Bármilyen” azt jelenti, hogy elegendő egyetlen feltétel teljesülése.",
+        "CON2": "<strong>2. lépés.</strong> Válasszon ki egy attribútumot és egy operátort, majd adja meg az összehasonlítási értéket.",
+        "CON3": "A szűrés pontosításához több feltételt is hozzáadhat. Újabb feltétel hozzáadásához kattintson az „Új szűrő hozzáadása” gombra."
+      },
+      "INFO": "Réteg attribútum információ"
+    },
     "EMPTY-TABLE": {
       "TITLE1": "A lekérdezés egy üres attribútumtáblázatot tartalmazó réteget adott vissza.",
       "TITLE2": "Próbálkozzon másik lekérdezéssel.",
       "CLOSE-BUTT": "Közeli"
     },
+    "CALC-TOOL": {
+      "TITLE": "Mezőkalkulátor",
+      "CONTENT": {
+        "CON1": "<strong>1. lépés.</strong> Adja meg egy új mező nevét, vagy válasszon ki egy meglévő mezőt az értékek kiszámításához.",
+        "CON2": "<strong>2. lépés.</strong> Adjon meg egy kifejezést a kiválasztott mező értékeinek kiszámításához. Ebben a jobb oldali függvénylista segít.",
+        "CON3": "A legtöbb függvény argumentumokat igényel, amelyek leírása a súgóbuborékokban található. Vigye az egérmutatót egy jobb oldali függvény fölé, vagy kattintson rá a leírás, a szintaxis, az argumentumok és a példák megtekintéséhez.",
+        "CON4": "Egyetlen kattintással megnyithatja a függvény súgóbuborékját, dupla kattintással pedig beillesztheti a függvényt a kifejezésbe."
+      }
+    },
     "YES": "Igen",
-    "NO": "Nem"
+    "NO": "Nem",
+    "CLOSE": "Bezárás"
   },
   "ATTRIBUTE-TOOLBAR": {
     "SELECT": {

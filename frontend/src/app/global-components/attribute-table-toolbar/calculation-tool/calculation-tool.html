@@ -84,7 +84,7 @@
         </div>
     </div>
     <div class="calculation-tool-footer">
-        <button class="footer-help-button" >
+        <button class="footer-help-button" (click)="PopUpService.typeOfPopUp.set('calculate-tool')">
             <img src="./images/icons/question.png">
         </button>
         <button class="footer-apply-button" (click)="submitExpression(); parserError.set('')" 

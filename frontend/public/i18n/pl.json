@@ -46,13 +46,32 @@
       "TITLE": "Informacje dotyczące atrybutów warstwy",
       "CLOSE-BUTT": "Zamknij"
     },
+    "FILTER": {
+      "TITLE": "Narzędzie Filtrowania",
+      "CONTENT": {
+        "CON1": "<strong>Krok 1.</strong> Wybierz typ filtracji. <strong>Wszystkie</strong> oznacza, że wszystkie warunki muszą być spełnione. <strong>Dowolny</strong> oznacza, że wystarczy spełnienie jednego z warunków.",
+        "CON2": "<strong>Krok 2.</strong> Wybierz atrybut, operator i wprowadź wartość do porównania.",
+        "CON3": "Możesz dodać wiele warunków, aby doprecyzować filtrację. Kliknij przycisk 'Dodaj filtr', aby dodać kolejny warunek."
+      },
+      "INFO": "Informacje dotyczące atrybutów warstwy"
+    },
     "EMPTY-TABLE": {
       "TITLE1": "Twoje zapytanie zwróciło warstwę o pustej tabeli atrybutów.",
       "TITLE2": "Spróbuj innego zapytania.",
       "CLOSE-BUTT": "Zamknij"
     },
+    "CALC-TOOL": {
+      "TITLE": "Narzędzie Kalkulatora Pól",
+      "CONTENT": {
+        "CON1": "<strong>Krok 1.</strong> Wprowadź nazwę nowego pola lub wybierz istniejące pole do obliczenia wartości.",
+        "CON2": "<strong>Krok 2.</strong> Wprowadź wyrażenie do obliczenia wartości dla wybranego pola. Ułatwieniem jest tutaj lista funkcji po prawej stronie",
+        "CON3": "Większość funkcji wymaga argumentów, które są opisane w podpowiedziach. Najedź lub kliknij funkcję po prawej stronie, aby zobaczyć jej opis, składnię, argumenty i przykłady.",
+        "CON4": "Pojedyncze kliknięcie funkcji otwiera okno z podpowiedzią, a podwójne kliknięcie wstawia funkcję do wyrażenia."
+      }
+    },
     "YES": "Tak",
-    "NO": "Nie"
+    "NO": "Nie",
+    "CLOSE": "Zamknij"
   },
   "ATTRIBUTE-TOOLBAR": {
     "SELECT": {

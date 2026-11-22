@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LanguageService } from '../../../services/language/language-service';
+import { PopUpService } from '../../../services/pop-up-service/pop-up-service';
 
 type FunctionTooltipSelection = { category: string; func: string };
 
@@ -19,6 +20,7 @@ type FunctionTooltipSelection = { category: string; func: string };
 export class CalculationTool implements OnDestroy {
   public shownTable = input<Promise<Record<string, unknown>[]>>(Promise.resolve([]));
   public calculationCompleted = output<void>();
+  public PopUpService = inject(PopUpService);
   public ToolbarService = inject(AttributeTableToolbarService);
   public expression = this.ToolbarService.userExpression;
   public expressionScrollTop = signal(0);

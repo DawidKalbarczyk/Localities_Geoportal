@@ -33,8 +33,8 @@ export class FilterTool implements OnDestroy {
     });
   })
 
-  public showStaticHelp(): void {
-    this.PopUpService.typeOfPopUp.set('info');
+  public showFilterHelp(): void {
+    this.PopUpService.typeOfPopUp.set('filter');
     this.PopUpService.getDescriptionsJSON();
   }
 

@@ -46,13 +46,32 @@
       "TITLE": "Informationen zu Ebenenattributen",
       "CLOSE-BUTT": "Schließen"
     },
+    "FILTER": {
+      "TITLE": "Filterwerkzeug",
+      "CONTENT": {
+        "CON1": "<strong>Schritt 1.</strong> Wählen Sie die Art der Filterung.<br>„Alle“ bedeutet, dass alle Bedingungen erfüllt sein müssen.<br>„Irgendein“ bedeutet, dass eine der Bedingungen erfüllt sein muss.",
+        "CON2": "<strong>Schritt 2.</strong> Wählen Sie ein Attribut und einen Operator aus und geben Sie einen Vergleichswert ein.",
+        "CON3": "Sie können mehrere Bedingungen hinzufügen, um die Filterung zu verfeinern. Klicken Sie auf „Neuen Filter hinzufügen“, um eine weitere Bedingung hinzuzufügen."
+      },
+      "INFO": "Informationen zu Ebenenattributen"
+    },
     "EMPTY-TABLE": {
       "TITLE1": "Ihre Abfrage hat einen Layer mit einer leeren Attributtabelle zurückgegeben.",
       "TITLE2": "Versuchen Sie es mit einer anderen Abfrage.",
       "CLOSE-BUTT": "Schließen"
     },
+    "CALC-TOOL": {
+      "TITLE": "Feldrechner",
+      "CONTENT": {
+        "CON1": "<strong>Schritt 1.</strong> Geben Sie den Namen eines neuen Feldes ein oder wählen Sie ein vorhandenes Feld aus, dessen Werte berechnet werden sollen.",
+        "CON2": "<strong>Schritt 2.</strong> Geben Sie einen Ausdruck zur Berechnung der Werte des ausgewählten Feldes ein. Die Funktionsliste auf der rechten Seite hilft Ihnen dabei.",
+        "CON3": "Die meisten Funktionen benötigen Argumente, die in den Hinweisen beschrieben werden. Bewegen Sie den Mauszeiger über eine Funktion auf der rechten Seite oder klicken Sie darauf, um ihre Beschreibung, Syntax, Argumente und Beispiele anzuzeigen.",
+        "CON4": "Ein einfacher Klick auf eine Funktion öffnet das Hinweisfenster, ein Doppelklick fügt die Funktion in den Ausdruck ein."
+      }
+    },
     "YES": "Ja",
-    "NO": "Nein"
+    "NO": "Nein",
+    "CLOSE": "Schließen"
   },
   "ATTRIBUTE-TOOLBAR": {
     "SELECT": {
