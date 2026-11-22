@@ -49,7 +49,7 @@
     "FILTER": {
       "TITLE": "Nástroj filtrování",
       "CONTENT": {
-        "CON1": "<strong>Krok 1.</strong> Vyberte způsob filtrování.<br>Volba „všechny“ znamená, že musí být splněny všechny podmínky.<br>Volba „Jakékoliv“ znamená, že stačí splnit jednu z podmínek.",
+        "CON1": "<strong>Krok 1.</strong> Vyberte způsob filtrování. Volba „<strong>všechny</strong>“ znamená, že musí být splněny všechny podmínky. Volba „<strong>Jakékoliv</strong>“ znamená, že stačí splnit jednu z podmínek.",
         "CON2": "<strong>Krok 2.</strong> Vyberte atribut, operátor a zadejte hodnotu pro porovnání.",
         "CON3": "Filtrování můžete upřesnit přidáním více podmínek. Kliknutím na tlačítko „Přidat nový filtr“ přidáte další podmínku."
       },

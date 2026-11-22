@@ -49,7 +49,7 @@
     "FILTER": {
       "TITLE": "Szűrőeszköz",
       "CONTENT": {
-        "CON1": "<strong>1. lépés.</strong> Válassza ki a szűrés típusát.<br>A „Minden” azt jelenti, hogy minden feltételnek teljesülnie kell.<br>A „Bármilyen” azt jelenti, hogy elegendő egyetlen feltétel teljesülése.",
+        "CON1": "<strong>1. lépés.</strong> Válassza ki a szűrés típusát. A „<strong>Minden</strong>” azt jelenti, hogy minden feltételnek teljesülnie kell. A „<strong>Bármilyen</strong>” azt jelenti, hogy elegendő egyetlen feltétel teljesülése.",
         "CON2": "<strong>2. lépés.</strong> Válasszon ki egy attribútumot és egy operátort, majd adja meg az összehasonlítási értéket.",
         "CON3": "A szűrés pontosításához több feltételt is hozzáadhat. Újabb feltétel hozzáadásához kattintson az „Új szűrő hozzáadása” gombra."
       },

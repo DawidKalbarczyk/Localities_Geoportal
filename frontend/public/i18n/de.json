@@ -49,7 +49,7 @@
     "FILTER": {
       "TITLE": "Filterwerkzeug",
       "CONTENT": {
-        "CON1": "<strong>Schritt 1.</strong> Wählen Sie die Art der Filterung.<br>„Alle“ bedeutet, dass alle Bedingungen erfüllt sein müssen.<br>„Irgendein“ bedeutet, dass eine der Bedingungen erfüllt sein muss.",
+        "CON1": "<strong>Schritt 1.</strong> Wählen Sie die Art der Filterung. „<strong>Alle</strong>“ bedeutet, dass alle Bedingungen erfüllt sein müssen. „<strong>Irgendein</strong>“ bedeutet, dass eine der Bedingungen erfüllt sein muss.",
         "CON2": "<strong>Schritt 2.</strong> Wählen Sie ein Attribut und einen Operator aus und geben Sie einen Vergleichswert ein.",
         "CON3": "Sie können mehrere Bedingungen hinzufügen, um die Filterung zu verfeinern. Klicken Sie auf „Neuen Filter hinzufügen“, um eine weitere Bedingung hinzuzufügen."
       },

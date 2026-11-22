@@ -49,7 +49,7 @@
     "FILTER": {
       "TITLE": "Filtering tool",
       "CONTENT": {
-        "CON1": "<strong>Step 1.</strong> Choose how to combine the filter conditions.<br>“All” means that every condition must be met.<br>“Any” means that at least one condition must be met.",
+        "CON1": "<strong>Step 1.</strong> Choose how to combine the filter conditions. “<strong>All</strong>” means that every condition must be met. “<strong>Any</strong>” means that at least one condition must be met.",
         "CON2": "<strong>Step 2.</strong> Select an attribute and an operator, then enter a value to compare against.",
         "CON3": "You can add multiple conditions to refine the filter. Click “Add new filter” to add another condition."
       },

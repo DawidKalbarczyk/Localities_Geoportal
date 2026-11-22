@@ -49,7 +49,7 @@
     "FILTER": {
       "TITLE": "Herramienta de filtrado",
       "CONTENT": {
-        "CON1": "<strong>Paso 1.</strong> Seleccione el tipo de filtrado.<br>«Todo» significa que deben cumplirse todas las condiciones.<br>«Cualquier» significa que basta con cumplir una de las condiciones.",
+        "CON1": "<strong>Paso 1.</strong> Seleccione el tipo de filtrado. «<strong>Todo</strong>» significa que deben cumplirse todas las condiciones. «<strong>Cualquier</strong>» significa que basta con cumplir una de las condiciones.",
         "CON2": "<strong>Paso 2.</strong> Seleccione un atributo y un operador e introduzca un valor para la comparación.",
         "CON3": "Puede añadir varias condiciones para afinar el filtrado. Haga clic en «Agregar nuevo filtro» para añadir otra condición."
       },
