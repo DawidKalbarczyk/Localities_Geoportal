@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { LanguageService } from '../../services/language/language-service';
+import { PopUpService } from '../../services/pop-up-service/pop-up-service';
 
 @Component({
   selector: 'app-geoportal-corner',
@@ -9,6 +10,7 @@ import { LanguageService } from '../../services/language/language-service';
 })
 export class GeoportalCorner {
   public languageService = inject(LanguageService);
+  public PopUpService = inject(PopUpService);
 
   public languageChangeClicked = signal<boolean>(false);
 }

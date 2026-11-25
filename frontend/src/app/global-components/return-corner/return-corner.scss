@@ -49,7 +49,7 @@
         }
     }
 
-    > div:not(.language-container):hover,
+    > div:not(.language-container):not(.feedback-button-con):hover,
     .language-toggle:hover {
         background-color: $secondary-color-light;
         transform: scale(1.05);
@@ -57,10 +57,11 @@
 
     > .feedback-button-con {
         background-color: rgb(197, 0, 0);
+        filter: brightness(1);
+        transition: filter 0.3s ease;
 
         &:hover {
-            background-color: rgb(197, 0, 0);
-            filter: brightness(0.8);
+            filter: brightness(1.5);
         }
     }
 
@@ -176,15 +177,6 @@
         > div:not(.language-container) img,
         .language-toggle img {
             filter: invert(1);
-        }
-
-        > .feedback-button-con {
-            background-color: rgb(133, 1, 1);
-
-            &:hover {
-                background-color: rgb(133, 1, 1);
-                filter: brightness(0.8);
-            }
         }
 
         .language-menu {

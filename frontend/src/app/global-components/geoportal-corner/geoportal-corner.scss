@@ -20,7 +20,6 @@
         padding: 0.35rem;
         border: 1px solid black;
         border-radius: 50%;
-        background-color: white;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -43,10 +42,41 @@
         }
     }
 
-    > div:not(.language-container):hover,
+    > div:not(.language-container):not(.feedback-button-con),
+    .language-toggle,
+    .language-options > div {
+        background-color: white;
+    }
+
+    > div:not(.language-container):not(.feedback-button-con):hover,
     .language-toggle:hover,
     .language-options > div:hover {
         filter: brightness(0.8);
+    }
+
+    > .feedback-button-con {
+        background-color: rgb(197, 0, 0);
+        filter: brightness(1);
+        transition: filter 0.3s ease;
+
+        .feedback-button {
+            object-fit: contain;
+            transform: scale(0.8);
+        }
+
+        &:hover {
+            filter: brightness(1.5);
+        }
+    }
+
+    :host-context(.mode-dark) & {
+        > .feedback-button-con {
+            border-color: $secondary-color-light;
+
+            .feedback-button {
+                filter: invert(1);
+            }
+        }
     }
 
     .language-container {
