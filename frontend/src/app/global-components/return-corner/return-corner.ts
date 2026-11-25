@@ -8,6 +8,7 @@ import { filter, map } from 'rxjs/operators';
 import { ReturnService } from '../../services/return-service/return-service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { effect } from '@angular/core';
+import { PopUpService } from '../../services/pop-up-service/pop-up-service';
 
 @Component({
   selector: 'app-return-corner',
@@ -17,6 +18,7 @@ import { effect } from '@angular/core';
 })
 export class ReturnCorner {
   private router: Router = inject(Router);
+  public PopUpService = inject(PopUpService);
   public languageChangeClicked = signal<boolean>(false);
   public isDarkMode = inject(DarkMode).isDarkMode;
   public languageService = inject(LanguageService);

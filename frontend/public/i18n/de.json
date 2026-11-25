@@ -72,6 +72,20 @@
         "CON4": "Ein einfacher Klick auf eine Funktion öffnet das Hinweisfenster, ein Doppelklick fügt die Funktion in den Ausdruck ein."
       }
     },
+    "FEEDBACK": {
+      "TITLE": "Formular zur Fehlermeldung",
+      "SUBJECT": "Geben Sie den Betreff des Problems ein",
+      "SUBJECT-PLACEHOLDER": "Betreff des Problems...",
+      "EMAIL": "Geben Sie Ihre Kontakt-E-Mail-Adresse ein",
+      "EMAIL-PLACEHOLDER": "E-Mail...",
+      "MESSAGE": "Beschreiben Sie das Problem",
+      "MESSAGE-PLACEHOLDER": "Beschreiben Sie das Problem, das Ihnen aufgefallen ist",
+      "BUTTON-SEND": "Senden",
+      "BUTTON-CANCEL": "Abbrechen",
+      "BUTTON-CLOSE": "Schließen",
+      "FORM-SENT": "Das Formular wurde erfolgreich gesendet.",
+      "WRONG-FORMDATA": "Ungültige Formulardaten. Füllen Sie alle Felder aus, korrigieren Sie die Angaben und versuchen Sie es erneut."
+    },
     "YES": "Ja",
     "NO": "Nein",
     "CLOSE": "Schließen"

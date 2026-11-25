@@ -72,6 +72,20 @@
         "CON4": "Click a function once to open its tooltip, or double-click to insert the function into the expression."
       }
     },
+    "FEEDBACK": {
+      "TITLE": "Bug report form",
+      "SUBJECT": "Enter the subject of the issue",
+      "SUBJECT-PLACEHOLDER": "Issue subject...",
+      "EMAIL": "Enter your contact email address",
+      "EMAIL-PLACEHOLDER": "Email...",
+      "MESSAGE": "Describe the issue",
+      "MESSAGE-PLACEHOLDER": "Describe the issue you noticed",
+      "BUTTON-SEND": "Send",
+      "BUTTON-CANCEL": "Cancel",
+      "BUTTON-CLOSE": "Close",
+      "FORM-SENT": "The form has been sent successfully.",
+      "WRONG-FORMDATA": "Invalid form data. Fill in all fields, correct the information and try again."
+    },
     "YES": "Yes",
     "NO": "No",
     "CLOSE": "Close"

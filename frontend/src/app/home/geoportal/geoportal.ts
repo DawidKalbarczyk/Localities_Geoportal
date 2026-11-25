@@ -12,7 +12,7 @@ import { ObjSelection } from '../../services/obj-selection/obj-selection';
 import { getAuth } from 'firebase/auth';
 import { ZoomToObject } from '../../services/zoom-to-object/zoom-to-object';
 import { SearchClose } from './geoportal-headbar/search-close/search-close';
-import { PopUp } from './pop-up/pop-up';
+import { PopUp } from '../../global-components/pop-up/pop-up';
 import { PopUpService } from '../../services/pop-up-service/pop-up-service';
 import { GeoportalCorner } from '../../global-components/geoportal-corner/geoportal-corner';
 import { firstValueFrom } from 'rxjs';

@@ -7,15 +7,18 @@ import { DarkMode } from '../services/dark-mode/dark-mode';
 import { LoginService } from '../services/login-service/login-service';
 import { GeoserverService } from '../services/GeoserverService/geoserver-service';
 import { TranslatePipe } from '../pipes/translate.pipe';
+import { PopUpService } from '../services/pop-up-service/pop-up-service';
+import { PopUp } from '../global-components/pop-up/pop-up';
 
 @Component({
   selector: 'app-home',
-  imports: [AuthorBar, LoginCorner, ReturnCorner, RouterLink, TranslatePipe],
+  imports: [AuthorBar, LoginCorner, ReturnCorner, RouterLink, TranslatePipe, PopUp],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
 export class Home {
   private loginService = inject(LoginService);
+  public PopUpService = inject(PopUpService);
 
   public isDarkMode = inject(DarkMode).isDarkMode;
   public isLoggedIn = this.loginService.isLoggedIn;

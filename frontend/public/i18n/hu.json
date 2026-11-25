@@ -72,6 +72,20 @@
         "CON4": "Egyetlen kattintással megnyithatja a függvény súgóbuborékját, dupla kattintással pedig beillesztheti a függvényt a kifejezésbe."
       }
     },
+    "FEEDBACK": {
+      "TITLE": "Hibabejelentő űrlap",
+      "SUBJECT": "Adja meg a probléma tárgyát",
+      "SUBJECT-PLACEHOLDER": "A probléma tárgya...",
+      "EMAIL": "Adja meg a kapcsolattartási e-mail-címét",
+      "EMAIL-PLACEHOLDER": "E-mail-cím...",
+      "MESSAGE": "Írja le a problémát",
+      "MESSAGE-PLACEHOLDER": "Írja le az észlelt problémát",
+      "BUTTON-SEND": "Küldés",
+      "BUTTON-CANCEL": "Mégse",
+      "BUTTON-CLOSE": "Bezárás",
+      "FORM-SENT": "Az űrlap sikeresen elküldve.",
+      "WRONG-FORMDATA": "Érvénytelen adatok az űrlapon. Töltse ki az összes mezőt, javítsa ki az adatokat, és próbálja újra."
+    },
     "YES": "Igen",
     "NO": "Nem",
     "CLOSE": "Bezárás"

@@ -5,10 +5,10 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { provideRouter } from '@angular/router';
 
 import { PopUp } from './pop-up';
-import { PopUpService } from '../../../services/pop-up-service/pop-up-service';
-import { ObjSelection } from '../../../services/obj-selection/obj-selection';
-import { AMService } from '../../../services/a-m-service/a-m-service';
-import { LanguageService } from '../../../services/language/language-service';
+import { PopUpService } from '../../services/pop-up-service/pop-up-service';
+import { ObjSelection } from '../../services/obj-selection/obj-selection';
+import { AMService } from '../../services/a-m-service/a-m-service';
+import { LanguageService } from '../../services/language/language-service';
 
 describe('PopUp', () => {
   let component: PopUp;

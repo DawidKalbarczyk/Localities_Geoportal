@@ -72,6 +72,20 @@
         "CON4": "Jedným kliknutím na funkciu otvoríte okno s pomocnými informáciami, dvojitým kliknutím vložíte funkciu do výrazu."
       }
     },
+    "FEEDBACK": {
+      "TITLE": "Formulár na nahlásenie chyby",
+      "SUBJECT": "Zadajte predmet problému",
+      "SUBJECT-PLACEHOLDER": "Predmet problému...",
+      "EMAIL": "Zadajte kontaktný e-mail",
+      "EMAIL-PLACEHOLDER": "E-mail...",
+      "MESSAGE": "Opíšte problém",
+      "MESSAGE-PLACEHOLDER": "Opíšte problém, ktorý ste si všimli",
+      "BUTTON-SEND": "Odoslať",
+      "BUTTON-CANCEL": "Zrušiť",
+      "BUTTON-CLOSE": "Zavrieť",
+      "FORM-SENT": "Formulár bol úspešne odoslaný.",
+      "WRONG-FORMDATA": "Neplatné údaje vo formulári. Vyplňte všetky polia, opravte údaje a skúste to znova."
+    },
     "YES": "áno",
     "NO": "Nie",
     "CLOSE": "Zavrieť"

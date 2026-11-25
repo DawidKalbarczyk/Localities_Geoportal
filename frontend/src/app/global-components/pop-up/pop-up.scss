@@ -1,4 +1,4 @@
-@use '../../../../variables' as *;
+@use '../../../variables' as *;
 
 :host {
     position: fixed;
@@ -25,6 +25,111 @@
             flex-direction: column;
             border-radius: 1rem;
             gap: 2rem;
+
+            &.pop-up-feedback {
+                font-family: $text-font-family;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 50vw;
+
+                > form {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+
+                    .form-sent,
+                    .wrong-formdata {
+                        color: red;
+                        margin-top: 1rem;
+                        font-size: 1.25rem;
+                        text-align: center;
+                        pointer-events: none;
+                    }
+                    .form-sent {
+                        color: green;
+                    }
+
+                    > label {
+                        margin-top: 3rem;
+                        font-size: 1rem;
+                        font-weight: bold;
+                        margin-bottom: 0.5rem;
+                    }
+                    > input {
+                        padding: 0.5rem 1rem;
+                        border-radius: 0.5rem;
+                        box-sizing: border-box;
+                        width: 100%;
+                        font-family: $text-font-family;
+                        font-size: 0.9rem;
+                        border: 1px solid transparent;
+                        box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+
+                        &:focus {
+                            outline: none;
+                            border: 1px solid black;
+                        }
+                    }
+                    > textarea {
+                        width: 100%;
+                        box-sizing: border-box;
+                        height: 20vh;
+                        font-size: 0.9rem;
+                        padding: 1rem;
+                        font-family: $text-font-family;
+                        border-radius: 0.5rem;
+                        border: none;
+                        box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+                        resize: none;
+
+                        &::placeholder {
+                            color: rgba(0,0,0,0.5);
+                            font-size: 0.9rem;
+                        }
+
+                        
+
+                        &:focus {
+                            outline: none;
+                            border: 1px solid black;
+                        }
+                    }
+                    .feedback-button {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 2rem;
+                        margin-top: 2rem;
+
+                        > button {
+                            background-color: $buttons-color;
+                            padding: 0.5rem 2rem;
+                            cursor: pointer;
+                            border: none;
+                            border-radius: 0.5rem;
+                            color: white;
+                            transition: filter 0.3s ease;
+                            font-size: 1rem;
+                            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+
+                            &:last-child:not(:only-child) {
+                                background-color: $background-color-light;
+                                color: $buttons-color;
+                            }
+
+                            &:hover {
+                                filter: brightness(1.5);
+
+                            }
+                        }
+                    }
+                    
+                }
+            }
 
             .pop-up-desc {
                 max-width: 50vw;
