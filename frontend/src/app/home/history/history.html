@@ -3,6 +3,9 @@
     <app-login-corner></app-login-corner>
     <app-return-corner></app-return-corner>
 }
+@if (PopUpService.typeOfPopUp() !== '') {
+    <app-pop-up></app-pop-up>
+}
 <router-outlet></router-outlet>
 
 

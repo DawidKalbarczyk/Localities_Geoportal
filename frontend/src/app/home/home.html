@@ -50,5 +50,6 @@
         </div>
     </div>
 }
-
-
+@if (PopUpService.typeOfPopUp() !== '') {
+    <app-pop-up></app-pop-up>
+}

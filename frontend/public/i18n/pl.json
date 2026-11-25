@@ -72,6 +72,20 @@
         "CON4": "Pojedyncze kliknięcie funkcji otwiera okno z podpowiedzią, a podwójne kliknięcie wstawia funkcję do wyrażenia."
       }
     },
+    "FEEDBACK": {
+      "TITLE": "Formularz zgłoszenia błędu",
+      "SUBJECT": "Wpisz temat problemu",
+      "SUBJECT-PLACEHOLDER": "Temat problemu...",
+      "EMAIL": "Wpisz e-mail do kontaktu",
+      "EMAIL-PLACEHOLDER": "E-mail...",
+      "MESSAGE": "Opisz problem",
+      "MESSAGE-PLACEHOLDER": "Opisz problem który zauważyłeś/aś",
+      "BUTTON-SEND": "Wyślij",
+      "BUTTON-CANCEL": "Anuluj",
+      "BUTTON-CLOSE": "Zamknij",
+      "FORM-SENT": "Formularz został wysłany pomyślnie.",
+      "WRONG-FORMDATA": "Niepoprawne dane w formularzu. Wypełnij wszystkie pola, popraw dane i spróbuj ponownie."
+    },
     "YES": "Tak",
     "NO": "Nie",
     "CLOSE": "Zamknij"

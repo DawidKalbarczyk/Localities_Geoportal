@@ -45,7 +45,8 @@ jobs:
           echo "GEOSERVER_ADMIN_PASSWORD=${{secrets.GEOSERVER_ADMIN_PASSWORD}}" >> .env
           echo "GEOSERVER_ADMIN_USER=${{secrets.GEOSERVER_ADMIN_USER}}" >> .env
           echo "FIREBASE_SERVICE_ACCOUNT_JSON_BASE64=${{secrets.FIREBASE_SERVICE_ACCOUNT_JSON_BASE64}}" >> .env
-      
+          echo "MAIL_USERNAME=${{secrets.MAIL_USERNAME}}" >> .env
+          echo "MAIL_PASSWORD=${{secrets.MAIL_PASSWORD}}" >> .env
       - name: Launch Docker Environment
         env: 
           ENV_NAME: ${{github.event.workflow_run.head_branch}}
@@ -60,5 +61,7 @@ jobs:
           GEOSERVER_ADMIN_PASSWORD: ${{secrets.GEOSERVER_ADMIN_PASSWORD}}
           GEOSERVER_ADMIN_USER: ${{secrets.GEOSERVER_ADMIN_USER}}
           FIREBASE_SERVICE_ACCOUNT_JSON_BASE64: ${{secrets.FIREBASE_SERVICE_ACCOUNT_JSON_BASE64}}
+          MAIL_USERNAME: ${{secrets.MAIL_USERNAME}}
+          MAIL_PASSWORD: ${{secrets.MAIL_PASSWORD}}
         run: |
           docker-compose -f docker-compose/docker-compose.yml -p angularspringbootapp up --build -d

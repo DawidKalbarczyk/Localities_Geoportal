@@ -72,6 +72,20 @@
         "CON4": "Haga clic una vez en una función para abrir su ventana de ayuda, o haga doble clic para insertarla en la expresión."
       }
     },
+    "FEEDBACK": {
+      "TITLE": "Formulario para informar de un error",
+      "SUBJECT": "Introduce el asunto del problema",
+      "SUBJECT-PLACEHOLDER": "Asunto del problema...",
+      "EMAIL": "Introduce tu correo electrónico de contacto",
+      "EMAIL-PLACEHOLDER": "Correo electrónico...",
+      "MESSAGE": "Describe el problema",
+      "MESSAGE-PLACEHOLDER": "Describe el problema que has detectado",
+      "BUTTON-SEND": "Enviar",
+      "BUTTON-CANCEL": "Cancelar",
+      "BUTTON-CLOSE": "Cerrar",
+      "FORM-SENT": "El formulario se ha enviado correctamente.",
+      "WRONG-FORMDATA": "Los datos del formulario no son válidos. Completa todos los campos, corrige los datos e inténtalo de nuevo."
+    },
     "YES": "Sí",
     "NO": "No",
     "CLOSE": "Cerrar"

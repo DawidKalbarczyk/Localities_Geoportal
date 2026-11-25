@@ -1,11 +1,11 @@
-import { Component, effect, inject, signal } from '@angular/core';
-import { PopUpService } from '../../../services/pop-up-service/pop-up-service';
-import { ObjSelection } from '../../../services/obj-selection/obj-selection';
+import { Component, effect, inject, OnDestroy, signal } from '@angular/core';
+import { PopUpService } from '../../services/pop-up-service/pop-up-service';
+import { ObjSelection } from '../../services/obj-selection/obj-selection';
 import { FormsModule } from '@angular/forms';
-import { AMService } from '../../../services/a-m-service/a-m-service';
-import { RouterLink } from '@angular/router';
+import { AMService } from '../../services/a-m-service/a-m-service';
+import { Router, RouterLink } from '@angular/router';
 import { KeyValuePipe } from '@angular/common';
-import { TranslatePipe } from '../../../pipes/translate.pipe';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
 import { HttpClient } from '@angular/common/http';
 
@@ -16,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './pop-up.html',
   styleUrl: './pop-up.scss',
 })
-export class PopUp {
+export class PopUp implements OnDestroy {
   public popUpService = inject(PopUpService);
   public objectSelection = inject(ObjSelection);
   userLayerName = '';
@@ -76,5 +76,39 @@ export class PopUp {
         this.getLayerColumns();
       }
     })
+  }
+  ngOnDestroy(): void {
+    this.popUpService.typeOfPopUp.set('');
+  }
+
+  private router = inject(Router);
+  public currentUrl = `Url: ${this.router.url}`;
+  public is_invalid_formdata = signal<boolean>(false);
+  public was_form_sent = signal<boolean>(false);
+  public async submitFeedback(formData: {
+    subject: string,
+    email: string,
+    url: string, 
+    message: string }): Promise<void> {
+    this.is_invalid_formdata.set(false);
+    if (!formData.subject || !formData.email || !formData.email.includes('@') || !formData.message) {
+      this.is_invalid_formdata.set(true);
+      return;
+    }
+
+    let response: any;
+    try {
+      response = await firstValueFrom(this.http.post('/feedback/send-email', formData));
+      this.was_form_sent.set(response);
+      console.log("Prawidłowo wysłano formularz", 
+        formData['subject'], 
+        formData['email'], 
+        formData['url'], 
+        formData['message']);
+      console.log("Was form sent:", this.was_form_sent());
+    } catch (error) {
+      console.error('Error submitting feedback', error);
+    }
+
   }
 }

@@ -72,6 +72,20 @@
         "CON4": "Un simple clic sur une fonction ouvre son infobulle, tandis qu’un double-clic insère la fonction dans l’expression."
       }
     },
+    "FEEDBACK": {
+      "TITLE": "Formulaire de signalement d’un bug",
+      "SUBJECT": "Saisissez l’objet du problème",
+      "SUBJECT-PLACEHOLDER": "Objet du problème...",
+      "EMAIL": "Saisissez votre adresse e-mail de contact",
+      "EMAIL-PLACEHOLDER": "Adresse e-mail...",
+      "MESSAGE": "Décrivez le problème",
+      "MESSAGE-PLACEHOLDER": "Décrivez le problème que vous avez constaté",
+      "BUTTON-SEND": "Envoyer",
+      "BUTTON-CANCEL": "Annuler",
+      "BUTTON-CLOSE": "Fermer",
+      "FORM-SENT": "Le formulaire a été envoyé avec succès.",
+      "WRONG-FORMDATA": "Les données du formulaire sont invalides. Remplissez tous les champs, corrigez les données et réessayez."
+    },
     "YES": "Oui",
     "NO": "Non",
     "CLOSE": "Fermer"

@@ -6,6 +6,8 @@ x-environment:
  - &env-geoserver-user GEOSERVER_ADMIN_USER=${GEOSERVER_ADMIN_USER}
  - &env-firebase-service-account-json-base64 FIREBASE_SERVICE_ACCOUNT_JSON_BASE64=${FIREBASE_SERVICE_ACCOUNT_JSON_BASE64}
  - &env-geoserver-whitelist GEOSERVER_CSRF_WHITELIST=152.70.47.18:8000
+ - &env-feedback-username MAIL_USERNAME=${MAIL_USERNAME}
+ - &env-feedback-password MAIL_PASSWORD=${MAIL_PASSWORD}
 
 services:
   postgres:
@@ -65,6 +67,8 @@ services:
       - *env-postgres-db
       - *env-postgres-user
       - *env-postgres-password
+      - *env-feedback-username
+      - *env-feedback-password
       - *env-geoserver-user
       - *env-geoserver-password
       - *env-firebase-service-account-json-base64

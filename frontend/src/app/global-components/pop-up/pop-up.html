@@ -138,7 +138,42 @@
                 </div>
                 <button (click)="resetPopUp(false)">{{'POP-UP.CLOSE' | translate}}</button>
             </div>
+        </div>
+    } @else if (typeOfPopUp() === 'feedback') {
+        <div class="pop-up-content">
+            <p class="pop-up-title">
+                Formularz zgłoszenia błędu
+            </p>
             
+            
+            <div class="pop-up-content pop-up-feedback">
+                <form #feedbackForm="ngForm" (ngSubmit)="submitFeedback({
+                    'subject': subject.value,
+                    'email': email.value,
+                    'url': currentUrl, 
+                    'message': problem.value})">
+                    @if (is_invalid_formdata()) {
+                        <p class="wrong-formdata">{{'POP-UP.FEEDBACK.WRONG-FORMDATA' | translate}}</p>
+                    }
+                    @if (was_form_sent()) {
+                        <p class="form-sent">{{'POP-UP.FEEDBACK.FORM-SENT' | translate}}</p>
+                    }
+                    <label>{{'POP-UP.FEEDBACK.SUBJECT' | translate}}</label>
+                    <input #subject type="text" name="subject" required [placeholder]="'POP-UP.FEEDBACK.SUBJECT-PLACEHOLDER' | translate">
+                    <label>{{'POP-UP.FEEDBACK.EMAIL' | translate}}</label>
+                    <input #email type="email" name="email" required [placeholder]="'POP-UP.FEEDBACK.EMAIL-PLACEHOLDER' | translate">
+                    <label>{{'POP-UP.FEEDBACK.MESSAGE' | translate}}</label>
+                    <textarea #problem name="problem" required [placeholder]="'POP-UP.FEEDBACK.MESSAGE-PLACEHOLDER' | translate"></textarea>
+                    <div class="feedback-button">
+                        @if (was_form_sent() === false) {
+                            <button type="submit">{{'POP-UP.FEEDBACK.BUTTON-SEND' | translate}}</button>
+                        }
+                        <button type="button" (click)="popUpService.typeOfPopUp.set('')">
+                            {{was_form_sent() ? 'POP-UP.FEEDBACK.BUTTON-CLOSE' : 'POP-UP.FEEDBACK.BUTTON-CANCEL' | translate}}
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     }
 </div>
